@@ -1,0 +1,11 @@
+<div class="page container-fluid">
+   <!-- <h1 class="big-text stamped text-center"> No Widgets Awailable</h1> -->
+   <div class="col-md-12 animate-fade">
+       <div class="widget widget-white widget-content gutter-top">
+            <img ng-src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?s=80&d=https://pbs.twimg.com/profile_images/3292107408/13effc3507c3fabffed7d4b034ea1a41.jpeg" alt="" class="img-md-round">
+            <h1>{{user.firstname + ' ' + user.lastname}}</h1>
+            <h4>{{user.email}}</h4>
+            <h4>Joined {{user.createdAt}}</h4>
+        </div>
+   </div>
+</div>

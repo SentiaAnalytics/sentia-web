@@ -1,0 +1,24 @@
+{
+  "name": "ng-xCharts",
+  "version": "0.0.3",
+  "ignore": [
+    "README.md",
+    "bower.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "d3": ">=3.4.3"
+  },
+  "homepage": "https://github.com/radu-cigmaian/ng-xCharts",
+  "_release": "0.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.3",
+    "commit": "34beec6c3154b6cc86874acce38d60282da2e271"
+  },
+  "_source": "git://github.com/radu-cigmaian/ng-xCharts.git",
+  "_target": "~0.0.3",
+  "_originalSource": "ng-xCharts",
+  "_direct": true
+}

@@ -1,0 +1,60 @@
+linechart,
+barchart {
+    display:block;
+    &>svg {
+        display : block;
+        height : 100%;
+    }
+    .horizontalGrid {
+        stroke : @gray-light;
+    }
+    .domain {
+        display: none;
+    }
+}
+linechart {
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: @gray-light;
+      shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+      display: none;
+    }
+
+    .line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 1.5px;
+    }
+
+}
+barchart {
+    .bar {
+      fill: @brand-primary;
+    }
+    .bar:hover {
+      fill: darken(@brand-primary, 10%);
+    }
+
+    .axis {
+      font: 10px sans-serif;
+      text {
+        stroke:@gray;
+        fill: none;
+      }
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: @gray-light;
+      shape-rendering: crispEdges;
+    }
+
+    .y.axis path {
+      display: none;
+    }
+}

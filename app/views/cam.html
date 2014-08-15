@@ -1,0 +1,47 @@
+<div class="page container-fluid p-top padding-xs-none">
+    <div class="container-fluid padding-xs-none">
+
+        <div id="camera-details" class="widget widget-white">
+            <div class="container-fluid p-bottom p-top padding-xs-none">
+<!--                 <div class="container-fluid padding-xs-none">
+                    <h3 id="camera-details-title" class="caps"></h3>
+                </div>
+ -->                <div class="col-sm-9 padding-xs-none">
+                    <div id="camera-shot" class="map-container">
+                        <img ng-src="/images/cameras/{{cam.id}}.jpg" alt="" class="header-image">
+                        <s-heatmap data="map" cols="cam.cols" rows="cam.rows" ng-show="mapQuery.type ==='heat'"></s-heatmap>
+                        <s-flowmap data="map" cols="cam.cols" rows="cam.rows" ng-show="mapQuery.type ==='flow'"></s-flowmap>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <ul id="camera-timeline" class="timeline">
+                                <li ng-repeat="value in timeline.data track by $index" class="timeline-item" tooltip="{{$index}}:00" tooltip-append-to-body="true" tooltip-placement="bottom" ng-click="mapQuery.hour = $index" ng-class="{active: mapQuery.hour === $index}">
+                                    <div class="timeline-bar" style="height: {{((value / timeline.max) *100) + '%'}}" ></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div id="camera-control" class="row clearfix" role="form">
+                        <div class="container-fluid">
+                            <div class="well">
+
+                                <div class="form-group text-center">
+                                <input type="radio" name="mapType" ng-model="mapQuery.type" value="heat" id ="cam-maptype-heat">
+                                    <label class="radio-inline" for="cam-maptype-heat">Heatmap</label>
+                                <input type="radio" name="mapType" ng-model="mapQuery.type" value="flow" id ="cam-maptype-flow">
+                                    <label class="radio-inline"  for="cam-maptype-flow">Flowmap</label>
+                                </div>
+                                <div class="form-group">
+                                    <datepicker class="datepicker" show-weeks="false" ng-model="mapQuery.date"></datepicker>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,12 @@
+<div class="toolbar-lg toolbar-fixed-top container-fluid bg-primary" ng-show="showHeader">
+    <div id="navmenu" class="pull-left hide-on-login">
+        <a a-href="" ng-click"go('back')" class="icon-home shadow caps text-white cam"></a>
+    </div>
+    <h4 class="shadow caps pull-left" ng-click="go('/')">Sentia.io</h4>
+    <div class="pull-right">
+        <a href="" class="shadow caps text-white">
+            <img ng-src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?s=40&d=https://pbs.twimg.com/profile_images/3292107408/13effc3507c3fabffed7d4b034ea1a41.jpeg" alt="" id="active-user-avatar" class="img-xs-round">
+            <span id="active-user-name"></span>
+        </a>
+    </div>
+</div>

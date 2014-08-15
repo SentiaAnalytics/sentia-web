@@ -1,0 +1,107 @@
+/**
+ * 
+ * Lists 
+ * 
+ */
+.list {
+	&:extend(.list-unstyled);
+	margin:0;
+	padding:0;
+}
+ .list-inline {
+ 	&>li {
+ 		display:inline-block;
+ 	}
+ }
+ .list-header {
+    padding:10px;
+    text-align: center;
+ }
+ /*stacked list*/
+ .stacked-list {
+    display: block;
+    margin:0;
+    padding : 0;
+    &>li {
+        display:block;
+        padding: 10px;
+        &>.thumbnail {
+            display:inline-block;
+            vertical-align: top;
+            width:80px;
+            height:80px;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            // background-color: #bababa;
+        }
+        &>.list-title {
+            display:inline-block;
+            padding-left:10px;
+            vertical-align: top;
+        }
+    }
+    &.bg-primary {
+        &>li {
+        	.bg-variant(@brand-primary);
+        }
+    }
+
+ }
+ .full-height-list {
+    &:extend(.stacked-list);
+    height: 100%;
+ }
+ .flex-list-sm {
+    &:extend(.stacked-list all);
+    display:table;
+    padding:0;
+    table-layout: fixed;
+    width:100%;
+    @media (max-width: @screen-sm-min) {
+        &>li {
+            text-align: center;
+            display:table-cell;
+        }
+    }
+ }
+/* apple-list */
+.apple-list-item,
+.apple-list-header {
+	min-width:200px;
+    height:40px;
+    text-align: center;
+    line-height: 40px;
+    vertical-align: middle;
+}
+.apple-list-item {
+    cursor: pointer;
+    border-top: 1px solid #ddd;
+    border: 1px solid #bababa;
+    border-bottom:none;
+    &:hover {
+        background-color: white;
+    }
+    &.active {
+        background-color: #e4e4e4;
+        box-shadow: 0px 0px 5px #bababa inset;
+    }
+    &:first-child {
+        border-radius : 10px 10px 0px 0px;
+    }
+    &:last-child {
+        border-radius: 0px 0px 10px 10px;
+        border-bottom: 1px solid #bababa;
+    }
+}
+.apple-list-header {
+    background-color: #f5f5f5;
+    border-radius: 10px 10px 0px 0px;
+}
+.emptylist {
+   height:80px;
+   line-height: 80px;
+   width:100%;
+   vertical-align: middle;
+   text-align: center; 
+}
