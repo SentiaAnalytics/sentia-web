@@ -83,14 +83,17 @@ angular.module('sHeatmap', [])
                 // create a 256x1 gradient that we'll use to turn a grayscale heatmap into a colored one
                 var canvas = document.createElement('canvas'),
                     ctx = canvas.getContext('2d'),
-                    gradient = ctx.createLinearGradient(0, 0, 0, 256);
+                    gradient = ctx.createLinearGradient(0, 0, 0, 256),
+                    i;
 
                 canvas.width = 1;
                 canvas.height = 256;
 
-                for (var i in grad) {
-                    gradient.addColorStop(i, grad[i]);
-                }
+                  for (i in grad) {
+                    if (grad.hasOwnProperty(i)) {
+                      gradient.addColorStop(i, grad[i]);
+                    }
+                  }
 
                 ctx.fillStyle = gradient;
                 ctx.fillRect(0, 0, 1, 256);
@@ -113,7 +116,7 @@ angular.module('sHeatmap', [])
                 ctx.clearRect(0, 0, this._width, this._height);
 
                 // draw a grayscale heatmap by putting a blurred circle at each data point
-                for (var i = 0, len = this._data.length, p; i < len; i++) {
+                for (var i = 0, len = this._data.length, p; i < len; i += 1) {
                     p = this._data[i];
 
                     ctx.globalAlpha = Math.max(p[2] / this._max, minOpacity || 0.05);
@@ -144,7 +147,7 @@ angular.module('sHeatmap', [])
         return simpleheat;
     })
     .directive('sHeatmap', ['simpleheat', '$filter',
-        function(simpleheat, $filter) {
+        function(simpleheat) {
             return {
                 template: '<canvas style="width : 100%; height : 100%"></canvas>',
                 restrict: 'E',

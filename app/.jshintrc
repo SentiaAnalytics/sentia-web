@@ -20,9 +20,6 @@
 	"unused":true,
 	"strict":true,
 	"trailing":true,
-	"maxparams":3,
-	"maxdepth":4,
-	"maxstatements" : 10,
 	"globals" : {
 		"angular" : false,
 		"$": true,

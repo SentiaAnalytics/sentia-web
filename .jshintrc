@@ -12,7 +12,7 @@
   "node": true,
   "nonew": true,
   "undef": true,
-  "unused": true,
+  "unused": false,
   "quotmark": "false",
   "strict": true,
   "trailing": true,

@@ -5,26 +5,28 @@
  */
 
 /*jslint browser:true, nomen:true*/
-/*global app:true, $:true, console: false, angular:false */
-angular.module('app')
-    .controller('MainCtrl', function ($scope, $http, $location) {
-        'use strict';
-        $scope.$root.showMenu = false;
-        $scope.logout = function () {
-            $http.post('/user/logout')
-                .success(function () {
-                    $location.path('/login');
-                })
-                .error(function (err, status) {
-                    console.log(status + ' : ' + err);
-                });
-        };
-        $scope.toggleMenu = function () {
-            $scope.$root.showMenu = !$scope.$root.showMenu;
-        };
-        $scope.alert = function () {
-        };
-
+module.exports = function ($scope, $http, $location) {
+  'use strict';
+  $http.get('/api/users/active')
+    .success(function (user) {
+      console.log('Active user: ', user.email);
+      $scope.$root.showHeader = true;
+      $scope.$root.user = user;
+    })
+    .error(function () {
+      $location.path('/login');
     });
-
-
+  $scope.$root.showMenu = false;
+  $scope.logout = function () {
+      $http.get('/api/users/logout')
+          .success(function () {
+              $location.path('/login');
+          })
+          .error(function (err, status) {
+              console.log(status + ' : ' + err);
+          });
+  };
+  $scope.toggleMenu = function () {
+      $scope.$root.showMenu = !$scope.$root.showMenu;
+  };
+};

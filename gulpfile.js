@@ -1,17 +1,29 @@
 'use strict';
 var gulp = require('gulp'),
-  mocha = require('gulp-mocha'),
+  watch = require('gulp-watch'),
+  when  =require('when'),
+  mocha = require('gulp-spawn-mocha'),
+  browserify = require('gulp-browserify'),
+  less = require('gulp-less'),
+  shell = require('gulp-shell'),
+  server = require('./server'),
+  rename = require('gulp-rename'),
+  livereload = require('gulp-livereload'),
+  sourcemaps = require('gulp-sourcemaps'),
   jshint = require('gulp-jshint');
 
-gulp.task('mocha', function() {
-  return gulp.src('test/**/*.js')
+gulp.task('unit', function() {
+  return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
     .pipe(mocha({
       reporter: 'dot'
     }));
 });
-gulp.task('jshint', function() {
-  return gulp.src('**/*.js')
-    .pipe(jshint());
+
+gulp.task('mocha', function() {
+  return gulp.src(['test/**/*.js'])
+    .pipe(mocha({
+      reporter: 'dot'
+    }));
 });
 
 gulp.task('watch', function() {
@@ -20,5 +32,62 @@ gulp.task('watch', function() {
       'routes/**/*.js',
       'services/**/*.js',
       'test/**/*.js'
-    ], ['mocha']);
+    ], ['unit']);
+});
+
+gulp.task('jshint', function() {
+  return gulp.src([
+    '**/*.js',
+    '!test/**',
+    '!node_modules/**',
+    '!app/js/lib/**',
+    '!app/build/**',
+    '!gulpfile.js'
+    ])
+    .pipe(jshint())
+    .pipe(jshint.reporter(require('jshint-stylish')));
+});
+
+gulp.task('test', ['jshint', 'mocha']);
+
+
+gulp.task('less', function () {
+  return gulp.src('app/styles/style.less')
+    .pipe(sourcemaps.init())
+    .pipe(less())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('app/build/'))
+    .pipe(livereload());
+});
+
+gulp.task('browserify', function () {
+  return gulp.src('app/js/app.js')
+    .pipe(browserify({
+      debug : true
+    }))
+    .pipe(rename('bundle.js'))
+    .pipe(gulp.dest('app/build/'))
+    .pipe(livereload());
+});
+gulp.task('build', ['less', 'browserify']);
+
+gulp.task('run', function () {
+  return when.promise(function (resolve) {
+    server.listen(3000, function () {
+      return resolve();
+    });
+  });
+});
+gulp.task('default',['build', 'run']);
+
+gulp.task('live', ['less', 'browserify', 'run'], function() {
+  livereload.listen();
+  gulp.watch('app/styles/**/*.less', ['less']);
+  gulp.watch('app/js/**/*.js', ['browserify']);
+  gulp.watch([
+     'app/views/**',
+     'app/images/**',
+     'app/index.html'
+  ])
+    .on('change', livereload.changed);
 });

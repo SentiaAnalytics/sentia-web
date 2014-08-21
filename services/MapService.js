@@ -1,5 +1,6 @@
 'use strict';
 var _ = require('lodash'),
+    mapService = require('../services/MapServce'),
     log = require('sails').log,
     squel = require('squel'),
     moment = require('moment'),
@@ -30,9 +31,6 @@ exports.buildInsertQuery = function (payload) {
 };
 
 
-exports.insertMapData = function (query) {
-
-}
 // ## Create
 // creates a number of maps
 // takes a combined map object.
@@ -79,7 +77,7 @@ exports.runMapQuery = function (query) {
     log.debug(query);
     // due to the format of the query function we are using deferred
     var deferred = when.defer();
-    Map.query(query, function (err, result) {
+    mapService.query(query, function (err, result) {
         if (err) {
             log.debug(err);
             deferred.reject(err);
