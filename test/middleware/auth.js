@@ -1,5 +1,6 @@
 'use strict';
 var chai = require('chai'),
+  E = require('express-http-errors'),
   target = require('../../middleware/auth'),
   sinon = require('sinon');
 
@@ -40,9 +41,9 @@ describe('Middleware - Auth', function () {
         next.calledOnce.should.equal(true);
       });
 
-      it('should call next with a single args', function () {
+      it('should call next with a single arg', function () {
         next.args[0].length.should.equal(1);
-        next.args[0][0].should.eql({code : 401, message : 'You must login to perform this action.'});
+        next.args[0][0].should.eql(new E.NotAuthorizedError('You must login to perform this action.'));
       });
     });
   });

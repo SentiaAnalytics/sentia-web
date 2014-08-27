@@ -3,23 +3,27 @@ var Users = require('../services/UsersService');
 
 exports.login = {
   handler : function (req, res, next) {
-    Users.login(req.body)
+    return Users.login(req.body)
       .then(function (user) {
         req.session.user = user;
-        return res.send(user);
-      })
-      .catch(next);
+        return user;
+      });
+  },
+  body : {
+    // validation
   },
   method : 'POST'
 };
+
 exports.logout = {
-  handler : function (req, res, next) {
+  handler : function (req, res) {
     req.session.destroy();
     res.send(200);
   }
 };
+
 exports.active = {
-  handler : function (req, res, next) {
+  handler : function (req, res) {
     return res.send(req.session.user);
   }
 };

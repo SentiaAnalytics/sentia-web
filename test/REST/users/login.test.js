@@ -2,14 +2,14 @@
 var chai = require('chai'),
   should = chai.should(),
   when = require('when'),
-  helper = require('../helper/utils'),
+  helper = require('../helper'),
   bcrypt = require('../../../services/bcrypt');
 
 chai.use(require('chai-as-promised'));
 
 describe('/users/login', function() {
-  before(helper.setup);
-  after(helper.teardown);
+  // before(helper.setup);
+  // after(helper.teardown);
   describe('when logging in with a valid user', function() {
     var res;
     before(function () {
@@ -17,10 +17,10 @@ describe('/users/login', function() {
         email : 'user@example.com',
         password : 'password'
       };
-      res = helper.post('/users/login', credentials);
+      res = helper.users.login(credentials);
     });
 
-    it('should a resolved promise', function () {
+    it('should return a resolved promise', function () {
       return res.should.be.fulfilled;
     });
 
@@ -42,13 +42,12 @@ describe('/users/login', function() {
         email : 'user@example.com',
         password : 'fake'
       };
-      res = helper.login(credentials);
+      res = helper.users.login(credentials);
     });
 
-    it('should a resolved promise', function () {
+    it('should return a resolved promise', function () {
       return res.should.be.fulfilled;
     });
-
 
     it('should return 401', function () {
       return res.should.eventually.have.property('statusCode', 401);

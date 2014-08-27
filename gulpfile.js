@@ -7,6 +7,7 @@ var gulp = require('gulp'),
   less = require('gulp-less'),
   shell = require('gulp-shell'),
   server = require('./server'),
+  instance,
   rename = require('gulp-rename'),
   livereload = require('gulp-livereload'),
   sourcemaps = require('gulp-sourcemaps'),
@@ -15,12 +16,12 @@ var gulp = require('gulp'),
 gulp.task('unit', function() {
   return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
     .pipe(mocha({
-      reporter: 'dot'
+      reporter: 'spec'
     }));
 });
 
-gulp.task('mocha', function() {
-  return gulp.src(['test/**/*.js'])
+gulp.task('rest', function() {
+  return gulp.src(['test/REST/**/*.js'])
     .pipe(mocha({
       reporter: 'dot'
     }));
@@ -48,7 +49,7 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter(require('jshint-stylish')));
 });
 
-gulp.task('test', ['jshint', 'mocha']);
+gulp.task('test', ['jshint', 'unit', 'rest']);
 
 
 gulp.task('less', function () {
@@ -73,11 +74,20 @@ gulp.task('build', ['less', 'browserify']);
 
 gulp.task('run', function () {
   return when.promise(function (resolve) {
-    server.listen(3000, function () {
+    instance = server.listen(3000, function () {
       return resolve();
     });
   });
 });
+
+gulp.task('end', function () {
+  return when.promise(function (resolve) {
+    instance.close(function () {
+      return resolve('done');
+    });
+  });
+});
+
 gulp.task('default',['build', 'run']);
 
 gulp.task('live', ['less', 'browserify', 'run'], function() {

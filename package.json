@@ -34,7 +34,11 @@
     "gulp-shell": "~0.2.9",
     "pg-copy-streams": "~0.2.4",
     "bcrypt": "~0.8.0",
-    "express-routeloader": "~0.2.1"
+    "express-http-errors": "0.0.2",
+    "express-routeloader": "~0.2.2",
+    "requireindex": "~1.1.0",
+    "q": "~1.0.1",
+    "connect-redis": "~2.0.0"
   },
   "devDependencies": {
     "gulp-mocha": "~0.5.2",

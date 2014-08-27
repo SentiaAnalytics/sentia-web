@@ -17,9 +17,9 @@ describe('UsersService', function() {
         password : 'password'
       };
       sinon.stub(db, 'query', function (query) {
-          return when.resolve({rows : [query]});
+          return when.resolve([query]);
       });
-      promise = target.getUser(credentials);
+      promise = target._getUser(credentials);
     });
     after(function () {
       db.query.restore();
@@ -38,7 +38,7 @@ describe('UsersService', function() {
         return bcrypt.hash(password)
           .then(function (h) {
             hash = h;
-            promise = target.validatePassword(password, {password : hash});
+            promise = target._validatePassword(password, {password : hash});
           });
       });
 
@@ -53,7 +53,7 @@ describe('UsersService', function() {
         var password = 'password';
         bcrypt.hash(password)
           .then(function (hash) {
-            promise = target.validatePassword('fake', {password : hash});
+            promise = target._validatePassword('fake', {password : hash});
             done();
           });
       });
@@ -65,14 +65,14 @@ describe('UsersService', function() {
       });
     });
   });
-  describe('_transformResponse', function() {
+  describe('_removePrivateFields', function() {
     var result;
     before(function () {
       var user = {
         email : 'user@example.com',
         password : 'password'
       };
-      result = target.transformResponse(user)
+      result = target._removePrivateFields(user)
     });
 
     it('should not have a password', function () {
@@ -89,7 +89,7 @@ describe('UsersService', function() {
               email : 'user@example.com',
               password : hash
             };
-            return {rows : [dummyUser]};
+            return [dummyUser] ;
           });
       });
     });

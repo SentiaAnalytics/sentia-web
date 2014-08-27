@@ -1,5 +1,6 @@
 'use strict';
 var when = require('when'),
+  E = require('express-http-errors'),
   sqlite3 = require('sqlite3').verbose(),
   db = new sqlite3.Database(':memory:');
 
@@ -8,7 +9,8 @@ function executeQuery (query) {
   return when.promise(function (resolve, reject) {
     db.all(query, function (err, result) {
       if (err) {
-        return reject(err);
+        console.log(err);
+        return reject(new E.InternalServerError('SQLITE ERROR'));
       }
       return resolve(result);
     });
@@ -25,9 +27,8 @@ exports.query = function (query) {
     } else {
       return prev;
     }
-  }, when.resolve())
-    .then(function (result) {
-        return {rows : result};
-    });
-
+  }, when.resolve());
+};
+exports.close = function(callback) {
+  db.close(callback);
 };

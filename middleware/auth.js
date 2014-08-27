@@ -1,5 +1,6 @@
 // Check whether the user has been authenticated (logged in)
 'use strict';
+var E = require('express-http-errors');
 module.exports = function(req, res, next) {
     // User is allowed, proceed to the next policy,
     // or if this is the last policy, the controller
@@ -7,5 +8,6 @@ module.exports = function(req, res, next) {
         return next();
     }
     // User is not allowed
-    return next({code : 401, message : 'You must login to perform this action.'});
+    return next(new E.NotAuthorizedError('You must login to perform this action.'));
+
 };

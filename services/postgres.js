@@ -1,8 +1,9 @@
 //Postgres driver, to wrap the postgres client library with promises.
 'use strict';
 var pg = require('pg');
+var E = require('express-http-errors');
 var config = require('config');
-var when = require('when');
+var when = require('q');
 var _ = require('lodash');
 var copyTo = require('pg-copy-streams').to;
 var copyFrom = require('pg-copy-streams').from;
@@ -42,9 +43,10 @@ exports.query = function(sqlquery) {
         connection.repool();
 
         if (err) {
-          reject(err);
+          console.log(err);
+          reject(new E.InternalServerError('Postgres Error'));
         } else {
-          resolve(result);
+          resolve(result.rows);
         }
       });
     });

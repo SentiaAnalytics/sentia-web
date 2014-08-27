@@ -1,41 +1,40 @@
-'use strict';
+  'use strict';
 var chai = require('chai'),
-  helper = require('../helper/utils'),
+  helper = require('../helper'),
   sinon = require('sinon');
 
 chai.use(require('chai-as-promised'));
 
 describe('/users/active', function () {
-  before(helper.setup);
-  after(helper.teardown);
   describe('when logged in', function() {
-    var res;
+    var promise;
     before(function () {
-      return helper.login({email : 'user@example.com', password : 'password'})
+      return helper.users.login({email : 'user@example.com', password : 'password'})
         .then(function (r) {
           r.should.have.property('statusCode', 200);
-          res = helper.get('/users/active')
-            .then(function (r) {
-              console.log(r.body);
-              return r;
-            });
         });
     });
 
+    before(function () {
+      promise = helper.users.active();
+    });
+
     it('should return 200', function () {
-      return res.should.eventually.have.property('statusCode', 200);
+      return promise.should.eventually.have.property('statusCode', 200);
     });
 
     it('should return the user', function () {
-      return res.should.eventually.have.property('body')
+      return promise.should.eventually.have.property('body')
         .should.become(helper.user);
     });
   });
   describe('when not logged in', function() {
     var res;
     before(function () {
-      delete helper.headers.cookie;
-      res = helper.get('/users/active');
+      return helper.users.logout()
+        .then(function () {
+          res = helper.users.active();
+        });
     });
 
     it('should return 200', function () {
@@ -44,10 +43,7 @@ describe('/users/active', function () {
 
     it('should return the user', function () {
       return res.should.eventually.have.property('body')
-        .should.become({
-          code : 401,
-          message : 'You must login to perform this action.'
-        });
+        .should.become("You must login to perform this action.");
     });
   });
 });

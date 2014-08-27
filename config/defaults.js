@@ -1,4 +1,4 @@
-module.eports = {
+module.exports = {
   "port": 3000,
   "postgres": {
     "database": "sentia",

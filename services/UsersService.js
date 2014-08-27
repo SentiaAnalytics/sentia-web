@@ -1,36 +1,36 @@
 'use strict';
 var db = require('./postgres'),
+  E = require('express-http-errors'),
   _ = require('lodash'),
-  when = require('when'),
+  when = require('q'),
   bcrypt = require('./bcrypt'),
   squel = require('squel');
 
 
 // ## login
 // user login function
-function UsersService () {
-  this.login = function (credentials) {
-    return when(credentials)
-      .then(this.getUser)
-      .then(_.partial(this.validatePassword, credentials.password))
-      .then(this.transformResponse);
-  };
+exports.login = function (credentials) {
+  return when(credentials)
+    .then(this._getUser)
+    .then(_.partial(this._validatePassword, credentials.password))
+    .then(this._removePrivateFields);
 
-}
+};
 
 
-UsersService.prototype.validatePassword = function (password, user) {
+exports._validatePassword = function (password, user) {
   return bcrypt.compare(password, user.password)
     .then(function (response) {
       // remove the users password
       return user;
     })
     .catch(function (err) {
-      return when.reject({code : 401, message : err});
+      throw new E.NotAuthorizedError(err);
     });
 };
+
 // ### get the user from the database
-UsersService.prototype.getUser = function (credentials) {
+exports._getUser = function (credentials) {
   var query = squel.select()
     .from('"user"')
     .where('email = ?', credentials.email)
@@ -38,14 +38,13 @@ UsersService.prototype.getUser = function (credentials) {
 
     return db.query(query)
       .then(function (response) {
-        if (response.rows.length === 0) {
-          return when.reject({code : 404, message: 'User not found'});
+        if (response.length === 0) {
+          throw new E.NotFoundError('User not Found');
         }
-        return response.rows[0];
+        return response[0];
       });
 };
-UsersService.prototype.transformResponse = function (user) {
+exports._removePrivateFields = function (user) {
   delete user.password;
   return user;
 };
-module.exports = new UsersService();

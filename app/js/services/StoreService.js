@@ -4,10 +4,7 @@ module.exports = function($http) {
     id: '52fd38afe0461b48a7f9c297'
   };
   this.getCameras = function() {
-    var query = {
-      store: this.selected.id
-    };
-    return $http.post('/camera/find', query)
+    return $http.get('/api/stores/' + this.selected.id + '/cameras')
       .then(function(response) {
         return response.data;
       });

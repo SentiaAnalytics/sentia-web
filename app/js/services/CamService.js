@@ -1,20 +1,17 @@
 module.exports = function($http, $q) {
   'use strict';
-  var that = this;
   this.getCam = function(id) {
-    return $http.post('/camera/find', {
-      id: id
-    })
+    return $http.get('/stores/' + id +'/camera/find')
       .then(function(response) {
-        that.selectedCam = response.data[0];
+        module.exports.selectedCam = response.data[0];
         return response.data[0];
       });
   };
   this.getOverlay = function(query) {
-    if (!that.selectedCam) {
+    if (!module.exports.selectedCam) {
       return $q.reject('No cam selected');
     }
-    query.cam = that.selectedCam.id;
+    query.cam = module.exports.selectedCam.id;
     console.log(query);
     return $http.post('/map/find', query)
       .then(function(response) {
@@ -37,10 +34,10 @@ module.exports = function($http, $q) {
     });
   };
   this.getTimeline = function(query) {
-    if (!that.selectedCam) {
+    if (!this.selectedCam) {
       return $q.reject('No cam selected');
     }
-    query.cam = that.selectedCam.id;
+    query.cam = this.selectedCam.id;
     return $http.post('/map/timeline', query)
       .then(function(response) {
         var data = [24],

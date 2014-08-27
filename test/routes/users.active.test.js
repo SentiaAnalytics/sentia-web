@@ -3,7 +3,7 @@ var chai = require('chai'),
   sinon = require('sinon'),
   target = require('../../routes/users');
 
-describe('/users/active', function() {
+describe('users.active', function() {
   var req = {
       session : {}
     },
