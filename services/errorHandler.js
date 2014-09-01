@@ -8,6 +8,8 @@ module.exports = function (err, req, res, next) {
     return res.status(err.code)
       .send(err.message);
   }
+  console.log('--- caught 500 ---');
+  console.log(err);
   return res.status(500)
       .send('Internal Server Error');
 };
