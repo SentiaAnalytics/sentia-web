@@ -10,9 +10,9 @@ var chai = require('chai'),
 
 chai.use(require('chai-as-promised'));
 
-describe('Routes - Cameras:find', function () {
+describe('Routes - Cameras:read', function () {
   var req, promise, dummyCamera;
-  it('when fetching cameras', function () {
+  it('when fetching a specific camera', function () {
     target.find.middleware.should.contain(middleware.company);
   });
   before(function () {
@@ -33,7 +33,7 @@ describe('Routes - Cameras:find', function () {
 
       }
     };
-      promise = target.find.handler(req);
+      promise = target.read.handler(req);
   });
 
   after(function () {
@@ -45,19 +45,29 @@ describe('Routes - Cameras:find', function () {
   });
 
   it('should return a camera', function () {
-    promise.should.become([dummyCamera]);
+    promise.should.become(dummyCamera);
   });
   describe('validations', function() {
-    it('should accept a valid reques', function () {
-      var query =  {
-        name :'name',
-        store : 1,
-        limit : 1,
-        skip :1,
-        order : 'name'
+    it('should accept a valid request', function () {
+      var params =  {
+        id : 1
       };
-      tv4.validate(query, target.find.query)
-        .should.equal(true, tv4.error);
+      tv4.validate(params, target.read.params)
+        .should.equal(true);
+    });
+    it('should reject additional fields', function () {
+      var params =  {
+        name :'name',
+        extras : 1
+      };
+      tv4.validate(params, target.read.params)
+        .should.equal(false);
+    });
+    it('should reject if missing fields', function () {
+      var params =  {
+      };
+      tv4.validate(params, target.read.params)
+        .should.equal(false);
     });
   });
 

@@ -15,8 +15,7 @@ exports.headers = {
 exports.get = function (url, params) {
   return when.promise(function (resolve) {
     url = host + tokenize(url, params, true);
-    console.log('HELPER: GET', url);
-    console.log(exports.headers);
+    console.log('TEST: GET', url);
     request({
       method: 'GET',
       uri: url,
@@ -35,7 +34,7 @@ exports.get = function (url, params) {
 exports.post = function (url, params, body) {
   return when.promise(function (resolve) {
     url = host +  tokenize(url, params, true);;
-    console.log('HELPER: POST', url);
+    console.log('TEST : POST', url);
     request({
       method: 'POST',
       uri: url,

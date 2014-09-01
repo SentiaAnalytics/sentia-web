@@ -31,7 +31,7 @@ describe('/users/login', function() {
 
     it('should return a user', function () {
       return res.should.eventually.have.property('body')
-        .should.eventually.eql(helper.user);
+        .should.eventually.eql(helper.dummyUser);
     });
 
   });

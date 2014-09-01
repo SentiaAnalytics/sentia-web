@@ -1,0 +1,40 @@
+@font-face {
+	font-family: 'sentia-icons';
+	src:url('fonts/sentia-icons.eot?-m5r0kc');
+	src:url('fonts/sentia-icons.eot?#iefix-m5r0kc') format('embedded-opentype'),
+		url('fonts/sentia-icons.woff?-m5r0kc') format('woff'),
+		url('fonts/sentia-icons.ttf?-m5r0kc') format('truetype'),
+		url('fonts/sentia-icons.svg?-m5r0kc#sentia-icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'sentia-icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-sentia-logo:before {
+	content: "\e604";
+}
+.icon-home:before {
+	content: "\e600";
+}
+.icon-dashboard:before {
+	content: "\e601";
+}
+.icon-switch:before {
+	content: "\e602";
+}
+.icon-blocked:before {
+	content: "\e603";
+}

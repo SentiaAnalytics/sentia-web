@@ -10,7 +10,16 @@ exports.login = {
       });
   },
   body : {
-    // validation
+    required : ['email', 'password'],
+    additionalProperties : false,
+    properties : {
+      email : {
+        type : 'string'
+      },
+      password : {
+        type : 'string'
+      }
+    }
   },
   method : 'POST'
 };

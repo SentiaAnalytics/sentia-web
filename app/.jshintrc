@@ -24,8 +24,7 @@
 		"angular" : false,
 		"$": true,
 		"d3": false,
-		"moment" : false,
-        "mixpanel" : false
+    "mixpanel" : false
 
 	}
 }

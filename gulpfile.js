@@ -6,8 +6,7 @@ var gulp = require('gulp'),
   browserify = require('gulp-browserify'),
   less = require('gulp-less'),
   shell = require('gulp-shell'),
-  server = require('./server'),
-  instance,
+  server,
   rename = require('gulp-rename'),
   livereload = require('gulp-livereload'),
   sourcemaps = require('gulp-sourcemaps'),
@@ -23,7 +22,7 @@ gulp.task('unit', function() {
 gulp.task('rest', function() {
   return gulp.src(['test/REST/**/*.js'])
     .pipe(mocha({
-      reporter: 'dot'
+      // reporter: 'spec'
     }));
 });
 
@@ -74,7 +73,7 @@ gulp.task('build', ['less', 'browserify']);
 
 gulp.task('run', function () {
   return when.promise(function (resolve) {
-    instance = server.listen(3000, function () {
+    server = require('./server').listen(3000, function () {
       return resolve();
     });
   });
@@ -82,7 +81,7 @@ gulp.task('run', function () {
 
 gulp.task('end', function () {
   return when.promise(function (resolve) {
-    instance.close(function () {
+    server.close(function () {
       return resolve('done');
     });
   });

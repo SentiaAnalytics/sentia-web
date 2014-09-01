@@ -5,10 +5,20 @@ var db = require('./postgres'),
 
 exports.find = function (query) {
   return when(query)
-    .then(this._getCameras);
+    .then(this._buildGetQuery)
+    .then(db.query);
+};
+exports.read = function (query) {
+  return when(query)
+    .then(this._buildGetQuery)
+    .then(db.query)
+    .then(this.getFirstElement);
+};
+exports._getFirstElement = function (results) {
+  return results[0];
 };
 
-exports._getCameras = function (query) {
+exports._buildGetQuery = function (query) {
   var q = squel.select()
     .from('"camera"')
     .where('company = ?', query.company);
@@ -28,6 +38,5 @@ exports._getCameras = function (query) {
   if (query.skip) {
     q.offset(query.skip);
   }
-
-  return db.query(q.toString());
+  return q.toString();
 };

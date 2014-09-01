@@ -9,6 +9,7 @@ var express = require('express'),
   routeloader = require('express-routeloader'),
   app = express();
 
+// app.use(session({secret: 'alskjdflakjd'}));
 
 app.use(session({store : sessionStore, secret: 'alskjdflakjd'}));
 // parse application/x-www-form-urlencoded

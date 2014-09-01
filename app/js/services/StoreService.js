@@ -4,7 +4,7 @@ module.exports = function($http) {
     id: '52fd38afe0461b48a7f9c297'
   };
   this.getCameras = function() {
-    return $http.get('/api/stores/' + this.selected.id + '/cameras')
+    return $http.get('/api/cameras?storeId=' + this.selected.id)
       .then(function(response) {
         return response.data;
       });

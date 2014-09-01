@@ -37,8 +37,9 @@
     "express-http-errors": "0.0.2",
     "express-routeloader": "~0.2.2",
     "requireindex": "~1.1.0",
-    "q": "~1.0.1",
-    "connect-redis": "~2.0.0"
+    "connect-redis": "~2.0.0",
+    "moment": "~2.8.2",
+    "pg": "~3.4.1"
   },
   "devDependencies": {
     "gulp-mocha": "~0.5.2",
@@ -55,6 +56,7 @@
     "jshint-stylish": "~0.4.0",
     "gulp-watch": "~0.6.9",
     "mocha": "~1.21.4",
-    "gulp-spawn-mocha": "~0.1.7-beta.3"
+    "gulp-spawn-mocha": "~0.1.7-beta.3",
+    "tv4": "~1.1.0"
   }
 }

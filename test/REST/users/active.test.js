@@ -25,7 +25,7 @@ describe('/users/active', function () {
 
     it('should return the user', function () {
       return promise.should.eventually.have.property('body')
-        .should.become(helper.user);
+        .should.become(helper.dummyUser);
     });
   });
   describe('when not logged in', function() {

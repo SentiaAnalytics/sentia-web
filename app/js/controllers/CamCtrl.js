@@ -3,6 +3,7 @@
  * @author Andreas
  * @date   2014-04-11
  */
+ var moment = require('moment');
  require('../services/CamService.js');
 
 /*jslint browser:true, nomen:true*/
