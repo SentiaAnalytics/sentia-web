@@ -4,7 +4,7 @@ var E = require('express-http-errors');
 module.exports = function(req, res, next) {
     // User is allowed, proceed to the next policy,
     // or if this is the last policy, the controller
-    if (req.session.user || req.url === '/api/users/login') {
+    if (req.session.user || req.url === '/api/session/authenticate') {
         return next();
     }
     // User is not allowed

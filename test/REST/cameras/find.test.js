@@ -8,7 +8,7 @@ chai.use(require('chai-as-promised'));
 
 describe('/cameras/find', function () {
   before(function () {
-    return helper.users.login({email : 'user@example.com', password : 'password'});
+    return helper.session.authenticate({email : 'user@example.com', password : 'password'});
   });
   var status, data;
   before(function () {

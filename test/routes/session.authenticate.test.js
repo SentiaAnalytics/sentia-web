@@ -5,12 +5,12 @@ var chai = require('chai'),
   sinon = require('sinon'),
   tv4 = require('tv4'),
   when = require('when'),
-  UsersService = require('../../services/UsersService'),
-  target = require('../../routes/users.js');
+  UsersService = require('../../services/SessionService'),
+  target = require('../../routes/session');
 
-describe('users.login', function() {
+describe('Routes - session.authenticate', function() {
   it('should have a handler', function () {
-    target.login.should.have.property('handler');
+    target.authenticate.should.have.property('handler');
   });
 
   describe('validation', function() {
@@ -19,7 +19,7 @@ describe('users.login', function() {
         email : 'user@example.com',
         password : 'password'
       };
-      tv4.validate(cred, target.login.body)
+      tv4.validate(cred, target.authenticate.body)
         .should.equal(true);
     });
 
@@ -27,14 +27,14 @@ describe('users.login', function() {
       var cred = {
         email : 'user@example.com'
       };
-      tv4.validate(cred, target.login.body)
+      tv4.validate(cred, target.authenticate.body)
         .should.equal(false);
     });
     it('should reject a missing email', function () {
       var cred = {
         password : 'password'
       };
-      tv4.validate(cred, target.login.body)
+      tv4.validate(cred, target.authenticate.body)
         .should.equal(false);
     });
     it('should reject additional properties', function () {
@@ -43,7 +43,7 @@ describe('users.login', function() {
         password : 'password',
         extras : 1
       };
-      tv4.validate(cred, target.login.body)
+      tv4.validate(cred, target.authenticate.body)
         .should.equal(false);
     });
   });

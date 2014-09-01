@@ -1,11 +1,11 @@
 'use strict';
 var chai = require('chai'),
-  target = require('../../routes/users'),
+  target = require('../../routes/session'),
   sinon = require('sinon');
 
 chai.use(require('chai-as-promised'));
 
-describe(' desrciption', function () {
+describe('Routes - Session', function () {
   var req = {
       session : {
         destroy : sinon.spy()
@@ -17,7 +17,7 @@ describe(' desrciption', function () {
     next = sinon.spy();
 
   before(function () {
-    target.logout.handler(req, res, next);
+    target.delete.handler(req, res, next);
   });
 
   it('should not call next', function () {

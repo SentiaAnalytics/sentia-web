@@ -1,7 +1,7 @@
 'use strict';
 var utils = require('./utils');
 
-//## Properties
+//## Dummy Data
 exports.dummyUser = {
   email: 'user@example.com',
   company: 1,
@@ -33,6 +33,20 @@ exports.dummyMap = {
   dx: 4,
   dy: 5
 };
+
+exports.dummyTimeline = [
+  {
+    hour : 0,
+    count : 1
+  },
+  {
+    hour : 1,
+    count : 2
+  }
+];
+
+
+// #helper functions
 exports.cameras = {
   find : function (params) {
     return utils.get('/cameras', params);
@@ -42,12 +56,15 @@ exports.cameras = {
 exports.maps = {
   read : function (id) {
     return utils.get('/maps/:id', {id : id});
+  },
+  timeline : function (query) {
+    return utils.get('/maps/timeline', query);
   }
 };
 
-exports.users =  {
-  login : function (credentials) {
-    return utils.post('/users/login', null, credentials)
+exports.session =  {
+  authenticate : function (credentials) {
+    return utils.post('/session/authenticate', null, credentials)
       .then(function (r) {
         if (r.statusCode === 200 && r.headers['set-cookie'])  {
           utils.headers.cookie = r.headers['set-cookie'];
@@ -55,11 +72,11 @@ exports.users =  {
         return r;
       });
   },
-  active : function () {
-    return utils.get('/users/active', null);
+  read : function () {
+    return utils.get('/session', null);
   },
-  logout : function () {
-    return utils.post('/users/logout')
+  delete : function () {
+    return utils.delete('/session')
       .then(function (r) {
         delete utils.headers.cookie;
         return r;

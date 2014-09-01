@@ -10,7 +10,7 @@ function executeQuery (query) {
     db.all(query, function (err, result) {
       if (err) {
         console.log(err);
-        return reject(new E.InternalServerError('SQLITE ERROR'));
+        return reject(new E.InternalError('SQLITE ERROR'));
       }
       return resolve(result);
     });

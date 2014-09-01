@@ -5,35 +5,35 @@ var chai = require('chai'),
 
 chai.use(require('chai-as-promised'));
 
-describe('/users/active', function () {
+describe('/session/read', function () {
   describe('when logged in', function() {
     var promise;
     before(function () {
-      return helper.users.login({email : 'user@example.com', password : 'password'})
+      return helper.session.authenticate({email : 'user@example.com', password : 'password'})
         .then(function (r) {
           r.should.have.property('statusCode', 200);
         });
     });
 
     before(function () {
-      promise = helper.users.active();
+      promise = helper.session.read();
     });
 
     it('should return 200', function () {
       return promise.should.eventually.have.property('statusCode', 200);
     });
 
-    it('should return the user', function () {
+    it('should return the session object', function () {
       return promise.should.eventually.have.property('body')
-        .should.become(helper.dummyUser);
+        .should.become({ user : helper.dummyUser});
     });
   });
   describe('when not logged in', function() {
     var res;
     before(function () {
-      return helper.users.logout()
+      return helper.session.delete()
         .then(function () {
-          res = helper.users.active();
+          res = helper.session.read();
         });
     });
 

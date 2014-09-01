@@ -4,12 +4,12 @@ var chai = require('chai'),
   bcrypt = require('../../services/bcrypt.js'),
   when = require('when'),
   db = require('../../services/postgres.js'),
-  target = require('../../services/UsersService.js');
+  target = require('../../services/SessionService.js');
 
 chai.use(require('chai-as-promised'));
 
-describe('UsersService', function() {
-  describe('getUser', function () {
+describe('SessionService', function() {
+  describe('_getUser', function () {
     var credentials, promise;
     before(function () {
       credentials = {
@@ -79,7 +79,7 @@ describe('UsersService', function() {
       result.should.eql({email : 'user@example.com'});
     });
   });
-  describe('login', function() {
+  describe('authenticated', function() {
     var dummyUser;
     before(function () {
       sinon.stub(db, 'query', function (string) {
@@ -104,7 +104,7 @@ describe('UsersService', function() {
           email : 'user@example.com',
           password : 'password'
         };
-        promise = target.login(user);
+        promise = target.authenticate(user);
       });
 
       it('should be resolved', function () {
@@ -125,7 +125,7 @@ describe('UsersService', function() {
           email : 'user@example.com',
           password : 'passwrd'
         };
-        promise = target.login(user);
+        promise = target.authenticate(user);
       });
 
 

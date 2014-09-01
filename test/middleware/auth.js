@@ -8,10 +8,10 @@ chai.use(require('chai-as-promised'));
 
 describe('Middleware - Auth', function () {
   describe('when calling auth without a session', function() {
-    describe('where url is /users/login', function() {
+    describe('where url is /session/authenticate', function() {
       var req = {
         session : {},
-        url : '/api/users/login'
+        url : '/api/session/authenticate'
       },
       next = sinon.spy();
       before(function () {

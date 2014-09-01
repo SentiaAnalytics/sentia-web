@@ -1,9 +1,9 @@
 'use strict';
-var Users = require('../services/UsersService');
+var SessionService = require('../services/SessionService');
 
-exports.login = {
+exports.authenticate = {
   handler : function (req, res, next) {
-    return Users.login(req.body)
+    return SessionService.authenticate(req.body)
       .then(function (user) {
         req.session.user = user;
         return user;
@@ -24,15 +24,14 @@ exports.login = {
   method : 'POST'
 };
 
-exports.logout = {
+exports.delete = {
   handler : function (req, res) {
     req.session.destroy();
     res.send(200);
   }
 };
-
-exports.active = {
+exports.read = {
   handler : function (req, res) {
-    return res.send(req.session.user);
+    return res.send({user : req.session.user});
   }
 };

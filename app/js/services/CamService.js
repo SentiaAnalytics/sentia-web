@@ -38,7 +38,7 @@ module.exports = function($http, $q) {
       return $q.reject('No cam selected');
     }
     query.cam = this.selectedCam.id;
-    return $http.post('/map/timeline', query)
+    return $http.get('/maps/timeline', query)
       .then(function(response) {
         var data = [24],
           i,

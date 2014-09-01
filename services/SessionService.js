@@ -9,7 +9,7 @@ var db = require('./postgres'),
 
 // ## login
 // user login function
-exports.login = function (credentials) {
+exports.authenticate = function (credentials) {
   return when(credentials)
     .then(this._getUser)
     .then(_.partial(this._validatePassword, credentials.password))
@@ -39,7 +39,7 @@ exports._getUser = function (credentials) {
     return db.query(query)
       .then(function (response) {
         if (response.length === 0) {
-          throw new E.NotFoundError('User not Found');
+          throw new E.NotFoundError('User not found');
         }
         return response[0];
       });

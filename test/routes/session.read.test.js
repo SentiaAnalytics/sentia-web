@@ -1,9 +1,9 @@
 'use strict';
 var chai = require('chai'),
   sinon = require('sinon'),
-  target = require('../../routes/users');
+  target = require('../../routes/session');
 
-describe('users.active', function() {
+describe('session.read', function() {
   var req = {
       session : {}
     },
@@ -14,7 +14,7 @@ describe('users.active', function() {
 
   before(function () {
     req.session.user = 'hey';
-    target.active.handler(req, res, next);
+    target.read.handler(req, res, next);
   });
 
   it('should not call next', function () {
@@ -23,7 +23,7 @@ describe('users.active', function() {
 
   it('should call next once with a 401', function () {
     res.send.calledOnce.should.equal(true);
-    res.send.args[0][0].should.eql('hey');
+    res.send.args[0][0].should.eql({user : 'hey'});
   });
 
   after(function () {

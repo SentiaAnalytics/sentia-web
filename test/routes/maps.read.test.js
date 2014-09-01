@@ -32,7 +32,7 @@ describe('Routes - Maps:read', function () {
     });
   });
 
-  describe('validtor', function() {
+  describe('validator', function() {
     it('should accept a query with only an id', function () {
       tv4.validate({id : 1}, target.read.params)
         .should.equal(true, tv4.error);

@@ -34,13 +34,28 @@ exports.get = function (url, params) {
 exports.post = function (url, params, body) {
   return when.promise(function (resolve) {
     url = host +  tokenize(url, params, true);;
-    console.log('TEST : POST', url);
+    console.log('TEST: POST', url);
     request({
       method: 'POST',
       uri: url,
       json : body,
       headers: exports.headers
     }, function(e, r) {
+      return resolve(r);
+    });
+  });
+};
+
+exports.delete = function (url, params) {
+  return when.promise(function (resolve) {
+    url = host + tokenize(url, params, true);
+    console.log('TEST: DELETE', url);
+    request({
+      method : 'DELETE',
+      url : url,
+      json : true,
+      headers : exports.headers
+    }, function (e, r) {
       return resolve(r);
     });
   });

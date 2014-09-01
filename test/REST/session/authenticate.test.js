@@ -7,17 +7,17 @@ var chai = require('chai'),
 
 chai.use(require('chai-as-promised'));
 
-describe('/users/login', function() {
+describe('/session/authenticate', function() {
   // before(helper.setup);
   // after(helper.teardown);
-  describe('when logging in with a valid user', function() {
+  describe('when authenticating with a valid user', function() {
     var res;
     before(function () {
       var credentials = {
         email : 'user@example.com',
         password : 'password'
       };
-      res = helper.users.login(credentials);
+      res = helper.session.authenticate(credentials);
     });
 
     it('should return a resolved promise', function () {
@@ -35,14 +35,39 @@ describe('/users/login', function() {
     });
 
   });
-  describe('when logging in with an invalid user', function() {
+  describe('when authenticating with an invalid user', function() {
+    var res;
+    before(function () {
+      var credentials = {
+        email : 'fake@example.com',
+        password : 'password'
+      };
+      res = helper.session.authenticate(credentials);
+    });
+
+    it('should return a resolved promise', function () {
+      return res.should.be.fulfilled;
+    });
+
+    it('should return 200', function () {
+      return res.should.eventually.have.property('statusCode', 404);
+    });
+
+
+    it('should return an error', function () {
+      return res.should.eventually.have.property('body')
+        .should.eventually.eql('User not found');
+    });
+
+  });
+  describe('when authenticationg with an invalid password', function() {
     var res, credentials;
     before(function () {
       credentials = {
         email : 'user@example.com',
         password : 'fake'
       };
-      res = helper.users.login(credentials);
+      res = helper.session.authenticate(credentials);
     });
 
     it('should return a resolved promise', function () {
