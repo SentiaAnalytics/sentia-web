@@ -7,5 +7,11 @@ module.exports = {
     "password": process.env.SENTIA_DB_PASS,
     "port": 5432,
     "ssl": true
+  },
+  session : {
+    host : 'hoki.redistogo.com',
+    port : 10774,
+    prefix : 'session',
+    pass : process.env.REDIS_PASS
   }
 };
