@@ -2,7 +2,7 @@
 var db = require('./postgres'),
   E = require('express-http-errors'),
   _ = require('lodash'),
-  when = require('q'),
+  when = require('when'),
   bcrypt = require('./bcrypt'),
   squel = require('squel');
 
