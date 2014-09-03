@@ -12,8 +12,8 @@ require('./lib/angulartics/src/angulartics.js');
 require('./lib/angulartics/src/angulartics-mixpanel.js');
 
 // Directives
-require('./directives/sFlowmap.js');
-require('./directives/sHeatmap.js');
+require('./directives/sflowmap.js');
+require('./directives/sheatmap.js');
 require('./directives/linechart.js');
 require('./directives/barchart.js');
 
