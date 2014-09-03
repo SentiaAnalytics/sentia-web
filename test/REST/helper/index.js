@@ -28,7 +28,7 @@ exports.dummyMap = {
   heat: 6,
   cam: 1,
   company: 1,
-  time: 123,
+  time: 1000000,
   store: 1,
   dx: 4,
   dy: 5
@@ -54,8 +54,8 @@ exports.cameras = {
 };
 
 exports.maps = {
-  read : function (id) {
-    return utils.get('/maps/:id', {id : id});
+  list : function (query) {
+    return utils.get('/maps', query );
   },
   timeline : function (query) {
     return utils.get('/maps/timeline', query);

@@ -2,7 +2,10 @@
 var middleware = require('../middleware'),
   CameraService = require('../services/CamerasService');
 
-// # Find
+// #Cameras
+// Endpoints for Managing camera objects
+
+// ## Find
 // get a list of cameras based on the supplied queries
 exports.find = {
   handler : function (req, res, next) {
@@ -30,7 +33,7 @@ exports.find = {
   }
 };
 
-//# Read
+// ## Read
 // get a specific camera by id
 exports.read = {
   handler : function (req, res, next) {

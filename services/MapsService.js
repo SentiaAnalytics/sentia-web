@@ -6,11 +6,10 @@ var squel = require('squel'),
   db = require('./postgres');
 
 
-exports.read = function(query) {
+exports.find = function(query) {
   return when(query)
-    .then(this._buildReadQuery)
-    .then(db.query)
-    .then(this._getFirstElement);
+    .then(this._buildGetQuery)
+    .then(db.query);
 };
 
 exports.timeline = function(query) {
@@ -40,18 +39,18 @@ exports._buildTimelineQuery = function(query) {
 };
 
 
-exports._buildReadQuery = function(query) {
-  var q = squel.select()
-    .from('"map"')
-    .where('id = ?', query.id)
-    .where('company = ?', query.company);
+exports._buildGetQuery = function(query) {
+  var q, from , to;
+  from = moment(query.from || 0).format('YYYY-MM-DD HH:mm:ss');
+  to = moment(query.to || 0).format('YYYY-MM-DD HH:mm:ss');
+  q = squel.select()
+    .where('time BETWEEN ? AND ?', from, to)
+    .where('company = ?', query.company)
+    .from('"map"');
+
+    if (query.cam) {
+      q.where('cam = ?', query.cam);
+    }
 
   return q.toString();
-};
-
-exports._getFirstElement = function(rows) {
-  if (rows.length === 0) {
-    throw new E.NotFoundError('Could not find map');
-  }
-  return rows[0];
 };

@@ -1,8 +1,14 @@
+// # Maps
+// Endpoints for getting map data
+//
 'use strict';
 var MapsService = require('../services/MapsService'),
   lo = require('lodash'),
   middleware = require('../middleware');
 
+// ## Timeline
+// returns an array representing the activity in the given time period.
+// The results are grouped by timeslice provided in the `group` parameter
 exports.timeline = {
   url : 'timeline',
   handler : function (req) {
@@ -28,19 +34,36 @@ exports.timeline = {
   }
 };
 
-exports.read = {
-  url : ':id',
+// ## Read
+//
+
+exports.find = {
   handler : function (req) {
-    return MapsService.read(lo.merge(req.params, req.query));
+    return MapsService.find(req.query);
   },
   middleware : [middleware.company],
-  params : {
+  query : {
     additionalProperties : false,
-    required : ['id'],
     properties : {
-      id : {
-        type : 'integer'
+      cam : {
+        stringType : 'integer'
+      },
+      from : {
+        stringType : 'integer'
+      },
+      to : {
+        stringType : 'integer'
+      },
+      limit : {
+        stringType : 'integer'
+      },
+      order : {
+        type : 'string'
+      },
+      desc : {
+        type : 'boolean'
       }
+
     }
   }
 };
