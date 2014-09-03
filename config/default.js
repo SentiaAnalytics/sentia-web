@@ -1,5 +1,5 @@
 module.exports = {
-  "port": 3000,
+  "port": process.env.PORT || 3000,
   "postgres": {
     "database": "sentia",
     "host": "sentia.clto0ldvohgx.eu-west-1.rds.amazonaws.com",
