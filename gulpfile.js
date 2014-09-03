@@ -73,7 +73,7 @@ gulp.task('build', ['less', 'browserify']);
 
 gulp.task('run', function () {
   return when.promise(function (resolve) {
-    server = require('./server').listen(3000, function () {
+    server = require('./server').listen(config.port, function () {
       return resolve();
     });
   });
