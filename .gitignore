@@ -3,6 +3,8 @@ config/local.js
 node_modules
 
 app/bower_components
+app/build/bundle.js
+app/build/style.css
 
 logs
 
