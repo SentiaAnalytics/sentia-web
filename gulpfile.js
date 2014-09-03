@@ -1,6 +1,7 @@
 'use strict';
 var gulp = require('gulp'),
   watch = require('gulp-watch'),
+  config = require('config'),
   when  =require('when'),
   mocha = require('gulp-spawn-mocha'),
   browserify = require('gulp-browserify'),
@@ -74,6 +75,7 @@ gulp.task('build', ['less', 'browserify']);
 gulp.task('run', function () {
   return when.promise(function (resolve) {
     server = require('./server').listen(config.port, function () {
+      console.log('Server listening on ', config.port);
       return resolve();
     });
   });
