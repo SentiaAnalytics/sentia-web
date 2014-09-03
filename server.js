@@ -2,8 +2,9 @@
 var express = require('express'),
   config = require('config'),
   session = require('express-session'),
+  redis = require('./services/redis'),
   RedisStore = require('connect-redis')(session),
-  sessionStore = new RedisStore(config.session),
+  sessionStore = new RedisStore({client : redis, prefix : config.session.prefix}),
   middleware = require('./middleware'),
   bodyParser = require('body-parser'),
   routeloader = require('express-routeloader'),
@@ -31,7 +32,7 @@ app.use(routeloader({prefix : '/api'}));
 app.use(require('./services/errorHandler'));
 
 app.on('close', function () {
-  sessionStore.client.quit();
+  require('./services/redis').quit();
 });
 // Exports the app so it can be run programtically
 // calling node main.js runs this server

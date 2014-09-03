@@ -14,7 +14,7 @@ module.exports = function ($scope,  $http, $location) {
   $scope.login = function () {
       console.log($scope.credentials);
       if(!$scope.credentials.email || !$scope.credentials.password) {return;}
-      $http.post('/api/users/login', $scope.credentials)
+      $http.post('/api/session/authenticate', $scope.credentials)
           .success(function (response) {
               mixpanel.identify(response.id);
               mixpanel.people.set(angular.copy(response,{

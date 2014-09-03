@@ -18,7 +18,7 @@ module.exports = function ($scope, $http, $location) {
     });
   $scope.$root.showMenu = false;
   $scope.logout = function () {
-      $http.get('/api/users/logout')
+      $http.delete('/api/session')
           .success(function () {
               $location.path('/login');
           })

@@ -8,10 +8,9 @@ module.exports = {
     "port": 5432,
     "ssl": true
   },
+  redis : process.env.REDISCLOUD_URL,
   session : {
-    host : 'hoki.redistogo.com',
-    port : 10774,
-    prefix : 'session',
-    pass : process.env.REDIS_PASS
+    client : this.redis,
+    prefix : 'session'
   }
 };
