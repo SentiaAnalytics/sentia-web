@@ -4,8 +4,9 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "./node_modules/.bin/gulp",
-    "test": "./node_modules/.bin/gulp test"
+    "install": "node node_modules/.bin/napa",
+    "start": "node node_modules/.bin/gulp",
+    "test": " node node_modules/.bin/gulp test"
   },
   "author": "Andreas Møller",
   "license": "ISC",
