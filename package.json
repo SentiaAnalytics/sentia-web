@@ -4,8 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "install": "napa",
-    "start": "gulp",
+    "install": "node_modules/.bin/napa",
+    "start": "node_modules/.bin/gulp",
     "test": "node_modules/.bin/gulp test"
   },
   "author": "Andreas Møller",
@@ -48,6 +48,7 @@
     "gulp": "~3.8.7",
     "chai": "~1.9.1",
     "sinon": "~1.10.3",
+    "napa": "~0.4.1",
     "chai-as-promised": "~4.1.1",
     "request": "~2.40.0",
     "url-builder": "~0.2.1",
