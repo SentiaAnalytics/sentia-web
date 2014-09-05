@@ -6,10 +6,6 @@ var chai = require('chai'),
 chai.use(require('chai-as-promised'));
 
 describe('Postgres', function() {
-  it('should have dbConfig', function () {
-    target.dbConfig.should.eql(require('config').postgres);
-  });
-
   describe('when requesting db version', function() {
     var promise;
     before(function () {

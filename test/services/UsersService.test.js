@@ -1,6 +1,6 @@
 'use strict';
 var chai = require('chai'),
-  db = require('../../services/postgres'),
+  mongo = require('simple-mongo'),
   target = require('../../services/UsersService'),
   sinon = require('sinon');
 
@@ -8,12 +8,12 @@ chai.use(require('chai-as-promised'));
 
 describe('UsersService:', function () {
   before(function () {
-    sinon.stub(db, 'query', function (query) {
+    sinon.stub(mongo, 'db', function (query) {
       return [{email : 'user@example.com', password : 'hash'}];
     });
   });
   afterEach(function () {
-    db.query.reset();
+    mongo.db.reset();
   });
   after(function () {
     db.query.restore();
@@ -25,7 +25,7 @@ describe('UsersService:', function () {
         .then(function (result) {
           result.should.be.an.Array;
           result.should.contain({'email' : 'user@example.com'});
-          db.query.calledOnce.should.equal(true);
+          mong.calledOnce.should.equal(true);
           db.query.args[0].length.should.equal(1);
         });
     });

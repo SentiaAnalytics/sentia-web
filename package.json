@@ -50,7 +50,9 @@
     "pg": "~3.4.1",
     "jshint-stylish": "~0.4.0",
     "express-session": "~1.7.6",
-    "redis": "~0.12.1"
+    "redis": "~0.12.1",
+    "simple-mongo": "0.0.2",
+    "bluebird": "~2.3.2"
   },
   "devDependencies": {
     "chai": "~1.9.1",

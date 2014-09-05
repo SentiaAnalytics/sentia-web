@@ -15,18 +15,22 @@ before(function () {
   return db.query(queries);
 });
 
-before(function (done) {
-  instance = server.listen(3000, function () {
-    done();
-  });
+before(function () {
+  return server.start()
+    .then(function (i) {
+      instance = i;
+      return i;
+    });
 });
 
 after(function (done) {
   db.query.restore();
   console.log('Closing server');
-  instance.close(function () {
-    console.log('server closed');
-    sqlite.close();
-    done();
+  return server.stop()
+    .then(function () {
+      console.log('server closed');
+      sqlite.close();
+      done();
+    });¨
   });
 });

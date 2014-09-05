@@ -33,7 +33,7 @@ function createConnection(url) {
 
 //#### execute a sql query
 exports.query = function(sqlquery) {
-  return createConnection(exports.dbConfig).then(function(connection) {
+  return createConnection(config.postgres).then(function(connection) {
 
     return when.promise(function(resolve, reject) {
 

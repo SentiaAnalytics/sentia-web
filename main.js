@@ -1,5 +1,4 @@
 'use strict';
-var server = require('./server'),
-  config = require('config');
+var server = require('./server');
 
-server.listen(config.port || 3000);
+server.start();
