@@ -1,5 +1,6 @@
 'use strict';
-var db = require('./postgres'),
+var models = require('../models'),
+  UsersService = require('./UsersService'),
   E = require('express-http-errors'),
   _ = require('lodash'),
   when = require('when'),
@@ -11,7 +12,8 @@ var db = require('./postgres'),
 // user login function
 exports.authenticate = function (credentials) {
   return when(credentials)
-    .then(this._getUser)
+    .then(this._getUserQuery)
+    .then(models.User.find)
     .then(_.partial(this._validatePassword, credentials.password))
     .then(this._removePrivateFields);
 
@@ -30,19 +32,12 @@ exports._validatePassword = function (password, user) {
 };
 
 // ### get the user from the database
-exports._getUser = function (credentials) {
-  var query = squel.select()
-    .from('"user"')
-    .where('email = ?', credentials.email)
-    .toString();
-
-    return db.query(query)
-      .then(function (response) {
-        if (response.length === 0) {
-          throw new E.NotFoundError('User not found');
-        }
-        return response[0];
-      });
+exports._getUserQuery = function (credentials) {
+  return {
+    where : {
+      email : credentials.email
+    }
+  };
 };
 exports._removePrivateFields = function (user) {
   delete user.password;

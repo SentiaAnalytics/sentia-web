@@ -1,5 +1,6 @@
 'use strict';
 var chai = require('chai'),
+  should = chai.should(),
   E = require('express-http-errors'),
   target = require('../../middleware/auth'),
   sinon = require('sinon');

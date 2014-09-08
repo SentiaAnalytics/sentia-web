@@ -1,22 +1,31 @@
 'use strict';
 var chai = require('chai'),
-  mongo = require('simple-mongo'),
+  should = chai.should(),
   target = require('../../services/UsersService'),
+  models = require('../../models'),
   sinon = require('sinon');
 
 chai.use(require('chai-as-promised'));
 
 describe('UsersService:', function () {
   before(function () {
-    sinon.stub(mongo, 'db', function (query) {
+    sinon.stub(models.User, 'find', function (query) {
+      return {email : 'user@example.com', password : 'hash'};
+    });
+    sinon.stub(models.User, 'findAll', function (query) {
       return [{email : 'user@example.com', password : 'hash'}];
     });
   });
+
   afterEach(function () {
-    mongo.db.reset();
+    models.User.find.reset();
+    models.User.findAll.reset();
+
   });
   after(function () {
-    db.query.restore();
+    models.User.find.restore();
+    models.User.findAll.restore();
+
   });
 
   describe('find', function() {
@@ -25,8 +34,8 @@ describe('UsersService:', function () {
         .then(function (result) {
           result.should.be.an.Array;
           result.should.contain({'email' : 'user@example.com'});
-          mong.calledOnce.should.equal(true);
-          db.query.args[0].length.should.equal(1);
+          models.User.find.calledOnce.should.equal(true);
+          models.User.find.args[0].length.should.equal(1);
         });
     });
   });
@@ -36,16 +45,25 @@ describe('UsersService:', function () {
         .then(function (result) {
           result.should.be.an.Object;
           result.should.eql({'email' : 'user@example.com'});
-          db.query.calledOnce.should.equal(true);
-          db.query.args[0].length.should.equal(1);
+          models.User.find.calledOnce.should.equal(true);
+          models.User.find.args[0].length.should.equal(1);
         });
     });
   });
 
   describe('_buildGetQuery', function () {
     it('should return a query when called with an id', function () {
-      var result = target._buildGetQuery({id : 1, company : 1})
-      result.should.equal('SELECT * FROM "user" WHERE (company = 1) AND (id = 1)');
+      var result = target._buildGetQuery({id : 1, company : 1});
+      var q =  {
+        where : {
+          id : 1,
+          company : 1
+        },
+        offset : 0,
+        limit : 0
+      };
+      console.log(result);
+      result.should.eql(q);
     });
 
     it('should return a query when called with a query object', function () {
@@ -53,12 +71,19 @@ describe('UsersService:', function () {
         company : 1,
         limit : 1,
         skip : 1,
-        order : 'name',
-        desc : true
+        sort : 'name',
 
       };
-      var result = target._buildGetQuery(query);
-      result.should.equal('SELECT * FROM "user" WHERE (company = 1) ORDER BY name DESC LIMIT 1 OFFSET 1');
+      var result = target._buildGetQuery(query),
+        q =  {
+          where : {
+            company : 1
+          },
+          order: 'name',
+          limit : 1,
+          offset : 1
+        };
+      result.should.eql(q);
     });
   });
   describe('_sanitizeUsers', function() {
