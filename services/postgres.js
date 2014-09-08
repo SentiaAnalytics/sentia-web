@@ -33,6 +33,7 @@ function createConnection(url) {
 
 //#### execute a sql query
 exports.query = function(sqlquery) {
+  console.log('CREATING CONNECTION');
   return createConnection(config.postgres).then(function(connection) {
 
     return when.promise(function(resolve, reject) {

@@ -47,12 +47,13 @@
     "requireindex": "~1.1.0",
     "connect-redis": "~2.0.0",
     "moment": "~2.8.2",
-    "pg": "~3.4.1",
+    "pg": "~3.4.2",
     "jshint-stylish": "~0.4.0",
     "express-session": "~1.7.6",
     "redis": "~0.12.1",
     "simple-mongo": "0.0.2",
-    "bluebird": "~2.3.2"
+    "bluebird": "~2.3.2",
+    "sequelize": "~1.7.10"
   },
   "devDependencies": {
     "chai": "~1.9.1",

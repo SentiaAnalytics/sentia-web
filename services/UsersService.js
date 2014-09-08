@@ -1,22 +1,21 @@
 'use strict';
 var when = require('when'),
-  squel = require('squel'),
-  E = require('express-http-errors'),
-  db = require('./postgres');
+  lo = require('lodash'),
+  models = require('../models'),
+  E = require('express-http-errors');
 
 exports.read = function (query) {
   return when(query)
     .then(this._buildGetQuery)
-    .then(db.query)
+    .then(models.User.find)
     .then(this._sanitizeUsers)
-    .then(this._getFirstElement);
 };
 
 
 exports.find = function (query) {
   return when(query)
     .then(this._buildGetQuery)
-    .then(db.query)
+    .then(models.User.find)
     .then(this._sanitizeUsers);
 };
 
@@ -30,27 +29,27 @@ exports._getFirstElement = function (data) {
 };
 
 exports._sanitizeUsers = function (users) {
-  return users.map(function (user) {
-    delete user.password;
-    return user;
-  });
+  if (Array.isArray(users)) {
+    return users.map(function (user) {
+      delete user.password;
+      return user;
+    });
+  }
+  delete users.password
+  return users;
+
+
 };
 
 exports._buildGetQuery = function (query) {
-  var q = squel.select()
-    .from('"user"')
-    .where ('company = ?', query.company)
-    .limit(query.limit || 0)
-    .offset(query.skip || 0);
+  var sequelizeQuery = {
+    where : lo.omit(query, ['limit', 'sort', 'skip']),
+    limit : query.limit || 0,
+    offset : query.skip || 0,
+  };
 
-  if (query.hasOwnProperty('id')) {
-    q.where('id = ?', query.id);
+  if (query.sort) {
+    sequelizeQuery.order = query.sort
   }
-
-  if (query.hasOwnProperty('order')) {
-    q.order(query.order, !(query.desc)); // order takes ASC as a boolean second arg
-  }
-
-  return q.toString();
-
+  return sequelizeQuery;
 };
