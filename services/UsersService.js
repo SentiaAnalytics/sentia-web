@@ -8,7 +8,7 @@ exports.read = function (query) {
   return when(query)
     .then(this._buildGetQuery)
     .then(models.User.find)
-    .then(this._sanitizeUsers)
+    .then(this._sanitizeUsers);
 };
 
 
@@ -35,7 +35,7 @@ exports._sanitizeUsers = function (users) {
       return user;
     });
   }
-  delete users.password
+  delete users.password;
   return users;
 
 
@@ -49,7 +49,7 @@ exports._buildGetQuery = function (query) {
   };
 
   if (query.sort) {
-    sequelizeQuery.order = query.sort
+    sequelizeQuery.order = query.sort;
   }
   return sequelizeQuery;
 };
