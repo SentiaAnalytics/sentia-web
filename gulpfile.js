@@ -49,7 +49,7 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter(require('jshint-stylish')));
 });
 
-gulp.task('test', ['jshint', 'unit', 'rest']);
+gulp.task('test', ['jshint', 'unit']);
 
 
 gulp.task('less', function () {
