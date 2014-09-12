@@ -73,6 +73,7 @@ gulp.task('browserify', function () {
 gulp.task('build', ['less', 'browserify']);
 
 gulp.task('run', function () {
+  console.log('port:', config.port);
     return require('./server').start()
       .then(function (s) {
         server = s;
