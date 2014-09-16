@@ -1,15 +1,14 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Apikeys = sequelize.define('Apikeys', {
-   Key : DataTypes.STRING 
+  var Store = sequelize.define('Store', {
+    Name : DataTypes.STRING
   }, {
     classMethods: {
       associate: function (models) {
-        Apikeys.belongsTo(models.Company);
+        Store.belongsTo(models.Company);
       }
     }
   });
-  Apikeys.sync();
 
-  return Apikeys;
+  return Store;
 };

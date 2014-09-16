@@ -5,5 +5,5 @@ module.exports = function () {
 
   return models
     .sequelize
-    .sync({ force: true });
+    .sync();
 };
