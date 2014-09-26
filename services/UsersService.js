@@ -1,55 +1,59 @@
 'use strict';
-var when = require('when'),
-  lo = require('lodash'),
+var P = require('bluebird'),
+  lodash = require('lodash'),
+  logger = require('bragi'),
   models = require('../models'),
+  bcrypt = require('./bcrypt'),
   E = require('express-http-errors');
 
-exports.read = function (query) {
-  return when(query)
-    .then(this._buildGetQuery)
-    .then(models.User.find)
-    .then(this._sanitizeUsers);
+exports.create = function (query) {
+  return bcrypt.hash(query.password)
+    .then(lodash.partial(exports._createUser, query))
+    .catch(exports._createError);
+};
+exports._createUser = function (user, passwordHash) {
+  user.password = passwordHash;
+  return models.User.create(user);
+};
+exports._createError = function (err) {
+  console.log(err);
+  logger.log('debug:users', 'ERROR' + err);
+
+  if (err.email) {
+    throw new E.BadRequestError('Invalid Email');
+  }
+  if (err.message && err.message.indexOf('duplicate key') !== -1) {
+    throw new E.BadRequestError('A user with that email already exists');
+  }
+  throw new Error(err);
 };
 
 
 exports.find = function (query) {
-  return when(query)
-    .then(this._buildGetQuery)
-    .then(models.User.find)
-    .then(this._sanitizeUsers);
+  return P.resolve(query)
+    .then(exports._buildFindQuery)
+    .then(exports._findUsers);
 };
-
-
-exports._getFirstElement = function (data) {
-  if (data.lenth === 0) {
-    throw new E.NotFoundError('User does not exist');
-  }
-
-  return data[0];
-};
-
-exports._sanitizeUsers = function (users) {
-  if (Array.isArray(users)) {
-    return users.map(function (user) {
-      delete user.password;
-      return user;
+exports._findUsers = function (query) {
+  console.log('query');
+  console.log(query);
+  return models.User.findAll(query)
+    .then(function (users) {
+      return users;
+    })
+    .catch(function (err) {
+      throw new E.BadRequstError('err');
     });
-  }
-  delete users.password;
-  return users;
-
-
 };
 
-exports._buildGetQuery = function (query) {
-  var sequelizeQuery = {
-    where : lo.omit(query, ['limit', 'sort', 'skip']),
-    limit : query.limit || 0,
-    offset : query.skip || 0,
+exports._buildFindQuery = function (query) {
+  return {
+    where : {
+      CompanyId : query.CompanyId
+    }
   };
-
-  if (query.sort) {
-    sequelizeQuery.order = query.sort;
-  }
-  return sequelizeQuery;
 };
+
+
+
+

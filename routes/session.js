@@ -1,8 +1,10 @@
 'use strict';
-var SessionService = require('../services/SessionService');
+var SessionService = require('../services/SessionService'),
+  logger = require('bragi');
 
 exports.authenticate = {
   handler : function (req, res, next) {
+    logger.log('access:session',req.body);
     return SessionService.authenticate(req.body)
       .then(function (user) {
         req.session.user = user;
@@ -30,6 +32,7 @@ exports.delete = {
     res.send(200);
   }
 };
+
 exports.read = {
   handler : function (req, res) {
     return res.send({user : req.session.user});

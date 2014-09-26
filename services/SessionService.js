@@ -3,7 +3,8 @@ var models = require('../models'),
   UsersService = require('./UsersService'),
   E = require('express-http-errors'),
   _ = require('lodash'),
-  when = require('when'),
+  logger = require('bragi'),
+  P = require('bluebird'),
   bcrypt = require('./bcrypt'),
   squel = require('squel');
 
@@ -11,35 +12,23 @@ var models = require('../models'),
 // ## login
 // user login function
 exports.authenticate = function (credentials) {
-  return when(credentials)
-    .then(this._getUserQuery)
-    .then(models.User.find)
-    .then(_.partial(this._validatePassword, credentials.password))
-    .then(this._removePrivateFields);
-
-};
-
-
-exports._validatePassword = function (password, user) {
-  return bcrypt.compare(password, user.password)
-    .then(function (response) {
-      // remove the users password
-      return user;
-    })
-    .catch(function (err) {
-      throw new E.NotAuthorizedError(err);
-    });
-};
-
-// ### get the user from the database
-exports._getUserQuery = function (credentials) {
-  return {
+  var query = {
     where : {
       email : credentials.email
     }
   };
+  return models.User.find(query)
+    .then(_.partial(this._validatePassword, credentials.password));
 };
-exports._removePrivateFields = function (user) {
-  delete user.password;
-  return user;
+
+
+exports._validatePassword = function (password, user) {
+  logger.log('debug:session', 'validating password for user :'+user.email);
+  return user.validatePassword(password)
+    .then(function () {
+      return user;
+    })
+    .catch(function (err) {
+      throw new E.BadRequestError('Invalid email or password');
+    });
 };

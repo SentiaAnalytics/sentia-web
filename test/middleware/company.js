@@ -30,11 +30,11 @@ describe('Middleware - company', function () {
 
     it('shoud throw a Forbidden error', function () {
       expect(err).to.exist;
-      err.should.have.property('code', 403);
+      err.should.have.property('statusCode', 403);
     });
 
     it('should not add a company to query', function () {
-      req.query.should.not.have.property('company');
+      req.query.should.not.have.property('CompanyId');
     });
 
     after(function () {
@@ -46,7 +46,7 @@ describe('Middleware - company', function () {
     var req =  {
       session : {
         user : {
-          company : 1
+          CompanyId : 1
         }
       },
       query :{}
@@ -70,7 +70,7 @@ describe('Middleware - company', function () {
     });
 
     it('should add company to the query', function () {
-      req.query.should.have.property('company', 1);
+      req.query.should.have.property('CompanyId', 1);
     });
   });
 });
