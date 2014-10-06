@@ -1,9 +1,9 @@
 'use strict';
 var bcrypt = require('bcrypt'),
-  when = require('when');
+  P = require('bluebird');
 
 exports.hash = function (password) {
-  return when.promise(function (resolve, reject) {
+  return new P(function (resolve, reject) {
     bcrypt.genSalt(10, function(err, salt) {
       bcrypt.hash(password, salt, function(err, hash) {
         if (err) {
@@ -15,7 +15,7 @@ exports.hash = function (password) {
   });
 };
 exports.compare =  function (password, hash) {
-  return when.promise(function (resolve, reject) {
+  return new P(function (resolve, reject) {
     bcrypt.compare(password, hash, function(err, res) {
       if (res === true) {
         return resolve(true);

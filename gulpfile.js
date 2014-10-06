@@ -2,7 +2,7 @@
 var gulp = require('gulp'),
   watch = require('gulp-watch'),
   config = require('config'),
-  when  =require('when'),
+  P = require('bluebird'),
   mocha = require('gulp-mocha'),
   browserify = require('gulp-browserify'),
   less = require('gulp-less'),
@@ -85,7 +85,7 @@ gulp.task('run', function () {
 });
 
 gulp.task('stop', function () {
-  return when.promise(function (resolve) {
+  return new P(function (resolve) {
     require('./server').stop(function () {
       return resolve('done');
     });
