@@ -1,6 +1,7 @@
 module.exports = {
   "port": process.env.PORT || 3000,
-  "postgres": process.env.POSTGRES_URL,
+  "mongo" : process.env.MONGOLAB_URI,
+  "mysql" : process.env.MYSQL_URL,
   redis : process.env.REDISCLOUD_URL,
   session : {
     client : this.redis,
