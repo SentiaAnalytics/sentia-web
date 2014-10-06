@@ -15,7 +15,7 @@ exports.hash = function (password) {
   });
 };
 exports.compare =  function (password, hash) {
-  return new P(function (resolve, reject) {
+  return new P (function (resolve, reject) {
     bcrypt.compare(password, hash, function(err, res) {
       if (res === true) {
         return resolve(true);

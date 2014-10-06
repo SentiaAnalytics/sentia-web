@@ -29,7 +29,7 @@
     "connect-redis": "~2.0.0",
     "express": "~4.8.3",
     "express-http-errors": "0.0.3",
-    "express-routeloader": "^0.2.13",
+    "express-routeloader": "^0.2.14",
     "express-session": "~1.7.6",
     "gulp": "~3.8.7",
     "gulp-browserify": "~0.5.0",
@@ -50,7 +50,7 @@
     "napa": "~0.4.1",
     "redis": "~0.12.1",
     "requireindex": "~1.1.0",
-    "tv4": "~1.1.0"
+    "squel": "^3.8.1"
   },
   "devDependencies": {
     "chai": "~1.9.1",
