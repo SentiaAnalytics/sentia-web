@@ -1,12 +1,30 @@
 <div class="page container-fluid p-top padding-xs-none">
     <div class="container-fluid padding-xs-none">
+    <div class="container">
+        <div class="row">
+            <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+    <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="widget widget-content">
+            <div style="border: 5px solid white; box-shadow : 0px 1px 5px rgba(0,0,0,0.4);">
+                <img ng-src="/images/cameras/{{cam._id}}.jpg" alt="" class="header-image" style="width:100%">
+            </div>
+        </div>
+        <ul class="tabs">
+        <li class="tab active"><h4>Heatmap</h4></li>
+        <li class="tab"><h4>Flowmap</h4></li>
+        <li class="tab"><h4>Counter</h4></li>
+    </ul>
+    </div>
 
-        <div id="camera-details" class="widget widget-white">
+        <!-- <div id="camera-details" class="widget widget-white">
             <div class="container-fluid p-bottom p-top padding-xs-none">
-<!--                 <div class="container-fluid padding-xs-none">
-                    <h3 id="camera-details-title" class="caps"></h3>
-                </div>
- -->                <div class="col-sm-9 padding-xs-none">
+                <div class="col-sm-9 padding-xs-none">
                     <div id="camera-shot" class="map-container">
                         <img ng-src="/images/cameras/{{cam.id}}.jpg" alt="" class="header-image">
                         <s-heatmap data="map" cols="cam.cols" rows="cam.rows" ng-show="mapQuery.type ==='heat'"></s-heatmap>
@@ -41,7 +59,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 

@@ -7,53 +7,22 @@ var P = require('bluebird'),
   E = require('express-http-errors');
 
 exports.create = function (query) {
-  return bcrypt.hash(query.password)
-    .then(lodash.partial(exports._createUser, query))
-    .catch(exports._createError);
-};
-exports._createUser = function (user, passwordHash) {
-  user.password = passwordHash;
-  return models.User.create(user);
-};
-exports._createError = function (err) {
-  console.log(err);
-  logger.log('debug:users', 'ERROR' + err);
-
-  if (err.email) {
-    throw new E.BadRequestError('Invalid Email');
-  }
-  if (err.message && err.message.indexOf('duplicate key') !== -1) {
-    throw new E.BadRequestError('A user with that email already exists');
-  }
-  throw new Error(err);
-};
-
-
-exports.find = function (query) {
-  return P.resolve(query)
-    .then(exports._buildFindQuery)
-    .then(exports._findUsers);
-};
-exports._findUsers = function (query) {
-  console.log('query');
-  console.log(query);
-  return models.User.findAll(query)
-    .then(function (users) {
-      return users;
-    })
+  var user = new models.User(query);
+  return user.savep()
     .catch(function (err) {
-      throw new E.BadRequstError('err');
+      logger.log('debug:users', err);
+      if (err.err && err.err.indexOf('duplicate key') !== 1) {
+        return P.reject(new E.BadRequestError('A user with that email already exists'));
+      }
+      return P.reject(new E.InternalError('Database Error'));
     });
 };
 
-exports._buildFindQuery = function (query) {
-  return {
-    where : {
-      CompanyId : query.CompanyId
-    }
-  };
+exports.find = function (query) {
+  return models.User.find(query).exec();
 };
 
-
-
-
+exports.delete = function (query) {
+  return models.User.findOneAndRemove(query)
+    .exec();
+};

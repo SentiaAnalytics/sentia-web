@@ -3,8 +3,6 @@ var request = require('request'),
   tokenize = require('url-builder').tokenise,
   when = require('when'),
   sinon = require('sinon'),
-  sqlite = require('./sqlite'),
-  db = require('../../../services/postgres'),
   host = 'http://localhost:3000/api';
 
 exports.headers = {

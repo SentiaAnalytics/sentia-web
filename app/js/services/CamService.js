@@ -1,10 +1,16 @@
 module.exports = function($http, $q) {
   'use strict';
-  this.getCam = function(id) {
-    return $http.get('/stores/' + id +'/camera/find')
+  this.find = function(store) {
+    return $http.get('/api/cameras?store=' + store)
       .then(function(response) {
-        module.exports.selectedCam = response.data[0];
-        return response.data[0];
+        return response.data;
+      });
+  };
+  this.read = function(id) {
+    return $http.get('/api/cameras/' + id)
+      .then(function(response) {
+        module.exports.selectedCam = response.data;
+        return response.data;
       });
   };
   this.getOverlay = function(query) {

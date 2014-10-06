@@ -9,13 +9,13 @@ module.exports = function($scope, Store, Cam) {
   'use strict';
   $scope.$root.showHeader = true;
   $scope.$root.page = 'store';
-  Store.getCameras()
+  Cam.find('54318d4064acfb0b3139807e')
     .then(function(cameras) {
       $scope.cameras = cameras;
     });
   $scope.selectCamera = function(cam) {
     Cam.selectedCam = cam;
-    $scope.$root.go('/store/camera/' + cam.id, 'animate-scale');
+    $scope.$root.go('/store/camera/' + cam._id, 'animate-scale');
 
   };
 };

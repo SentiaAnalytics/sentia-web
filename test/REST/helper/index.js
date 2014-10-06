@@ -1,50 +1,6 @@
 'use strict';
 var utils = require('./utils');
 
-//## Dummy Data
-exports.dummyUser = {
-  email: 'user@example.com',
-  company: 1,
-  firstname: null,
-  lastname: null,
-  id: 1,
-  createdAt: null,
-  updatedAt: null
-};
-exports.dummyCamera = {
-  company: 1,
-  store: 1,
-  name: 'Camera 1',
-  id: 1,
-  createdAt: null,
-  updatedAt: null,
-  cols: 100,
-  rows: 100
-};
-exports.dummyMap = {
-  id: 1,
-  x: 2,
-  y: 3,
-  heat: 6,
-  cam: 1,
-  company: 1,
-  time: 1000000,
-  store: 1,
-  dx: 4,
-  dy: 5
-};
-
-exports.dummyTimeline = [
-  {
-    hour : 0,
-    count : 1
-  },
-  {
-    hour : 1,
-    count : 2
-  }
-];
-
 
 // #helper functions
 exports.cameras = {
@@ -83,4 +39,12 @@ exports.session =  {
       });
   }
 
+};
+exports.users = {
+  create : function (user) {
+    return utils.post('/users', null, user);
+  },
+  find :function (query) {
+    return utils.get('/users', query);
+  }
 };

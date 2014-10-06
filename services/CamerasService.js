@@ -1,42 +1,46 @@
 'use strict';
-var db = require('./postgres'),
-  squel = require('squel'),
-  when = require('when');
+var models = require('../models'),
+  P = require('bluebird'),
+  objectId = require('mongoose').Types.ObjectId,
+  E = require('express-http-errors'),
+  logger = require('bragi');
 
-exports.find = function (query) {
-  return when(query)
-    .then(this._buildGetQuery)
-    .then(db.query);
+exports.create = function (query) {
+  var camera = new models.Camera(query);
+  return camera.savep()
+    .catch(function (err) {
+      return P.reject(new E.InternalError('Database Error'));
+    });
 };
 exports.read = function (query) {
-  return when(query)
-    .then(this._buildGetQuery)
-    .then(db.query)
-    .then(this.getFirstElement);
+  return P.resolve(query)
+    .then(exports._transformQuery)
+    .then(function (query) {
+      return models.Camera.findOne(query).exec();
+    });
+    
+  
 };
-exports._getFirstElement = function (results) {
-  return results[0];
+
+exports.find = function (query) {
+  return P.resolve(query)
+    .then(exports._transformQuery)
+    .then(function (query) {
+      return models.Camera.find(query).exec();
+    });
 };
 
-exports._buildGetQuery = function (query) {
-  var q = squel.select()
-    .from('"camera"')
-    .where('company = ?', query.company);
-
-  if (query.store) {
-    q.where('store = ?', query.store);
+exports.delete = function (query) {
+  return models.Camera.findOneAndRemove(query)
+    .exec();
+};
+exports._transformQuery = function (query) {
+  if(query.store) {
+    query.store = objectId(query.store);
   }
-
-  if (query.order) {
-    q.order(query.order);
+    if(query._id) {
+    query._id = objectId(query._id);
   }
-
-  if (query.limit) {
-    q.limit(query.limit);
-  }
-
-  if (query.skip) {
-    q.offset(query.skip);
-  }
-  return q.toString();
+  console.log(query);
+  return query;
 };

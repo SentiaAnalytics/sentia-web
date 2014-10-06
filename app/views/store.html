@@ -2,7 +2,6 @@
 <div class="row">
     <ul class="tabs">
         <li class="tab"><h4>Details</h4></li>
-        <li class="tab"><h4>Customers</h4></li>
         <li class="tab active"><h4>Cameras</h4></li>
     </ul>
 </div>
@@ -12,12 +11,12 @@
                 <input type="text" id="camera-list-search" class="form-control" role="search" ng-model="camSearch">
             </div>
             <ul class="list list-widgets row">
-                <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" ng-click="$parent.selectedCam = cam" ng-class="{active: selectedCam.id === cam.id}" class="col-md-4 col-sm-6 animate-slide">
+                <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" ng-click="$parent.selectedCam = cam" ng-class="{active: selectedCam._id === cam._id}" class="col-md-4 col-sm-6 animate-slide">
                 <a ng-click="selectCamera(cam)">
                     <div class="widget a widget-content gutter-top">
                         <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->
                         <div style="height :195px; overflow: hidden; border: 5px solid white; box-shadow : 0px 1px 5px rgba(0,0,0,0.4);">
-                            <img ng-src="/images/cameras/{{cam.id}}.jpg" alt="" class="header-image">
+                            <img ng-src="/images/cameras/{{cam._id}}.jpg" alt="" class="header-image">
                         </div>
                     </div>
                 </a>

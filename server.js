@@ -1,6 +1,7 @@
 'use strict';
 var express = require('express'),
   config = require('config'),
+  mongoose = require('mongoose'),
   bootstrap = require('./bootstrap'),
   middleware = require('./middleware'),
   session = require('express-session'),
@@ -54,8 +55,10 @@ exports.stop = function () {
     return new P.resolve('Server not running');
   }
   return new P(function (resolve) {
-    server.close(function () {
-      return resolve();
+    mongoose.connection.close(function () {
+      server.close(function () {
+        return resolve();
+      });
     });
   });
 };

@@ -6,7 +6,7 @@ var chai = require('chai'),
 
 chai.use(require('chai-as-promised'));
 
-describe('Middleware - company', function () {
+describe.skip('Middleware - company', function () {
   describe('when called without a company', function() {
     var req =  {
       session : {

@@ -5,30 +5,27 @@ var models = require('../models'),
   _ = require('lodash'),
   logger = require('bragi'),
   P = require('bluebird'),
-  bcrypt = require('./bcrypt'),
-  squel = require('squel');
+  bcrypt = require('./bcrypt');
 
 
 // ## login
 // user login function
 exports.authenticate = function (credentials) {
-  var query = {
-    where : {
-      email : credentials.email
-    }
-  };
-  return models.User.find(query)
-    .then(_.partial(this._validatePassword, credentials.password));
+  return models.User.findOne({email : credentials.email})
+    .exec()
+    .then(exports._validatePassword.bind(credentials))
+    .then(null, function (err) {
+      logger.log('debug:authenticate', err);
+      return P.reject(err);
+    });
 };
 
-
-exports._validatePassword = function (password, user) {
-  logger.log('debug:session', 'validating password for user :'+user.email);
-  return user.validatePassword(password)
+exports._validatePassword = function (user) {
+  if (!user) {
+    return P.reject(new E.NotAuthorizedError('User not found'));
+  }
+  return user.authenticate(this.password)
     .then(function () {
       return user;
-    })
-    .catch(function (err) {
-      throw new E.BadRequestError('Invalid email or password');
     });
 };

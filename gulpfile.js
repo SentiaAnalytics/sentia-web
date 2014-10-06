@@ -3,7 +3,7 @@ var gulp = require('gulp'),
   watch = require('gulp-watch'),
   config = require('config'),
   when  =require('when'),
-  mocha = require('gulp-spawn-mocha'),
+  mocha = require('gulp-mocha'),
   browserify = require('gulp-browserify'),
   less = require('gulp-less'),
   shell = require('gulp-shell'),
@@ -20,12 +20,16 @@ gulp.task('unit', function() {
     }));
 });
 
-gulp.task('rest', function() {
+gulp.task('rest', ['run'],function() {
   return gulp.src(['test/REST/**/*.js'])
     .pipe(mocha({
-      // reporter: 'spec'
-    }));
+      reporter: 'spec'
+    }))
+    .on('end',function () {
+      gulp.start('stop');
+    });
 });
+
 
 gulp.task('watch', function() {
   return gulp.watch([
@@ -80,9 +84,9 @@ gulp.task('run', function () {
       });
 });
 
-gulp.task('end', function () {
+gulp.task('stop', function () {
   return when.promise(function (resolve) {
-    server.close(function () {
+    require('./server').stop(function () {
       return resolve('done');
     });
   });

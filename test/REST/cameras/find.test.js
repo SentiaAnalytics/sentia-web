@@ -6,7 +6,7 @@ var chai = require('chai'),
 
 chai.use(require('chai-as-promised'));
 
-describe('/cameras/find', function () {
+describe.skip('/cameras/find', function () {
   before(function () {
     return helper.session.authenticate({email : 'user@example.com', password : 'password'});
   });

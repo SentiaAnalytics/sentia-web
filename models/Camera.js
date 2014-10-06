@@ -1,15 +1,25 @@
 'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var Camera = sequelize.define('Camera', {
-    Name : DataTypes.STRING,
-    Description : DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function (models) {
-        Camera.belongsTo(models.Company);
-        Camera.belongsTo(models.Store);
+var mongoose = require('mongoose'),
+  logger = require('bragi'),
+  P = require('bluebird'),
+  cameraSchema;
+
+cameraSchema = mongoose.Schema({
+  name : String,
+  ip : String,
+  store : mongoose.Schema.Types.ObjectId,
+  company :  mongoose.Schema.Types.ObjectId
+});
+cameraSchema.methods.savep = function () {
+  return new P(function (resolve, reject) {
+    this.save(function (err) {
+      if (err) {
+        logger.log('debug:users', err);
+        return reject(err);
       }
-    }
-  });
-  return Camera;
+        logger.log('debug:users', 'Camera created');
+        return resolve(this);
+    });
+  }.bind(this));
 };
+module.exports = mongoose.model('Camera', cameraSchema);

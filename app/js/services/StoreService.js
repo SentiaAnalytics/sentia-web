@@ -1,10 +1,10 @@
 module.exports = function($http) {
   'use strict';
   this.selected = {
-    id: '52fd38afe0461b48a7f9c297'
+    id: '54318d4064acfb0b3139807e'
   };
   this.getCameras = function() {
-    return $http.get('/api/cameras?storeId=' + this.selected.id)
+    return $http.get('/api/cameras?store=' + this.selected.id)
       .then(function(response) {
         return response.data;
       });

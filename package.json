@@ -1,6 +1,6 @@
 {
   "name": "sentia-express",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -45,24 +45,21 @@
     "jshint-stylish": "~0.4.0",
     "lodash": "~2.4.1",
     "moment": "~2.8.2",
+    "mongoose": "^3.8.16",
+    "mysql": "^2.5.1",
     "napa": "~0.4.1",
-    "pg": "~3.4.2",
-    "pg-copy-streams": "~0.2.4",
     "redis": "~0.12.1",
     "requireindex": "~1.1.0",
-    "sequelize": "~1.7.10",
-    "simple-mongo": "0.0.2",
-    "squel": "~3.7.0",
-    "tv4": "~1.1.0",
-    "when": "~3.4.4"
+    "tv4": "~1.1.0"
   },
   "devDependencies": {
     "chai": "~1.9.1",
-    "sinon": "~1.10.3",
     "chai-as-promised": "~4.1.1",
+    "minimist": "^1.1.0",
+    "mocha": "~1.21.4",
     "request": "~2.40.0",
-    "url-builder": "~0.2.1",
+    "sinon": "~1.10.3",
     "sqlite3": "~2.2.7",
-    "mocha": "~1.21.4"
+    "url-builder": "~0.2.1"
   }
 }

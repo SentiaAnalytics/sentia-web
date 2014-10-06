@@ -3,8 +3,13 @@ var UsersService = require('../services/UsersService'),
   middleware = require('../middleware'),
   lodash = require('lodash');
 exports.create = {
-  handler : function (req) {
-    return UsersService.create(lodash.merge(req.body,req.query));
+  handler : function (req, res, next) {
+    UsersService.create(lodash.merge(req.body,req.query))
+      .then(function (user) {
+        return res.status(201)
+          .send(user);
+      })
+      .catch(next);
   },
   middleware : [middleware.company],
   body : {

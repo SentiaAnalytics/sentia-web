@@ -5,18 +5,18 @@ var models = require('../models'),
   logger = require('bragi');
 
 exports.create = function (query) {
-  var company = new models.Company(query);
-  return company.savep()
+  var store = new models.Store(query);
+  return store.savep()
     .catch(function (err) {
       return P.reject(new E.InternalError('Database Error'));
     });
 };
 exports.read = function (query) {
-  return models.Company.findOne(query).exec();
+  return models.Store.findOne(query).exec();
 };
 
 exports.find = function (query) {
-  return models.Company.find(query).exec();
+  return models.Store.find(query).exec();
 };
 
 exports.delete = function (query) {

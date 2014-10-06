@@ -1,10 +1,28 @@
 'use strict';
 var middleware = require('../middleware'),
+  lodash = require('lodash'),
   CameraService = require('../services/CamerasService');
 
 // #Cameras
 // Endpoints for Managing camera objects
 
+// ## Read
+// get a specific camera by id
+exports.read = {
+  url : ':_id',
+  handler : function (req, res, next) {
+    return CameraService.read(lodash.merge(req.params, req.query));
+  },
+  middleware : [middleware.company],
+  params : {
+    required : ['_id'],
+    properties : {
+      id : {
+        type : 'integer'
+      }
+    }
+  }
+};
 // ## Find
 // get a list of cameras based on the supplied queries
 exports.find = {
@@ -13,6 +31,7 @@ exports.find = {
   },
   middleware : [middleware.company],
   query : {
+    additionalProperties : false,
     properties : {
       name : {
         type : 'string'
@@ -33,19 +52,4 @@ exports.find = {
   }
 };
 
-// ## Read
-// get a specific camera by id
-exports.read = {
-  handler : function (req, res, next) {
-    return CameraService.find(req.query);
-  },
-  middleware : [middleware.company],
-  params : {
-    required : ['id'],
-    properties : {
-      id : {
-        type : 'integer'
-      }
-    }
-  }
-};
+

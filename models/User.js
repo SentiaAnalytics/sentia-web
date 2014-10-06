@@ -1,35 +1,53 @@
 'use strict';
-var bcrypt = require('../services/bcrypt');
-module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define('User', {
-    email: {
-      type : DataTypes.STRING,
-      validate : {
-        isEmail : true
-      },
-      unique : true
-    },
-    password : DataTypes.STRING,
-    firstname : DataTypes.STRING,
-    lastname : DataTypes.STRING
-  }, {
-    instanceMethods: {
-      toJSON: function () {
-        var values = this.values;
+var mongoose = require('mongoose'),
+  logger = require('bragi'),
+  P = require('bluebird'),
+  bcrypt = require('../services/bcrypt'),
+  UserSchema;
 
-        delete values.password;
-        return values;
-      },
-      validatePassword : function (password) {
-        return bcrypt.compare(password, this.values.password);
-      }
-    },
-    classMethods: {
-      associate: function (models) {
-        User.belongsTo(models.Company);
-      }
-    }
-  });
+UserSchema = mongoose.Schema({
+  email : {
+    type : String,
+    unique : true,
+    required : true
+  },
+  password : {
+    type : String,
+    required : true
+  },
+  firstname : String,
+  lastname : String,
+  company : mongoose.Schema.Types.ObjectId
+});
+UserSchema.set('toJSON', {transform : function (doc, ret, options) {
+  delete ret.password;
+}});
 
-  return User;
+UserSchema.pre('save', function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+  bcrypt.hash(this.password)
+    .then(function (hash) {
+      this.password = hash;
+      return next();
+    }.bind(this));
+});
+UserSchema.methods.savep = function () {
+  return new P(function (resolve, reject) {
+    this.save(function (err) {
+      if (err) {
+        logger.log('debug:users', err);
+        return reject(err);
+      }
+        logger.log('debug:users', 'User created');
+        return resolve(this);
+    });
+  }.bind(this));
 };
+
+UserSchema.methods.authenticate = function (password) {
+  return bcrypt.compare(password, this.password);
+};
+
+module.exports = mongoose.model('User', UserSchema);

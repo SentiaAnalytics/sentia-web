@@ -32,10 +32,12 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
               $scope.map = response;
           });
   }
+  console.log($routeParams);
   if (Cam.selectedCam) {
       $scope.cam = Cam.selectedCam;
   } else if ($routeParams.id) {
-      Cam.getCam($routeParams.id)
+    console.log($routeParams.id);
+      Cam.read($routeParams.id)
           .then(function (cam) {
               $scope.cam = cam;
               updateTimeline();
@@ -44,7 +46,7 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
   }
   $route.current.params.date = 123;
 
-  $scope.store = "52fd38afe0461b48a7f9c297"; // because we only have one :)
+  $scope.store = "54318d4064acfb0b3139807e"; // because we only have one :)
   $scope.$root.showHeader = true;
   $scope.$root.page = 'cam';
   today = moment.utc()
@@ -70,4 +72,21 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
       updateTimeline();
       updateOverlay();
   });
+  $scope.dt = new Date();
+
+  $scope.minDate = $scope.minDate ? null : new Date();
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.opened = true;
+  };
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  $scope.format = $scope.formats[0];
 };

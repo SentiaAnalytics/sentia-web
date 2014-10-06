@@ -5,7 +5,7 @@ var chai = require('chai'),
 
 chai.use(require('chai-as-promised'));
 
-describe('/session/read', function () {
+describe.skip('/session/read', function () {
   describe('when logged in', function() {
     var promise;
     before(function () {

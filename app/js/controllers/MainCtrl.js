@@ -7,11 +7,11 @@
 /*jslint browser:true, nomen:true*/
 module.exports = function ($scope, $http, $location) {
   'use strict';
-  $http.get('/api/users/active')
-    .success(function (user) {
-      console.log('Active user: ', user.email);
+  $http.get('/api/session')
+    .success(function (session) {
+      console.log('Active user: ', session.user.email);
       $scope.$root.showHeader = true;
-      $scope.$root.user = user;
+      $scope.$root.user = session.user;
     })
     .error(function () {
       $location.path('/login');
