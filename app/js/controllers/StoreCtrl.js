@@ -3,7 +3,6 @@
  * @author Andreas
  * @date   2014-04-11
  */
-require('../services/StoreService.js');
 
 module.exports = function($scope, Store, Cam) {
   'use strict';

@@ -1,0 +1,21 @@
+{
+  "name": "sentia-web",
+  "version": "1.0.0",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "angular": "*",
+    "d3": "~3.4.11",
+    "angular-animate": "~1.2.26",
+    "angular-bootstrap": "~0.11.2",
+    "angular-md5": "~0.1.7",
+    "angular-route": "~1.2.26",
+    "angular-sanitize": "~1.2.26",
+    "angular-touch": "~1.2.26",
+    "angular-ui-utils": "~0.1.1",
+    "angulartics": "~0.17.0"
+  },
+  "devDependencies": {}
+}

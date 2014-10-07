@@ -4,30 +4,17 @@
  * @date   2014-04-11
  */
  var moment = require('moment');
- require('../services/CamService.js');
-
 /*jslint browser:true, nomen:true*/
 module.exports = function($scope, $route, $routeParams, $location, Cam) {
   'use strict';
   var today;
-  function updateTimeline() {
-      Cam.getTimeline({
-          date : $scope.mapQuery.date,
-          type : $scope.mapQuery.type
-      })
-      .then(function (response) {
-          $scope.timeline = response;
-      });
-  }
   function updateOverlay() {
       var query = {
-          limit : 1,
-          date : $scope.mapQuery.date,
-          type : $scope.mapQuery.type,
-          hour : $scope.mapQuery.hour,
+          camera : $scope.cam._id,
+          from : $scope.mapQuery.date
       };
       $scope.map = undefined;
-      Cam.getOverlay(query)
+      Cam.getMap(query)
           .then(function (response) {
               $scope.map = response;
           });
@@ -40,7 +27,6 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
       Cam.read($routeParams.id)
           .then(function (cam) {
               $scope.cam = cam;
-              updateTimeline();
               updateOverlay();
           });
   }
@@ -50,26 +36,23 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
   $scope.$root.showHeader = true;
   $scope.$root.page = 'cam';
   today = moment.utc()
+      .hours(0)
       .minutes(0)
       .seconds(0)
       .millisecond(0)
-      .subtract('hours', 1).toDate();
+      .subtract('hours', 1);
   $scope.mapQuery = {
-      limit: 1,
-      date: today,
-      hour: today.getHours(),
-      type: 'heat',
+      type : 'heat',
+      from : today.format(),
       cam : $scope.cam
   };
   $scope.$watch('mapQuery.hour', function() {
       updateOverlay();
   });
   $scope.$watch('mapQuery.date', function() {
-      updateTimeline();
       updateOverlay();
   });
   $scope.$watch('mapQuery.type', function() {
-      updateTimeline();
       updateOverlay();
   });
   $scope.dt = new Date();
@@ -89,4 +72,7 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
 
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
   $scope.format = $scope.formats[0];
+  $scope.setMapType = function (type) {
+    $scope.mapQuery.type = type;
+  };
 };

@@ -1,3 +1,4 @@
+var moment = require('moment');
 module.exports = function($http, $q) {
   'use strict';
   this.find = function(store) {
@@ -13,29 +14,25 @@ module.exports = function($http, $q) {
         return response.data;
       });
   };
-  this.getOverlay = function(query) {
+  this.getMap = function(query) {
     if (!module.exports.selectedCam) {
       return $q.reject('No cam selected');
     }
-    query.cam = module.exports.selectedCam.id;
+    query.from = moment()
+      .subtract(1, 'day')
+      .hours(12)
+      .minutes(0)
+      .seconds(0)
+      .format('YYYY-MM-DD HH:mm:ss');
+    query.to = moment(query.from).add(1, 'hour').format('YYYY-MM-DD HH:mm:ss');
     console.log(query);
-    return $http.post('/map/find', query)
+    return $http.get('/api/maps?camera=' +query.camera+ '&from=' + query.from + '&to=' + query.to)
       .then(function(response) {
-        mixpanel.track('View Map', {
-          cam: query.cam,
-          date: query.date,
-          type: query.type
-        });
         return response.data || undefined;
       })
       .
     catch (function(error) {
-      console.log(status);
       console.log(error);
-      mixpanel.track('View Map Error', {
-        cam: query.cam,
-        date: query.date
-      });
       return error;
     });
   };
@@ -56,10 +53,6 @@ module.exports = function($http, $q) {
           data[response.data[i].hour] = response.data[i].count || 0;
           max = Math.max(max, response.data[i].count);
         }
-        mixpanel.track('Update Timeline', {
-          cam: data.cam,
-          date: data.date
-        });
         return {
           max: max,
           data: data

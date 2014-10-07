@@ -8,25 +8,21 @@
     "start": "node node_modules/.bin/gulp",
     "test": " node node_modules/.bin/gulp test"
   },
+  "browserify-shim": {
+    "angular": "angular"
+  },
   "author": "Andreas Møller",
   "license": "ISC",
-  "napa": {
-    "angular": "angular/bower-angular",
-    "angular-route": "angular/bower-angular-route",
-    "angular-animate": "angular/bower-angular-animate",
-    "angular-sanitize": "angular/bower-angular-sanitize",
-    "angular-touch": "angular/bower-angular-touch",
-    "angular-bootstrap": "angular-ui/bootstrap",
-    "angular-md5": "gdi2290/angular-md5",
-    "ui-utils": "angular-ui/ui-utils"
-  },
   "dependencies": {
     "bcrypt": "~0.8.0",
     "bluebird": "^2.3.2",
     "body-parser": "~1.6.3",
     "bragi": "0.0.11",
+    "browserify": "^6.0.2",
+    "browserify-shim": "^3.8.0",
     "config": "~1.0.2",
     "connect-redis": "~2.0.0",
+    "debowerify": "^0.8.2",
     "express": "~4.8.3",
     "express-http-errors": "0.0.3",
     "express-routeloader": "^0.2.14",

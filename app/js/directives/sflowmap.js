@@ -3,6 +3,8 @@
  * @author  Andreas Møller
  * 2014
  */
+
+require('d3');
 angular.module('sFlowmap', [])
   .directive('sFlowmap', function() {
     'use strict';
@@ -35,8 +37,8 @@ angular.module('sFlowmap', [])
             }
             return result;
           }, []);
-          width = element.width() * 2.5;
-          height = element.height() * 2.5;
+          width = element[0].offsetWidth * 4;
+          height = element[0].offsetHeight * 4;
           color = d3.scale.linear()
             .domain([0, max * 0.3, max])
             .range(['yellowgreen', '#FFFF83', 'red']);

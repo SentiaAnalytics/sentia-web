@@ -1,23 +1,16 @@
 // load dependencies
-require('angular/angular');
-require('angular-route/angular-route');
-require('angular-animate/angular-animate');
-require('angular-touch/angular-touch');
-require('angular-sanitize/angular-sanitize');
-require('./lib/angular-md5/angular-md5.js');
-require('./lib/angular-bootstrap/ui-bootstrap-tpls');
-require('./lib/angular-ui-utils/ui-utils.js');
 
-require('./lib/angulartics/src/angulartics.js');
-require('./lib/angulartics/src/angulartics-mixpanel.js');
-
-// Directives
+// require('./directives/linechart.js');
+require('angular');
+require('angular-route');
+require('angular-touch');
+require('angular-animate');
+require('angular-md5');
+require('angular-bootstrap');
+require('angular-sanitize');
+require('angular-ui-utils');
 require('./directives/sflowmap.js');
 require('./directives/sheatmap.js');
-require('./directives/barchart.js');
-// require('./directives/linechart.js');
-
-
 (function() {
   'use strict';
   // create new angular module app
@@ -25,15 +18,12 @@ require('./directives/barchart.js');
     'ngRoute',
     'ngTouch',
     'ngAnimate',
-    'angular-md5',
-    'ui.bootstrap',
+    'ngMd5',
     'ngSanitize',
+    'ui.bootstrap',
     'ui.utils',
-    'sHeatmap',
     'sFlowmap',
-    'angulartics',
-    'angulartics.mixpanel',
-    'barchart'
+    'sHeatmap'
   ]);
 
   // Services
@@ -41,16 +31,15 @@ require('./directives/barchart.js');
   app.service('Store', require('./services/StoreService.js'));
   app.service('Customer', require('./services/CustomerService.js'));
 
-  // Controllers
+  // // Controllers
   app.controller('CamCtrl', require('./controllers/CamCtrl'));
-  app.controller('DashCtrl', require('./controllers/DashCtrl'));
   app.controller('LoginCtrl', require('./controllers/LoginCtrl'));
   app.controller('MainCtrl', require('./controllers/MainCtrl'));
   app.controller('StoreCtrl', require('./controllers/StoreCtrl'));
   app.controller('UserCtrl', require('./controllers/UserCtrl'));
 
-  // Filters
-  app.filter('heatFilter', require('./filters/heatFilter.js'));
+  // // Filters
+  // app.filter('heatFilter', require('./filters/heatFilter.js'));
 
   // configure routes
   app.config(require('./config/router.js'));

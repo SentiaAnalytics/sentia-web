@@ -10,27 +10,20 @@
     <link type="text/css" href='build/icons.css' rel='stylesheet'/>
     <link type="text/css" href='build/style.css' rel='stylesheet'/>
     <link id="favicon" rel="icon" type="image/png" sizes="64x64" href="images/logos/sentia_small.png">
-    <!-- start Mixpanel -->
-    <script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-mixpanel.init("ab9b26ff75a589b821814d55c2dcc7f8");</script>
-<!-- end Mixpanel -->
   </head>
 
   <body>
     <div class="full-height" ng-controller="MainCtrl">
         <!-- <div class="nav-button hide-on-login icon-menu a" ng-click="toggleMenu()"> -->
         <!-- </div> -->
-        <div class="row full-height content " style="white-space: nowrap;" >
+        <div class="row full-height content">
             <div id="sidebar" class="sidebar bg-primary" ng-show="showHeader" style="white-space: normal;">
                 <!-- <div><h4 class="shadow caps">Sentia.io</h4></div> -->
                 <ul class="menu full-height">
-                    <li class="a" ng-click="go('/')"><div class="icon-sentia-logo"></div></li>
                     <li ng-class="{active : page === 'users'}" class="a" ng-click="go('/users')">
                         <img ng-src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?s=40&d=https://pbs.twimg.com/profile_images/3292107408/13effc3507c3fabffed7d4b034ea1a41.jpeg" alt="" id="active-user-avatar" class="img-xs-round">
                     </li>
                     <li ng-class="{active : page === 'store' || page === 'cam'}" class="a" ng-click="go('/store')">  <div class="icon-home"></div></li>
-                    <li ng-class="{active : page === 'dashboard'}" class="a" ng-click="go('/dashboard')">  <div class="icon-bars"></div></li>
 
                     <li class="a" ng-click="logout()" ><div class="icon-switch"></div></li>
                 </ul>

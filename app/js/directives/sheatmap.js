@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('sHeatmap', [])
     .factory('simpleheat', function() {
         /*
@@ -168,8 +167,8 @@ angular.module('sHeatmap', [])
                         data = scope.data.map(function (item) {
                             return [item.x * 10, item.y * 10, item.heat];
                         });
-                        cols = scope.cols*10;
-                        rows = scope.rows*10;
+                        cols = scope.cols*3;
+                        rows = scope.rows*3;
                         canvas.width = cols;
                         canvas.height = rows;
                         if(cols!== 0 && rows !== 0) {

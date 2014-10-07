@@ -68,7 +68,8 @@ gulp.task('less', function () {
 gulp.task('browserify', function () {
   return gulp.src('app/js/app.js')
     .pipe(browserify({
-      debug : true
+      debug : true,
+      transform : ['debowerify']
     }))
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('app/build/'))

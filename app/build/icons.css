@@ -1,16 +1,16 @@
 @font-face {
-	font-family: 'sentia-icons';
-	src:url('fonts/sentia-icons.eot?-m5r0kc');
-	src:url('fonts/sentia-icons.eot?#iefix-m5r0kc') format('embedded-opentype'),
-		url('fonts/sentia-icons.woff?-m5r0kc') format('woff'),
-		url('fonts/sentia-icons.ttf?-m5r0kc') format('truetype'),
-		url('fonts/sentia-icons.svg?-m5r0kc#sentia-icons') format('svg');
+	font-family: 'sentia-icon';
+	src:url('fonts/sentia-icon.eot?-swf3ls');
+	src:url('fonts/sentia-icon.eot?#iefix-swf3ls') format('embedded-opentype'),
+		url('fonts/sentia-icon.woff?-swf3ls') format('woff'),
+		url('fonts/sentia-icon.ttf?-swf3ls') format('truetype'),
+		url('fonts/sentia-icon.svg?-swf3ls#sentia-icon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
-	font-family: 'sentia-icons';
+	font-family: 'sentia-icon';
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
@@ -23,18 +23,21 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-sentia-logo:before {
-	content: "\e604";
+.icon-location:before {
+	content: "\e602";
+}
+.icon-chevron-down:before {
+	content: "\f0a3";
+}
+.icon-flame:before {
+	content: "\f0d2";
 }
 .icon-home:before {
 	content: "\e600";
 }
-.icon-dashboard:before {
-	content: "\e601";
+.icon-stats:before {
+	content: "\e603";
 }
 .icon-switch:before {
-	content: "\e602";
-}
-.icon-blocked:before {
-	content: "\e603";
+	content: "\e601";
 }
