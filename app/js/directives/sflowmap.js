@@ -19,7 +19,7 @@ angular.module('sFlowmap', [])
       },
       link: function postLink(scope, element) {
         function updateMap() {
-          var color, scalex, scaley, width, height, max = 1000;
+          var color, scalex, scaley, width, opacity, height, max = 1000;
 
           if (!scope.data) {
             return;
@@ -43,6 +43,9 @@ angular.module('sFlowmap', [])
           color = d3.scale.linear()
             .domain([0, max * 0.3, max])
             .range(['yellowgreen', '#FFFF83', 'red']);
+          opacity = d3.scale.linear()
+            .domain([0, 4])
+            .range([0, 1]);
           scalex = d3.scale.linear()
             .domain([0, scope.cols * 0.2])
             .range([0, width]);
@@ -65,6 +68,10 @@ angular.module('sFlowmap', [])
             .attr('transform', function(d) {
               return 'translate(' + scalex(d.x) + ',' + scaley(d.y) +
                 '), rotate(' + d.angle / (2 * Math.PI) * 360 + ')';
+            })
+            .attr('opacity', function (d) {
+              console.log(d.magnitude);
+              return opacity(d.magnitude);
             });
         }
         scope.$watch('data', updateMap);
