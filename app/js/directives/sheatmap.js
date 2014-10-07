@@ -167,8 +167,8 @@ angular.module('sHeatmap', [])
                         data = scope.data.map(function (item) {
                             return [item.x * 10, item.y * 10, item.heat];
                         });
-                        cols = scope.cols*3;
-                        rows = scope.rows*3;
+                        cols = scope.cols*2;
+                        rows = scope.rows*2;
                         canvas.width = cols;
                         canvas.height = rows;
                         if(cols!== 0 && rows !== 0) {

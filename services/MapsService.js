@@ -20,11 +20,6 @@ exports.find = function (query) {
       return query;
     })
     .then(db.query)
-    .then(function (data) {
-      console.log('response from db');
-      console.log(data); 
-      return data;
-    })
     .catch(function (err) {
       console.log(err.stack);
 
@@ -39,13 +34,15 @@ exports._getCamera = function (query) {
       if (!camera) {
         return P.reject(new E.badRequestError('Camera does not exist'));
       }
-      query.camera = camera;
+      console.log(camera.toObject());
+      query.dataId = camera.toObject().dataId;
       return query;
     });
 };
 exports._buildMapQuery = function (query) {
   console.log('build');
   console.log(query);
+  
   return squel.select()
     .field('x')
     .field('y')
@@ -55,7 +52,7 @@ exports._buildMapQuery = function (query) {
     .from('map')
     .where('time < ?', query.to)
     .where('time > ?', query.from)
-    .where('cam = ' + 1)
+    .where('cam = ' + query.dataId)
     .group('x, y')
     .toString();
 };

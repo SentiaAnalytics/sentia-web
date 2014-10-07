@@ -42,7 +42,7 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
       .millisecond(0)
       .subtract('hours', 1);
   $scope.mapQuery = {
-      type : 'heat',
+      type : '',
       from : today.format(),
       cam : $scope.cam
   };
