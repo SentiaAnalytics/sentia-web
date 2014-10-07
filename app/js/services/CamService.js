@@ -19,8 +19,8 @@ module.exports = function($http, $q) {
       return $q.reject('No cam selected');
     }
     query.from = moment()
-      .subtract(1, 'day')
-      .hours(12)
+      .subtract(1, 'hour')
+      .hours(0)
       .minutes(0)
       .seconds(0)
       .format('YYYY-MM-DD HH:mm:ss');

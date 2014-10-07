@@ -14,10 +14,11 @@ angular.module('sFlowmap', [])
       scope: {
         data: '=',
         rows: '=',
-        cols: '='
+        cols: '=',
+        trigger : '='
       },
       link: function postLink(scope, element) {
-        scope.$watch('data', function() {
+        function updateMap() {
           var color, scalex, scaley, width, height, max = 1000;
 
           if (!scope.data) {
@@ -43,10 +44,10 @@ angular.module('sFlowmap', [])
             .domain([0, max * 0.3, max])
             .range(['yellowgreen', '#FFFF83', 'red']);
           scalex = d3.scale.linear()
-            .domain([0, scope.cols])
+            .domain([0, scope.cols * 0.2])
             .range([0, width]);
           scaley = d3.scale.linear()
-            .domain([0, scope.rows])
+            .domain([0, scope.rows * 0.2])
             .range([0, height]);
           d3.select(element[0])
             .select('svg')
@@ -65,7 +66,9 @@ angular.module('sFlowmap', [])
               return 'translate(' + scalex(d.x) + ',' + scaley(d.y) +
                 '), rotate(' + d.angle / (2 * Math.PI) * 360 + ')';
             });
-        });
+        }
+        scope.$watch('data', updateMap);
+        scope.$watch('trigger', updateMap);
       }
     };
   });

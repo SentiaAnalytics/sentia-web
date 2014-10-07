@@ -43,9 +43,11 @@
     "moment": "~2.8.2",
     "mongoose": "^3.8.16",
     "mysql": "^2.5.1",
+    "mysql2": "^0.12.5",
     "napa": "~0.4.1",
     "redis": "~0.12.1",
     "requireindex": "~1.1.0",
+    "socksjs": "^0.4.5",
     "squel": "^3.8.1"
   },
   "devDependencies": {
