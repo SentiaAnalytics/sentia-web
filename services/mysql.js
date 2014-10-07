@@ -33,8 +33,6 @@ if (config.proxy) {
     port: url.parse(config.mysql).port
   };
 
-  
-
   socks_options = {
     host: url.parse(config.proxy).hostname,
     port: 1080,

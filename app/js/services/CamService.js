@@ -14,17 +14,25 @@ module.exports = function($http, $q) {
         return response.data;
       });
   };
-  this.getMap = function(query) {
+  this.getMap = function(data) {
+    var query; 
     if (!module.exports.selectedCam) {
       return $q.reject('No cam selected');
     }
-    query.from = moment()
-      .subtract(1, 'hour')
-      .hours(0)
-      .minutes(0)
-      .seconds(0)
-      .format('YYYY-MM-DD HH:mm:ss');
-    query.to = moment(query.from).add(1, 'hour').format('YYYY-MM-DD HH:mm:ss');
+    query = {
+      camera : data.camera,
+      from : moment(data.date)
+        .hours(0)
+        .minutes(0)
+        .seconds(0)
+        .format('YYYY-MM-DD HH:mm:ss'),
+      to : moment(data.date)
+        .add(1, 'day')
+        .hours(0)
+        .minutes(0)
+        .seconds(0)
+        .format('YYYY-MM-DD HH:mm:ss')
+    };
     console.log(query);
     return $http.get('/api/maps?camera=' +query.camera+ '&from=' + query.from + '&to=' + query.to)
       .then(function(response) {

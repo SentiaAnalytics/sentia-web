@@ -8,10 +8,11 @@
 module.exports = function($scope, $route, $routeParams, $location, Cam) {
   'use strict';
   $scope.date = moment.utc()
-      .minutes(0)
-      .seconds(0)
-      .millisecond(0)
-      .toDate();
+    .hours(0)
+    .minutes(0)
+    .seconds(0)
+    .millisecond(0)
+    .toDate();
 
   $scope.store = "54318d4064acfb0b3139807e"; // because we only have one :)
   $scope.$root.showHeader = true;
