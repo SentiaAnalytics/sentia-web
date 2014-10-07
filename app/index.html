@@ -14,13 +14,16 @@
   </head>
 
   <body>
-    <div class="full-height" ng-controller="MainCtrl">
+    <div ng-controller="MainCtrl">
         <!-- <div class="nav-button hide-on-login icon-menu a" ng-click="toggleMenu()"> -->
         <!-- </div> -->
-        <div class="row full-height content">
+        <div class="row content">
+            <div id="content" class="pages" ng-class="{'right' : showMenu}">
+                <ng-view class="animate-fade"></ng-view>
+            </div>
             <div id="sidebar" class="sidebar bg-primary" ng-show="showHeader" style="white-space: normal;">
                 <!-- <div><h4 class="shadow caps">Sentia.io</h4></div> -->
-                <ul class="menu full-height">
+                <ul class="menu">
                     <li ng-class="{active : page === 'users'}" class="a" ng-click="go('/users')">
                         <img ng-src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?s=40&d=https://pbs.twimg.com/profile_images/3292107408/13effc3507c3fabffed7d4b034ea1a41.jpeg" alt="" id="active-user-avatar" class="img-xs-round">
                     </li>
@@ -28,9 +31,6 @@
 
                     <li class="a" ng-click="logout()" ><div class="icon-switch"></div></li>
                 </ul>
-            </div>
-            <div id="content" class="pages full-height" ng-class="{'right' : showMenu}">
-                <ng-view class="animate-fade full-height"></ng-view>
             </div>
         </div>
     </div>

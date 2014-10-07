@@ -1,22 +1,22 @@
 <div class="page container-fluid">
 <div class="row">
     <tabset>
-            <tab >
+            <tab select="selectTab('details')" active="tabs.details">
                 <tab-heading>
                     <i class="icon-home"></i> Details
               </tab-heading>
             </tab>
-            <tab >
+            <tab select="selectTab('stats')" active="tabs.stats">
                 <tab-heading>
-                    <i class="icon-stats"></i> Statistics
+                    <i class="icon-basket"></i> Sales
               </tab-heading>
             </tab>
-            <tab  active="true">
+            <tab  select="selectTab('cameras')" active="tabs.cameras">
                 <tab-heading>
                     <i class="icon-camera"></i> Cameras
               </tab-heading>
               <div class="row clearfix">
-                  <div id="camera-list" class="container-fluid scroll scroll-y p-top p-bottom">
+                  <div id="camera-list" class="container-fluid p-top p-bottom">
                       <div class="container-fluid">
                           <input type="text" id="camera-list-search" class="form-control" role="search" ng-model="camSearch">
                       </div>

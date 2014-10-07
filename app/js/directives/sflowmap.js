@@ -70,7 +70,6 @@ angular.module('sFlowmap', [])
                 '), rotate(' + d.angle / (2 * Math.PI) * 360 + ')';
             })
             .attr('opacity', function (d) {
-              console.log(d.magnitude);
               return opacity(d.magnitude);
             });
         }

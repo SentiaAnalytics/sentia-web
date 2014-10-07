@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'sentia-icon';
-	src:url('fonts/sentia-icon.eot?-z9p2rk');
-	src:url('fonts/sentia-icon.eot?#iefix-z9p2rk') format('embedded-opentype'),
-		url('fonts/sentia-icon.woff?-z9p2rk') format('woff'),
-		url('fonts/sentia-icon.ttf?-z9p2rk') format('truetype'),
-		url('fonts/sentia-icon.svg?-z9p2rk#sentia-icon') format('svg');
+	src:url('fonts/sentia-icon.eot?-vkv8ws');
+	src:url('fonts/sentia-icon.eot?#iefix-vkv8ws') format('embedded-opentype'),
+		url('fonts/sentia-icon.woff?-vkv8ws') format('woff'),
+		url('fonts/sentia-icon.ttf?-vkv8ws') format('truetype'),
+		url('fonts/sentia-icon.svg?-vkv8ws#sentia-icon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,6 +23,12 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-basket:before {
+	content: "\e609";
+}
+.icon-dollar:before {
+	content: "\e608";
+}
 .icon-location:before {
 	content: "\e602";
 }
@@ -37,6 +43,12 @@
 }
 .icon-camera:before {
 	content: "\e604";
+}
+.icon-cart:before {
+	content: "\e606";
+}
+.icon-coin:before {
+	content: "\e607";
 }
 .icon-stats:before {
 	content: "\e603";
