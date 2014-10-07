@@ -22,29 +22,36 @@ var config = require('config');
 var P = require('bluebird');
 var url = require("url");
 var SocksConnection = require('socksjs');
+var connection, mysql_server_options, mysql_options, socks_options, socksConn;
 
-var mysql_server_options = {
-  host: url.parse(config.mysql).hostname,
-  port: url.parse(config.mysql).port
-};
+console.log('first');
 
-var socks_options = {
-  host: url.parse(config.proxy).hostname,
-  port: 1080,
-  user: url.parse(config.proxy).auth.split(':')[0],
-  pass: url.parse(config.proxy).auth.split(':')[1],
-};
+console.log(mysql_options);
+if (config.proxy) {
+  mysql_server_options = {
+    host: url.parse(config.mysql).hostname,
+    port: url.parse(config.mysql).port
+  };
 
-var socksConn = new SocksConnection(mysql_server_options, socks_options);
+  
 
-var mysql_options =  {
-  database: 'sentia',
-  user: url.parse(config.proxy).auth.split(':')[0],
-  password: url.parse(config.proxy).auth.split(':')[1],
-  stream: socksConn
-};
-
-var connection = mysql2.createConnection(mysql_options);
+  socks_options = {
+    host: url.parse(config.proxy).hostname,
+    port: 1080,
+    user: url.parse(config.proxy).auth.split(':')[0],
+    pass: url.parse(config.proxy).auth.split(':')[1],
+  };
+  socksConn = new SocksConnection(mysql_server_options, socks_options);
+  mysql_options =  {
+    database: 'sentia',
+    user: url.parse(config.mysql).auth.split(':')[0],
+    password: url.parse(config.mysql).auth.split(':')[1],
+    stream : socksConn
+  };
+  connection = mysql2.createConnection(mysql_options);
+} else {
+  connection = mysql2.createConnection(config.mysql);
+}
 exports.query = function (query) {
   return new P(function (resolve, reject) {
     connection.query(query, function(err, rows, fields) {
