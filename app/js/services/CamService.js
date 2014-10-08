@@ -21,13 +21,13 @@ module.exports = function($http, $q) {
         .hours(0)
         .minutes(0)
         .seconds(0)
-        .format('YYYY-MM-DD HH:mm:ss'),
+        .format('YYYY-MM-DD'),
       to : moment(data.date)
         .add(1, 'day')
         .hours(0)
         .minutes(0)
         .seconds(0)
-        .format('YYYY-MM-DD HH:mm:ss')
+        .format('YYYY-MM-DD')
     };
     console.log(query);
     return $http.get('/api/maps?camera=' +query.camera+ '&from=' + query.from + '&to=' + query.to)

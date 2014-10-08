@@ -24,6 +24,7 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
     flow: false,
     counter: false
   };
+  $scope.people = {};
   console.log($routeParams);
   if (Cam.selectedCam) {
     $scope.camera = Cam.selectedCam;

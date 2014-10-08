@@ -49,9 +49,9 @@ exports._buildMapQuery = function (query) {
     .field('avg(dx)', 'dx')
     .field('avg(dy)', 'dy')
     .field('avg(heat)', 'heat')
-    .from('maps')
+    .from('aggregate_maps')
     .where('time < ?', query.to)
-    .where('time > ?', query.from)
+    .where('time >= ?', query.from)
     .where('cam = ' + query.dataId)
     .group('x, y')
     .toString();
