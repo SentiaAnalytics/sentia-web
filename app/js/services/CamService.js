@@ -15,11 +15,7 @@ module.exports = function($http, $q) {
       });
   };
   this.getMap = function(data) {
-    var query; 
-    if (!module.exports.selectedCam) {
-      return $q.reject('No cam selected');
-    }
-    query = {
+    var query = {
       camera : data.camera,
       from : moment(data.date)
         .hours(0)
@@ -44,32 +40,29 @@ module.exports = function($http, $q) {
       return error;
     });
   };
-  this.getTimeline = function(query) {
-    if (!this.selectedCam) {
-      return $q.reject('No cam selected');
-    }
-    query.cam = this.selectedCam.id;
-    return $http.get('/maps/timeline', query)
+  this.getPeople = function (data) {
+    var query = {
+      camera : data.camera,
+      from : moment(data.date)
+        .hours(0)
+        .minutes(0)
+        .seconds(0)
+        .format('YYYY-MM-DD HH:mm:ss'),
+      to : moment(data.date)
+        .add(1, 'day')
+        .hours(0)
+        .minutes(0)
+        .seconds(0)
+        .format('YYYY-MM-DD HH:mm:ss')
+    };
+    return $http.get('/api/people?camera=' +query.camera+ '&from=' + query.from + '&to=' + query.to)
       .then(function(response) {
-        var data = [24],
-          i,
-          max = 1;
-        for (i = 0; i < 24; i += 1) {
-          data[i] = 0;
-        }
-        for (i = 0; i < response.data.length; i += 1) {
-          data[response.data[i].hour] = response.data[i].count || 0;
-          max = Math.max(max, response.data[i].count);
-        }
-        return {
-          max: max,
-          data: data
-        };
+        return response.data || undefined;
       })
       .
-    catch (function(err, status) {
-      console.log(status);
-      console.error(err);
+    catch (function(error) {
+      console.log(error);
+      return error;
     });
   };
 };

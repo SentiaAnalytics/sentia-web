@@ -13,6 +13,10 @@ module.exports = function($scope, Store, Cam) {
     stats : false,
     cameras : true
   };
+  Store.read('54318d4064acfb0b3139807e')
+    .then(function (store) {
+      $scope.store = store;
+    });
   Cam.find('54318d4064acfb0b3139807e')
     .then(function(cameras) {
       $scope.cameras = cameras;

@@ -1,7 +1,8 @@
 // load dependencies
 
-// require('./directives/linechart.js');
 require('angular');
+
+// load angular modules
 require('angular-route');
 require('angular-touch');
 require('angular-animate');
@@ -9,8 +10,11 @@ require('angular-md5');
 require('angular-bootstrap');
 require('angular-sanitize');
 require('angular-ui-utils');
+// load custom directives
 require('./directives/sflowmap.js');
 require('./directives/sheatmap.js');
+require('./directives/linechart.js');
+
 (function() {
   'use strict';
   // create new angular module app
@@ -23,7 +27,8 @@ require('./directives/sheatmap.js');
     'ui.bootstrap',
     'ui.utils',
     'sFlowmap',
-    'sHeatmap'
+    'sHeatmap',
+    'linechart'
   ]);
 
   // Services

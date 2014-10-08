@@ -16,7 +16,8 @@
     "angular-touch": "~1.2.26",
     "angular-ui-utils": "~0.1.1",
     "angulartics": "~0.17.0",
-    "angular-bootstrap-datetimepicker": "~0.2.4"
+    "angular-bootstrap-datetimepicker": "~0.2.4",
+    "chartjs": "~1.0.1-beta"
   },
   "devDependencies": {}
 }

@@ -3,10 +3,13 @@ module.exports = function($http) {
   this.selected = {
     id: '54318d4064acfb0b3139807e'
   };
-  this.getCameras = function() {
-    return $http.get('/api/cameras?store=' + this.selected.id)
-      .then(function(response) {
-        return response.data;
+  this.read = function (id) {
+    return $http.get('/api/stores/' + id)
+      .then(function (res) {
+        return res.data;
+      })
+      .catch(function (err) {
+        console.log(err);
       });
   };
 };
