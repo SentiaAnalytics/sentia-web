@@ -13,7 +13,7 @@ require('angular-ui-utils');
 // load custom directives
 require('./directives/sflowmap.js');
 require('./directives/sheatmap.js');
-require('./directives/linechart.js');
+require('./directives/LineChart.js');
 
 (function() {
   'use strict';
