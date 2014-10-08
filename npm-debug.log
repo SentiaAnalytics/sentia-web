@@ -9,7 +9,7 @@
 8 verbose unsafe-perm in lifecycle true
 9 info sentia-express@0.0.2 Failed to exec start script
 10 error sentia-express@0.0.2 start: `node node_modules/.bin/gulp`
-10 error Exit status 8
+10 error Exit status 1
 11 error Failed at the sentia-express@0.0.2 start script.
 11 error This is most likely a problem with the sentia-express package,
 11 error not with npm itself.

@@ -1,10 +1,10 @@
 {
   "name": "sentia-express",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "main.js",
   "scripts": {
-    "install": "node node_modules/.bin/napa",
+    "install": "node node_modules/.bin/bower install",
     "start": "node node_modules/.bin/gulp",
     "test": " node node_modules/.bin/gulp test"
   },
