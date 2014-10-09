@@ -18,12 +18,6 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
   $scope.$root.showHeader = true;
   $scope.$root.page = 'cam';
   $scope.camera = null;
-  $scope.tabs = {
-    details: true,
-    heat: false,
-    flow: false,
-    counter: false
-  };
   $scope.people = {};
   console.log($routeParams);
   if (Cam.selectedCam) {
@@ -41,15 +35,9 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
     updateOverlay();
     getPeople();
   });
-
+  $scope.activeTab = 0;
   $scope.selectTab = function(tab) {
-    var i;
-    for (i in $scope.tabs) {
-      if ($scope.tabs.hasOwnProperty(i)) {
-        $scope.tabs[i] = false;
-      }
-    }
-    $scope.tabs[tab] = true;
+    $scope.activeTab = tab;
   };
   function getPeople () {
     if (!$scope.camera || !$scope.camera.counter) {

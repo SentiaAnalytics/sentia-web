@@ -17,8 +17,8 @@
     <div ng-controller="MainCtrl" class="main-wrap full-height">
         <!-- <div class="nav-button hide-on-login icon-menu a" ng-click="toggleMenu()"> -->
         <!-- </div> -->
-        <div id="content" class="pages full-height scroll-y" ng-class="{'right' : showMenu}">
-            <ng-view class="animate-fade"></ng-view>
+        <div id="content" class="pages full-height" ng-class="{'right' : showMenu}">
+            <ng-view class="animate-fade full-height  scroll-y"></ng-view>
         </div>
         <div id="sidebar" class="sidebar bg-primary" ng-show="showHeader" style="white-space: normal;">
             <!-- <div><h4 class="shadow caps">Sentia.io</h4></div> -->

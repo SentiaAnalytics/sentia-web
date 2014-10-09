@@ -15,6 +15,7 @@ require('angular-ui-utils');
 require('./directives/sflowmap.js');
 require('./directives/sheatmap.js');
 require('./directives/picker.js');
+require('./directives/tabs.js');
 require('./directives/LineChart.js');
 
 (function() {
@@ -26,7 +27,8 @@ require('./directives/LineChart.js');
     'ngAnimate',
     'ngMd5',
     'ngSanitize',
-    'ui.bootstrap',
+    'tabs',
+    // 'ui.bootstrap',
     'picker',
     'ui.utils',
     'sFlowmap',

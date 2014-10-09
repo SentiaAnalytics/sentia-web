@@ -8,11 +8,11 @@ module.exports = function($scope, Store, Cam) {
   'use strict';
   $scope.$root.showHeader = true;
   $scope.$root.page = 'store';
-  $scope.tabs = {
-    details : false,
-    stats : false,
-    cameras : true
+  $scope.currentTab = 0;
+  $scope.selectTab = function (tab) {
+    $scope.currentTab = tab;
   };
+    
   Store.read('54318d4064acfb0b3139807e')
     .then(function (store) {
       $scope.store = store;
@@ -24,16 +24,6 @@ module.exports = function($scope, Store, Cam) {
   $scope.selectCamera = function(cam) {
     Cam.selectedCam = cam;
     $scope.$root.go('/store/camera/' + cam._id, 'animate-scale');
-
-  };
-  $scope.selectTab = function (tab) {
-    var i;
-    for (i in $scope.tabs) {
-      if ($scope.tabs.hasOwnProperty(i)) {
-        $scope.tabs[i] = false;
-      }
-    }
-    $scope.tabs[tab] = true;
   };
 
 };

@@ -19,17 +19,17 @@
             </div>
             <div class="row">
                 
-                <tabset>
-                    <tab select="selectTab('details')" active="tabs.details">
-                        <tab-heading>
+                <tabs active="activeTab">
+                    <tab>
+                        <tab-heading ng-class="{active : (activeTab === 0)}"  ng-click="selectTab(0)">
                             <i class="icon-camera"> <span class="hidden-xs">Details<span></i>
                         </tab-heading>
                         <div class="container">
                             <h1 class="text-center">{{camera.name}}</h1>
                         </div>
                     </tab>
-                    <tab select="selectTab('heat')" active="tabs.heat">
-                        <tab-heading>
+                    <tab>
+                        <tab-heading ng-class="{active : (activeTab === 1)}"  ng-click="selectTab(1)">
                             <i class="icon-fire"></i> <span class="hidden-xs">Heatmap</span>
                       </tab-heading>
                       <div class="container p-top">
@@ -39,9 +39,9 @@
                         </div>
                       </div>
                     </tab>
-                    <tab select="selectTab('flow')" active="tabs.flow">
+                    <tab>
 
-                        <tab-heading>
+                        <tab-heading  ng-class="{active : (activeTab === 2)}"  ng-click="selectTab(2)">
                             <i class="icon-location"></i> <span class="hidden-xs">Flowmap</span>
                         </tab-heading>
                         <div class="container p-top">
@@ -50,8 +50,8 @@
                             </div>
                         </div>
                     </tab>
-                    <tab select="selectTab('counter')" active="tabs.counter">
-                        <tab-heading>
+                    <tab>
+                        <tab-heading  ng-class="{active : (activeTab === 3)}"  ng-click="selectTab(3)">
                             <i class="icon-stats"></i> <span class="hidden-xs">Counter</span>
                       </tab-heading>
                       <div class="container">
