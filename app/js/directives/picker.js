@@ -26,6 +26,7 @@ angular.module('picker', [])
         });
         var picker = $input.pickadate('picker');
         picker.set('select', scope.date);
+        picker.set('max', new Date());
         scope.watch('date', function () {
           picker.set('select', scope.date);
         });
