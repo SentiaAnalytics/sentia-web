@@ -2,15 +2,8 @@
     <div class="container-fluid padding-xs-none">
         <div class="container">
             <div class="row">
-                <div class="container-fluid">
-                    <p class="input-group">
-                        <div class="dropdown text-center">
-                            <a  class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">{{date | date:'medium'}}</a>
-                            <ul class="dropdown-menu" role="menu" style="width : 100%">
-                                <datepicker ng-model="date" min-date="" show-weeks="true" class="well well-sm"></datepicker>
-                            </ul>
-                        </div>
-                    </p>
+                <div class="container-fluid  text-center">
+                    <picker date="date"></picker>
                 </div>
             </div>
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -67,9 +60,22 @@
                             <div class="col-xs-4"><h1 class="text-warning text-center">{{people.total_out}}</h1></div> 
                             <div class="col-xs-4"><h1 class="text-danger text-center">{{people.total_bounce}}</h1></div> 
                         </div>
-                        <div class="row">
+                        <div class="row" ng-show="people.people_in">
+                            <h1>In</h1>
                             <div class="col-xs-10 col-xs-offset-1">
-                                <linechart data="people.chart"></linechart>
+                                <linechart data="people.people_in" trigger="tabs.counter"></linechart>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="people.people_out">
+                            <h1>Out</h1>
+                            <div class="col-xs-10 col-xs-offset-1">
+                                <linechart data="people.people_out" trigger="tabs.counter"></linechart>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="people.bounce">
+                            <h1>Bounce</h1>
+                            <div class="col-xs-10 col-xs-offset-1">
+                                <linechart data="people.bounce" trigger="tabs.counter"></linechart>
                             </div>
                         </div>
                       </div>

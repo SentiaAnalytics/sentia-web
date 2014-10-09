@@ -12,6 +12,9 @@ module.exports = function ($scope, $http, $location) {
       console.log('Active user: ', session.user.email);
       $scope.$root.showHeader = true;
       $scope.$root.user = session.user;
+      if ($location.url() === '/') {
+        $location.path('/store');
+      }
     })
     .error(function () {
       $location.path('/login');

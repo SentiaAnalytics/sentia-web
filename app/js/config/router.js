@@ -5,10 +5,6 @@ module.exports = function($routeProvider) {
       templateUrl: 'views/login.html',
       controller: 'LoginCtrl'
     })
-    .when('/dashboard', {
-      templateUrl: 'views/dashboard.html',
-      controller: 'DashCtrl'
-    })
     .when('/store/camera/:id', {
       templateUrl: 'views/cam.html',
       controller: 'CamCtrl'
@@ -22,6 +18,6 @@ module.exports = function($routeProvider) {
       controller: 'UserCtrl'
     })
     .otherwise({
-      redirectTo: '/login'
+      redirectTo: '/'
     });
 };

@@ -10,13 +10,10 @@ var squel = require('squel'),
 squel.useFlavour('mysql');
 
 exports.find = function (query) {
-  console.log('find');
   return P.resolve(query)
     .then(exports._getCamera)
     .then(exports._buildPeopleQuery)
     .then(function (query) {
-      console.log('sql query');
-      console.log(query);
       return query;
     })
     .then(db.query)
@@ -26,15 +23,12 @@ exports.find = function (query) {
     });
 };
 exports._getCamera = function (query) {
-  console.log('_getCamera');
-  console.log(query);
   return models.Camera.findOne({_id : objectId(query.camera), company : query.company})
     .exec()
     .then(function (camera) {
       if (!camera) {
         return P.reject(new E.badRequestError('Camera does not exist'));
       }
-      console.log(camera.toObject());
       query.dataId = camera.toObject().dataId;
       return query;
     });

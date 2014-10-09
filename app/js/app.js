@@ -3,6 +3,7 @@
 require('angular');
 
 // load angular modules
+require('jquery');
 require('angular-route');
 require('angular-touch');
 require('angular-animate');
@@ -13,6 +14,7 @@ require('angular-ui-utils');
 // load custom directives
 require('./directives/sflowmap.js');
 require('./directives/sheatmap.js');
+require('./directives/picker.js');
 require('./directives/LineChart.js');
 
 (function() {
@@ -25,6 +27,7 @@ require('./directives/LineChart.js');
     'ngMd5',
     'ngSanitize',
     'ui.bootstrap',
+    'picker',
     'ui.utils',
     'sFlowmap',
     'sHeatmap',

@@ -33,7 +33,7 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
       .then(function(cam) {
         $scope.camera = cam;
         updateOverlay();
-        getPeople();
+          getPeople();
       });
   }
 
@@ -41,8 +41,6 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
     updateOverlay();
     getPeople();
   });
-
-
 
   $scope.selectTab = function(tab) {
     var i;
@@ -54,7 +52,7 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
     $scope.tabs[tab] = true;
   };
   function getPeople () {
-    if (!$scope.camera) {
+    if (!$scope.camera || !$scope.camera.counter) {
       return;
     }
     Cam.getPeople({camera: $scope.camera._id, date: $scope.date})
@@ -63,6 +61,7 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
       for (i = 0; i < 24; i += 1) {
         people_in.push(0);
         people_out.push(0);
+        bounce.push(0);
       }
 
       data.forEach(function (e) {
@@ -71,37 +70,47 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
         total_bounce  = total_bounce += Number(e.bounce);
         people_in[e.hour] = e.people_in;
         people_out[e.hour] = e.people_out; 
+        bounce[e.hour] = e.bounce;
       });
       $scope.people = {
         total_in : total_in,
         total_out : total_out,
         total_bounce : total_bounce,
-        chart :{
+        people_in : {
           labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
           datasets: [{
             label: "In",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
+            fillColor: "#DEEEA2",
+            strokeColor: "#cde083",
+            pointColor: "#cde083",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
             data: people_in
-          }, {
+          }]
+        },
+        people_out : {
+          labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+          datasets: [{
             label: "Out",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            
+            fillColor: "#F7CB8F",
+            strokeColor: "#f0ad4e",
+            pointColor: "#f0ad4e",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
             data: people_out
-          },
+          }]
+        },
+        bounce : {
+          labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+          datasets: [
           {
             label: "Bounce",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            fillColor: "#F86154",
+            strokeColor: "#cd1606",
+            pointColor: "#cd1606",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
@@ -117,7 +126,7 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
     }
     var query = {
       camera: $scope.camera._id,
-      from: $scope.date
+      date: $scope.date
     };
 
     $scope.map = undefined;
