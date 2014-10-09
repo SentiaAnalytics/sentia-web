@@ -21,7 +21,10 @@ angular.module('tabs', [])
         var swiperContainer = element[0].getElementsByClassName('swiper-container')[0];
         var mySwiper = new Swiper(swiperContainer,{
           //Your options here:
-          mode:'horizontal'
+          mode:'horizontal',
+          preventLinksPropagation : true,
+          preventLinks : true,
+          simulateTouch : false
           //etc..
         }); 
         scope.$watch('active', function () {

@@ -27,8 +27,16 @@ angular.module('linechart', [])
             linechart.destroy();
           }
           var ctx = element.find('canvas')[0].getContext("2d");
+          var options = {
+            // showScale: false,
+            scaleFontColor : 'transparent',
+            scaleShowGridLines : false,
+            responsive : true,
+            // scaleFontColor: "#bababa",
+            // scaleLineColor: "#f5f5f5"
+          };
           
-          linechart = new Chart(ctx).Line(scope.data, {responsive : true, scaleFontColor: "#bababa", scaleLineColor: "#f5f5f5"}); 
+          linechart = new Chart(ctx).Line(scope.data, options); 
         }
       }
     };

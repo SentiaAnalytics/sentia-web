@@ -5,7 +5,9 @@
 .scroll-y {
 	overflow-y: scroll; /* has to be scroll, not auto */
     -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar { width: 0 !important }
 }
+
 
 .scroll::-webkit-scrollbar {
 	-webkit-appearance : none;
