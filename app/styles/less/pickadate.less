@@ -31,7 +31,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	transform: translate(0, 100%)
+	.translate(0;100%);
 	/*top: 100%*/
 }
 .picker__holder {
@@ -51,16 +51,17 @@
 	filter: alpha(opacity=0);
 	-moz-opacity: 0;
 	opacity: 0;
-	-webkit-transition: transform .15s ease-out;
-	-moz-transition: transform .15s ease-out;
-	transition: transform .15s ease-out
+	.transition(transform; .15s; ease-out);
+	// -webkit-transition: transform .15s ease-out;
+	// -moz-transition: transform .15s ease-out;
+	// transition: transform .15s ease-out
 }
 @media (min-height:33.875em) {
 	.picker__frame {
 		overflow: visible;
 		top: auto;
 		bottom: 0;
-		transform : translate(0, 100%);
+		.translate(0; 100%);
 		max-height: 80%
 	}
 }
@@ -116,15 +117,13 @@
 .picker--opened .picker__holder {
 	top: 0;
 	zoom: 1;
-	transform: translate(0,0);
+	.translate(0;0);
 	opacity:1;
-	-webkit-transition: opacity .15s ease-out;
-	-moz-transition: opacity .15s ease-out;
-	transition: opacity .15s ease-out
+	.transition(opacity; .15s; ease-out);
 }
 .picker--opened .picker__frame {
 	top: 0;
-	transform: translate(0,0);
+	.translate(0;0);
 	-ms-filter: "alpha(Opacity=100)";
 	filter: alpha(opacity=100);
 	-moz-opacity: 1;
