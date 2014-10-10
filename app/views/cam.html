@@ -2,13 +2,13 @@
     <div class="container-fluid padding-xs-none">
         <div class="container">
             <div class="row">
-                <div class="container-fluid  text-center">
+                <div class="container-fluid  text-center gutter-bottom">
                     <picker date="date"></picker>
                 </div>
             </div>
         <!-- Brand and toggle get grouped for better mobile display -->
             <div class="row">
-                <div class="widget widget-content col-xs-10 col-xs-offset-1">
+                <div class="widget widget-content col-md-10 col-md-offset-1">
                     <div style="border: 5px solid white; box-shadow : 0px 1px 5px rgba(0,0,0,0.4);" class="map-container ">
                         <div class="loader" ng-show="!map"></div>
                         <s-heatmap data="map" cols="camera.cols" rows="camera.rows" ng-show="activeTab === 1" class="ng-isolate-scope"><canvas style="width : 100%; height : 100%" width="1280" height="720"></canvas></s-heatmap>
@@ -40,7 +40,6 @@
                       </div>
                     </tab>
                     <tab>
-
                         <tab-heading  ng-class="{active : (activeTab === 2)}"  ng-click="selectTab(2)">
                             <i class="icon-location"></i> <span class="hidden-xs">Flowmap</span>
                         </tab-heading>
@@ -54,22 +53,29 @@
                         <tab-heading  ng-class="{active : (activeTab === 3)}"  ng-click="selectTab(3)">
                             <i class="icon-stats"></i> <span class="hidden-xs">Counter</span>
                       </tab-heading>
-                      <div class="container">
+                      <div class="container p-top-large">
                         <div class="row">
-                            <div class="col-xs-6"><h1 class="text-success text-center">{{people.total_in}}</h1></div> 
-                            <div class="col-xs-6"><h1 class="text-warning text-center">{{people.total_out}}</h1></div> 
-                            <div class="col-xs-4"  ng-show="false"><h1 class="text-danger text-center">{{people.total_bounce}}</h1></div> 
+                            <div class="col-sm-6">
+                                <h5 class="caps text-center">Total people in</h5>
+                                <h1 class="text-success text-center jumbo">{{people.total_in}}</h1>
+                            </div> 
+                            <div class="col-sm-6">
+                                <h5 class="caps text-center">Total people out</h5>
+                                <h1 class="text-warning text-center jumbo">{{people.total_out}}</h1></div> 
+                            <div class="col-xs-4"  ng-show="false">
+                                <h1 class="text-danger text-center">{{people.total_bounce}}</h1>
+                            </div> 
                         </div>
-                        <div class="row" ng-show="people.people_in">
-                            <h1>In</h1>
+                        <div class="col-xs-12 p-top-large" ng-show="people.people_in">
+                            <h5 class="caps">People in</h5>
                             <linechart data="people.people_in" trigger="tabs.counter"></linechart>
                         </div>
-                        <div class="row" ng-show="people.people_out">
-                            <h1>Out</h1>
+                        <div class="col-xs-12 p-top-large" ng-show="people.people_out">
+                            <h5 class="caps">People out</h5>
                             <linechart data="people.people_out" trigger="tabs.counter"></linechart>
                         </div>
-                        <div class="row" ng-show="false && people.bounce">
-                            <h1>Bounce</h1>
+                        <div class="col-xs-12 p-top" ng-show="false && people.bounce">
+                            <h5 class="caps">Bounce</h5>
                             <linechart data="people.bounce" trigger="tabs.counter"></linechart>
                         </div>
                       </div>
