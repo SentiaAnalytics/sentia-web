@@ -9,6 +9,7 @@ var squel = require('squel'),
 squel.useFlavour('mysql');
 
 exports.find = function (query) {
+  console.log(query);
   return P.resolve(query)
     .then(exports._getStore)
     .then(exports._buildPosQuery)
@@ -35,11 +36,15 @@ exports._getStore = function (query) {
     });
 };
 exports._buildPosQuery = function (query) {
-  console.log(query);
   return squel.select()
+    .field('hour(starttime) as hour')
+    .field('sum(amount) as revenue')
+    .field('sum(1) as transactions')
     .from('pos')
     .where('starttime < ?', query.to)
     .where('starttime >= ?', query.from)
     .where('store = ?', query.dataId)
+    .where("type = 'Betaling'")
+    .group('hour')
     .toString();
 };

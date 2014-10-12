@@ -4,13 +4,13 @@
    	<div class="col-sm-6 text-right text-xs-center">
    		<div class="widget widget-content inline-block">
             <div style="border: 5px solid white; box-shadow : 0px 1px 5px rgba(0,0,0,0.4);" class="">
-        		<img ng-src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?s=198&d=https://pbs.twimg.com/profile_images/3292107408/13effc3507c3fabffed7d4b034ea1a41.jpeg" alt="" class="">
+        		<img ng-src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?s=198&d=http://sentia-web.herokuapp.com/images/users/profile.png" alt="" class="">
         	</div>
         </div>
    	</div>
    	<div class="col-md-6 text-xs-center">
         <h1 class="big-text">{{user.firstname + ' ' + user.lastname}}</h1>
-        <h4 class="caps">{{user.email}}</h4>
+        <h5 class="caps">{{user.email}}</h5>
    	</div>
    </div>
 </div>

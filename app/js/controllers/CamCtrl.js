@@ -68,9 +68,9 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
           labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
           datasets: [{
             label: "In",
-            fillColor: "#E9F1C7",
-            strokeColor: "#cde083",
-            pointColor: "#cde083",
+            fillColor: "#90CCFF",
+            strokeColor: "#36a3ff",
+            pointColor: "#36a3ff",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
