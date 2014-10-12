@@ -18,16 +18,25 @@ angular.module('picker', [])
         date: '='
       },
       link: function postLink(scope, element) {
-        var $input = $(element.find('input')).pickadate({onSet: function() {
-            scope.date = moment(picker.get('select').obj);
-            scope.$apply();
-            console.log(scope.date);
+        var $input = $(element.find('input')).pickadate({clear : false, onSet: function() {
+            if (!picker.get('select')) { 
+              return;
+            }
+            var newDate = moment(picker.get('select').obj)
+              .toDate();
+            if (scope.date.getTime() === newDate.getTime()) {
+              console.log('date not updated');
+              return;
+            }
+            scope.$apply(function () {
+              scope.date = newDate;
+            });
           }
         });
         var picker = $input.pickadate('picker');
         picker.set('select', scope.date);
         picker.set('max', new Date());
-        scope.watch('date', function () {
+        scope.$watch('date', function () {
           picker.set('select', scope.date);
         });
       }

@@ -18,7 +18,7 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
   $scope.$root.showHeader = true;
   $scope.$root.page = 'cam';
   $scope.camera = null;
-  $scope.people = {};
+  // $scope.people = {};
   console.log($routeParams);
   if (Cam.selectedCam) {
     $scope.camera = Cam.selectedCam;

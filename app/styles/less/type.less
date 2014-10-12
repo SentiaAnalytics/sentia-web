@@ -93,6 +93,18 @@ cite    { font-style: normal; }
 .text-center         { text-align: center; }
 .text-justify        { text-align: justify; }
 
+.text-sm-center {
+  @media (max-width: @screen-sm-max) {
+    text-align: center;
+  }
+}
+.text-xs-center {
+  @media (max-width: @screen-xs-max) {
+    text-align: center;
+  }
+}
+
+
 // Contextual colors
 .text-muted {
   color: @text-muted;
@@ -139,6 +151,12 @@ cite    { font-style: normal; }
 }
 .bg-danger {
   .bg-variant(@state-danger-bg);
+}
+.bg-gray-dark{
+  // Given the contrast here, this is the only class to have its color inverted
+  // automatically.
+  color: #fff;
+  .bg-variant(@gray-dark);
 }
 
 

@@ -8,7 +8,7 @@ module.exports = function($scope, Store, Cam) {
   'use strict';
   $scope.$root.showHeader = true;
   $scope.$root.page = 'store';
-  $scope.currentTab = 0;
+  $scope.currentTab = 2;
   $scope.selectTab = function (tab) {
     $scope.currentTab = tab;
   };

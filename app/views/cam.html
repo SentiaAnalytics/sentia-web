@@ -2,7 +2,7 @@
     <div class="container-fluid padding-xs-none">
         <div class="container">
             <div class="row">
-                <div class="container-fluid  text-center gutter-bottom">
+                <div class="container-fluid  text-center gutter-bottom p-top-large">
                     <picker date="date"></picker>
                 </div>
             </div>
@@ -53,13 +53,18 @@
                         <tab-heading  ng-class="{active : (activeTab === 3)}"  ng-click="selectTab(3)">
                             <i class="icon-stats"></i> <span class="hidden-xs">Counter</span>
                       </tab-heading>
-                      <div class="container p-top-large">
+                      <div class="container p-top-large" ng-hide="people">
+                        <div class="well well-lg">
+                            <p>There is not people information for the selected camera.</p>
+                        </div>
+                      </div>
+                      <div class="container p-top-large" ng-show="people">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <h5 class="caps text-center">Total people in</h5>
                                 <h1 class="text-success text-center jumbo">{{people.total_in}}</h1>
                             </div> 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" ng-show="false">
                                 <h5 class="caps text-center">Total people out</h5>
                                 <h1 class="text-warning text-center jumbo">{{people.total_out}}</h1></div> 
                             <div class="col-xs-4"  ng-show="false">
@@ -70,7 +75,7 @@
                             <h5 class="caps">People in</h5>
                             <linechart data="people.people_in" trigger="tabs.counter"></linechart>
                         </div>
-                        <div class="col-xs-12 p-top-large" ng-show="people.people_out">
+                        <div class="col-xs-12 p-top-large" ng-show="false && people.people_out">
                             <h5 class="caps">People out</h5>
                             <linechart data="people.people_out" trigger="tabs.counter"></linechart>
                         </div>

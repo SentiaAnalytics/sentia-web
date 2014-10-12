@@ -26,9 +26,6 @@ exports.find = {
       },
       to : {
         type : 'string'
-      },
-      order : {
-        type : 'string'
       }
     }
   }
