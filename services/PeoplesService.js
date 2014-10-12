@@ -38,7 +38,7 @@ exports._buildPeopleQuery = function (query) {
     .field('people_in')
     .field('people_out')
     .field('bounce')
-    .field('hour(time)', 'hour')
+    .field('hour(time) + 2', 'hour')
     .from('people')
     .where('time < ?', query.to)
     .where('time > ?', query.from)

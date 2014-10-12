@@ -12,6 +12,8 @@ exports.create = function (query) {
     });
 };
 exports.read = function (query) {
+  console.log('READ STORE');
+  console.log(query);
   return models.Store.findOne(query).exec();
 };
 
