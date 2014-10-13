@@ -26,7 +26,7 @@
                 
                 <li ng-class="{active : page === 'store' || page === 'cam'}" class="a" ng-click="go('/store')">  <div class="icon-home"></div></li>
                 <li ng-class="{active : page === 'users'}" class="a" ng-click="go('/users')">
-                    <img ng-src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?s=40" alt="" id="active-user-avatar" class="img-xs-round">
+                    <img ng-src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?s=40&d=http://www.tiger-stores.com/images/tiger.jpg" alt="" id="active-user-avatar" class="img-xs-round">
                 </li>
 
                 <li class="a" ng-click="logout()" ><div class="icon-switch"></div></li>

@@ -10,6 +10,7 @@ module.exports = new P(function (resolve, reject) {
   connection = mongoose.connect(config.mongo).connection;
 
   connection.on('error', function (error) {
+    console.log(config.mongo);
     logger.log('error:mongo', error);
     process.exit(1);
   });
