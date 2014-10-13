@@ -1,4 +1,4 @@
-'use strict';
+use strict';
 angular.module('sHeatmap', [])
     .factory('simpleheat', function() {
         /*
@@ -174,7 +174,7 @@ angular.module('sHeatmap', [])
                         if(cols!== 0 && rows !== 0) {
                             simpleheat(canvas)
                                 .radius(10,10) // 25,35
-                                .max(3000)
+                                .max(2500)
                                 .data(data)
                                 .draw();
                         }
