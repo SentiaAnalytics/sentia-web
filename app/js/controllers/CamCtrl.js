@@ -45,6 +45,9 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
     }
     Cam.getPeople({camera: $scope.camera._id, date: $scope.date})
     .then(function(data) {
+      if (!data) {
+        return;
+      }
       var people_in = [], people_out = [], bounce = [], i,total_bounce = 0, total_in = 0, total_out = 0;
       for (i = 0; i < 24; i += 1) {
         people_in.push(0);

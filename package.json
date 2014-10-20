@@ -40,7 +40,7 @@
     "jshint-stylish": "~0.4.0",
     "lodash": "~2.4.1",
     "moment": "~2.8.2",
-    "mongoose": "^3.8.16",
+    "mongoose": "^3.8.17",
     "mysql": "^2.5.1",
     "mysql2": "^0.12.5",
     "napa": "~0.4.1",
