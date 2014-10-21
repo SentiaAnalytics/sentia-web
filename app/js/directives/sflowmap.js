@@ -40,8 +40,8 @@ angular.module('sFlowmap', [])
             }
             return result;
           }, []);
-          width = element[0].offsetWidth * 4;
-          height = element[0].offsetHeight * 4;
+          width = element[0].offsetWidth * 2.5;
+          height = element[0].offsetHeight * 2.5;
           color = d3.scale.linear()
             .domain([0, max * 0.3, max])
             .range(['yellowgreen', '#FFFF83', 'red']);
