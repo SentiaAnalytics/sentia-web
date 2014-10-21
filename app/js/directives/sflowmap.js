@@ -34,7 +34,9 @@ angular.module('sFlowmap', [])
                 magnitude: Math.sqrt(Math.pow(item.dx, 2), Math.pow(item.dy,
                   1))
               };
-              result.push(i);
+              if (i.magnitude > (0.1 * max)) {
+                result.push(i);
+              }
             }
             return result;
           }, []);
