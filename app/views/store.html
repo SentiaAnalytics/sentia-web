@@ -14,15 +14,10 @@
               <i class="icon-basket"></i> Sales
         </tab-heading>
         <div class="container p-top-large">
-          <div class="well text-center">
-            <p>We are currently awaiting Point of Sale data from Navi Partner.</p>
-          </div>
-        </div>
-        <div class="container p-top-large" ng-show="false">
           <div class="row text-center">
             <picker date="date"></picker>
           </div>
-          <div class="container">
+          <div class="container" ng-show="pos">
             <div class="row">
                 <div class="col-sm-6 gutter-top-large">
                   <h5 class="caps text-center">Total revenue</h5>

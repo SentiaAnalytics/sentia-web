@@ -12,7 +12,7 @@ module.exports = function($scope, Store, Cam) {
   $scope.selectTab = function (tab) {
     $scope.currentTab = tab;
   };
-  $scope.date = new Date();
+  $scope.date = new Date('2014-09-01');
   $scope.store =  {
     _id : '54318d4064acfb0b3139807e'
   };
@@ -37,24 +37,25 @@ module.exports = function($scope, Store, Cam) {
     Store.getPos({store: $scope.store._id, date: $scope.date})
       .then(function(data) {
         var revenue = [], transactions = [], i,total_revenue = 0, total_transactions = 0;
+        if(data.length === 0) {
+          return;
+        }
         for (i = 0; i < 24; i += 1) {
           revenue.push(0);
           transactions.push(0);
         }
 
         data.forEach(function (e) {
-          if (data[i].type === ' Betaling') {
-            total_transactions += data[i].transactions;
-            total_revenue += (data[i].amount * -1);
-          }
+          total_transactions += Number(e.transactions);
           total_revenue += Number(e.revenue);
           total_transactions += Number(e.transactions);
-          transactions[e.hour] = e.transactions;
-          revenue[e.hour] = e.revenue; 
+          transactions[e.hour] = Number(e.transactions);
+          revenue[e.hour] = Number(e.revenue); 
         });
+        total_revenue = Math.round(total_revenue * 100) / 100;
         $scope.pos = {
-          total_transactions : total_transactions,
-          total_revenue : total_revenue,
+          totalTransactions : total_transactions,
+          totalRevenue : total_revenue,
           revenue : {
             labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
             datasets: [{
