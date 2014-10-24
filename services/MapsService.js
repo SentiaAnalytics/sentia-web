@@ -18,7 +18,7 @@ exports.find = function (query) {
     .then(db.query)
     .catch(function (err) {
       console.log(err.stack);
-
+      return P.reject(new E.InternalError('Database Error'));
     });
 };
 exports._getCamera = function (query) {
