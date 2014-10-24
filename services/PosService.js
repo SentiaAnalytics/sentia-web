@@ -19,7 +19,7 @@ exports.find = function (query) {
     .then(db.query)
     .catch(function (err) {
       console.log(err.stack);
-
+      return P.reject(err);
     });
 };
 exports._getStore = function (query) {
