@@ -9,7 +9,7 @@ var connection, mysql_server_options, mysql_options, socks_options, socksConn;
 console.log('first');
 
 console.log(mysql_options);
-if (config.proxy) {
+if ( false && config.proxy) {
   mysql_server_options = {
     host: url.parse(config.mysql).hostname,
     port: url.parse(config.mysql).port

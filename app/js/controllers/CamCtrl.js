@@ -126,4 +126,18 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
         $scope.map = response;
       });
   }
+  $scope.nextDay = function () {
+    $scope.date = moment($scope.date)
+      .add(1, 'day')
+      .toDate();
+      console.log($scope.date);
+  };
+  $scope.prevDay = function () {
+      //body
+      $scope.date = moment($scope.date)
+        .add(1, 'day')
+        .toDate();
+      console.log($scope.date);
+  };
+
 };

@@ -12,7 +12,7 @@ angular.module('picker', [])
   .directive('picker', function() {
     'use strict';
     return {
-      template: '<input/>',
+      template: '<button class="btn icon-chevron-left" ng-click="prevDate()"></button><input/><button class="btn icon-chevron-right"></button>',
       restrict: 'E',
       scope: {
         date: '='
@@ -39,6 +39,22 @@ angular.module('picker', [])
         scope.$watch('date', function () {
           picker.set('select', scope.date);
         });
+        scope.prevDate = function () {
+          console.log('PREV DATE');
+          scope.$apply(function () {
+            scope.date = moment(scope.date)
+            .remove(1, 'day')
+            .toDate();
+          });
+        };
+        scope.nextDate = function () {
+          console.log('NEXT DATE');
+          scope.$apply(function () {
+            scope.date = moment(scope.date)
+            .add(1, 'day')
+            .toDate();
+          });
+        };
       }
 
     };
