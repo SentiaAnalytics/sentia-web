@@ -26,7 +26,7 @@ angular.module('sFlowmap', [])
           }
           var data = scope.data.reduce(function(result, item) {
             result = result || [];
-            if (item.x % 3 === 0 && item.y % 3 === 0) {
+            if (item.x % 4 === 0 && item.y % 4 === 0) {
               var i = {
                 x: item.x,
                 y: item.y,

@@ -164,16 +164,24 @@ angular.module('sHeatmap', [])
                         if (!scope.data) {
                             return;
                         }
-                        data = scope.data.map(function (item) {
-                            return [item.x * 10, item.y * 10, item.heat];
-                        });
+
+                        // data = scope.data.map(function (item) {
+                        //     return [item.x * 10, item.y * 10, item.heat];
+                        // });
+                        data = scope.data.reduce(function (result, item) {
+                          if (item.x % 3 !== 0 || item.y % 3 !== 0) {
+                            return result;
+                          }
+                          result.push([item.x * 10, item.y * 10, item.heat]);
+                          return result;
+                        }, []);
                         cols = scope.cols*2;
                         rows = scope.rows*2;
                         canvas.width = cols;
                         canvas.height = rows;
                         if(cols!== 0 && rows !== 0) {
                             simpleheat(canvas)
-                                .radius(10,10) // 25,35
+                                .radius(32,40) // 25,35
                                 .max(3000)
                                 .data(data)
                                 .draw();
