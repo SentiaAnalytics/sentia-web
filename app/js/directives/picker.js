@@ -12,12 +12,13 @@ angular.module('picker', [])
   .directive('picker', function() {
     'use strict';
     return {
-      template: '<button class="btn icon-chevron-left" ng-click="prevDate()"></button><input/><button class="btn icon-chevron-right"></button>',
+      template: '<button class="btn btn-default icon-chevron-left" ng-click="prevDate()"></button><input class="btn btn-default"/><button class="btn btn-default icon-chevron-right"></button>',
       restrict: 'E',
       scope: {
         date: '='
       },
       link: function postLink(scope, element) {
+        element.addClass('btn-group');
         var $input = $(element.find('input')).pickadate({clear : false, onSet: function() {
             if (!picker.get('select')) { 
               return;

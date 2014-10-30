@@ -26,22 +26,20 @@ angular.module('sFlowmap', [])
           }
           var data = scope.data.reduce(function(result, item) {
             result = result || [];
-            if (item.x % 4 === 0 && item.y % 4 === 0) {
-              var i = {
-                x: item.x,
-                y: item.y,
-                angle: Math.atan2(item.dx, item.dy),
-                magnitude: Math.sqrt(Math.pow(item.dx, 2), Math.pow(item.dy,
-                  1))
-              };
-              if (i.magnitude > (0.1 * max)) {
-                result.push(i);
-              }
+            var i = {
+              x: item.x * 3,
+              y: item.y * 3,
+              angle: Math.atan2(item.dx, item.dy),
+              magnitude: Math.sqrt(Math.pow(item.dx, 2), Math.pow(item.dy,
+                1))
+            };
+            if (i.magnitude > (0.1 * max)) {
+              result.push(i);
             }
             return result;
           }, []);
-          width = element[0].offsetWidth * 2.5;
-          height = element[0].offsetHeight * 2.5;
+          width = element[0].offsetWidth * 2.7;
+          height = element[0].offsetHeight * 2.7;
           color = d3.scale.linear()
             .domain([0, max * 0.3, max])
             .range(['yellowgreen', '#FFFF83', 'red']);

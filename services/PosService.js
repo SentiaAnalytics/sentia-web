@@ -45,6 +45,7 @@ exports._buildPosQuery = function (query) {
     .where('starttime >= ?', query.from)
     .where('store = ?', query.dataId)
     .where("type = 'Betaling'")
+    .where("amount > 0")
     .group('hour')
     .toString();
 };
