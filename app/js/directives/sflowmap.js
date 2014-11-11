@@ -19,7 +19,7 @@ angular.module('sFlowmap', [])
       },
       link: function postLink(scope, element) {
         function updateMap() {
-          var color, scalex, scaley, width, opacity, height, max = 3000;
+          var color, scalex, scaley, width, opacity, height, max = 1000;
 
           if (!scope.data) {
             return;

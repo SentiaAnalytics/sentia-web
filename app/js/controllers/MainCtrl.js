@@ -7,8 +7,20 @@
 /*jslint browser:true, nomen:true*/
 module.exports = function ($scope, $http, $location) {
   'use strict';
+  mixpanel.register({
+    host : window.location.hostname
+  });
+  mixpanel.track('page load', {
+    page : window.title,
+    path : window.location.pathname
+  })
   $http.get('/api/session')
     .success(function (session) {
+      mixpanel.track('Session Loaded', {
+        page : document.title,
+        controller : 'MainCtrl',
+        session : session
+      });
       console.log('Active user: ', session.user.email);
       $scope.$root.showHeader = true;
       $scope.$root.user = session.user;
@@ -23,7 +35,10 @@ module.exports = function ($scope, $http, $location) {
   $scope.logout = function () {
       $http.delete('/api/session')
           .success(function () {
-              $location.path('/login');
+            mixpanel.track('logout', {
+              page : document.title
+            });
+            $location.path('/login');
           })
           .error(function (err, status) {
               console.log(status + ' : ' + err);

@@ -7,6 +7,7 @@ var moment = require('moment');
 /*jslint browser:true, nomen:true*/
 module.exports = function($scope, $route, $routeParams, $location, Cam) {
   'use strict';
+  document.title = 'Sentia.io - Camera';
   $scope.date = moment.utc()
     .hours(0)
     .minutes(0)
@@ -14,12 +15,11 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
     .millisecond(0)
     .toDate();
 
+
   $scope.store = "54318d4064acfb0b3139807e"; // because we only have one :)
   $scope.$root.showHeader = true;
   $scope.$root.page = 'cam';
-  $scope.camera = null;
   // $scope.people = {};
-  console.log($routeParams);
   if (Cam.selectedCam) {
     $scope.camera = Cam.selectedCam;
   } else if ($routeParams.id) {
@@ -34,9 +34,21 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
   $scope.$watch('date', function() {
     updateOverlay();
     getPeople();
+    mixpanel.track('date changed', {
+      page : document.title,
+      controller : 'CamCtrl',
+      camera : ($scope.camera)? $scope.camera._id : $routeParams.id,
+      date : $scope.date
+    });
   });
   $scope.activeTab = 0;
   $scope.selectTab = function(tab) {
+    mixpanel.track('switched tab', {
+      page : document.title,
+      controller: 'CamCtrl',
+      camera : $scope.camera.id,
+      tab : tab
+    });
     $scope.activeTab = tab;
   };
   function getPeople () {
@@ -126,18 +138,11 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
         $scope.map = response;
       });
   }
-  $scope.nextDay = function () {
-    $scope.date = moment($scope.date)
-      .add(1, 'day')
-      .toDate();
-      console.log($scope.date);
-  };
-  $scope.prevDay = function () {
-      //body
-      $scope.date = moment($scope.date)
-        .add(1, 'day')
-        .toDate();
-      console.log($scope.date);
-  };
+  mixpanel.track('page viewed', {
+    'page': document.title,
+    'url': window.location.pathname,
+    controller: 'CamCtrl',
+    camera : ($scope.camera)? $scope.camera._id : $routeParams.id
+  });
 
 };

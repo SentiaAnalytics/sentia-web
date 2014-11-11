@@ -6,25 +6,49 @@
 
 /*jslint browser:true, nomen:true*/
 
-module.exports = function ($scope,  $http, $location) {
+module.exports = function($scope, $http, $location) {
   'use strict';
+  document.title = 'Sentia - Login';
+  
   $scope.$root.showHeader = false;
   $scope.credentials = {};
 
-  $scope.login = function () {
-      console.log($scope.credentials);
-      if(!$scope.credentials.email || !$scope.credentials.password) {return;}
-      $http.post('/api/session/authenticate', $scope.credentials)
-          .success(function (response) {
-              $scope.$root.showHeader = true;
-              $scope.$root.user = response;
-              $location.path('/store');
-          })
-          .error(function (error) {
-              $scope.loginError = error;
-              console.log(error);
+  $scope.login = function() {
+    if (!$scope.credentials.email || !$scope.credentials.password) {
+      return;
+    }
+    $http.post('/api/session/authenticate', $scope.credentials)
+      .success(function(user) {
+        mixpanel.identify(user._id);
+        mixpanel.people.set({
+          $first_name : user.firstname,
+          $last_name : user.lastname,
+          $email : user.email
+        });
+        mixpanel.track('login', {
+          page : document.title,
+          user : user,
+          controller : 'LoginCtrl'
+        });
+        $scope.$root.showHeader = true;
+        $scope.$root.user = user;
+        $location.path('/store');
+      })
+      .error(function(error) {
+        mixpanel.track('error', {
+          type : login,
+          controller : 'LoginCtrl',
+          error : error
+        });
+        $scope.loginError = error;
+        console.log(error);
 
-          });
+      });
   };
+  mixpanel.track('page viewed', {
+    'page name': document.title,
+    'url': window.location.pathname,
+    controller: 'LoginCtrl'
+  });
 
 };

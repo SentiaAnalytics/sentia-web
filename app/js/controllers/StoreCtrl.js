@@ -6,6 +6,8 @@
 
 module.exports = function($scope, Store, Cam) {
   'use strict';
+  document.title = 'Sentia - Store';
+ 
   $scope.$root.showHeader = true;
   $scope.$root.page = 'store';
   $scope.currentTab = 2;
@@ -29,7 +31,7 @@ module.exports = function($scope, Store, Cam) {
     Cam.selectedCam = cam;
     $scope.$root.go('/store/camera/' + cam._id, 'animate-scale');
   };
-  
+   
   function getPos () {
     if (!$scope.store) {
       return;
@@ -87,7 +89,29 @@ module.exports = function($scope, Store, Cam) {
       });
   }
   $scope.$watch('date', function() {
+    mixpanel.track('date changed', {
+      page : document.title,
+      controller : 'StoreCtrl',
+      store : $store.store.id,
+      date : $scope.date
+    });
     getPos();
   });
+
+  $scope.$watch('currentTab', function () {
+    mixpanel.track('switched tab', {
+      page : document.title,
+      controller: 'StoreCtrl',
+      store : $scope.store.id,
+      tab : $scope.currentTab
+    });
+  })
   getPos();
+
+  mixpanel.track('page viewed', {
+    'page': document.title,
+    'url': window.location.pathname,
+    controller: 'StoreCtrl',
+    store : $scope.store._id
+  });
 };
