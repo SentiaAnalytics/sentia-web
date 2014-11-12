@@ -12,18 +12,7 @@ exports.find = function (query) {
   return P.resolve(query)
     .then(exports._getCamera)
     .then(exports._buildMapQuery)
-    .then(function (query) {
-      return query;
-    })
-    .then(function (queryString) {
-      console.log(queryString);
-      return queryString;
-    })
     .then(db.query)
-    .then(function (rows) {
-      console.log(rows);
-      return rows
-    })
     .catch(function (err) {
       console.log(err.stack);
       return P.reject(new E.InternalError('Database Error'));
@@ -41,7 +30,6 @@ exports._getCamera = function (query) {
     });
 };
 exports._buildMapQuery = function (query) {
-  console.log(query);
   return squel.select()
     .field('x')
     .field('y')
