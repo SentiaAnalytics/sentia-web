@@ -15,7 +15,15 @@ exports.find = function (query) {
     .then(function (query) {
       return query;
     })
+    .then(function (queryString) {
+      console.log(queryString);
+      return queryString;
+    })
     .then(db.query)
+    .then(function (rows) {
+      console.log(rows);
+      return rows
+    })
     .catch(function (err) {
       console.log(err.stack);
       return P.reject(new E.InternalError('Database Error'));
@@ -28,7 +36,7 @@ exports._getCamera = function (query) {
       if (!camera) {
         return P.reject(new E.badRequestError('Camera does not exist'));
       }
-      query.dataId = camera.toObject().dataId;
+      // query.dataId = camera.toObject().dataId;
       return query;
     });
 };
@@ -43,7 +51,7 @@ exports._buildMapQuery = function (query) {
     .from('maps_aggregated_daily')
     .where('date < ?', query.to)
     .where('date >= ?', query.from)
-    .where('cam = ' + query.dataId)
+    .where('cam = ?', query.camera)
     .group('x, y')
     .toString();
 };

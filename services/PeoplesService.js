@@ -29,7 +29,7 @@ exports._getCamera = function (query) {
       if (!camera) {
         return P.reject(new E.badRequestError('Camera does not exist'));
       }
-      query.dataId = camera.toObject().dataId;
+      // query.dataId = camera.toObject().dataId;
       return query;
     });
 };
@@ -42,6 +42,6 @@ exports._buildPeopleQuery = function (query) {
     .from('people')
     .where('time < ?', query.to)
     .where('time > ?', query.from)
-    .where('cam = ?', query.dataId)
+    .where('cam = ?', query.camera)
     .toString();
 };
