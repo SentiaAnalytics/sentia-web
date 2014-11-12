@@ -30,7 +30,6 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
           getPeople();
       });
   }
-
   $scope.$watch('date', function() {
     updateOverlay();
     getPeople();

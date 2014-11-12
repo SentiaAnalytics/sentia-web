@@ -24,6 +24,12 @@ module.exports = function ($scope, $http, $location) {
       console.log('Active user: ', session.user.email);
       $scope.$root.showHeader = true;
       $scope.$root.user = session.user;
+      mixpanel.identify(session.user._id);
+        mixpanel.people.set({
+          $first_name : session.user.firstname,
+          $last_name : session.user.lastname,
+          $email : session.user.email
+        });
       if ($location.url() === '/') {
         $location.path('/store');
       }

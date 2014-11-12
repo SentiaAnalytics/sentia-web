@@ -1,9 +1,8 @@
 // load dependencies
 
+window.jQuery = require('jquery');
 require('angular');
-
 // load angular modules
-require('jquery');
 require('angular-route');
 require('angular-touch');
 require('angular-animate');
@@ -17,7 +16,6 @@ require('./directives/sheatmap.js');
 require('./directives/picker.js');
 require('./directives/tabs.js');
 require('./directives/LineChart.js');
-
 (function() {
   'use strict';
   // create new angular module app

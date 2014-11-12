@@ -88,14 +88,16 @@ module.exports = function($scope, Store, Cam) {
         };
       });
   }
+
+
   $scope.$watch('date', function() {
+    getPos();
     mixpanel.track('date changed', {
       page : document.title,
       controller : 'StoreCtrl',
-      store : $store.store.id,
+      store : $scope.store.id,
       date : $scope.date
     });
-    getPos();
   });
 
   $scope.$watch('currentTab', function () {
@@ -106,7 +108,7 @@ module.exports = function($scope, Store, Cam) {
       tab : $scope.currentTab
     });
   })
-  getPos();
+  // getPos();
 
   mixpanel.track('page viewed', {
     'page': document.title,
