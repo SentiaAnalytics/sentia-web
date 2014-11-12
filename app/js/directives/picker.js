@@ -20,7 +20,9 @@ angular.module('picker', [])
         element.addClass('btn-group');
         var $input = window.jQuery(element.find('input'));
         var datepicker = $input.datepicker({
-          autoclose: true
+          autoclose: true,
+          endDate : new Date(),
+          format : 'dd/mm/yyyy'
         }).on('changeDate', function (e) {
           scope.$apply(function () {
             scope.date = e.date;
