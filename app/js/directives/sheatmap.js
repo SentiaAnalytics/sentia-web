@@ -172,7 +172,7 @@ angular.module('sHeatmap', [])
                           // if (item.x % 3 !== 0 || item.y % 3 !== 0) {
                           //   return result;
                           // }
-                          result.push([item.x * 15, item.y * 15, item.heat]);
+                          result.push([item.x * 10, item.y * 10, item.heat]);
                           return result;
                         }, []);
                         cols = scope.cols;
@@ -181,7 +181,7 @@ angular.module('sHeatmap', [])
                         canvas.height = rows;
                         if(cols!== 0 && rows !== 0) {
                             simpleheat(canvas)
-                                .radius(15,20) // 25,35
+                                .radius(10,10) // 25,35
                                 .max(3000)
                                 .data(data)
                                 .draw();

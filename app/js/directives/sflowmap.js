@@ -27,8 +27,8 @@ angular.module('sFlowmap', [])
           var data = scope.data.reduce(function(result, item) {
             result = result || [];
             var i = {
-              x: item.x * 3,
-              y: item.y * 3,
+              x: item.x,
+              y: item.y,
               angle: Math.atan2(item.dx, item.dy),
               magnitude: Math.sqrt(Math.pow(item.dx, 2), Math.pow(item.dy,
                 1))
@@ -38,8 +38,8 @@ angular.module('sFlowmap', [])
             }
             return result;
           }, []);
-          width = element[0].offsetWidth * 2.7;
-          height = element[0].offsetHeight * 2.7;
+          width = element[0].offsetWidth * 2;
+          height = element[0].offsetHeight * 2;
           color = d3.scale.linear()
             .domain([0, max * 0.3, max])
             .range(['yellowgreen', '#FFFF83', 'red']);
@@ -47,10 +47,10 @@ angular.module('sFlowmap', [])
             .domain([0, 4])
             .range([0, 1]);
           scalex = d3.scale.linear()
-            .domain([0, scope.cols * 0.2])
+            .domain([0, scope.cols * 0.1])
             .range([0, width]);
           scaley = d3.scale.linear()
-            .domain([0, scope.rows * 0.2])
+            .domain([0, scope.rows * 0.1])
             .range([0, height]);
           d3.select(element[0])
             .select('svg')
