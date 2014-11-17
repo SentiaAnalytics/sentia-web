@@ -3,7 +3,7 @@
  * @author Andreas
  * @date   2014-04-11
  */
-
+var moment = require('moment');
 module.exports = function($scope, Store, Cam) {
   'use strict';
   document.title = 'Sentia - Store';
@@ -14,7 +14,13 @@ module.exports = function($scope, Store, Cam) {
   $scope.selectTab = function (tab) {
     $scope.currentTab = tab;
   };
-  $scope.date = new Date('2014-09-01');
+  // $scope.date = new Date('2014-09-01');
+  $scope.date = moment.utc()
+    .hours(0)
+    .minutes(0)
+    .seconds(0)
+    .millisecond(0)
+    .toDate();
   $scope.store =  {
     _id : '54318d4064acfb0b3139807e'
   };
@@ -91,6 +97,7 @@ module.exports = function($scope, Store, Cam) {
 
 
   $scope.$watch('date', function() {
+    console.log('DATE CHANGED');
     getPos();
     mixpanel.track('date changed', {
       page : document.title,

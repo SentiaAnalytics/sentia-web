@@ -8,15 +8,19 @@ var squel = require('squel'),
   moment = require('moment');
 squel.useFlavour('mysql');
 
+function log (data) {
+  console.log(data);
+  return data;
+}
+
 exports.find = function (query) {
   console.log(query);
   return P.resolve(query)
     .then(exports._getStore)
     .then(exports._buildPosQuery)
-    .then(function (query) {
-      return query;
-    })
+    .then(log)
     .then(db.query)
+    .then(log)
     .catch(function (err) {
       console.log(err.stack);
       return P.reject(new E.InternalError('Database Error'));
@@ -44,8 +48,9 @@ exports._buildPosQuery = function (query) {
     .where('starttime < ?', query.to)
     .where('starttime >= ?', query.from)
     .where('store = ?', query.dataId)
-    .where("type = 'Betaling'")
+    .where("type = 'Payment'")
     .where("amount > 0")
     .group('hour')
     .toString();
 };
+
