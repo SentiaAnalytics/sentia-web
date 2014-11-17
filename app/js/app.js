@@ -10,6 +10,7 @@ require('angular-md5');
 require('angular-bootstrap');
 require('angular-sanitize');
 require('angular-ui-utils');
+require('angular-datepicker');
 // load custom directives
 require('./directives/sflowmap.js');
 require('./directives/sheatmap.js');
@@ -26,7 +27,7 @@ require('./directives/LineChart.js');
     'ngMd5',
     'ngSanitize',
     'tabs',
-    // 'ui.bootstrap',
+    'datePicker',
     'picker',
     'ui.utils',
     'sFlowmap',

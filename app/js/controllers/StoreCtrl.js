@@ -7,7 +7,23 @@ var moment = require('moment');
 module.exports = function($scope, Store, Cam) {
   'use strict';
   document.title = 'Sentia - Store';
- 
+  $scope.date = moment.utc()
+    .hours(0)
+    .minutes(0)
+    .seconds(0)
+    .millisecond(0)
+    .toDate(); 
+
+  $scope.$watch('date', function() {
+    console.log('DATE CHANGED');
+    getPos();
+    mixpanel.track('date changed', {
+      page : document.title,
+      controller : 'StoreCtrl',
+      store : $scope.store.id,
+      date : $scope.date
+    });
+  });
   $scope.$root.showHeader = true;
   $scope.$root.page = 'store';
   $scope.currentTab = 2;
@@ -15,12 +31,7 @@ module.exports = function($scope, Store, Cam) {
     $scope.currentTab = tab;
   };
   // $scope.date = new Date('2014-09-01');
-  $scope.date = moment.utc()
-    .hours(0)
-    .minutes(0)
-    .seconds(0)
-    .millisecond(0)
-    .toDate();
+  
   $scope.store =  {
     _id : '54318d4064acfb0b3139807e'
   };
@@ -37,6 +48,7 @@ module.exports = function($scope, Store, Cam) {
     Cam.selectedCam = cam;
     $scope.$root.go('/store/camera/' + cam._id, 'animate-scale');
   };
+ 
    
   function getPos () {
     if (!$scope.store) {
@@ -96,16 +108,7 @@ module.exports = function($scope, Store, Cam) {
   }
 
 
-  $scope.$watch('date', function() {
-    console.log('DATE CHANGED');
-    getPos();
-    mixpanel.track('date changed', {
-      page : document.title,
-      controller : 'StoreCtrl',
-      store : $scope.store.id,
-      date : $scope.date
-    });
-  });
+  
 
   $scope.$watch('currentTab', function () {
     mixpanel.track('switched tab', {
