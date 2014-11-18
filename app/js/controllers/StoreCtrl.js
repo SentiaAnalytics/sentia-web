@@ -4,17 +4,21 @@
  * @date   2014-04-11
  */
 var moment = require('moment');
-module.exports = function($scope, Store, Cam) {
+module.exports = function($scope, Store, Cam, $routeParams, $location) {
   'use strict';
   document.title = 'Sentia - Store';
-  $scope.date = moment.utc()
+  $scope.activeTab = Number($routeParams.activeTab) || 2;
+  $location.search('activeTab', $scope.activeTab);
+  $scope.date = moment.utc($routeParams.date)
     .hours(0)
     .minutes(0)
     .seconds(0)
     .millisecond(0)
     .toDate(); 
-
+  $location.search('date', moment($scope.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
   $scope.$watch('date', function() {
+    $location.replace();
+    $location.search('date', moment($scope.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
     console.log('DATE CHANGED');
     getPos();
     mixpanel.track('date changed', {
@@ -26,9 +30,16 @@ module.exports = function($scope, Store, Cam) {
   });
   $scope.$root.showHeader = true;
   $scope.$root.page = 'store';
-  $scope.currentTab = 2;
+  $scope.activeTab = 2;
   $scope.selectTab = function (tab) {
-    $scope.currentTab = tab;
+    $location.search('activeTab', tab);
+    $scope.activeTab = tab;
+    mixpanel.track('switched tab', {
+      page : document.title,
+      controller: 'StoreCtrl',
+      store : $scope.store.id,
+      tab : $scope.activeTab
+    });
   };
   // $scope.date = new Date('2014-09-01');
   
@@ -68,7 +79,6 @@ module.exports = function($scope, Store, Cam) {
         data.forEach(function (e) {
           total_transactions += Number(e.transactions);
           total_revenue += Number(e.revenue);
-          total_transactions += Number(e.transactions);
           transactions[e.hour] = Number(e.transactions);
           revenue[e.hour] = Number(e.revenue); 
         });
@@ -106,20 +116,6 @@ module.exports = function($scope, Store, Cam) {
         };
       });
   }
-
-
-  
-
-  $scope.$watch('currentTab', function () {
-    mixpanel.track('switched tab', {
-      page : document.title,
-      controller: 'StoreCtrl',
-      store : $scope.store.id,
-      tab : $scope.currentTab
-    });
-  })
-  // getPos();
-
   mixpanel.track('page viewed', {
     'page': document.title,
     'url': window.location.pathname,

@@ -5,6 +5,8 @@ var gulp = require('gulp'),
   P = require('bluebird'),
   mocha = require('gulp-mocha'),
   browserify = require('gulp-browserify'),
+  gzip = require('gulp-gzip'),
+  uglify = require('gulp-uglify'),
   less = require('gulp-less'),
   shell = require('gulp-shell'),
   server,
@@ -61,6 +63,7 @@ gulp.task('less', function () {
     .pipe(sourcemaps.init())
     .pipe(less())
     .pipe(sourcemaps.write())
+    // .pipe(gzip())
     .pipe(gulp.dest('app/build/'))
     .pipe(livereload());
 });
@@ -71,7 +74,11 @@ gulp.task('browserify', function () {
       debug : true,
       transform : ['debowerify']
     }))
+    .pipe(uglify({
+      mangle : false
+    }))
     .pipe(rename('bundle.js'))
+    .pipe(gzip())  
     .pipe(gulp.dest('app/build/'))
     .pipe(livereload());
 });

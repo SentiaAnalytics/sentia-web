@@ -5,17 +5,18 @@
  */
 var moment = require('moment');
 /*jslint browser:true, nomen:true*/
-module.exports = function($scope, $route, $routeParams, $location, Cam) {
+module.exports = function($scope, $routeParams, $location, Cam) {
   'use strict';
+  $location.replace();
   document.title = 'Sentia.io - Camera';
-  $scope.date = moment.utc()
+  $scope.date = moment.utc($routeParams.date)
     .hours(0)
     .minutes(0)
     .seconds(0)
     .millisecond(0)
     .toDate();
-
-
+  // $location.search('date', $scope.date);
+  $location.search('date', moment($scope.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
   $scope.store = "54318d4064acfb0b3139807e"; // because we only have one :)
   $scope.$root.showHeader = true;
   $scope.$root.page = 'cam';
@@ -31,6 +32,9 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
       });
   }
   $scope.$watch('date', function() {
+    $location.replace();
+    $location.search('date', moment($scope.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
+    // $location.search('date', $scope.date);
     updateOverlay();
     getPeople();
     mixpanel.track('date changed', {
@@ -40,8 +44,11 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
       date : $scope.date
     });
   });
-  $scope.activeTab = 0;
+  $scope.activeTab = Number($routeParams.activeTab) || 0;
+  $location.search('activeTab', $scope.activeTab);
+
   $scope.selectTab = function(tab) {
+    $location.replace();
     mixpanel.track('switched tab', {
       page : document.title,
       controller: 'CamCtrl',
@@ -49,6 +56,7 @@ module.exports = function($scope, $route, $routeParams, $location, Cam) {
       tab : tab
     });
     $scope.activeTab = tab;
+    $location.search('activeTab', tab);
   };
   function getPeople () {
     if (!$scope.camera || !$scope.camera.counter) {

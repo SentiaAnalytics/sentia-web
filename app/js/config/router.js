@@ -7,15 +7,18 @@ module.exports = function($routeProvider) {
     })
     .when('/store/camera/:id', {
       templateUrl: 'views/cam.html',
-      controller: 'CamCtrl'
+      controller: 'CamCtrl',
+      reloadOnSearch: false
     })
     .when('/store', {
       templateUrl: 'views/store.html',
-      controller: 'StoreCtrl'
+      controller: 'StoreCtrl',
+      reloadOnSearch: false
     })
     .when('/users', {
       templateUrl: 'views/users.html',
-      controller: 'UserCtrl'
+      controller: 'UserCtrl',
+      reloadOnSearch: false
     })
     .otherwise({
       redirectTo: '/'

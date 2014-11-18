@@ -12,6 +12,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   routeloader = require('express-routeloader'),
   server,
+  gzipStatic = require('connect-gzip-static'),
   app = express();
 
 
@@ -24,6 +25,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+
+app.use(gzipStatic(__dirname + '/app'))
 app.use(express.static(__dirname + '/app'));
 
 app.get('/', function (req, res) {

@@ -1,7 +1,7 @@
 <!-- <div class="page container-fluid"> -->
-  <tabs active="currentTab">
+  <tabs active="activeTab">
       <tab select="selectTab('details')" active="tabs.details">
-          <tab-heading ng-class="{active : (currentTab === 0)}" ng-click="selectTab(0)">
+          <tab-heading ng-class="{active : (activeTab === 0)}" ng-click="selectTab(0)">
             <i class="icon-home"></i> Details
         </tab-heading>
         <div class="container gutter-top-large gutter-bottom-large">
@@ -13,12 +13,12 @@
         </div>
       </tab>
       <tab>
-          <tab-heading ng-class="{active : (currentTab === 1)}" ng-click="selectTab(1)">
+          <tab-heading ng-class="{active : (activeTab === 1)}" ng-click="selectTab(1)">
               <i class="icon-basket"></i> Sales
         </tab-heading>
         <div class="container p-top-large">
           <div class="row text-center">
-            <picker ng-model="date"></picker>
+            <picker date="date"></picker>
           </div>
           <div class="container" ng-show="pos">
             <div class="row">
@@ -43,7 +43,7 @@
         </div>
       </tab>
       <tab>
-        <tab-heading ng-class="{active : (currentTab === 2)}"  ng-click="selectTab(2)">
+        <tab-heading ng-class="{active : (activeTab === 2)}"  ng-click="selectTab(2)">
             <i class="icon-camera"></i> Cameras
         </tab-heading>
           <div id="camera-list" class="container-fluid p-top p-bottom">
@@ -52,7 +52,7 @@
               </div>
               <ul class="list list-widgets row">
                   <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" ng-click="$parent.selectedCam = cam" ng-class="{active: selectedCam._id === cam._id}" class="col-md-4 col-sm-6 animate-slide">
-                  <a ng-click="go('/store/camera/{{cam._id}}')">
+                  <a href="/#/store/camera/{{cam._id}}">
                       <div class="widget a widget-content gutter-top" style="transform:rotate({{cam.rotate || 0}}deg); -webkit-transform:rotate({{cam.rotate || 0}}deg)">
                           <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->
                           <div style="height :195px; overflow: hidden; border: 5px solid white; box-shadow : 0px 1px 5px rgba(0,0,0,0.4);">

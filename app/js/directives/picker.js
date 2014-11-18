@@ -4,7 +4,7 @@
  * 2014
  */
 console.log(window.jQuery);
-require('../bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js');
+require('../../bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js');
 var moment = require('moment');
 var $ = require('jquery');
 angular.module('picker', [])
@@ -18,27 +18,39 @@ angular.module('picker', [])
       },
       link: function postLink(scope, element) {
         element.addClass('btn-group');
-        var $input = window.jQuery(element.find('input'));
-        var datepicker = $input.datepicker({
+        var options = {
           autoclose: true,
-          endDate : new Date(),
+          endDate : moment.utc()
+            .hours(0)
+            .minutes(0)
+            .seconds(0)
+            .millisecond(0)
+            .toDate(),
           format : 'dd/mm/yyyy'
-        }).on('changeDate', function (e) {
+        };
+        var $input = window.jQuery(element.find('input'));
+        var datepicker = $input.datepicker(options).on('changeDate', function (e) {
           scope.$apply(function () {
             scope.date = e.date;
           });
         });
 
         scope.prevDate = function () {
-          scope.date = moment(scope.date)
+           var date = moment(scope.date)
             .subtract(1, 'day')
             .toDate(); 
+          if (date <= options.endDate) {
+            scope.date = date;
+          }
 
         };
         scope.nextDate = function () {
-          scope.date = moment(scope.date)
+          var date = moment(scope.date)
             .add(1, 'day')
             .toDate(); 
+          if (date <= options.endDate) {
+            scope.date = date;
+          }
         }
         scope.$watch('date', function () {
           $input.datepicker('update', scope.date);
