@@ -4,8 +4,10 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "node node_modules/.bin/gulp",
-    "test": " node node_modules/.bin/gulp test"
+
+    "start": "node_modules/.bin/gulp",
+    "test": " node_modules/.bin/gulp test",
+    "postinstall": "./node_modules/.bin/bower cache clean && ./node_modules/.bin/bower install"
   },
   "browserify-shim": {
     "angular": "angular"

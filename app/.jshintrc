@@ -25,6 +25,5 @@
 		"$": true,
 		"d3": false,
     "mixpanel" : false
-
 	}
 }

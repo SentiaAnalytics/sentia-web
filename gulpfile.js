@@ -47,7 +47,7 @@ gulp.task('jshint', function() {
     '**/*.js',
     '!test/**',
     '!node_modules/**',
-    '!app/js/lib/**',
+    '!app/bower_components/**',
     '!app/build/**',
     '!gulpfile.js'
     ])
