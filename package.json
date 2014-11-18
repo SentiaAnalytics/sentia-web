@@ -1,13 +1,12 @@
 {
-  "name": "sentia-express",
+  "name": "sentia-web",
   "version": "0.0.7",
   "description": "",
   "main": "main.js",
   "scripts": {
 
     "start": "node_modules/.bin/gulp",
-    "test": " node_modules/.bin/gulp test",
-    "postinstall": "node_modules/.bin/bower install"
+    "test": " node_modules/.bin/gulp test"
   },
   "browserify-shim": {
     "angular": "angular"
