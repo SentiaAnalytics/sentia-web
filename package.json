@@ -7,7 +7,7 @@
 
     "start": "node_modules/.bin/gulp",
     "test": " node_modules/.bin/gulp test",
-    "postinstall": "./node_modules/.bin/bower cache clean && ./node_modules/.bin/bower install"
+    "postinstall": "node_modules/.bin/bower install"
   },
   "browserify-shim": {
     "angular": "angular"
