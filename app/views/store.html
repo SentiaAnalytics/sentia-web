@@ -18,17 +18,17 @@
         </tab-heading>
         <div class="container p-top-large">
           <div class="row text-center">
-            <!-- <picker date="date"></picker> -->
+            <!-- <pickadate date="date"></pickadate> -->
           </div>
           <div class="container" ng-show="pos">
             <div class="row">
                 <div class="col-sm-6 gutter-top-large">
                   <h5 class="caps text-center">Total revenue</h5>
                   <h1 class="text-primary text-center jumbo">{{pos.totalRevenue}}<span class="small">DKK</span></h1>
-                </div> 
+                </div>
                 <div class="col-sm-6 gutter-top-large">
                   <h5 class="caps text-center">Total transactions</h5>
-                  <h1 class="text-warning text-center jumbo">{{pos.totalTransactions}}</h1></div> 
+                  <h1 class="text-warning text-center jumbo">{{pos.totalTransactions}}</h1></div>
                 </div>
             </div>
             <div class="col-lg-6 gutter-top" ng-show="pos.revenue">
@@ -39,7 +39,7 @@
                 <h5 class="caps">Transactions</h5>
                 <linechart data="pos.transactions" trigger="tabs.counter"></linechart>
             </div>
-          </div>  
+          </div>
         </div>
       </tab>
       <tab>

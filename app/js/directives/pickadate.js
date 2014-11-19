@@ -1,4 +1,4 @@
-/**
+  /**
  * Flowmap directive
  * @author  Andreas Møller
  * 2014
@@ -23,24 +23,25 @@ angular.module('pickadate', [])
           today:false,
           clear : false,
           close: false,
-          editable: false,
-          max: true
+          // editable: false,
+          max: true,
+          min : false
+
         });
 
         picker = $input.pickadate('picker');
         picker.set('select', scope.date);
-        picker.on('set', function () {
+        picker.on('set', function (value) {
+          if(!value.select) {
+            return;
+          }
           scope.$apply(function () {
-            console.log('set');
-            scope.date = moment(picker.get('select')).toDate();
-            console.log(scope.date.toString());
+            scope.date = moment(picker.get()).toDate();
           });
         });
         scope.controls = {
           next : function () {
-            console.log('right');
             var date = moment(scope.date).add(1, 'day');
-            console.log(date);
             if (!date.isAfter(moment(), 'day')) {
               scope.date = date.toDate();
             }
@@ -53,10 +54,7 @@ angular.module('pickadate', [])
 
 
         scope.$watch('date', function (newDate) {
-          console.log('watch');
-          console.log(newDate);
-          console.log(scope.date.toString());
-          if (!moment(newDate).isSame(moment(picker.get('select')))) {
+          if (!moment(newDate).isSame(moment(picker.get()))) {
             picker.set('select', newDate, {muted : true});
           }
         });

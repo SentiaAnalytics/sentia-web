@@ -29,7 +29,6 @@ module.exports = function($http, $q) {
         .seconds(0)
         .format('YYYY-MM-DD')
     };
-    console.log(query);
     return $http.get('/api/maps?camera=' +query.camera+ '&from=' + query.from + '&to=' + query.to)
       .then(function(response) {
         return response.data || undefined;
@@ -59,8 +58,7 @@ module.exports = function($http, $q) {
       .then(function(response) {
         return response.data || undefined;
       })
-      .
-    catch (function(error) {
+      .catch (function(error) {
       console.log(error);
       return error;
     });

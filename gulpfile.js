@@ -1,7 +1,9 @@
 'use strict';
 var gulp = require('gulp'),
   watch = require('gulp-watch'),
+  clean = require('gulp-clean'),
   config = require('config'),
+  run = require('run-sequence'),
   P = require('bluebird'),
   mocha = require('gulp-mocha'),
   browserify = require('gulp-browserify'),
@@ -58,6 +60,11 @@ gulp.task('jshint', function() {
 gulp.task('test', ['jshint', 'unit']);
 
 
+gulp.task('clean-js', function () {
+  gulp.src(['app/build/bundle.js', 'app/build/bundle.js.gz'])
+    .pipe(clean());
+});
+
 gulp.task('less', function () {
   return gulp.src('app/styles/style.less')
     .pipe(sourcemaps.init())
@@ -67,7 +74,7 @@ gulp.task('less', function () {
     .pipe(livereload());
 });
 
-gulp.task('browserify', function () {
+gulp.task('browserify', ['clean-js'], function () {
   return gulp.src('app/js/app.js')
     .pipe(browserify({
       debug : true,
@@ -78,16 +85,21 @@ gulp.task('browserify', function () {
     .pipe(livereload());
 });
 
-gulp.task('browserify-compress',['browserify'], function () {
+gulp.task('compress-js', function () {
   return gulp.src('app/build/bundle.js')
     .pipe(uglify({
       mangle : false
     }))
     .pipe(gzip())
-    .pipe(gulp.dest('app/build/'))
+    .pipe(gulp.dest('app/build/'));
 });
 
-gulp.task('build', ['less', 'browserify-compress']);
+gulp.task('build', function (done) {
+   run(['browserify','less'], 'compress-js', done);
+});
+gulp.task('build-dev', function (done) {
+  run(['browserify','less'], done);
+});
 
 gulp.task('run', function () {
   console.log('port:', config.port);
@@ -107,7 +119,7 @@ gulp.task('stop', function () {
 
 gulp.task('default',['build', 'run']);
 
-gulp.task('live', ['less', 'browserify', 'run'], function() {
+gulp.task('live', ['build-dev', 'run'], function() {
   livereload.listen();
   gulp.watch('app/styles/**/*.less', ['less']);
   gulp.watch('app/js/**/*.js', ['browserify']);

@@ -79,7 +79,7 @@ module.exports = function($scope, $routeParams, $location, Cam) {
         total_out  = total_out += Number(e.people_out);
         total_bounce  = total_bounce += Number(e.bounce);
         people_in[e.hour] = e.people_in;
-        people_out[e.hour] = e.people_out; 
+        people_out[e.hour] = e.people_out;
         bounce[e.hour] = e.bounce;
       });
       $scope.people = {
@@ -103,7 +103,7 @@ module.exports = function($scope, $routeParams, $location, Cam) {
           labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
           datasets: [{
             label: "Out",
-            
+
             fillColor: "#F7CB8F",
             strokeColor: "#f0ad4e",
             pointColor: "#f0ad4e",
