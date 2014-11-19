@@ -6,7 +6,7 @@
 console.log(window.jQuery);
 require('pickadate');
 var moment = require('moment');
-var $ = require('jquery');
+require('jquery');
 angular.module('picker', [])
   .directive('picker', function() {
     'use strict';

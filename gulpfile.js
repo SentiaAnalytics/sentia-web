@@ -80,6 +80,9 @@ gulp.task('browserify', ['clean-js'], function () {
       debug : true,
       transform : ['debowerify']
     }))
+    .pipe(uglify({
+      mangle : false
+    }))
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('app/build/'))
     .pipe(livereload());
@@ -87,9 +90,6 @@ gulp.task('browserify', ['clean-js'], function () {
 
 gulp.task('compress-js', function () {
   return gulp.src('app/build/bundle.js')
-    .pipe(uglify({
-      mangle : false
-    }))
     .pipe(gzip())
     .pipe(gulp.dest('app/build/'));
 });
@@ -117,7 +117,9 @@ gulp.task('stop', function () {
   });
 });
 
-gulp.task('default',['build', 'run']);
+gulp.task('default', function () {
+  run('build', 'run');
+});
 
 gulp.task('live', ['build-dev', 'run'], function() {
   livereload.listen();

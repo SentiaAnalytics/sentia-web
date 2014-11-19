@@ -50,7 +50,7 @@ angular.module('pickadate', [])
             var date = moment(scope.date).subtract(1, 'day');
             scope.date = date.toDate();
           }
-        }
+        };
 
 
         scope.$watch('date', function (newDate) {
