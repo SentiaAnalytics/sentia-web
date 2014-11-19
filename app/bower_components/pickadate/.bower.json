@@ -68,5 +68,6 @@
   },
   "_source": "git://github.com/amsul/pickadate.js.git",
   "_target": "~3.5.4",
-  "_originalSource": "pickadate"
+  "_originalSource": "pickadate",
+  "_direct": true
 }

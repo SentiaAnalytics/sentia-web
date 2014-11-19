@@ -63,24 +63,33 @@ gulp.task('less', function () {
     .pipe(sourcemaps.init())
     .pipe(less())
     .pipe(sourcemaps.write())
-    // .pipe(gzip())
     .pipe(gulp.dest('app/build/'))
     .pipe(livereload());
 });
 
-gulp.task('browserify', function () {
+gulp.task('browserify-debug', function () {
   return gulp.src('app/js/app.js')
     .pipe(browserify({
       debug : true,
       transform : ['debowerify']
     }))
-    .pipe(uglify({
-      mangle : false
-    }))
     .pipe(rename('bundle.js'))
-    .pipe(gzip())  
     .pipe(gulp.dest('app/build/'))
     .pipe(livereload());
+});
+gulp.task('browserify', function () {
+  return gulp.src('app/js/app.js')
+  .pipe(browserify({
+    debug : false,
+    transform : ['debowerify']
+  }))
+  .pipe(uglify({
+    mangle : false
+  }))
+  .pipe(rename('bundle.js'))
+  .pipe(gzip())
+  .pipe(gulp.dest('app/build/'))
+  .pipe(livereload());
 });
 gulp.task('build', ['less', 'browserify']);
 
@@ -102,10 +111,10 @@ gulp.task('stop', function () {
 
 gulp.task('default',['build', 'run']);
 
-gulp.task('live', ['less', 'browserify', 'run'], function() {
+gulp.task('live', ['less', 'browserify-debug', 'run'], function() {
   livereload.listen();
   gulp.watch('app/styles/**/*.less', ['less']);
-  gulp.watch('app/js/**/*.js', ['browserify']);
+  gulp.watch('app/js/**/*.js', ['browserify-debug']);
   gulp.watch([
      'app/views/**',
      'app/images/**',

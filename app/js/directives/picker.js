@@ -4,14 +4,14 @@
  * 2014
  */
 console.log(window.jQuery);
-require('../../bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js');
+require('pickadate');
 var moment = require('moment');
 var $ = require('jquery');
 angular.module('picker', [])
   .directive('picker', function() {
     'use strict';
     return {
-      template: '<button class="btn btn-default icon-chevron-left" ng-click="prevDate()"></button><input class="btn btn-default"/><button class="btn btn-default icon-chevron-right" ng-click="nextDate()"></button>',
+      template: '<button class="btn btn-default icon-chevron-left" ng-click="prevDate()"></button><input class="btn btn-default" disabled/><button class="btn btn-default icon-chevron-right" ng-click="nextDate()"></button>',
       restrict: 'E',
       scope: {
         date: '=date'
@@ -38,7 +38,7 @@ angular.module('picker', [])
         scope.prevDate = function () {
            var date = moment(scope.date)
             .subtract(1, 'day')
-            .toDate(); 
+            .toDate();
           if (date <= options.endDate) {
             scope.date = date;
           }
@@ -47,7 +47,7 @@ angular.module('picker', [])
         scope.nextDate = function () {
           var date = moment(scope.date)
             .add(1, 'day')
-            .toDate(); 
+            .toDate();
           if (date <= options.endDate) {
             scope.date = date;
           }
