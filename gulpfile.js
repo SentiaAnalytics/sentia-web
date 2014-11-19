@@ -67,7 +67,7 @@ gulp.task('less', function () {
     .pipe(livereload());
 });
 
-gulp.task('browserify-debug', function () {
+gulp.task('browserify', function () {
   return gulp.src('app/js/app.js')
     .pipe(browserify({
       debug : true,
@@ -77,21 +77,17 @@ gulp.task('browserify-debug', function () {
     .pipe(gulp.dest('app/build/'))
     .pipe(livereload());
 });
-gulp.task('browserify', function () {
-  return gulp.src('app/js/app.js')
-  .pipe(browserify({
-    debug : false,
-    transform : ['debowerify']
-  }))
-  .pipe(uglify({
-    mangle : false
-  }))
-  .pipe(rename('bundle.js'))
-  .pipe(gzip())
-  .pipe(gulp.dest('app/build/'))
-  .pipe(livereload());
+
+gulp.task('browserify-compress',['browserify'], function () {
+  return gulp.src('app/build/bundle.js')
+    .pipe(uglify({
+      mangle : false
+    }))
+    .pipe(gzip())
+    .pipe(gulp.dest('app/build/'))
 });
-gulp.task('build', ['less', 'browserify']);
+
+gulp.task('build', ['less', 'browserify-compress']);
 
 gulp.task('run', function () {
   console.log('port:', config.port);
@@ -111,10 +107,10 @@ gulp.task('stop', function () {
 
 gulp.task('default',['build', 'run']);
 
-gulp.task('live', ['less', 'browserify-debug', 'run'], function() {
+gulp.task('live', ['less', 'browserify', 'run'], function() {
   livereload.listen();
   gulp.watch('app/styles/**/*.less', ['less']);
-  gulp.watch('app/js/**/*.js', ['browserify-debug']);
+  gulp.watch('app/js/**/*.js', ['browserify']);
   gulp.watch([
      'app/views/**',
      'app/images/**',

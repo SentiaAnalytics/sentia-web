@@ -26,7 +26,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(gzipStatic(__dirname + '/app'));
+app.use(gzipStatic(__dirname + '/app/'));
+
 app.use(express.static(__dirname + '/app'));
 
 app.get('/', function (req, res) {
