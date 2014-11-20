@@ -1,8 +1,8 @@
 <!-- <div class="page container-fluid"> -->
-<tabs active="activeTab">
+<tabs active="activeTab" class="full-page">
   <tab select="selectTab('details')" active="tabs.details">
     <tab-heading ng-class="{active : (activeTab === 0)}" ng-click="selectTab(0)">
-      <h3><i class="icon-home"></i> Details</h3>
+      <h3><i class="icon-home"></i></h3>
     </tab-heading>
     <div class="container gutter-top-large gutter-bottom-large">
       <h1 class="text-center jumbo">{{store.name}}</h1>
@@ -14,7 +14,7 @@
   </tab>
   <tab>
     <tab-heading ng-class="{active : (activeTab === 1)}" ng-click="selectTab(1)">
-      <h3><i class="icon-basket"></i> Sales</h3>
+      <h3><i class="icon-stats"></i></h3>
     </tab-heading>
     <div class="container-fluid p-top-large">
       <div class="row text-center">
@@ -44,14 +44,14 @@
   </tab>
   <tab>
     <tab-heading ng-class="{active : (activeTab === 2)}" ng-click="selectTab(2)">
-      <h3><i class="icon-camera"></i> Cameras </h3>
+      <h3><i class="icon-camera"></i></h3>
     </tab-heading>
     <div id="camera-list" class="container-fluid p-top p-bottom">
       <div class="container-fluid">
         <input type="text" id="camera-list-search" class="form-control" role="search" ng-model="camSearch">
       </div>
       <ul class="list list-widgets row">
-        <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" ng-click="$parent.selectedCam = cam" ng-class="{active: selectedCam._id === cam._id}" class="col-md-4 col-sm-6 animate-slide">
+        <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" ng-click="$parent.selectedCam = cam" ng-class="{active: selectedCam._id === cam._id}" class="col-md-4 col-sm-6 animate-scale">
           <a href="/#/store/camera/{{cam._id}}">
             <div class="widget a widget-content gutter-top" style="transform:rotate({{cam.rotate || 0}}deg); -webkit-transform:rotate({{cam.rotate || 0}}deg)">
               <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->

@@ -135,12 +135,16 @@ tabs {
 	display:block;
 	position:relative;
 	height:100%;
-	padding-top: 80px;
+	padding-top: 30px;
+	&.full-page {
+		padding-top:70px;
+	}
 	&>tab-headers {
 		position: absolute;
 		width:100%;
 		top:0;
-		box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+		background-color:#f5f5f5;
+		box-shadow:0px 1px 4px rgba(0, 0, 0, 0.1);
 	    text-align : center;
 	    padding: 0;
 	    &>tab-heading {
