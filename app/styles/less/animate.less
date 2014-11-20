@@ -29,6 +29,31 @@
     }
 
 }
+.animate-slide-up {
+  -webkit-transition: 0.3s linear all;
+  -moz-transition: 0.3s linear all;
+  -o-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  display:block;
+  position:relative;
+  &.ng-enter {
+    opacity:0;
+    -webkit-transform: translate(0, 100%);
+    &.ng-enter-active {
+      opacity:1;
+      -webkit-transform: translate(0, 0);
+    }
+  }
+  &.ng-leave {
+    opacity:1;
+    -webkit-transform: scale(100%);
+    &.ng-leave-active {
+      opacity:0;
+      -webkit-transform: translate(0, -100%);
+
+    }
+  }
+}
 @media (min-width: @screen-sm-min) {
     .animate-slide {
         &.ng-leave-active,

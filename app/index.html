@@ -7,8 +7,8 @@
     <title>Sentia.io</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link type="text/css" href='icons.css' rel='stylesheet'/>
-    <link type="text/css" href='build/style.css' rel='stylesheet'/>
+    <link type="text/css" href="icons.css" rel="stylesheet"/>
+    <link type="text/css" href="build/style.css" rel="stylesheet"/>
     <link id="favicon" rel="icon" type="image/png" sizes="64x64" href="images/logos/sentia_small.png">
     <link rel="apple-touch-icon" href="images/logos/sentia_small_ios.jpg"/>
     <!-- start Mixpanel -->
@@ -28,12 +28,11 @@ for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElemen
         <!-- <div class="nav-button hide-on-login icon-menu a" ng-click="toggleMenu()"> -->
         <!-- </div> -->
         <div id="content" class="pages full-height" ng-class="{'right' : showMenu}">
-            <ng-view class="animate-fade full-height  scroll-y"></ng-view>
+            <ng-view class="animate-slide-up full-height  scroll-y"></ng-view>
         </div>
-        <div id="sidebar" class="sidebar bg-gray-dark" ng-show="showHeader" style="white-space: normal;">
-            <!-- <div><h4 class="shadow caps">Sentia.io</h4></div> -->
+        <!-- <div id="sidebar" class="sidebar bg-gray-dark" ng-show="showHeader" style="white-space: normal;">
             <ul class="menu">
-                
+
                 <li ng-class="{active : page === 'store' || page === 'cam'}" class="a" ng-click="go('/store')">  <div class="icon-home"></div></li>
                 <li ng-class="{active : page === 'users'}" class="a" ng-click="go('/users')">
                     <img ng-src="http://www.gravatar.com/avatar/{{ user.email | gravatar }}?s=40&d=http://www.tiger-stores.com/images/tiger.jpg" alt="" id="active-user-avatar" class="img-xs-round">
@@ -41,7 +40,7 @@ for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElemen
 
                 <li class="a" ng-click="logout()" ><div class="icon-switch"></div></li>
             </ul>
-        </div>
+        </div> -->
     </div>
 
 <script src="build/bundle.js" type="text/javascript"></script>
