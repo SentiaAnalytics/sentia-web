@@ -44,8 +44,10 @@ module.exports = function($scope, $routeParams, $location, Cam) {
       date : $scope.date
     });
   });
-  $scope.activeTab = Number($routeParams.activeTab) || 0;
-  $location.search('activeTab', $scope.activeTab);
+  $scope.tabs ={
+    active : Number($routeParams.tab) || 0
+  };
+  $location.search('tab', $scope.activeTab);
 
   $scope.selectTab = function(tab) {
     $location.replace();
@@ -55,8 +57,8 @@ module.exports = function($scope, $routeParams, $location, Cam) {
       camera : $scope.camera.id,
       tab : tab
     });
-    $scope.activeTab = tab;
-    $location.search('activeTab', tab);
+    $scope.tabs.active = tab;
+    $location.search('tab', tab);
   };
   function getPeople () {
     if (!$scope.camera || !$scope.camera.counter) {

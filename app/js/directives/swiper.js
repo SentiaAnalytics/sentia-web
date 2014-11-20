@@ -4,20 +4,17 @@
  * 2014
  */
 require('swiper');
-angular.module('tabs', [])
-  .directive('tabs', function() {
+angular.module('swiper', [])
+  .directive('swiper', function() {
     'use strict';
     return {
-      template: '<div class="test"></div><tab-headers></tab-headers><div class="swiper-container"><div class="swiper-wrapper" ng-transclude></div></div>',
+      template: '<div class="swiper-container"><div class="swiper-wrapper" ng-transclude></div></div>',
       transclude : true,
       restrict: 'E',
       scope : {
         active : '='
       },
       link: function postLink(scope, element) {
-        element
-          .find('tab-headers')
-          .append(element.find('tab-heading'));
         var swiperContainer = element[0].getElementsByClassName('swiper-container')[0];
         var mySwiper = new Swiper(swiperContainer,{
           //Your options here:
@@ -26,23 +23,22 @@ angular.module('tabs', [])
           preventLinks : true,
           simulateTouch : false
           //etc..
-        }); 
+        });
         scope.$watch('active', function () {
           mySwiper.swipeTo(scope.active, undefined, false);
         });
         mySwiper.addCallback('SlideChangeStart', function(swiper){
           scope.active = mySwiper.activeIndex;
-          scope.$apply();
         });
       }
     };
   })
-  .directive('tab', function() {
+  .directive('swiperSlide', function() {
     'use strict';
     return {
-      template: '<div class="swiper-slide" ng-transclude></div>',
-      transclude : true,
       restrict: 'E',
-      replace : true
+      link : function (scope, element) {
+        element.addClass('swiper-slide');
+      }
     };
   });

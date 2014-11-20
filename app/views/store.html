@@ -1,9 +1,18 @@
 <!-- <div class="page container-fluid"> -->
-<tabs active="activeTab" class="full-page">
-  <tab select="selectTab('details')" active="tabs.details">
-    <tab-heading ng-class="{active : (activeTab === 0)}" ng-click="selectTab(0)">
-      <h3><i class="icon-home"></i></h3>
-    </tab-heading>
+<div class="toolbar toolbar-lg">
+  <a ng-class="{active : (activeTab === 0)}" class="toolbar-item" ng-click="selectTab(0)">
+    <i class="icon-home"></i>
+  </a>
+  <a ng-class="{active : (activeTab === 1)}" class="toolbar-item" ng-click="selectTab(1)">
+    <i class="icon-stats"></i>
+  </a>
+  <a ng-class="{active : (activeTab === 2)}" class="toolbar-item" ng-click="selectTab(2)">
+    <i class="icon-camera"></i>
+  </a>
+  <pickadate date="date"></pickadate>
+</div>
+<swiper active="activeTab" class="full-page">
+  <swiper-slide select="selectTab('details')" active="tabs.details">
     <div class="container gutter-top-large gutter-bottom-large">
       <h1 class="text-center jumbo">{{store.name}}</h1>
       <h4 class="text-center caps gutter-top-large">{{cameras.length}} cameras</h4>
@@ -11,11 +20,8 @@
         <img src="images/stores/floorplan.jpg" class="polaroid-image">
       </div>
     </div>
-  </tab>
-  <tab>
-    <tab-heading ng-class="{active : (activeTab === 1)}" ng-click="selectTab(1)">
-      <h3><i class="icon-stats"></i></h3>
-    </tab-heading>
+  </swiper-slide>
+  <swiper-slide>
     <div class="container-fluid p-top-large">
       <div class="row text-center">
         <!-- <pickadate date="date"></pickadate> -->
@@ -41,11 +47,8 @@
         <linechart data="pos.transactions" trigger="tabs.counter"></linechart>
       </div>
     </div>
-  </tab>
-  <tab>
-    <tab-heading ng-class="{active : (activeTab === 2)}" ng-click="selectTab(2)">
-      <h3><i class="icon-camera"></i></h3>
-    </tab-heading>
+  </swiper-slide>
+  <swiper-slide>
     <div id="camera-list" class="container-fluid p-top p-bottom">
       <div class="container-fluid">
         <input type="text" id="camera-list-search" class="form-control" role="search" ng-model="camSearch">
@@ -63,10 +66,7 @@
         </li>
       </ul>
     </div>
-  </tab>
-  <div class="pagination"><span class="swiper-pagination-switch"></span><span class="swiper-pagination-switch"></span><span class="swiper-pagination-switch swiper-visible-switch swiper-active-switch"></span><span class="swiper-pagination-switch"></span><span class="swiper-pagination-switch"></span>
-    <span
-    class="swiper-pagination-switch"></span><span class="swiper-pagination-switch"></span><span class="swiper-pagination-switch"></span>
-  </div>
+  </swiper-slide>
+</swiper>
 </tabs>
 <!-- </div> -->

@@ -14,7 +14,7 @@ require('angular-ui-utils');
 require('./directives/sflowmap.js');
 require('./directives/sheatmap.js');
 require('./directives/picker.js');
-require('./directives/tabs.js');
+require('./directives/swiper.js');
 require('./directives/pickadate.js');
 require('./directives/LineChart.js');
 (function() {
@@ -26,7 +26,7 @@ require('./directives/LineChart.js');
     'ngAnimate',
     'ngMd5',
     'ngSanitize',
-    'tabs',
+    'swiper',
     'picker',
     'pickadate',
     'ui.utils',
