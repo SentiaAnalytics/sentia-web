@@ -31,14 +31,13 @@
         <div class="col-sm-8 col-sm-offset-2 gutter-bottom">
           <div class="paper" >
             <div style="" class="map-container ">
-              <div class="loader" ng-show="!map"></div>
               <img ng-src="/images/cameras/{{camera._id}}.jpg" alt="" class="paper-image" style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
+              <div class="loader" ng-show="!map"></div>
               <s-heatmap data="map" cols="camera.cols" rows="camera.rows" class="ng-isolate-scope">
                 <canvas style="width : 100%; height : 100%" width="1280" height="720"></canvas>
               </s-heatmap>
             </div>
             <div class="container-fluid">
-
               <h4>{{camera.name}}</h4>
             </div>
           </div>
@@ -55,8 +54,8 @@
         <div class="col-sm-8 col-sm-offset-2 gutter-bottom">
           <div class="paper" style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
             <div style="" class="map-container ">
-              <div class="loader" ng-show="!map"></div>
               <img ng-src="/images/cameras/{{camera._id}}.jpg" alt="" class="paper-image" style="width:100%">
+              <div class="loader" ng-show="!map"></div>
               <s-flowmap data="map" cols="camera.cols" rows="camera.rows" trigger="tabs.active" class="ng-isolate-scope">
                 <svg viewbox="0 0 250 250"></svg>
               </s-flowmap>
