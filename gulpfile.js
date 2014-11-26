@@ -80,9 +80,6 @@ gulp.task('browserify', ['clean-js'], function () {
       debug : true,
       transform : ['debowerify']
     }))
-    .pipe(uglify({
-      mangle : false
-    }))
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('app/build/'))
     .pipe(livereload());
@@ -90,6 +87,9 @@ gulp.task('browserify', ['clean-js'], function () {
 
 gulp.task('compress-js', function () {
   return gulp.src('app/build/bundle.js')
+    .pipe(uglify({
+      mangle : false
+    }))
     .pipe(gzip())
     .pipe(gulp.dest('app/build/'));
 });

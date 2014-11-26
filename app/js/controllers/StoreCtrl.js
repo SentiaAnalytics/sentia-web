@@ -14,7 +14,7 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
     .minutes(0)
     .seconds(0)
     .millisecond(0)
-    .toDate(); 
+    .toDate();
   $location.search('date', moment($scope.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
   $scope.$watch('date', function() {
     $location.replace();
@@ -42,11 +42,11 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
     });
   };
   // $scope.date = new Date('2014-09-01');
-  
+
   $scope.store =  {
     _id : '54318d4064acfb0b3139807e'
   };
-    
+
   Store.read($scope.store._id)
     .then(function (store) {
       $scope.store = store;
@@ -59,8 +59,8 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
     Cam.selectedCam = cam;
     $scope.$root.go('/store/camera/' + cam._id, 'animate-scale');
   };
- 
-   
+
+
   function getPos () {
     if (!$scope.store) {
       return;
@@ -80,7 +80,7 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
           total_transactions += Number(e.transactions);
           total_revenue += Number(e.revenue);
           transactions[e.hour] = Number(e.transactions);
-          revenue[e.hour] = Number(e.revenue); 
+          revenue[e.hour] = Number(e.revenue);
         });
         total_revenue = Math.round(total_revenue * 100) / 100;
         $scope.pos = {
@@ -103,7 +103,7 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
             labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
             datasets: [{
               label: "Out",
-              
+
               fillColor: "#F7CB8F",
               strokeColor: "#f0ad4e",
               pointColor: "#f0ad4e",

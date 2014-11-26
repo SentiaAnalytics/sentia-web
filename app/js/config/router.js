@@ -10,6 +10,11 @@ module.exports = function($routeProvider) {
       controller: 'CamCtrl',
       reloadOnSearch: false
     })
+    .when('/store/:id/report', {
+      templateUrl: 'views/report.html',
+      controller: 'ReportCtrl',
+      reloadOnSearch: false
+    })
     .when('/store', {
       templateUrl: 'views/store.html',
       controller: 'StoreCtrl',

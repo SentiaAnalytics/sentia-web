@@ -1,0 +1,31 @@
+<!-- <div class="page container-fluid"> -->
+<div class="toolbar toolbar-lg">
+  <div class="container-fluid">
+    <div class="col-sm-4 col-xs-2">
+      <a href="/#/store" class="toolbar-item">
+        <i class="icon-undo"></i>
+      </a>
+    </div>
+    <div class="col-sm-4 col-xs-8"> </div>
+    <div class="col-sm-4 col-xs-2 text-right">
+      <pickadate date="date" class="toolbar-item" show="showDatePicker"></pickadate>
+    </div>
+  </div>
+</div>
+<div class="container-fluid p-top-large">
+  <div>
+  </div>
+  <div class="col-lg-6 gutter-top-lg" ng-show="pos.revenue">
+    <h5 class="caps text-center">Total revenue</h5>
+    <h1 class="text-primary text-center jumbo">{{pos.totalRevenue || 0}}<span class="small">DKK</span></h1>
+    <h5 class="caps">Revenue</h5>
+    <linechart data="pos.revenue" trigger="tabs.counter"></linechart>
+  </div>
+  <div class="col-lg-6 gutter-top-lg" ng-show="pos.transactions">
+    <h5 class="caps text-center">Total transactions</h5>
+    <h1 class="text-warning text-center jumbo">{{pos.totalTransactions || 0}}</h1>
+    <h5 class="caps">Transactions</h5>
+    <linechart data="pos.transactions" trigger="tabs.counter"></linechart>
+  </div>
+</div>
+<!-- </div> -->

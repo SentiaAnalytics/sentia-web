@@ -39,6 +39,7 @@ require('./directives/LineChart.js');
   app.service('Cam', require('./services/CamService.js'));
   app.service('Store', require('./services/StoreService.js'));
   app.service('Customer', require('./services/CustomerService.js'));
+  app.service('Report', require('./services/ReportService.js'));
 
   // // Controllers
   app.controller('CamCtrl', require('./controllers/CamCtrl'));
@@ -46,6 +47,7 @@ require('./directives/LineChart.js');
   app.controller('MainCtrl', require('./controllers/MainCtrl'));
   app.controller('StoreCtrl', require('./controllers/StoreCtrl'));
   app.controller('UserCtrl', require('./controllers/UserCtrl'));
+  app.controller('ReportCtrl', require('./controllers/ReportCtrl'));
 
   // // Filters
   // app.filter('heatFilter', require('./filters/heatFilter.js'));
