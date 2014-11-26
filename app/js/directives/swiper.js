@@ -28,7 +28,9 @@ angular.module('swiper', [])
           mySwiper.swipeTo(scope.active, undefined, false);
         });
         mySwiper.addCallback('SlideChangeStart', function(swiper){
-          scope.active = mySwiper.activeIndex;
+          scope.$apply(function () {
+            scope.active = mySwiper.activeIndex;
+          });
         });
       }
     };

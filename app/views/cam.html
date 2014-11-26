@@ -1,39 +1,45 @@
-<nav class="toolbar toolbar-lg">
+<nav class="toolbar toolbar toolbar-lg">
   <div class="container-fluid">
-    <a ng-class="{active : (tabs.active === 0)}" class="toolbar-item" ng-click="selectTab(0)">
-      <span class="h3"><i class="icon-camera"> </i><span class="hidden-xs">Details</span></h3>
-    </a>
-    <a ng-class="{active : (tabs.active === 1)}" class="toolbar-item" ng-click="selectTab(1)">
-      <i class="icon-fire"> </i><span class="hidden-xs">Heatmap</span>
-    </a>
-    <a ng-class="{active : (tabs.active === 2)}" class="toolbar-item" ng-click="selectTab(2)">
-    <i class="icon-location"> </i><span class="hidden-xs">Flowmap</span>
-    </a>
-    <a ng-class="{active : (tabs.active === 3)}" class="toolbar-item" ng-click="selectTab(3)">
-      <i class="icon-stats"> </i><span class="hidden-xs">Counter</span>
-    </a>
-    <pickadate date="date"></pickadate>
+    <div class="row">
+      <div class="col-sm-4 col-xs-2">
+        <a href="/#/store" class="toolbar-item">
+          <i class="icon-undo"></i>
+        </a>
+      </div>
+      <div class="col-sm-4 col-xs-8 text-center">
+        <a ng-class="{active : (tabs.active === 0)}" class="toolbar-item" ng-click="selectTab(0)">
+          <i class="icon-fire"></i>
+        </a>
+        <a ng-class="{active : (tabs.active === 1)}" class="toolbar-item" ng-click="selectTab(1)">
+        <i class="icon-location"></i>
+        </a>
+        <a ng-class="{active : (tabs.active === 2)}" class="toolbar-item" ng-click="selectTab(2)">
+          <i class="icon-stats"></i>
+        </a>
+      </div>
+      <div class="col-sm-4 col-xs-2 text-right">
+        <pickadate date="date" class="toolbar-item"></pickadate>
+      </div>
+    </div>
   </div>
 </nav>
 
 <swiper active="tabs.active" class="full-page">
-  <!-- <pickadate date="date"></pickadate> -->
-  <swiper-slide>
-    <div class="container">
-      <h1 class="text-center big-text">{{camera.name}}</h1>
-    </div>
-  </swiper-slide>
   <swiper-slide>
     <div class="container p-top">
       <div class="row">
         <div class="col-sm-8 col-sm-offset-2 gutter-bottom">
-          <div class="polaroid" style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
+          <div class="paper" style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
             <div style="" class="map-container ">
               <div class="loader" ng-show="!map"></div>
               <s-heatmap data="map" cols="camera.cols" rows="camera.rows" class="ng-isolate-scope">
                 <canvas style="width : 100%; height : 100%" width="1280" height="720"></canvas>
               </s-heatmap>
-              <img ng-src="/images/cameras/{{camera._id}}.jpg" alt="" class="header-image" style="width:100%">
+              <img ng-src="/images/cameras/{{camera._id}}.jpg" alt="" class="paper-image" style="width:100%">
+            </div>
+            <div class="container-fluid">
+
+              <h4>{{camera.name}}</h4>
             </div>
           </div>
         </div>
@@ -47,13 +53,16 @@
     <div class="container p-top">
       <div class="row">
         <div class="col-sm-8 col-sm-offset-2 gutter-bottom">
-          <div class="polaroid" style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
+          <div class="paper" style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
             <div style="" class="map-container ">
               <div class="loader" ng-show="!map"></div>
               <s-flowmap data="map" cols="camera.cols" rows="camera.rows" trigger="tabs.active" class="ng-isolate-scope">
                 <svg viewbox="0 0 250 250"></svg>
               </s-flowmap>
-              <img ng-src="/images/cameras/{{camera._id}}.jpg" alt="" class="header-image" style="width:100%">
+              <img ng-src="/images/cameras/{{camera._id}}.jpg" alt="" class="paper-image" style="width:100%">
+            </div>
+            <div class="container-fluid ">
+              <h4>{{camera.name}}</h4>
             </div>
           </div>
         </div>

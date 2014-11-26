@@ -1,0 +1,84 @@
+<!-- <div class="page container-fluid"> -->
+<div class="toolbar toolbar-lg">
+  <div class="container-fluid">
+    <div class="col-sm-4 col-xs-2">
+      <a href="" class="toolbar-item">
+        <i class="icon-undo"></i>
+      </a>
+    </div>
+    <div class="col-xs-8 col-sm-4 text-center">
+
+      <a ng-class="{active : (activeTab === 0)}" class="toolbar-item" ng-click="selectTab(0)">
+        <i class="icon-home"></i>
+      </a>
+      <a ng-class="{active : (activeTab === 1)}" class="toolbar-item" ng-click="selectTab(1)">
+        <i class="icon-bars"></i>
+      </a>
+      <a ng-class="{active : (activeTab === 2)}" class="toolbar-item" ng-click="selectTab(2)">
+        <i class="icon-camera"></i>
+      </a>
+    </div>
+    <div class="col-sm-4 col-xs-2 text-right">
+      <pickadate date="date" class="toolbar-item" show="showDatePicker"></pickadate>
+    </div>
+  </div>
+</div>
+<swiper active="activeTab" class="full-page">
+  <swiper-slide select="selectTab('details')" active="tabs.details">
+    <div class="container gutter-top-large gutter-bottom-large">
+      <h1 class="text-center jumbo">{{store.name}}</h1>
+      <h4 class="text-center caps gutter-top-large">{{cameras.length}} cameras</h4>
+      <div class="polaroid gutter-top-large col-sm-8 col-sm-offset-2">
+        <img src="images/stores/floorplan.jpg" class="polaroid-image">
+      </div>
+    </div>
+  </swiper-slide>
+  <swiper-slide>
+    <div class="container-fluid p-top-large">
+      <div class="row text-center">
+        <!-- <pickadate date="date"></pickadate> -->
+      </div>
+      <div ng-show="pos">
+        <div class="row">
+          <div class="col-sm-6 gutter-top-large">
+            <h5 class="caps text-center">Total revenue</h5>
+            <h1 class="text-primary text-center jumbo">{{pos.totalRevenue}}<span class="small">DKK</span></h1>
+          </div>
+          <div class="col-sm-6 gutter-top-large">
+            <h5 class="caps text-center">Total transactions</h5>
+            <h1 class="text-warning text-center jumbo">{{pos.totalTransactions}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 gutter-top" ng-show="pos.revenue">
+        <h5 class="caps">Revenue</h5>
+        <linechart data="pos.revenue" trigger="tabs.counter"></linechart>
+      </div>
+      <div class="col-lg-6 gutter-top" ng-show="pos.transactions">
+        <h5 class="caps">Transactions</h5>
+        <linechart data="pos.transactions" trigger="tabs.counter"></linechart>
+      </div>
+    </div>
+  </swiper-slide>
+  <swiper-slide>
+    <div id="camera-list" class="container-fluid p-top p-bottom">
+      <div class="container-fluid">
+        <input type="text" id="camera-list-search" class="form-control" role="search" ng-model="camSearch">
+      </div>
+      <ul class="list list-widgets row">
+        <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" ng-click="$parent.selectedCam = cam" ng-class="{active: selectedCam._id === cam._id}" class="col-md-4 col-sm-6 animate-scale">
+          <a href="/#/store/camera/{{cam._id}}">
+            <div class="widget a widget-content gutter-top" style="transform:rotate({{cam.rotate || 0}}deg); -webkit-transform:rotate({{cam.rotate || 0}}deg)">
+              <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->
+              <div style="height :195px; overflow: hidden; border: 5px solid white; box-shadow : 0px 1px 5px rgba(0,0,0,0.4);">
+                <img ng-src="/images/cameras/{{cam._id}}.jpg" alt="" class="header-image">
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </swiper-slide>
+</swiper>
+</tabs>
+<!-- </div> -->

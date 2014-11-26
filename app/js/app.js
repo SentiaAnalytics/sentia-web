@@ -53,7 +53,7 @@ require('./directives/LineChart.js');
   // configure routes
   app.config(require('./config/router.js'));
 
-  app.run(function($rootScope, $window, $location) {
+  app.run(function($rootScope, $window, $location, $http) {
     $rootScope.showHeader = false;
     $rootScope.user = {};
     $rootScope.go = function(path) {
@@ -63,6 +63,18 @@ require('./directives/LineChart.js');
         $location.path(path);
       }
       $rootScope.showMenu = false;
+    };
+    $rootScope.logout = function () {
+      $http.delete('/api/session')
+      .success(function () {
+        mixpanel.track('logout', {
+          page : document.title
+        });
+        $location.path('/login');
+      })
+      .error(function (err, status) {
+        console.log(status + ' : ' + err);
+      });
     };
   });
   window.app = app;

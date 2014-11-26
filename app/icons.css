@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'sentia-icon';
-	src:url('fonts/sentia-icon.eot?-8cqio9');
-	src:url('fonts/sentia-icon.eot?#iefix-8cqio9') format('embedded-opentype'),
-		url('fonts/sentia-icon.woff?-8cqio9') format('woff'),
-		url('fonts/sentia-icon.ttf?-8cqio9') format('truetype'),
-		url('fonts/sentia-icon.svg?-8cqio9#sentia-icon') format('svg');
+	src:url('fonts/sentia-icon.eot?crpp32');
+	src:url('fonts/sentia-icon.eot?#iefixcrpp32') format('embedded-opentype'),
+		url('fonts/sentia-icon.woff?crpp32') format('woff'),
+		url('fonts/sentia-icon.ttf?crpp32') format('truetype'),
+		url('fonts/sentia-icon.svg?crpp32#sentia-icon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,15 +23,6 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-basket:before {
-	content: "\e609";
-}
-.icon-dollar:before {
-	content: "\e608";
-}
-.icon-location:before {
-	content: "\e602";
-}
 .icon-chevron-down:before {
 	content: "\f0a3";
 }
@@ -44,27 +35,75 @@
 .icon-chevron-up:before {
 	content: "\f0a2";
 }
-.icon-flame:before {
-	content: "\f0d2";
-}
-.icon-home:before {
+.icon-location:before {
 	content: "\e600";
 }
-.icon-camera:before {
-	content: "\e604";
+.icon-checkmark:before {
+	content: "\e601";
 }
-.icon-cart:before {
-	content: "\e606";
+.icon-cancel:before {
+	content: "\e602";
 }
-.icon-coin:before {
-	content: "\e607";
-}
-.icon-stats:before {
+.icon-home:before {
 	content: "\e603";
 }
-.icon-fire:before {
+.icon-pencil:before {
+	content: "\e604";
+}
+.icon-camera:before {
 	content: "\e605";
 }
+.icon-tag:before {
+	content: "\e606";
+}
+.icon-undo:before {
+	content: "\e607";
+}
+.icon-redo:before {
+	content: "\e608";
+}
+.icon-forward:before {
+	content: "\e609";
+}
+.icon-reply:before {
+	content: "\e60a";
+}
+.icon-users:before {
+	content: "\e60b";
+}
+.icon-cog:before {
+	content: "\e60c";
+}
+.icon-pie:before {
+	content: "\e60d";
+}
+.icon-stats:before {
+	content: "\e60e";
+}
+.icon-bars:before {
+	content: "\e60f";
+}
+.icon-fire:before {
+	content: "\e610";
+}
 .icon-switch:before {
-	content: "\e601";
+	content: "\e611";
+}
+.icon-menu:before {
+	content: "\e612";
+}
+.icon-cloud-download:before {
+	content: "\e613";
+}
+.icon-cloud-upload:before {
+	content: "\e614";
+}
+.icon-shuffle:before {
+	content: "\e615";
+}
+.icon-file-xml:before {
+	content: "\e616";
+}
+.icon-calendar:before {
+	content: "\e617";
 }

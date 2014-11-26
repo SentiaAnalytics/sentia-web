@@ -11,18 +11,19 @@ angular.module('pickadate', [])
   .directive('pickadate', function() {
     'use strict';
     return {
-      template: '<button class="btn btn-default icon-chevron-left" ng-click="controls.prev()"></button><input class="btn btn-default"><button class="btn btn-default icon-chevron-right" ng-click="controls.next()"></button>',
+      template: '<div class="btn-group"><button class="btn btn-primary icon-chevron-left hidden-xs" ng-click="controls.prev()"></button><input class="btn btn-primary hidden-xs"><button class="btn btn-primary hidden-xs icon-chevron-right" ng-click="controls.next()"></button></div><button class="hidden-sm hidden-md hidden-lg btn btn-primary btn-icon" ng-click="open($event)" style="border-radius:4px;"><i class="icon-calendar" ></i></button>',
       restrict: 'E',
       scope: {
-        date: '=date'
+        date: '=date',
+        show : '=show'
       },
       link: function postLink(scope, element) {
         var $input, picker;
-        element.addClass('btn-group');
         $input = $(element.find('input')).pickadate({
           today:false,
           clear : false,
           close: false,
+          format : 'd mmm, yyyy',
           // editable: false,
           max: true,
           min : false
@@ -52,7 +53,11 @@ angular.module('pickadate', [])
           }
         };
 
-
+        scope.open = function (event) {
+          setTimeout(function () {
+              picker.open();
+          },0)
+        };
         scope.$watch('date', function (newDate) {
           if (!moment(newDate).isSame(moment(picker.get()))) {
             picker.set('select', newDate, {muted : true});

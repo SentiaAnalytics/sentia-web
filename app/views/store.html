@@ -1,15 +1,27 @@
 <!-- <div class="page container-fluid"> -->
 <div class="toolbar toolbar-lg">
-  <a ng-class="{active : (activeTab === 0)}" class="toolbar-item" ng-click="selectTab(0)">
-    <i class="icon-home"></i>
-  </a>
-  <a ng-class="{active : (activeTab === 1)}" class="toolbar-item" ng-click="selectTab(1)">
-    <i class="icon-stats"></i>
-  </a>
-  <a ng-class="{active : (activeTab === 2)}" class="toolbar-item" ng-click="selectTab(2)">
-    <i class="icon-camera"></i>
-  </a>
-  <pickadate date="date"></pickadate>
+  <div class="container-fluid">
+      <div class="col-sm-4 col-xs-2">
+        <a href="#" ng-click="$root.logout()" class="toolbar-item">
+          <i class="icon-switch"></i>
+        </a>
+    </div>
+    <div class="col-xs-8 col-sm-4 text-center">
+
+      <a ng-class="{active : (activeTab === 0)}" class="toolbar-item" ng-click="selectTab(0)">
+        <i class="icon-home"></i>
+      </a>
+      <a ng-class="{active : (activeTab === 1)}" class="toolbar-item" ng-click="selectTab(1)">
+        <i class="icon-bars"></i>
+      </a>
+      <a ng-class="{active : (activeTab === 2)}" class="toolbar-item" ng-click="selectTab(2)">
+        <i class="icon-camera"></i>
+      </a>
+    </div>
+    <div class="col-sm-4 col-xs-2 text-right">
+      <pickadate date="date" class="toolbar-item" show="showDatePicker"></pickadate>
+    </div>
+  </div>
 </div>
 <swiper active="activeTab" class="full-page">
   <swiper-slide select="selectTab('details')" active="tabs.details">
@@ -26,15 +38,15 @@
       <div class="row text-center">
         <!-- <pickadate date="date"></pickadate> -->
       </div>
-      <div ng-show="pos">
+      <div>
         <div class="row">
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps text-center">Total revenue</h5>
-            <h1 class="text-primary text-center jumbo">{{pos.totalRevenue}}<span class="small">DKK</span></h1>
+            <h1 class="text-primary text-center jumbo">{{pos.totalRevenue || 0}}<span class="small">DKK</span></h1>
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps text-center">Total transactions</h5>
-            <h1 class="text-warning text-center jumbo">{{pos.totalTransactions}}</h1>
+            <h1 class="text-warning text-center jumbo">{{pos.totalTransactions || 0}}</h1>
           </div>
         </div>
       </div>
@@ -56,10 +68,13 @@
       <ul class="list list-widgets row">
         <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" ng-click="$parent.selectedCam = cam" ng-class="{active: selectedCam._id === cam._id}" class="col-md-4 col-sm-6 animate-scale">
           <a href="/#/store/camera/{{cam._id}}">
-            <div class="widget a widget-content gutter-top" style="transform:rotate({{cam.rotate || 0}}deg); -webkit-transform:rotate({{cam.rotate || 0}}deg)">
+            <div class="paper gutter-top" >
               <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->
-              <div style="height :195px; overflow: hidden; border: 5px solid white; box-shadow : 0px 1px 5px rgba(0,0,0,0.4);">
-                <img ng-src="/images/cameras/{{cam._id}}.jpg" alt="" class="header-image">
+              <div style="height :195px; overflow: hidden;">
+                <img ng-src="/images/cameras/{{cam._id}}.jpg" alt="" class="paper-image" style="transform:rotate({{cam.rotate || 0}}deg); -webkit-transform:rotate({{cam.rotate || 0}}deg)">
+              </div>
+              <div class="container-fluid">
+                <h4>{{cam.name}}</h3>
               </div>
             </div>
           </a>
