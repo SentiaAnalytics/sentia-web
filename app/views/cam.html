@@ -27,8 +27,8 @@
 <swiper active="tabs.active" class="full-page">
   <swiper-slide>
     <div class="hidden-xs p-top"></div>
-    <div class="">
-      <div class="">
+    <div class="container">
+      <div class="row">
         <div class="col-sm-8 col-sm-offset-2 gutter-bottom">
           <div class="paper row" >
             <div class="map-container " style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
@@ -44,18 +44,18 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-10 col-sm-offset-1 p-top-large text-center">
+      <div class="col-sm-8 col-sm-offset-2 p-top-large text-center">
         <p>The Heatmap shows customer density in the variaous areas of your store. Red indicates a very popular area, and blue indicates relivately low popularity</p>
       </div>
     </div>
   </swiper-slide>
   <swiper-slide>
   <div class="hidden-xs p-top"></div>
-    <div class="">
-      <div class="">
+    <div class="container">
+      <div class="row">
         <div class="col-sm-8 col-sm-offset-2 gutter-bottom">
-          <div class="paper row" style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
-            <div style="" class="map-container ">
+          <div class="paper row" >
+            <div class="map-container " style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
               <img ng-src="/images/cameras/{{camera._id}}.jpg" alt="" class="paper-image" style="width:100%">
               <div class="loader" ng-show="!map"></div>
               <s-flowmap data="map" cols="camera.cols" rows="camera.rows" trigger="tabs.active" class="ng-isolate-scope">
@@ -68,7 +68,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-10 col-sm-offset-1 p-top-large text-center">
+      <div class="col-sm-8 col-sm-offset-2 p-top-large text-center">
         <p>The flow map shows customer movement in your store. The direction of the arrows show the general direction of customer movement. The color of the arrow shows the intensity of the flow.</p>
       </div>
     </div>
