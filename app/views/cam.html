@@ -28,9 +28,9 @@
   <swiper-slide>
     <div class="hidden-xs p-top"></div>
     <div class="">
-      <div class="row">
+      <div class="">
         <div class="col-sm-8 col-sm-offset-2 gutter-bottom">
-          <div class="paper" >
+          <div class="paper row" >
             <div class="map-container " style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
               <img ng-src="/images/cameras/{{camera._id}}.jpg" alt="" class="paper-image" >
               <div class="loader" ng-show="!map"></div>
@@ -44,16 +44,17 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-10 col-sm-offset-1 well well-lg  text-center">
+      <div class="col-sm-10 col-sm-offset-1 p-top-large text-center">
         <p>The Heatmap shows customer density in the variaous areas of your store. Red indicates a very popular area, and blue indicates relivately low popularity</p>
       </div>
     </div>
   </swiper-slide>
   <swiper-slide>
-    <div class="container p-top">
-      <div class="row">
+  <div class="hidden-xs p-top"></div>
+    <div class="">
+      <div class="">
         <div class="col-sm-8 col-sm-offset-2 gutter-bottom">
-          <div class="paper" style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
+          <div class="paper row" style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
             <div style="" class="map-container ">
               <img ng-src="/images/cameras/{{camera._id}}.jpg" alt="" class="paper-image" style="width:100%">
               <div class="loader" ng-show="!map"></div>
@@ -67,14 +68,14 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-10 col-sm-offset-1 well well-lg  text-center">
+      <div class="col-sm-10 col-sm-offset-1 p-top-large text-center">
         <p>The flow map shows customer movement in your store. The direction of the arrows show the general direction of customer movement. The color of the arrow shows the intensity of the flow.</p>
       </div>
     </div>
   </swiper-slide>
   <swiper-slide>
     <div class="col-sm-10 col-sm-offset-1 p-top-large" ng-hide="people">
-      <div class="well well-lg  text-center">
+      <div class="text-center">
         <p>There is no people information available for the selected camera and date.</p>
       </div>
     </div>
