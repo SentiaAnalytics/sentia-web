@@ -70,14 +70,14 @@ module.exports = function($scope, $routeParams, $location, Cam) {
         return;
       }
       var people_in = [], people_out = [], bounce = [], i,total_bounce = 0, total_in = 0, total_out = 0;
-      for (i = 0; i < 14; i += 1) {
+      for (i = 0; i < 15; i += 1) {
         people_in.push(0);
         people_out.push(0);
         bounce.push(0);
       }
 
       data.forEach(function (e) {
-        if (e.hour >= 9 && e.hour <= 22) {
+        if (e.hour >= 9 && e.hour <= 23) {
           total_in += Number(e.people_in);
           total_out += Number(e.people_out);
           total_bounce += Number(e.bounce);
@@ -92,7 +92,7 @@ module.exports = function($scope, $routeParams, $location, Cam) {
         total_out : total_out,
         total_bounce : total_bounce,
         people_in : {
-          labels: ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'],
+          labels: ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
           datasets: [{
             label: "In",
             fillColor: "#90CCFF",

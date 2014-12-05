@@ -25,7 +25,6 @@ angular.module('linechart', [])
             return;
           }
           element.find('*').remove();
-
           var options = {
             element : element[0],
             data : parseData($scope.data),
