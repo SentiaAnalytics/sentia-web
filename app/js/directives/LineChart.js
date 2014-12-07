@@ -34,7 +34,7 @@ angular.module('linechart', [])
             lineColors : ['#36a3ff'],
             dateFormat : function () {return ''},
             hoverCallback: function (index, options, content, row) {
-              return row.x + ':00 - ' + row.y;
+              return '<span class="caps">' + row.x + ':00</span>|<span class="text-primary"> ' + row.y + '</span>';
             },
             xLabelFormat : function (x) {
               return '' + x + ':00';
