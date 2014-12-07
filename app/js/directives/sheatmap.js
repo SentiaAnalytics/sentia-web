@@ -165,13 +165,7 @@ angular.module('sHeatmap', [])
                             return;
                         }
 
-                        // data = scope.data.map(function (item) {
-                        //     return [item.x * 10, item.y * 10, item.heat];
-                        // });
                         data = scope.data.reduce(function (result, item) {
-                          // if (item.x % 3 !== 0 || item.y % 3 !== 0) {
-                          //   return result;
-                          // }
                           result.push([item.x * 10, item.y * 10, item.heat]);
                           return result;
                         }, []);

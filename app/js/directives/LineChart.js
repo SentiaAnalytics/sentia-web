@@ -40,7 +40,6 @@ angular.module('linechart', [])
               return '' + x + ':00';
             }
           }
-
          Morris.Area(options);
         }
       }
