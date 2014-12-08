@@ -42,6 +42,7 @@ angular.module('linechart', [])
           }
          Morris.Area(options);
         }
+        jQuery(window).on('resize', function() { draw();});
       }
     };
     function parseData (data) {
