@@ -27,5 +27,8 @@ exports._validatePassword = function (user) {
   return user.authenticate(this.password)
     .then(function () {
       return user;
-    });
+    })
+    .catch(function (err) {
+      return P.reject(new E.NotAuthorizedError('Invalid Password'));
+    })
 };

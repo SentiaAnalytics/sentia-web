@@ -14,7 +14,13 @@ module.exports = function($scope, $http, $location) {
   $scope.credentials = {};
 
   $scope.login = function() {
-    if (!$scope.credentials.email || !$scope.credentials.password) {
+    $scope.loginError = '';
+    if (!$scope.credentials.email) {
+      $scope.loginError = 'Invalid Email';
+      return;
+    } 
+    if (!$scope.credentials.password) {
+      $scope.loginError = 'Invalid password';
       return;
     }
     $http.post('/api/session/authenticate', $scope.credentials)
@@ -36,7 +42,7 @@ module.exports = function($scope, $http, $location) {
       })
       .error(function(error) {
         mixpanel.track('error', {
-          type : login,
+          type : 'login',
           controller : 'LoginCtrl',
           error : error
         });
