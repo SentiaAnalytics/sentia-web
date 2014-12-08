@@ -71,7 +71,7 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
         if(data.length === 0) {
           return;
         }
-        for (i = 0; i < 24; i += 1) {
+        for (i = 0; i < 14; i += 1) {
           revenue.push(0);
           transactions.push(0);
         }
@@ -79,15 +79,17 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
         data.forEach(function (e) {
           total_transactions += Number(e.transactions);
           total_revenue += Number(e.revenue);
-          transactions[e.hour] = Number(e.transactions);
-          revenue[e.hour] = Number(e.revenue);
+          if (e.hour >= 9) {
+            transactions[e.hour -9] = Math.round(Number(e.transactions) * 100) /100;
+            revenue[e.hour -9 ] = Math.round(Number(e.revenue) * 100)/100;
+          }
         });
         total_revenue = Math.round(total_revenue * 100) / 100;
         $scope.pos = {
           totalTransactions : total_transactions,
           totalRevenue : total_revenue,
           revenue : {
-            labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+            labels: ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
             datasets: [{
               label: "In",
               fillColor: "#90CCFF",
@@ -100,7 +102,7 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
             }]
           },
           transactions : {
-            labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+            labels: ['9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
             datasets: [{
               label: "Out",
 
