@@ -30,7 +30,6 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
   });
   $scope.$root.showHeader = true;
   $scope.$root.page = 'store';
-  $scope.activeTab = 2;
   $scope.selectTab = function (tab) {
     $location.search('activeTab', tab);
     $scope.activeTab = tab;
