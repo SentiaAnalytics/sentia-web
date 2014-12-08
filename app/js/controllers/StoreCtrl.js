@@ -71,7 +71,7 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
         if(data.length === 0) {
           return;
         }
-        for (i = 0; i < 14; i += 1) {
+        for (i = 0; i < 15; i += 1) {
           revenue.push(0);
           transactions.push(0);
         }
