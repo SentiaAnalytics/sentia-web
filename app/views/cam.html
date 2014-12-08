@@ -52,7 +52,7 @@
   <swiper-slide>
   <div class="hidden-xs p-top"></div>
     <div class="container">
-      <div class="row">
+      <div class="row clearfix">
         <div class="col-sm-8 col-sm-offset-2 gutter-bottom">
           <div class="paper row" >
             <div class="map-container " style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
@@ -79,8 +79,8 @@
         <p>There is no people information available for the selected camera and date.</p>
       </div>
     </div>
-    <div class="container p-top-large" ng-show="people">
-      <div class="row">
+    <div class="container p-top-large clearfix" ng-show="people">
+      <div class="row clearfix">
         <div class="col-sm-12">
           <h5 class="caps text-center">Total people in</h5>
           <h1 class="text-primary text-center jumbo">{{people.total_in}}</h1>
