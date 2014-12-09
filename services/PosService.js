@@ -43,12 +43,12 @@ exports._buildPosQuery = function (query) {
   return squel.select()
     .field('hour(starttime) as hour')
     .field('sum(amount) as revenue')
-    .field('sum(1) as transactions')
+    .field('count(distinct(salesno)) as transactions')
     .from('pos')
     .where('starttime < ?', query.to)
     .where('starttime >= ?', query.from)
     .where('store = ?', query.dataId)
-    .where("type = 'Payment'")
+    .where("type = 'Item'")
     .group('hour')
     .toString();
 };
