@@ -4,27 +4,29 @@
 'use strict';
 var PosService = require('../services/PosService'),
   lo = require('lodash'),
+  log = require('bragi').log,
   middleware = require('../middleware');
 
 // ## Read
 //
 exports.find = {
   handler : function (req) {
-    return PosService.find(req.query);
+    log('debug:controller:pos:handler', req.session.user.company);
+    return PosService.find(req.query, req.session.user.company);
   },
-  middleware : [middleware.company],
+  middleware : [middleware.jsonQuery],
   query : {
     additionalProperties : false,
-    required : ['store', 'from', 'to'],
+    required : ['where'],
     properties : {
-      store : {
-        type : 'string'
+      fields : {
+        type : 'object'
       },
-      from : {
-        type : 'string'
+      where : {
+        type : 'object'
       },
-      to : {
-        type : 'string'
+      groupBy : {
+        type : 'array'
       }
     }
   }

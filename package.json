@@ -42,6 +42,7 @@
     "gulp-uglify": "^1.0.1",
     "gulp-watch": "~0.6.9",
     "jshint-stylish": "~0.4.0",
+    "json2sql": "0.0.1",
     "lodash": "~2.4.1",
     "moment": "~2.8.2",
     "mongoose": "^3.8.17",
@@ -52,7 +53,8 @@
     "requireindex": "~1.1.0",
     "run-sequence": "^1.0.1",
     "socksjs": "^0.4.5",
-    "squel": "^3.8.1"
+    "squel": "^3.8.1",
+    "url-builder": "^0.2.1"
   },
   "devDependencies": {
     "chai": "~1.9.1",

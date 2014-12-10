@@ -37,6 +37,7 @@ require('./directives/LineChart.js');
 
   // Services
   app.service('Cam', require('./services/CamService.js'));
+  app.service('Pos', require('./services/pos.service.js'));
   app.service('Store', require('./services/StoreService.js'));
   app.service('Customer', require('./services/CustomerService.js'));
   app.service('Report', require('./services/ReportService.js'));

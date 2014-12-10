@@ -4,7 +4,7 @@
  * @date   2014-04-11
  */
 var moment = require('moment');
-module.exports = function($scope, Store, Cam, $routeParams, $location) {
+module.exports = function($scope, Store, Cam, Pos, $routeParams, $location) {
   'use strict';
   document.title = 'Sentia - Store';
   $scope.activeTab = Number($routeParams.activeTab) || 2;
@@ -64,7 +64,7 @@ module.exports = function($scope, Store, Cam, $routeParams, $location) {
     if (!$scope.store) {
       return;
     }
-    Store.getPos({store: $scope.store._id, date: $scope.date})
+    Pos.get({store: $scope.store._id, date: $scope.date})
       .then(function(data) {
         var revenue = [], transactions = [], i,total_revenue = 0, total_transactions = 0;
         if(data.length === 0) {
