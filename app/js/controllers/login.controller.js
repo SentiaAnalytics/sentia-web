@@ -34,7 +34,7 @@ module.exports = function($scope, $http, $location) {
         mixpanel.track('login', {
           page : document.title,
           user : user,
-          controller : 'LoginCtrl'
+          controller : 'LoginController'
         });
         $scope.$root.showHeader = true;
         $scope.$root.user = user;
@@ -43,7 +43,7 @@ module.exports = function($scope, $http, $location) {
       .error(function(error) {
         mixpanel.track('error', {
           type : 'login',
-          controller : 'LoginCtrl',
+          controller : 'LoginController',
           error : error
         });
         $scope.loginError = error;
@@ -54,7 +54,7 @@ module.exports = function($scope, $http, $location) {
   mixpanel.track('page viewed', {
     'page name': document.title,
     'url': window.location.pathname,
-    controller: 'LoginCtrl'
+    controller: 'LoginController'
   });
 
 };

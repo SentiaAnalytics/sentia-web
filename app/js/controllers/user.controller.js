@@ -12,6 +12,6 @@ module.exports = function($scope) {
   mixpanel.track('page viewed', {
     'page name': document.title,
     'url': window.location.pathname,
-    controller: 'UserCtrl'
+    controller: 'UserController'
   });
 };

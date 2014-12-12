@@ -1,5 +1,5 @@
 'use strict';
-var UsersService = require('../services/UsersService'),
+var UsersService = require('../services/users'),
   middleware = require('../middleware'),
   lodash = require('lodash');
 exports.create = {

@@ -2,7 +2,7 @@
 // Endpoints for getting map data
 //
 'use strict';
-var PeoplesService = require('../services/PeoplesService'),
+var PeoplesService = require('../services/people'),
   lo = require('lodash'),
   middleware = require('../middleware');
 
@@ -11,21 +11,20 @@ var PeoplesService = require('../services/PeoplesService'),
 
 exports.find = {
   handler : function (req) {
-    return PeoplesService.find(req.query);
+    return PeoplesService.find(req.query, req.session.user.company);
   },
-  middleware : [middleware.company],
   query : {
     additionalProperties : false,
-    required : ['camera', 'from', 'to'],
+    required : ['where'],
     properties : {
-      camera : {
-        type : 'string'
+      fields : {
+        type : 'object'
       },
-      from : {
-        type : 'string'
+      where : {
+        type : 'object'
       },
-      to : {
-        type : 'string'
+      groupBy : {
+        type : 'array'
       }
     }
   }

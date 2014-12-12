@@ -1,5 +1,5 @@
 'use strict';
-var StoresService = require('../services/StoresService'),
+var StoresService = require('../services/stores'),
   middleware = require('../middleware'),
   lodash = require('lodash');
 

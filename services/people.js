@@ -8,7 +8,7 @@ var j2sql = require('json2sql'),
   objectId = require('mongoose').Types.ObjectId,
   moment = require('moment');
 
-function log (data) {
+function Plogg (data) {
   log('pos.service:debug:log', data);
   return data;
 }
@@ -17,34 +17,32 @@ exports.find = function (query, company) {
   return P.resolve(query)
     .then(exports._before(company))
     .then(j2sql.select)
-    .then(log)
+    .then(Plogg)
     .then(db.query)
-    .then(log)
+    .then(Plogg)
     .catch(function (err) {
-      console.log(err.stack);
+      log('error:service:pos', err.stack);
       return P.reject(new E.InternalError('Database Error'));
     });
 };
 exports._before = function (company) {
   return function (query) {
-    query.from = 'pos';
+    query.from = 'people';
     return P.resolve(query)
-      .then(exports._setStore(company))
+      .then(exports.checkPermissions(company))
   }
 }
-exports._setStore = function (company) {
+exports.checkPermissions = function (company) {
   return function (query) {
     log('pos.service:debug:query', query.where.store);
     log('pos.service:debug:company', company);
-    return models.Store.findOne({_id : objectId(query.where.store), company : company})
+    return models.Cameras.findOne({_id : objectId(query.where.camera), company : objectId(company)})
       .exec()
-      .then(function (store) {
-        log('pos.service:debug:store', store);
-        if (!store) {
-          return P.reject(new E.BadRequestError('Store does not exist'));
+      .then(function (camera) {
+        log('pos.service:debug:camera', camera);
+        if (!camera) {
+          return P.reject(new E.BadRequestError('Camera does not exist'));
         }
-        log('stuff', 'what!')
-        query.dataId = store.toObject().dataId;
         return query;
       });
   }

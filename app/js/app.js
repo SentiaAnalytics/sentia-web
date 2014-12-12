@@ -11,12 +11,12 @@ require('angular-bootstrap');
 require('angular-sanitize');
 require('angular-ui-utils');
 // load custom directives
-require('./directives/sflowmap.js');
-require('./directives/sheatmap.js');
-require('./directives/picker.js');
-require('./directives/swiper.js');
-require('./directives/pickadate.js');
-require('./directives/LineChart.js');
+require('./directives/flowmap.directive.js');
+require('./directives/heatmap.directive.js');
+require('./directives/picker.directive.js');
+require('./directives/swiper.directive.js');
+require('./directives/pickadate.directive.js');
+require('./directives/line.chart.directive.js');
 (function() {
   'use strict';
   // create new angular module app
@@ -36,25 +36,27 @@ require('./directives/LineChart.js');
   ]);
 
   // Services
-  app.service('Cam', require('./services/CamService.js'));
-  app.service('Pos', require('./services/pos.service.js'));
-  app.service('Store', require('./services/StoreService.js'));
-  app.service('Customer', require('./services/CustomerService.js'));
-  app.service('Report', require('./services/ReportService.js'));
+  app.service('CamService', require('./services/cam.service.js'));
+  app.service('SessionService', require('./services/session.service.js'));
+  app.service('PosService', require('./services/pos.service.js'));
+  app.service('PeopleService', require('./services/people.service.js'));
+  app.service('StoreService', require('./services/store.service.js'));
+  app.service('CustomerService', require('./services/customer.service.js'));
+  app.service('ReportService', require('./services/report.service.js'));
 
   // // Controllers
-  app.controller('CamCtrl', require('./controllers/CamCtrl'));
-  app.controller('LoginCtrl', require('./controllers/LoginCtrl'));
-  app.controller('MainCtrl', require('./controllers/MainCtrl'));
-  app.controller('StoreCtrl', require('./controllers/StoreCtrl'));
-  app.controller('UserCtrl', require('./controllers/UserCtrl'));
-  app.controller('ReportCtrl', require('./controllers/ReportCtrl'));
+  app.controller('CamController', require('./controllers/cam.controller'));
+  app.controller('LoginController', require('./controllers/login.controller'));
+  app.controller('MainController', require('./controllers/main.controller'));
+  app.controller('StoreController', require('./controllers/store.controller'));
+  app.controller('UserController', require('./controllers/user.controller'));
+  app.controller('ReportController', require('./controllers/report.controller'));
 
   // // Filters
   // app.filter('heatFilter', require('./filters/heatFilter.js'));
 
   // configure routes
-  app.config(require('./config/router.js'));
+  app.config(require('./config/router.config.js'));
 
   app.run(function($rootScope, $window, $location, $http) {
     $rootScope.showHeader = false;
@@ -80,5 +82,4 @@ require('./directives/LineChart.js');
       });
     };
   });
-  window.app = app;
 })();

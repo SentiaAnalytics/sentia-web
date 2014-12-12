@@ -42,21 +42,21 @@
         <div class="row">
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps text-center">Total revenue</h5>
-            <h1 class="text-primary text-center jumbo">{{pos.totalRevenue || 0}}<span class="small">DKK</span></h1>
+            <h1 class="text-primary text-center jumbo">{{charts.revenue.total || 0}}<span class="small">DKK</span></h1>
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps text-center">Total transactions</h5>
-            <h1 class="text-warning text-center jumbo">{{pos.totalTransactions || 0}}</h1>
+            <h1 class="text-warning text-center jumbo">{{charts.transactions.total || 0}}</h1>
           </div>
         </div>
       </div>
-      <div class="col-lg-6 gutter-top" ng-show="pos.revenue">
+      <div class="col-lg-6 gutter-top" ng-show="charts.revenue.data">
         <h5 class="caps">Revenue</h5>
-        <linechart data="pos.revenue" trigger="tabs.counter"></linechart>
+        <linechart data="charts.revenue.data" options="charts.options" trigger="tabs.counter"></linechart>
       </div>
-      <div class="col-lg-6 gutter-top" ng-show="pos.transactions">
+      <div class="col-lg-6 gutter-top" ng-show="charts.transactions.data">
         <h5 class="caps">Transactions</h5>
-        <linechart data="pos.transactions" trigger="tabs.counter"></linechart>
+        <linechart data="charts.transactions.data" options="charts.options" trigger="tabs.counter"></linechart>
       </div>
     </div>
   </swiper-slide>
@@ -66,7 +66,7 @@
         <input type="text" id="camera-list-search" class="form-control" role="search" ng-model="camSearch">
       </div>
       <ul class="list list-widgets row">
-        <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" ng-click="$parent.selectedCam = cam" ng-class="{active: selectedCam._id === cam._id}" class="col-md-4 col-sm-6 animate-scale">
+        <li ng-repeat="cam in $parent.store.cameras | filter : camSearch | orderBy : 'name'" class="col-md-4 col-sm-6 animate-scale">
           <a href="/#/store/camera/{{cam._id}}">
             <div class="paper gutter-top" >
               <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->

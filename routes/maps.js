@@ -2,7 +2,7 @@
 // Endpoints for getting map data
 //
 'use strict';
-var MapsService = require('../services/MapsService'),
+var MapsService = require('../services/maps'),
   lo = require('lodash'),
   middleware = require('../middleware');
 

@@ -2,19 +2,17 @@
 // Endpoints for getting map data
 //
 'use strict';
-var PosService = require('../services/PosService'),
+var PosService = require('../services/pos'),
   lo = require('lodash'),
-  log = require('bragi').log,
+  logger = require('bragi').log,
   middleware = require('../middleware');
 
 // ## Read
 //
 exports.find = {
   handler : function (req) {
-    log('debug:controller:pos:handler', req.session.user.company);
     return PosService.find(req.query, req.session.user.company);
   },
-  middleware : [middleware.jsonQuery],
   query : {
     additionalProperties : false,
     required : ['where'],

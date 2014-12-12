@@ -13,10 +13,11 @@ angular.module('linechart', [])
       restrict: 'E',
       scope: {
         data: '=',
+        options : '=',
         trigger : '='
       },
       link: function postLink($scope, element) {
-        var linechart;
+        var linechart, timer;
         $scope.$watch('data', draw);
         $scope.$watch('trigger', draw);
 
@@ -25,35 +26,27 @@ angular.module('linechart', [])
             return;
           }
           element.find('*').remove();
+          console.log($scope.options.range.map(function (e) {return '' + e}));
           var options = {
             element : element[0],
-            data : parseData($scope.data),
+            data : $scope.data,
             xkey : 'x',
             ykeys : ['y'],
-            labels : $scope.data.labels,
+            labels : $scope.options.range,
             lineColors : ['#36a3ff'],
             dateFormat : function () {return ''},
-            hoverCallback: function (index, options, content, row) {
-              return '<span class="caps">' + row.x + ':00</span>|<span class="text-primary"> ' + row.y + '</span>';
-            },
-            xLabelFormat : function (x) {
-              return '' + x + ':00';
+            hoverCallback: $scope.options.hoverCallback || function (index, options, content, row) {
+              return '<span class="caps">' + row.x + '</span>|<span class="text-primary"> ' + row.y + '</span>';
             }
           }
          Morris.Area(options);
         }
-        jQuery(window).on('resize', function() { draw();});
-      }
-    };
-    function parseData (data) {
-      var res = [],
-        i;
-      for (i = 0; i < data.labels.length; i += 1) {
-        res.push({
-          x : Number(data.labels[i]),
-          y : data.datasets[0].data[i]
+        jQuery(window).on('resize', function() { 
+          if (timer) {
+            clearTimeout(timer);
+          }
+          timer = setTimeout(draw, 50);
         });
       }
-      return res;
-    } 
+    };
   });

@@ -15,17 +15,17 @@
 <div class="container-fluid p-top-large">
   <div>
   </div>
-  <div class="col-lg-6 gutter-top-lg" ng-show="pos.revenue">
+  <div class="col-lg-6 gutter-top-lg" ng-show="charts.revenue">
     <h5 class="caps text-center">Total revenue</h5>
-    <h1 class="text-primary text-center jumbo">{{pos.totalRevenue || 0}}<span class="small">DKK</span></h1>
+    <h1 class="text-primary text-center jumbo">{{charts.revenue.total || 0}}<span class="small">DKK</span></h1>
     <h5 class="caps">Revenue</h5>
-    <linechart data="pos.revenue" trigger="tabs.counter"></linechart>
+    <linechart data="charts.revenue.data" options="charts.options" trigger="tabs.counter"></linechart>
   </div>
-  <div class="col-lg-6 gutter-top-lg" ng-show="pos.transactions">
+  <div class="col-lg-6 gutter-top-lg" ng-show="charts.transactions">
     <h5 class="caps text-center">Total transactions</h5>
-    <h1 class="text-warning text-center jumbo">{{pos.totalTransactions || 0}}</h1>
+    <h1 class="text-warning text-center jumbo">{{charts.transactions.total || 0}}</h1>
     <h5 class="caps">Transactions</h5>
-    <linechart data="pos.transactions" trigger="tabs.counter"></linechart>
+    <linechart data="charts.transactions.data" options="charts.options" trigger="tabs.counter"></linechart>
   </div>
 </div>
 <!-- </div> -->

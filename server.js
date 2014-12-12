@@ -36,10 +36,11 @@ app.get('/', function (req, res) {
 
 // middleware
 app.use(middleware.auth);
+app.use(middleware.jsonQuery);
 // load api routes
 app.use(routeloader({prefix : '/api'}));
 // error handling
-app.use(require('./services/errorHandler'));
+app.use(require('./services/error'));
 
 app.on('close', function () {
   require('./services/redis').quit();

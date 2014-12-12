@@ -3,26 +3,26 @@ module.exports = function($routeProvider) {
   $routeProvider
     .when('/login', {
       templateUrl: 'views/login.html',
-      controller: 'LoginCtrl'
+      controller: 'LoginController'
     })
-    .when('/store/camera/:id', {
+    .when('/store/camera/:cameraId', {
       templateUrl: 'views/cam.html',
-      controller: 'CamCtrl',
+      controller: 'CamController',
       reloadOnSearch: false
     })
-    .when('/store/:id/report', {
+    .when('/store/:storeId/report', {
       templateUrl: 'views/report.html',
-      controller: 'ReportCtrl',
+      controller: 'ReportController',
       reloadOnSearch: false
     })
     .when('/store', {
       templateUrl: 'views/store.html',
-      controller: 'StoreCtrl',
+      controller: 'StoreController',
       reloadOnSearch: false
     })
     .when('/users', {
       templateUrl: 'views/users.html',
-      controller: 'UserCtrl',
+      controller: 'UserController',
       reloadOnSearch: false
     })
     .otherwise({
