@@ -36,21 +36,20 @@ require('./directives/line.chart.directive.js');
   ]);
 
   // Services
-  app.service('CamService', require('./services/cam.service.js'));
-  app.service('SessionService', require('./services/session.service.js'));
+  app.service('CamService', require('./services/cameras.service.js'));
+  app.service('SessionService', require('./services/sessions.service.js'));
   app.service('PosService', require('./services/pos.service.js'));
   app.service('PeopleService', require('./services/people.service.js'));
-  app.service('StoreService', require('./services/store.service.js'));
-  app.service('CustomerService', require('./services/customer.service.js'));
-  app.service('ReportService', require('./services/report.service.js'));
+  app.service('StoreService', require('./services/stores.service.js'));
+  app.service('ReportService', require('./services/reports.service.js'));
 
   // // Controllers
-  app.controller('CamController', require('./controllers/cam.controller'));
+  app.controller('CamController', require('./controllers/cameras.controller'));
   app.controller('LoginController', require('./controllers/login.controller'));
   app.controller('MainController', require('./controllers/main.controller'));
-  app.controller('StoreController', require('./controllers/store.controller'));
-  app.controller('UserController', require('./controllers/user.controller'));
-  app.controller('ReportController', require('./controllers/report.controller'));
+  app.controller('StoreController', require('./controllers/stores.controller'));
+  app.controller('UserController', require('./controllers/users.controller'));
+  app.controller('ReportController', require('./controllers/reports.controller'));
 
   // // Filters
   // app.filter('heatFilter', require('./filters/heatFilter.js'));

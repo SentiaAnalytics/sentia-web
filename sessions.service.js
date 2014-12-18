@@ -1,6 +1,6 @@
 'use strict';
 var models = require('../models'),
-  UsersService = require('./users'),
+  UsersService = require('./UsersService'),
   E = require('express-http-errors'),
   _ = require('lodash'),
   logger = require('bragi'),
