@@ -3,7 +3,7 @@ var P = require('bluebird'),
   lodash = require('lodash'),
   logger = require('bragi'),
   models = require('../models'),
-  bcrypt = require('./bcrypt'),
+  bcrypt = require('./bcrypt.service'),
   E = require('express-http-errors');
 
 exports.create = function (query) {

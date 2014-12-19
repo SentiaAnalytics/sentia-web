@@ -1,6 +1,6 @@
 'use strict';
 var j2sql = require('json2sql'),
-  db = require('./mysql'),
+  db = require('./mysql.service'),
   log = require('bragi').log,
   models = require('../models'),
   E = require('express-http-errors'),

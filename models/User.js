@@ -2,7 +2,7 @@
 var mongoose = require('mongoose'),
   logger = require('bragi'),
   P = require('bluebird'),
-  bcrypt = require('../services/bcrypt'),
+  bcrypt = require('../services/bcrypt.service'),
   UserSchema;
 
 UserSchema = mongoose.Schema({

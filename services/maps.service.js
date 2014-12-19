@@ -1,6 +1,6 @@
 'use strict';
 var squel = require('squel'),
-  db = require('./mysql'),
+  db = require('./mysql.service'),
   models = require('../models'),
   E = require('express-http-errors'),
   P = require('bluebird'),

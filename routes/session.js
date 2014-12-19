@@ -1,5 +1,5 @@
 'use strict';
-var SessionService = require('../services/sessions'),
+var SessionService = require('../services/sessions.service'),
   logger = require('bragi');
 
 exports.authenticate = {

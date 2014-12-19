@@ -1,11 +1,11 @@
 'use strict';
 var models = require('../models'),
-  UsersService = require('./UsersService'),
+  UsersService = require('./users.service'),
   E = require('express-http-errors'),
   _ = require('lodash'),
   logger = require('bragi'),
   P = require('bluebird'),
-  bcrypt = require('./bcrypt');
+  bcrypt = require('./bcrypt.service');
 
 
 // ## login

@@ -2,7 +2,7 @@
 // Endpoints for getting map data
 //
 'use strict';
-var PosService = require('../services/pos'),
+var PosService = require('../services/pos.service'),
   lo = require('lodash'),
   logger = require('bragi').log,
   middleware = require('../middleware');

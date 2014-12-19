@@ -2,7 +2,7 @@
 // Endpoints for getting map data
 //
 'use strict';
-var PeoplesService = require('../services/people'),
+var PeoplesService = require('../services/people.service'),
   lo = require('lodash'),
   middleware = require('../middleware');
 

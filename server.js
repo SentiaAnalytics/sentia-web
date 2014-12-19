@@ -5,7 +5,7 @@ var express = require('express'),
   bootstrap = require('./bootstrap'),
   middleware = require('./middleware'),
   session = require('express-session'),
-  redis = require('./services/redis'),
+  redis = require('./services/redis.service'),
   P = require('bluebird'),
   RedisStore = require('connect-redis')(session),
   sessionStore = new RedisStore({client : redis, prefix : config.session.prefix}),
@@ -40,7 +40,7 @@ app.use(middleware.jsonQuery);
 // load api routes
 app.use(routeloader({prefix : '/api'}));
 // error handling
-app.use(require('./services/error'));
+app.use(require('./services/error.service'));
 
 app.on('close', function () {
   require('./services/redis').quit();

@@ -1,7 +1,7 @@
 'use strict';
 var middleware = require('../middleware'),
   lodash = require('lodash'),
-  CameraService = require('../services/cameras');
+  CameraService = require('../services/cameras.service');
 
 // #Cameras
 // Endpoints for Managing camera objects
