@@ -9,7 +9,7 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
   var $parent = $scope.$parent; // shorthand
 
   //bindables
-  $scope.activeTab = Number($routeParams.activeTab) || 2;
+  $scope.activeTab = Number($routeParams.activeTab) || 1;
   
 
   $scope.charts = {
