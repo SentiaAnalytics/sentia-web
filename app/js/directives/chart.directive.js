@@ -116,7 +116,7 @@ angular.module('chart', [])
               .show()
               .css({
                 left: Number($point.attr('x2')) - $toolTip.width() / 2 - 6,
-                top: Number($point.attr('y2')) - $toolTip.height() - 40
+                top: Number($point.attr('y2')) - $toolTip.height() - 43
               });
           });
 
