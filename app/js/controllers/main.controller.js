@@ -31,16 +31,24 @@ module.exports = function ($scope, $location, $routeParams, SessionService) {
     page : window.title,
     path : window.location.pathname
   });
+
+  loadSession();
   
-  function getSession () {
+
+  // functions
+  function loadSession () {
     SessionService.get()
       .then(function (session) {
-        //body
-      $scope.$root.user = session.user;
-      if ($location.url() === '/') {
-        $location.path('/store');
-      }
-    })
+          //body
+        $scope.$root.user = session.user;
+        if ($location.url() === '/') {
+          $location.path('/store');
+        }
+      })
+      .catch(function () {
+        $location.path('/login');
+      });
+
   }
 
   function logout () {
@@ -48,5 +56,5 @@ module.exports = function ($scope, $location, $routeParams, SessionService) {
       .then(function () {
         $location.path('/login');
       });
-  };
+  }
 };

@@ -79,7 +79,7 @@ module.exports = function($scope, $routeParams, $location, CamService, PeopleSer
     });
     $scope.tabs.active = tab;
     $location.search('tab', tab);
-  };
+  }
 
   function updatePeople () {
     if (!$parent.camera) {
@@ -93,7 +93,7 @@ module.exports = function($scope, $routeParams, $location, CamService, PeopleSer
 
         $scope.people = {
           total : data.reduce(function (result, item) {
-            return result + item.y
+            return result + item.y;
           },0),
           data : data
         };

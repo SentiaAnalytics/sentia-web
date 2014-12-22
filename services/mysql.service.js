@@ -5,7 +5,12 @@ var P = require('bluebird');
 var url = require("url");
 var SocksConnection = require('socksjs');
 var mysql_server_options, mysql_options, socks_options, socksConn;
-var connection = mysql2.createConnection(config.mysql);
+var connection;
+
+
+exports.connect = function () {
+  connection = mysql2.createConnection(config.mysql);
+}
 exports.query = function (query) {
   return new P(function (resolve, reject) {
     connection.query(query, function(err, rows, fields) {

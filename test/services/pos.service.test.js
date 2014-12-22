@@ -1,9 +1,8 @@
 'use strict';
 var chai = require('chai'),
-  rewire = require('reqire'),
-  helper = require('../helper'),
+  rewire = require('rewire'),
   sinon = require('sinon'),
-  target = reqire('../../services/pos.service');
+  target = rewire('../../services/pos.service');
 chai.use(require('chai-as-promised'));
 
 describe('setTable',function () {
@@ -11,6 +10,6 @@ describe('setTable',function () {
 
   it('should set the from property to pos', function () {
     var query = setTable({});
-    query.should.have.property('from', {from : 'pos'});
+    query.should.have.property('from', 'pos');
   });
 });

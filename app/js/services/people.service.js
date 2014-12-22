@@ -1,9 +1,10 @@
 var moment = require('moment');
 module.exports = function ($http, $q) {
+  'use strict';
   var people = this;
   
   people.get = function (query) {
-    return $http.get('/api/people?query=' +JSON.stringify(query))
+    return $http.get('/api/people?json=' +JSON.stringify(query))
       .then(function(response) {
         return response.data || undefined;
       })
@@ -13,18 +14,18 @@ module.exports = function ($http, $q) {
       });
   };
 
-  people.getHourBreakdown = function (options) {
+  people.getHourBreakdown = function (camera, date) {
     var query = {
       fields : {
         'hour(time)' : 'x',
         'people_in' : 'y'
       },
       where : {
-        cam : options.cam,
+        cam : camera,
         time : {
-          gte : moment(options.date)
+          gte : moment(date)
             .format('YYYY-MM-DD HH:mm:ss'),
-          lt : moment(options.date)
+          lt : moment(date)
             .add(1, 'day')
             .format('YYYY-MM-DD HH:mm:ss')
         },
@@ -34,10 +35,8 @@ module.exports = function ($http, $q) {
         }
 
       },
-      groupBy : {
-        x : true
-      }
+      groupBy : ['x'] 
     };
-    return people.get(query)
-  }
-}
+    return people.get(query);
+  };
+};

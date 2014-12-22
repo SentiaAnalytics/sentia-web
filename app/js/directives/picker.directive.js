@@ -29,7 +29,7 @@ angular.module('picker', [])
           format : 'dd/mm/yyyy'
         };
         var $input = window.jQuery(element.find('input'));
-        var datepicker = $input.datepicker(options).on('changeDate', function (e) {
+        $input.datepicker(options).on('changeDate', function (e) {
           scope.$apply(function () {
             scope.date = e.date;
           });
@@ -51,7 +51,7 @@ angular.module('picker', [])
           if (date <= options.endDate) {
             scope.date = date;
           }
-        }
+        };
         scope.$watch('date', function () {
           $input.datepicker('update', scope.date);
         });

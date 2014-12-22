@@ -53,10 +53,10 @@ angular.module('pickadate', [])
           }
         };
 
-        scope.open = function (event) {
+        scope.open = function () {
           setTimeout(function () {
               picker.open();
-          },0)
+          },0);
         };
         scope.$watch('date', function (newDate) {
           if (!moment(newDate).isSame(moment(picker.get()))) {

@@ -1,5 +1,5 @@
 var moment = require('moment');
-module.exports = function($http, $q) {
+module.exports = function($http) {
   'use strict';
   this.find = function(store) {
     return $http.get('/api/cameras?store=' + store)

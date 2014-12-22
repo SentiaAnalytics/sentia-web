@@ -9,7 +9,7 @@ var j2sql = require('json2sql'),
   moment = require('moment');
 
 function Plogg (data) {
-  log('pos.service:debug:log', data);
+  log('people.service:debug:log', data);
   return data;
 }
 
@@ -22,23 +22,23 @@ exports.find = function (query, company) {
     .then(db.query)
     .then(Plogg)
     .catch(function (err) {
-      log('error:service:pos', err.stack);
+      log('error:service:people', err.stack);
       return P.reject(new E.InternalError('Database Error'));
     });
 };
 
 function setTable (query) {
-  query.from = 'pos';
+  query.from = 'people';
   return query;
 }
 
 function checkPermissions (company, query) {
-  log('pos.service:debug:query', query.where.store);
-  log('pos.service:debug:company', company);
-  return models.Cameras.findOne({_id : objectId(query.where.camera), company : objectId(company)})
+  log('people.service:debug:query', query.where.store);
+  log('people.service:debug:company', company);
+  return models.Camera.findOne({_id : objectId(query.where.cam), company : objectId(company)})
     .exec()
     .then(function (camera) {
-      log('pos.service:debug:camera', camera);
+      log('people.service:debug:camera', camera);
       if (!camera) {
         return P.reject(new E.BadRequestError('Camera does not exist'));
       }

@@ -30,5 +30,5 @@ exports._validatePassword = function (user) {
     })
     .catch(function (err) {
       return P.reject(new E.NotAuthorizedError('Invalid Password'));
-    })
+    });
 };

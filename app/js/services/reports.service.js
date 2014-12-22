@@ -24,7 +24,7 @@ module.exports = function(Pos) {
         if(data.length === 0) {
           return;
         }
-        return Math.round(Number(data[0].total)*100)/100
+        return Math.round(Number(data[0].total)*100)/100;
       });
   };
 
@@ -50,7 +50,7 @@ module.exports = function(Pos) {
         if(data.length === 0) {
           return;
         }
-        return Math.round(Number(data[0].total)*100)/100
+        return Math.round(Number(data[0].total)*100)/100;
       });
-  }
+  };
 };

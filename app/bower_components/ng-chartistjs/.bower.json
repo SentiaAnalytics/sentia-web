@@ -1,0 +1,47 @@
+{
+  "name": "ng-chartistjs",
+  "version": "2.0.3",
+  "authors": [
+    "will@intandem.io"
+  ],
+  "description": "Angular directive that wraps chartist.js",
+  "main": "dist/ng-chartist.js",
+  "moduleType": [
+    "umd",
+    "globals"
+  ],
+  "keywords": [
+    "chartist.js",
+    "angular",
+    "directive"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "example/bower_components",
+    "test",
+    "tests",
+    "src"
+  ],
+  "dependencies": {
+    "chartist": "~0.4.3",
+    "angular": "^1.2.23"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.2.0",
+    "bootswatch": "~3.2.0"
+  },
+  "homepage": "https://github.com/paradox41/ng-chartist.js",
+  "_release": "2.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.3",
+    "commit": "a293856ed60c586cc3dba97096e66ab3bf963c9e"
+  },
+  "_source": "git://github.com/paradox41/ng-chartist.js.git",
+  "_target": "~2.0.3",
+  "_originalSource": "ng-chartistjs"
+}

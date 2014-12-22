@@ -83,29 +83,14 @@
       <div class="row clearfix">
         <div class="col-sm-12">
           <h5 class="caps text-center">Total people in</h5>
-          <h1 class="text-primary text-center jumbo">{{people.total_in}}</h1>
-        </div>
-        <div class="col-sm-6" ng-show="false">
-          <h5 class="caps text-center">Total people out</h5>
-          <h1 class="text-warning text-center jumbo">{{people.total_out}}</h1>
-        </div>
-        <div class="col-xs-4" ng-show="false">
-          <h1 class="text-danger text-center">{{people.total_bounce}}</h1>
+          <h1 class="text-primary text-center jumbo">{{people.total}}</h1>
         </div>
       </div>
       <div class="row clearfix">
-        <div class="col-sm-10 col-sm-offset-1 p-top-large" ng-show="people.people_in">
+        <div class="col-sm-10 col-sm-offset-1 p-top-large" ng-show="people">
           <h5 class="caps">People in</h5>
-          <linechart data="people.people_in" trigger="tabs.counter"></linechart>
+          <linechart data="people.data" options="charts.options" trigger="tabs.counter"></linechart>
         </div>
-      </div>
-      <div class="col-xs-12 p-top-large" ng-show="false && people.people_out">
-        <h5 class="caps">People out</h5>
-        <linechart data="people.people_out" trigger="tabs.counter"></linechart>
-      </div>
-      <div class="col-xs-12 p-top" ng-show="false && people.bounce">
-        <h5 class="caps">Bounce</h5>
-        <linechart data="people.bounce" trigger="tabs.counter"></linechart>
       </div>
     </div>
   </swiper-slide>

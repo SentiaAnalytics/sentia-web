@@ -18,6 +18,7 @@ var gulp = require('gulp'),
   jshint = require('gulp-jshint');
 
 gulp.task('unit', function() {
+  // return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
   return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
     .pipe(mocha({
       reporter: 'spec'

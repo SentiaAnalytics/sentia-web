@@ -1,4 +1,3 @@
-var moment = require('moment');
 module.exports = function($http) {
   'use strict';
   this.selected = {

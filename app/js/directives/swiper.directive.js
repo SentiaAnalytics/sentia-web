@@ -1,3 +1,4 @@
+/*global Swiper:false*/
 /**
  * Flowmap directive
  * @author  Andreas Møller
@@ -27,7 +28,7 @@ angular.module('swiper', [])
         scope.$watch('active', function () {
           mySwiper.swipeTo(scope.active, undefined, false);
         });
-        mySwiper.addCallback('SlideChangeStart', function(swiper){
+        mySwiper.addCallback('SlideChangeStart', function(){
           scope.$apply(function () {
             scope.active = mySwiper.activeIndex;
           });

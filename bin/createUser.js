@@ -23,12 +23,12 @@ function getInput () {
           return reject(err);
         }
         return resolve(userDetails);
-      })
-  })
+      });
+  });
 }
 function createUser (userDetails) {
   var user = new models.User(userDetails);
-  return user.savep()
+  return user.savep();
 }
 function done(user) {
   console.log(user);

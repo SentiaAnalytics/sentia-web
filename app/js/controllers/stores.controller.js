@@ -10,7 +10,6 @@ module.exports = function($scope, StoreService, CamService, PosService, $routePa
 
   //bindables
   $scope.activeTab = Number($routeParams.activeTab) || 2;
-  // set date if not already set
   
 
   $scope.charts = {
@@ -22,12 +21,14 @@ module.exports = function($scope, StoreService, CamService, PosService, $routePa
     }
   };
 
+
+  // temporarily hardcoded
   $parent.store =  {
     _id : '54318d4064acfb0b3139807e'
   };
 
-  $scope.selectTab = selectTab;
-  $scope.selectCamera = selectCamera;
+  $scope.selectTab = selectTab; // function
+  $scope.selectCamera = selectCamera; //function
 
   //setup
   document.title = 'Sentia - Store';
@@ -46,7 +47,7 @@ module.exports = function($scope, StoreService, CamService, PosService, $routePa
     });
 
   // watch
-  $parent.$watch('$date', function() {
+  $parent.$watch('date', function() {
     $location.replace();
     $location.search('date', moment($parent.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
     console.log('DATE CHANGED');
@@ -58,6 +59,9 @@ module.exports = function($scope, StoreService, CamService, PosService, $routePa
       date : $parent.date
     });
   });
+ 
+
+ // function definitions
   
   function selectTab (tab) {
     $location.search('activeTab', tab);
@@ -68,17 +72,13 @@ module.exports = function($scope, StoreService, CamService, PosService, $routePa
       store : $parent.store._id,
       tab : $scope.activeTab
     });
-  };
-  // $scope.date = new Date('2014-09-01');
+  }
 
-  
-
-  
 
   function selectCamera (cam) {
     $parent.camera = cam;
     $scope.$root.go('/store/camera/' + cam._id, 'animate-scale');
-  };
+  }
 
 
   function getPos () {

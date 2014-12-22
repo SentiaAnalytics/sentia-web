@@ -1,3 +1,4 @@
+'use strict';
 var log = require('bragi').log;
 module.exports = function (req, res, next) {
   var query;
@@ -11,8 +12,4 @@ module.exports = function (req, res, next) {
 
     }
   };
-
-  
-  
-
-}
+};

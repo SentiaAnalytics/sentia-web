@@ -1,6 +1,7 @@
 module.exports = function ($http) {
+  'use strict';
   this.get = function () {
-    $http.get('/api/session')
+    return $http.get('/api/session')
     .success(function (session) {
       mixpanel.track('Session Loaded', {
         page : document.title,
@@ -14,9 +15,6 @@ module.exports = function ($http) {
       });
       return session;
   
-    })
-    .error(function () {
-      $location.path('/login');
     });
   };
 
@@ -30,5 +28,5 @@ module.exports = function ($http) {
       .error(function (err, status) {
           console.log(status + ' : ' + err);
       });
-  }
-}
+  };
+};

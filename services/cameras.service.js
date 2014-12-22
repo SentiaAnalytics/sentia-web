@@ -14,7 +14,7 @@ exports.create = function (query) {
 };
 exports.read = function (query) {
   return P.resolve(query)
-    .then(exports._transformQuery)
+    .then(sanitizeQuery)
     .then(function (query) {
       return models.Camera.findOne(query).exec();
     });
@@ -24,7 +24,7 @@ exports.read = function (query) {
 
 exports.find = function (query) {
   return P.resolve(query)
-    .then(exports._transformQuery)
+    .then(sanitizeQuery)
     .then(function (query) {
       return models.Camera.find(query).exec();
     });
@@ -34,13 +34,12 @@ exports.delete = function (query) {
   return models.Camera.findOneAndRemove(query)
     .exec();
 };
-exports._transformQuery = function (query) {
+function sanitizeQuery (query) {
   if(query.store) {
     query.store = objectId(query.store);
   }
     if(query._id) {
     query._id = objectId(query._id);
   }
-  console.log(query);
   return query;
-};
+}
