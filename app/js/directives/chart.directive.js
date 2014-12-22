@@ -11,10 +11,20 @@ angular.module('chart', [])
     var defaults = {
       height: 250,
       showArea: true,
+       
       // low : 0,
       lineSmooth: false,
       axisX: {
-        showGrid: false
+        showGrid: false,
+        labelOffset: {
+          x: -3,
+          y: 3
+        }
+      },
+      axisY: {
+        labelOffset: {
+          y: 10
+        }
       }
     };
     return {
@@ -39,7 +49,7 @@ angular.module('chart', [])
             labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
             // Our series array that contains series objects or in this case series data arrays
             series: [
-              [5, 2, 4, 2, 0]
+              [0, 0, 0, 0, 0]
             ]
           };
           
