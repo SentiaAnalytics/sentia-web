@@ -1,4 +1,3 @@
-/*global Morris:false,jQuery:false*/
 /**
  * Flowmap directive
  * @author  Andreas Møller
