@@ -25,6 +25,9 @@ exports.find = {
       },
       groupBy : {
         type : 'array'
+      },
+      orderBy : {
+        type : 'array'
       }
     }
   }

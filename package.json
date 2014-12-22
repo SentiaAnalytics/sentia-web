@@ -19,6 +19,7 @@
     "bragi": "0.0.11",
     "browserify": "^6.0.2",
     "browserify-shim": "^3.8.0",
+    "chartist": "^0.5.0",
     "config": "~1.0.2",
     "connect-gzip-static": "^1.0.0",
     "connect-redis": "~2.0.0",

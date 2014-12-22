@@ -1,6 +1,6 @@
 {
   "name": "chartist",
-  "version": "0.4.4",
+  "version": "0.5.0",
   "main": [
     "./dist/chartist.min.js",
     "./dist/chartist.min.css"
@@ -23,13 +23,14 @@
     "test"
   ],
   "homepage": "https://github.com/gionkunz/chartist-js",
-  "_release": "0.4.4",
+  "_release": "0.5.0",
   "_resolution": {
     "type": "version",
-    "tag": "v0.4.4",
-    "commit": "69859f26fd9005a87930e5a7db23c58803d42e9d"
+    "tag": "v0.5.0",
+    "commit": "68f56e4ca60fa829b6c0acae12b2e2a2fb5fa2dd"
   },
   "_source": "git://github.com/gionkunz/chartist-js.git",
-  "_target": "~0.4.3",
-  "_originalSource": "chartist"
+  "_target": "~0.5.0",
+  "_originalSource": "chartist",
+  "_direct": true
 }

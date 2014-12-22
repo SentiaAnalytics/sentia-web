@@ -85,15 +85,15 @@ module.exports = function($scope, $routeParams, $location, CamService, PeopleSer
     if (!$parent.camera) {
       return;
     }
-    PeopleService.getHourBreakdown($parent.camera._id, $parent.date)
+    PeopleService.getLineChart($parent.camera._id, $parent.date)
       .then(function (data) {
         if (!data) {
           return;
         }
 
         $scope.people = {
-          total : data.reduce(function (result, item) {
-            return result + item.y;
+          total : data.series[0].reduce(function (result, item) {
+            return result + item;
           },0),
           data : data
         };

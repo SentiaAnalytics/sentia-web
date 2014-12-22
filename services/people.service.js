@@ -33,6 +33,9 @@ function setTable (query) {
 }
 
 function checkPermissions (company, query) {
+  if (!query.where.came) {
+    return query; // HUGE SECURITY FUCK!
+  }
   log('people.service:debug:query', query.where.store);
   log('people.service:debug:company', company);
   return models.Camera.findOne({_id : objectId(query.where.cam), company : objectId(company)})

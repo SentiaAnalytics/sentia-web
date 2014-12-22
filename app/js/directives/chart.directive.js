@@ -6,8 +6,8 @@
  */
 var $ = require('jquery');
 var chartist = require('chartist');
-angular.module('linechart', [])
-  .directive('linechart', function() {
+angular.module('chart', [])
+  .directive('chart', function() {
     'use strict';
     var defaults = {
       height: 250,
@@ -24,6 +24,7 @@ angular.module('linechart', [])
       scope: {
         data: '=',
         options: '=',
+        charttype : '@',
         trigger: '='
       },
       link: function postLink($scope, element) {
@@ -42,13 +43,51 @@ angular.module('linechart', [])
               [5, 2, 4, 2, 0]
             ]
           };
-          var easeOutQuad = function (x, t, b, c, d) {
-            return -c * (t /= d) * (t - 2) + b;
-          };
+          
           var options = angular.extend($scope.options || {}, defaults);
           element.find('*').remove();
+          console.log($scope.charttype);
+          if ($scope.charttype && $scope.charttype.toLowerCase() === 'bar') {
+            chart = chartist.Bar(element[0], data, options);
+            addBarTooltip(element);
+          } else {
+            chart = chartist.Line(element[0], data, options);
+            addLineTooltip(element);
+          }
+          
+        }
+        function easeOutQuad (x, t, b, c, d) {
+          return -c * (t /= d) * (t - 2) + b;
+        }
 
-          chart = chartist.Bar(element[0], data, options);
+        function addBarTooltip (element) {
+          var $toolTip = $(element[0])
+            .append('<div class="ct-tooltip"></div>')
+            .find('.ct-tooltip')
+            .hide();
+          element.on('mouseenter', '.ct-bar', function() {
+            var $bar = $(this),
+              value = $bar.attr('ct:value');
+
+            $bar.animate({
+              'stroke-width': '80px'
+            }, 200, easeOutQuad);
+            $toolTip.css({
+              left: Number($bar.attr('x2')) - $toolTip.width() / 2 + 1,
+              top: Number($bar.attr('y2')) - $toolTip.height() - 18
+            });
+            $toolTip.html(value).show();
+          });
+
+          element.on('mouseleave', '.ct-bar', function() {
+            var $bar = $(this);
+            $bar.animate({
+              'stroke-width': '65px'
+            }, 200, easeOutQuad);
+            $toolTip.hide();
+          });
+        }
+        function addLineTooltip (element) {
           var $toolTip = $(element[0])
             .append('<div class="ct-tooltip"></div>')
             .find('.ct-tooltip')
@@ -60,6 +99,11 @@ angular.module('linechart', [])
             $point.animate({
               'stroke-width': '17px'
             }, 200, easeOutQuad);
+
+            $toolTip.css({
+              left: Number($point.attr('x2')) - $toolTip.width() / 2 + 1,
+              top: Number($point.attr('y2')) - $toolTip.height() - 18
+            });
             $toolTip.html(value).show();
           });
 
@@ -69,14 +113,6 @@ angular.module('linechart', [])
               'stroke-width': '10px'
             }, 200, easeOutQuad);
             $toolTip.hide();
-          });
-
-          element.on('mousemove', function(event) {
-            
-            $toolTip.css({
-              left: (event.offsetX || event.originalEvent.layerX) - $toolTip.width() / 2 + 1,
-              top: (event.offsetY || event.originalEvent.layerY) - $toolTip.height() - 18
-            });
           });
         }
 

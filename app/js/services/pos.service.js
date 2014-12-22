@@ -20,17 +20,10 @@ module.exports = function($http) {
         arr[item.step] = item;
         return arr;
       }, []),
-      output = {
-        revenue : {
-          total : 0,
-          data :[]
-        },
-        transactions : {
-          total : 0,
-          data :[]
-        }
-
-      };
+     totalTransactions = 0,
+     totalRevenue = 0,
+     transactionData = [],
+     revenueData = [];
 
     range.forEach(function (i) {
 
@@ -39,23 +32,29 @@ module.exports = function($http) {
         temp[i] = {revenue: 0, transactions: 0};
       }
       // update totals
-      output.revenue.total += Number(temp[i].revenue);
-      output.transactions.total += Number(temp[i].transactions);
+      totalRevenue += Number(temp[i].revenue);
+      totalTransactions += Number(temp[i].transactions);
 
       // push dataset to appropriate array
-      output.revenue.data.push({
-        x : i,
-        y : Math.round(Number(temp[i].revenue) * 100)/100
-      });
-      output.transactions.data.push({
-        x : i,
-        y : Math.round(Number(temp[i].transactions))
-      });
+      revenueData.push(Math.round(Number(temp[i].revenue) * 100)/100);
+      transactionData.push(Math.round(Number(temp[i].transactions)));
     });
-    // round off total
-    output.revenue.total = Math.round(output.revenue.total * 100) / 100;
-
-    return output;
+    return {
+      revenue : {
+        total : Math.round(totalRevenue * 100) / 100,
+        data : {
+          labels : range,
+          series : [revenueData]
+        }
+      },
+      transactions : {
+        total : totalTransactions,
+        data : {
+          labels : range,
+          series : [transactionData]
+        }
+      }
+    };
 
   };
 };

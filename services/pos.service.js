@@ -44,5 +44,4 @@ function setStore (company, query) {
         return query;
       });
 }
-exports.setTable = setTable;
 
