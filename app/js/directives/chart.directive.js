@@ -81,11 +81,13 @@ angular.module('chart', [])
             $bar.animate({
               'stroke-width': '80px'
             }, 200, easeOutQuad);
-            $toolTip.css({
-              left: Number($bar.attr('x2')) - $toolTip.width() / 2 + 1,
-              top: Number($bar.attr('y2')) - $toolTip.height() - 18
-            });
-            $toolTip.html(value).show();
+            $toolTip
+              .html(value)
+              .show()
+              .css({
+                left: Number($bar.attr('x2')) - $toolTip.width() / 2 - 5,
+                top: Number($bar.attr('y2')) - $toolTip.height() - 35
+              });
           });
 
           element.on('mouseleave', '.ct-bar', function() {
@@ -106,20 +108,22 @@ angular.module('chart', [])
               value = $point.attr('ct:value');
 
             $point.animate({
-              'stroke-width': '17px'
+              'stroke-width': '20px'
             }, 200, easeOutQuad);
 
-            $toolTip.css({
-              left: Number($point.attr('x2')) - $toolTip.width() / 2 + 1,
-              top: Number($point.attr('y2')) - $toolTip.height() - 18
-            });
-            $toolTip.html(value).show();
+            $toolTip
+              .html(value)
+              .show()
+              .css({
+                left: Number($point.attr('x2')) - $toolTip.width() / 2 - 6,
+                top: Number($point.attr('y2')) - $toolTip.height() - 40
+              });
           });
 
           element.on('mouseleave', '.ct-point', function() {
             var $point = $(this);
             $point.animate({
-              'stroke-width': '10px'
+              'stroke-width': '13px'
             }, 200, easeOutQuad);
             $toolTip.hide();
           });
