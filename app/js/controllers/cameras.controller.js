@@ -14,14 +14,7 @@ module.exports = function($scope, $routeParams, $location, CamService, PeopleSer
     active : Number($routeParams.tab) || 0
   };
   $scope.selectTab = selectTab;
-  $scope.charts = {
-    options : {
-      range : [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-      hoverCallback : function (index, options, content, row) {
-        return '<span class="caps">' + row.x + ':00</span>|<span class="text-primary"> ' + row.y + '</span>';
-      }
-    }
-  };
+  $scope.charts = {};
 
   // setup
   document.title = 'Sentia.io - Camera';
@@ -30,7 +23,8 @@ module.exports = function($scope, $routeParams, $location, CamService, PeopleSer
   $location.search('tab', $scope.activeTab);
   
 
-  if (!$parent.camera) {
+  if (!$parent.camera || $parent.camera._id !== $routeParams.cameraId) {
+    $parent.camera = null;
     CamService.read($routeParams.cameraId)
       .then(function(camera) {
         $parent.camera = camera;
@@ -39,16 +33,15 @@ module.exports = function($scope, $routeParams, $location, CamService, PeopleSer
       });
   }
 
+  refresh(); // update charts
   // watch
-
   $scope.$parent.$watch('date', function() {
     //update url
     $location.replace();
     $location.search('date', moment($parent.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
 
     //update data
-    updateOverlay();
-    updatePeople();
+    refresh();
 
     //analytics
     mixpanel.track('date changed', {
@@ -58,6 +51,8 @@ module.exports = function($scope, $routeParams, $location, CamService, PeopleSer
       date : $parent.date
     });
   });
+
+
 
   // analytics
   mixpanel.track('page viewed', {
@@ -80,9 +75,13 @@ module.exports = function($scope, $routeParams, $location, CamService, PeopleSer
     $scope.tabs.active = tab;
     $location.search('tab', tab);
   }
+  function refresh () {
+    updatePeople();
+    updateOverlay();
+  }
 
   function updatePeople () {
-    $scope.people = null;
+    $scope.charts.people = null;
     if (!$parent.camera) {
       return;
     }
@@ -91,8 +90,7 @@ module.exports = function($scope, $routeParams, $location, CamService, PeopleSer
         if (!data) {
           return;
         }
-
-        $scope.people = {
+        $scope.charts.people = {
           total : data.series[0].reduce(function (result, item) {
             return result + item;
           },0),
