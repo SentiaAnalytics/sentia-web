@@ -1,4 +1,5 @@
-var moment = require('moment');
+var moment = require('moment'),
+  lodash = require('lodash');
 module.exports = function ($http, $q) {
   'use strict';
   var people = this;
@@ -41,16 +42,19 @@ module.exports = function ($http, $q) {
     };
     return people.get(query)
       .then(function (data) {
-        var labels = [],
+        var range = lodash.range(9, 23),
+        temp = data.reduce(function (arr, e) {
+          arr[e.x] = e.y;
+          return arr;
+        }, []),
           dataSet = []; 
 
-          data.forEach(function (e) {
-            labels.push(e.x);
-            dataSet.push(e.y);
+          range.forEach(function (e) {
+            dataSet.push(temp[e] || 0);
           });
 
           return {
-            labels : labels,
+            labels : range,
             series : [dataSet]
           };
       });

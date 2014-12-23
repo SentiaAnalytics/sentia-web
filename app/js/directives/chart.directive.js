@@ -38,6 +38,7 @@ angular.module('chart', [])
       },
       link: function postLink($scope, element) {
         var chart;
+        var $element = $(element[0]);
         var dummydata = {
             // A labels array that can contain any sort of values
             labels: [0],
@@ -46,17 +47,18 @@ angular.module('chart', [])
               [0]
             ]
           };
+        $element.addClass('ct-chart');
+        draw();
+        $element.append('<div class="loader"></div>');
         $scope.$watch('data', update);
         $scope.$watch('trigger', update);
-        element.addClass('ct-chart');
-        draw();
+
 
         function draw() {
           
           
           var options = angular.extend($scope.options || {}, defaults);
           element.find('*').remove();
-          console.log($scope.charttype);
           if ($scope.charttype && $scope.charttype.toLowerCase() === 'bar') {
             chart = chartist.Bar(element[0], dummydata, options);
             addBarTooltip(element);
@@ -131,9 +133,17 @@ angular.module('chart', [])
         }
 
         function update() {
-          if (chart) {
-            chart.update($scope.data || dummydata);
+          if (!chart || !chart.optionsProvider) {
+            return;
           }
+          if (!$scope.data) {
+            $element.find('.loader').show();
+            chart.update(dummydata);
+            return;
+          }
+          $element.find('.loader').hide();
+          chart.update($scope.data);
+          
         }
       }
     };

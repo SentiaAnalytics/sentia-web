@@ -42,23 +42,23 @@
         <div class="">
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps">Revenue</h5>
-            <h1 class="text-primary text-center jumbo">{{charts.revenue.total || 0}}<span class="small">DKK</span></h1>
+            <h1 class="text-primary text-center jumbo">{{charts.revenue.total || ' ... '}}<span class="small">DKK</span></h1>
             <chart data="charts.revenue.data" options="charts.options" trigger="tabs.counter"></chart>
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps">Transactions</h5>
-            <h1 class="text-warning text-center jumbo">{{charts.transactions.total || 0}}</h1>
+            <h1 class="text-warning text-center jumbo">{{charts.transactions.total || ' ... '}}</h1>
             <chart data="charts.transactions.data" options="charts.options" trigger="tabs.counter" class="ct-warning"></chart>
 
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps">People in</h5>
-            <h1 class="text-success text-center jumbo">{{charts.people.total || 0}}</h1>
-            <chart data="charts.peoplein.data" options="charts.options" charttype="line" trigger="tabs.counter" class="ct-success"></chart>
+            <h1 class="text-success text-center jumbo">{{charts.people.total || ' ... '}}</h1>
+            <chart data="charts.people.data" options="charts.options" charttype="line" trigger="tabs.counter" class="ct-success"></chart>
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps">Conversion Rate</h5>
-            <h1 class="text-info text-center jumbo">{{charts.conversion.total| number : 2}}<span class="small">%</span></h1>
+            <h1 class="text-info text-center jumbo">{{charts.conversion.total || ' ... '}}<span class="small">%</span></h1>
             <chart data="charts.conversion.data" options="charts.options" charttype="line" trigger="tabs.counter" class="ct-info"></chart>
           </div>
         </div>
@@ -76,7 +76,7 @@
       <div class="col-lg-6 gutter-top" ng-show="charts.conversion">
         <h5 class="caps">Conversion Rate</h5>
       </div> -->
-      <div class="col-lg-12 gutter-top" ng-show="charts.people">
+      <div class="col-lg-12 gutter-top ng-hide">
         <h5 class="caps">Funnel</h5>
         <chart data="charts.people.data" options="charts.BarOptions" charttype="bar" trigger="tabs.counter" class="ct-success"></chart>
       </div>

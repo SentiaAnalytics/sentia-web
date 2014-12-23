@@ -54,7 +54,6 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
   $parent.$watch('date', function() {
     $location.replace();
     $location.search('date', moment($parent.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
-    console.log('DATE CHANGED');
     getPos();
     getPeople();
     mixpanel.track('date changed', {
@@ -98,72 +97,59 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
   function getPos () {
     $scope.charts.revenue = null;
     $scope.charts.transactions = null;
+    $scope.charts.conversion = null;
     if (!$parent.store) {
       return;
     }
-    var query = {
-      fields : {
-        'sum(amount)' : 'revenue',
-        'count(distinct(salesno))' : 'transactions',
-        'hour(starttime)' : 'step'
-      },
-      where : {
-        store : $parent.store._id,
-        type : 'Item',
-        'starttime' : {
-          gt : moment($parent.date)
-            .format('YYYY-MM-DD'),
-          lte : moment($parent.date)
-            .add(1, 'day')
-            .format('YYYY-MM-DD')
-        },
-        'hour(starttime)' : {
-          gte : 9,
-          lte : 23
-        }
-      },
-      groupBy : ['step']
-    };
-    PosService.get(query)
-      .then(function(data) {
-        if(data.length === 0) {
-          return;
-        }
-        data = PosService.processRevenueData(data, $scope.charts.options.range);
-        $scope.charts.revenue = data.revenue;        
-        $scope.charts.transactions = data.transactions;    
+    StoreService.getPosCharts($parent.store._id, $parent.date)
+      .then(function (data) {
+        $scope.charts.revenue = data.revenue;
+        $scope.charts.transactions = data.transactions;
+
       });
   }
 
   function getPeople () {
     $scope.charts.people = null;
     $scope.charts.peoplein = null;
-    PeopleService.getBarchart($parent.date)
-      .then(function (data) {
-        $scope.charts.people = {
-          total : data.series[0][0],
-          data : data
-        };
-      });
+    $scope.charts.conversion = null;
+
+    // TODO enable when cameras has propernames.
+
+    // PeopleService.getBarchart($parent.date)
+    //   .then(function (data) {
+    //     if (!data) {return;}
+    //     $scope.charts.people = {
+    //       total : data.series[0] ? data.series[0][0] : 0,
+    //       data : data
+    //     };
+    //   });
+
     PeopleService.getLineChart('543197b8ab3de09c344bc1e7', $parent.date)
       .then(function (data) {
-        $scope.charts.peoplein = {
+        if (!data) {return;}
+        var total = data
+          .series[0]
+          .reduce(function (sum, val) {
+              return sum + val;
+            },0);
+        $scope.charts.people = {
+          total : total,
           data : data
         };
       });
   }
   function getConversionChart () {
     $scope.charts.conversion = null;
-    if (!$scope.charts.transactions || ! $scope.charts.peoplein) {
+    if (!$scope.charts.transactions || !$scope.charts.people) {
       return;
     }
     var data = $scope.charts.transactions.data.series[0].map(function (val, i) {
-        if (val && $scope.charts.peoplein.data.series[0][i]) {
-          return Math.round(val / $scope.charts.peoplein.data.series[0][i]* 10000)/ 100;
+        if (val && $scope.charts.people.data.series[0][i]) {
+          return Math.round(val / $scope.charts.people.data.series[0][i]* 10000)/ 100;
         } 
         return 0;
       });
-    console.log(data);
     $scope.charts.conversion = {
       total : Math.round(($scope.charts.transactions.total / $scope.charts.people.total) * 10000) / 100,
       data :  {

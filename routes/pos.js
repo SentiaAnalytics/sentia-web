@@ -27,7 +27,7 @@ exports.find = {
         type : 'array'
       },
       orderBy : {
-        type : 'array'
+        type : 'object'
       }
     }
   }
