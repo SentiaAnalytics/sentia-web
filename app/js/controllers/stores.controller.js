@@ -31,6 +31,11 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
     _id : '54318d4064acfb0b3139807e'
   };
 
+  StoreService.read($parent.store._id)
+    .then(function (store) {
+      $parent.store = store; 
+    });
+
   $scope.selectTab = selectTab; // function
   $scope.selectCamera = selectCamera; //function
 
