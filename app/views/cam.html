@@ -74,12 +74,12 @@
     </div>
   </swiper-slide>
   <swiper-slide class="p-bottom-large">
-    <div class="col-sm-10 col-sm-offset-1 p-top-large" ng-hide="charts.people">
+    <div class="col-sm-10 col-sm-offset-1 p-top-large" ng-hide="$parent.camera.counter">
       <div class="text-center">
         <p>There is no people information available for the selected camera and date.</p>
       </div>
     </div>
-    <div class="container p-top-large clearfix" ng-show="charts.people">
+    <div class="container p-top-large clearfix" ng-show="$parent.camera.counter">
       <div class="row clearfix">
         <div class="col-sm-12">
           <h5 class="caps text-center">People In</h5>
