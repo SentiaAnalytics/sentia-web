@@ -82,6 +82,7 @@ module.exports = function($scope, $routeParams, $location, CamService, PeopleSer
   }
 
   function updatePeople () {
+    $scope.people = null;
     if (!$parent.camera) {
       return;
     }

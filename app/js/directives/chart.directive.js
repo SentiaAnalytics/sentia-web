@@ -38,29 +38,30 @@ angular.module('chart', [])
       },
       link: function postLink($scope, element) {
         var chart;
+        var dummydata = {
+            // A labels array that can contain any sort of values
+            labels: [0],
+            // Our series array that contains series objects or in this case series data arrays
+            series: [
+              [0]
+            ]
+          };
         $scope.$watch('data', update);
         $scope.$watch('trigger', update);
         element.addClass('ct-chart');
         draw();
 
         function draw() {
-          var data = {
-            // A labels array that can contain any sort of values
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-            // Our series array that contains series objects or in this case series data arrays
-            series: [
-              [0, 0, 0, 0, 0]
-            ]
-          };
+          
           
           var options = angular.extend($scope.options || {}, defaults);
           element.find('*').remove();
           console.log($scope.charttype);
           if ($scope.charttype && $scope.charttype.toLowerCase() === 'bar') {
-            chart = chartist.Bar(element[0], data, options);
+            chart = chartist.Bar(element[0], dummydata, options);
             addBarTooltip(element);
           } else {
-            chart = chartist.Line(element[0], data, options);
+            chart = chartist.Line(element[0], dummydata, options);
             addLineTooltip(element);
           }
           
@@ -131,7 +132,7 @@ angular.module('chart', [])
 
         function update() {
           if (chart) {
-            chart.update($scope.data);
+            chart.update($scope.data || dummydata);
           }
         }
       }
