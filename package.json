@@ -61,7 +61,7 @@
   "devDependencies": {
     "chai": "~1.9.1",
     "chai-as-promised": "~4.1.1",
-    "gulp-cucumber": "0.0.5",
+    "gulp-cucumber": "0.0.6",
     "minimist": "^1.1.0",
     "mocha": "~1.21.4",
     "prompt": "^0.2.14",

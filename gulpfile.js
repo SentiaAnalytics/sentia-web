@@ -5,7 +5,6 @@ var gulp = require('gulp'),
   config = require('config'),
   run = require('run-sequence'),
   P = require('bluebird'),
-  mocha = require('gulp-mocha'),
   browserify = require('gulp-browserify'),
   gzip = require('gulp-gzip'),
   uglify = require('gulp-uglify'),
@@ -14,11 +13,11 @@ var gulp = require('gulp'),
   server,
   rename = require('gulp-rename'),
   livereload = require('gulp-livereload'),
-  sourcemaps = require('gulp-sourcemaps'),
-  jshint = require('gulp-jshint'),
-  cucumber = require('gulp-cucumber');
+  sourcemaps = require('gulp-sourcemaps');
+
 
 gulp.task('unit', function() {
+  var mocha = require('gulp-mocha');
   // return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
   return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
     .pipe(mocha({
@@ -27,6 +26,7 @@ gulp.task('unit', function() {
 });
 
 gulp.task('cucumber', function () {
+  var cucumber = require('gulp-cucumber');
   return gulp.src('test/features/*.feature')
     .pipe(cucumber({
       'steps': 'test/features/steps/*.js',
@@ -53,6 +53,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('jshint', function() {
+  var jshint = require('gulp-jshint');
   return gulp.src([
     '**/*.js',
     '!test/**',
