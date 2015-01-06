@@ -6,7 +6,7 @@
 
 /*jslint browser:true, nomen:true*/
 var moment = require('moment');
-module.exports = function ($scope, $location, $routeParams, SessionService) {
+module.exports = function ($scope, $location, SessionService) {
   'use strict';
 
 
@@ -18,10 +18,10 @@ module.exports = function ($scope, $location, $routeParams, SessionService) {
   // shared bindables
   $scope.store = null;
   $scope.camera = null;
-  $scope.date = $scope.date || moment.utc($routeParams.date) // take the date from the url or use today
+  $scope.date = moment.utc($location.$$search.date) // take the date from the url or use today
     .startOf('day')
     .toDate();
-    
+
   // setup
   mixpanel.register({
     host : window.location.hostname
@@ -33,7 +33,7 @@ module.exports = function ($scope, $location, $routeParams, SessionService) {
   });
 
   loadSession();
-  
+
 
   // functions
   function loadSession () {

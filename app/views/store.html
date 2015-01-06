@@ -42,30 +42,30 @@
         <div class="">
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps">Revenue</h5>
-            <h1 class="text-primary text-center jumbo">{{charts.revenue.total || ' ... '}}<span class="small">DKK</span></h1>
+            <h1 class="text-primary text-center jumbo">{{charts.revenue.total === undefined ? ' ... ' : charts.revenue.total}}<span class="small">DKK</span></h1>
             <chart data="charts.revenue.data" options="charts.options" trigger="tabs.counter"></chart>
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps">Transactions</h5>
-            <h1 class="text-warning text-center jumbo">{{charts.transactions.total || ' ... '}}</h1>
+            <h1 class="text-warning text-center jumbo">{{charts.transactions.total === undefined ? ' ... ' :  charts.transactions.total}}</h1>
             <chart data="charts.transactions.data" options="charts.options" trigger="tabs.counter" class="ct-warning"></chart>
 
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps">People in</h5>
-            <h1 class="text-success text-center jumbo">{{charts.people.total || ' ... '}}</h1>
+            <h1 class="text-success text-center jumbo">{{charts.people.total === undefined ? ' ... ' : charts.people.total}}</h1>
             <chart data="charts.people.data" options="charts.options" charttype="line" trigger="tabs.counter" class="ct-success"></chart>
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps">Conversion Rate</h5>
-            <h1 class="text-info text-center jumbo">{{charts.conversion.total || ' ... '}}<span class="small">%</span></h1>
+            <h1 class="text-info text-center jumbo">{{charts.conversion.total === undefined ? ' ... ' : charts.conversion.total}}<span class="small">%</span></h1>
             <chart data="charts.conversion.data" options="charts.options" charttype="line" trigger="tabs.counter" class="ct-info"></chart>
           </div>
         </div>
       </div>
      <!--  <div class="col-lg-6 gutter-top" ng-show="charts.revenue.data">
         <h5 class="caps">Revenue</h5>
-        
+
       </div>
       <div class="col-lg-6 gutter-top" ng-show="charts.transactions.data">
         <h5 class="caps">Transactions</h5>

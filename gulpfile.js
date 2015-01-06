@@ -15,7 +15,8 @@ var gulp = require('gulp'),
   rename = require('gulp-rename'),
   livereload = require('gulp-livereload'),
   sourcemaps = require('gulp-sourcemaps'),
-  jshint = require('gulp-jshint');
+  jshint = require('gulp-jshint'),
+  cucumber = require('gulp-cucumber');
 
 gulp.task('unit', function() {
   // return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
@@ -25,16 +26,22 @@ gulp.task('unit', function() {
     }));
 });
 
-gulp.task('rest', ['run'],function() {
-  return gulp.src(['test/REST/**/*.js'])
-    .pipe(mocha({
-      reporter: 'spec'
-    }))
-    .on('end',function () {
-      gulp.start('stop');
-    });
+gulp.task('cucumber', function () {
+  return gulp.src('test/features/*.feature')
+    .pipe(cucumber({
+      'steps': 'test/features/steps/*.js',
+      'support': 'test/features/support/*.js',
+      'format': 'summary'
+    }));
 });
 
+gulp.task('startstop', function (done) {
+  run(['run', 'stop'], done);
+});
+
+gulp.task('cuke', function (done) {
+  run(['run', 'cucumber', 'stop'], done);
+});
 
 gulp.task('watch', function() {
   return gulp.watch([

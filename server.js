@@ -56,11 +56,17 @@ exports.start = function () {
     });
 };
 exports.stop = function () {
+  console.log('stopping : ', server);
   if (!server) {
     return new P.resolve('Server not running');
   }
+  console.log('stopping services');
+  require('services/mysql.service').close();
+  require('services/redis.service').end();
+        console.log('stuff');
   return new P(function (resolve) {
     mongoose.connection.close(function () {
+        process.exit(0);
       server.close(function () {
         return resolve();
       });

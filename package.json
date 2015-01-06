@@ -61,12 +61,14 @@
   "devDependencies": {
     "chai": "~1.9.1",
     "chai-as-promised": "~4.1.1",
+    "gulp-cucumber": "0.0.5",
     "minimist": "^1.1.0",
     "mocha": "~1.21.4",
     "prompt": "^0.2.14",
     "request": "~2.40.0",
     "sinon": "~1.10.3",
     "sqlite3": "~2.2.7",
-    "url-builder": "~0.2.1"
+    "url-builder": "~0.2.1",
+    "zombie": "^2.5.1"
   }
 }

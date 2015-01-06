@@ -43,11 +43,8 @@ module.exports = function($http, PosService) {
     };
     return PosService.get(query)
       .then(function(data) {
-        if(data.length === 0) {
-          return [];
-        }
         return processPosChartData(data);
-            
+
       });
   };
 
@@ -63,7 +60,7 @@ module.exports = function($http, PosService) {
       totalRevenue = 0,
       transactionData = [],
       revenueData = [];
-    
+
     range.forEach(function (i) {
       //body
       if (!temp[i]) {
