@@ -45,6 +45,7 @@ pickadate {
 	-webkit-overflow-scrolling: touch;
 	opacity : 0;
 	display:none;
+	text-align:center;
 }
 
 /*!
@@ -78,11 +79,12 @@ pickadate {
 * The frame that bounds the box contents of the picker.
 */
 .picker__frame {
-	position: absolute;
+	// position: absolute;
 	margin: 0 auto;
 	min-width: 256px;
 	max-width: 666px;
 	width: 100%;
+	display:inline-block;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 	filter: alpha(opacity=0);
 	-moz-opacity: 0;
@@ -99,7 +101,7 @@ pickadate {
 		overflow: visible;
 		top: auto;
 		bottom: 0;
-		--webkit-transform : translate(0, 0);
+		--webkit-transform : translate(0, 100%);
 		transform : translate(0, 100%);
 
 		max-height: 80%;
@@ -175,16 +177,16 @@ pickadate {
 	filter: alpha(opacity=100);
 	-moz-opacity: 1;
 	opacity: 1;
-	--webkit-transform : translate(0, 0);
-		--webkit-transform : translate(0, 100%);
+	--webkit-transform : translate(0, 20%);
+	transform : translate(0, 20%);
 }
 
 @media (min-height: 33.875em) {
 	.picker--opened .picker__frame {
 		top: auto;
 		bottom: 0;
-		--webkit-transform : translate(0, 0);
-		transform : translate(0, 0);
+		--webkit-transform : translate(0, 20%);
+		transform : translate(0, 20%);
 	}
 }
 /**

@@ -163,8 +163,8 @@ gulp.task('default', function () {
 
 gulp.task('live', ['build-dev', 'run'], function() {
   livereload.listen();
-  gulp.watch('app/styles/**/*.less', ['less']);
-  gulp.watch('app/js/**/*.js', ['browserify']);
+  gulp.watch('app/styles/**/*.less', ['less-dev']);
+  gulp.watch('app/js/**/*.js', ['browserify-dev']);
   gulp.watch([
      'app/views/**',
      'app/images/**',
