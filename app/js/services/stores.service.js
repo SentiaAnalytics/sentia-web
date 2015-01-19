@@ -30,7 +30,7 @@ module.exports = function($http, PosService) {
         },
         'hour(starttime)' : {
           gte : 9,
-          lte : 21
+          lte : 20
         }
       },
       groupBy : ['step'],
@@ -47,7 +47,7 @@ module.exports = function($http, PosService) {
 
   function processPosChartData (data) {
     // There might be holes in our input data (if values are 0)
-    var range = lodash.range(9, 22); // this gets translated to +1
+    var range = lodash.range(9, 21); // this gets translated to +1
     // build temp array for easy access to data
     var temp = data.reduce(function (arr, item) {
         arr[item.step] = item;

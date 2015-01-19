@@ -32,7 +32,7 @@ module.exports = function ($http, $q) {
         },
         'hour(time)' : {
           gte : 9,
-          lte : 21
+          lte : 20
         }
       },
       groupBy : ['x'],
@@ -45,7 +45,7 @@ module.exports = function ($http, $q) {
         if (!data || data.length === 0) {
           return;
         }
-        var range = lodash.range(9, 22),
+        var range = lodash.range(9, 21),
         temp = data.reduce(function (arr, e) {
           arr[e.x] = e.y;
           return arr;
