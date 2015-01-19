@@ -11,6 +11,7 @@ pickadate {
 		width: 120px;
 	}
 }
+
 .picker {
 	font-size: 16px;
 	text-align: left;
@@ -42,6 +43,8 @@ pickadate {
 	width: 100%;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
+	opacity : 0;
+	display:none;
 }
 
 /*!
@@ -56,19 +59,19 @@ pickadate {
 */
 .picker__holder,
 .picker__frame {
-	bottom: 0;
-	left: 0;
-	right: 0;
-	top: 100%;
+	top :0;
+	left :0;
 }
 /**
 * The holder should overlay the entire screen.
 */
 .picker__holder {
 	position: fixed;
-	-webkit-transition: background 0.15s ease-out, top 0s 0.15s;
-	-moz-transition: background 0.15s ease-out, top 0s 0.15s;
-	transition: background 0.15s ease-out, top 0s 0.15s;
+	height:100%;
+	width:100%;
+	-webkit-transition: opacity 0.15s ease-out, top 0s 0.15s;
+	-moz-transition: opacity 0.15s ease-out, top 0s 0.15s;
+	transition: opacity 0.15s ease-out, top 0s 0.15s;
 	-webkit-backface-visibility: hidden;
 }
 /**
@@ -87,9 +90,9 @@ pickadate {
 	--webkit-transform : translate(0, 100%);
 	transform : translate(0, 100%);
 
-	-webkit-transition: all 0.15s ease-out;
-	-moz-transition: all 0.15s ease-out;
-	transition: all 0.15s ease-out;
+	-webkit-transition: --webkit--transform 0.15s ease-out;
+	-moz-transition: transform 0.15s ease-out;
+	transition: transform 0.15s ease-out;
 }
 @media (min-height: 33.875em) {
 	.picker__frame {
@@ -161,15 +164,11 @@ pickadate {
 * When the picker opens...
 */
 .picker--opened .picker__holder {
-	top: 0;
-	background: transparent;
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#1E000000,endColorstr=#1E000000)";
+	display:block;
 	zoom: 1;
-	background: rgba(0, 0, 0, 0.32);
-	-webkit-transition: background 0.15s ease-out;
-	-moz-transition: background 0.15s ease-out;
-	transition: background 0.15s ease-out;
+	opacity : 1;
 }
+
 .picker--opened .picker__frame {
 	top: 0;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
@@ -178,8 +177,8 @@ pickadate {
 	opacity: 1;
 	--webkit-transform : translate(0, 0);
 		--webkit-transform : translate(0, 100%);
-
 }
+
 @media (min-height: 33.875em) {
 	.picker--opened .picker__frame {
 		top: auto;
@@ -363,6 +362,7 @@ $BASE-DATE-PICKER
 	font-weight: 200;
 	border: 1px solid transparent;
 }
+
 .picker__day--today {
 	position: relative;
 }
@@ -379,21 +379,25 @@ $BASE-DATE-PICKER
 .picker__day--disabled:before {
 	border-top-color: #aaaaaa;
 }
+
 .picker__day--outfocus {
 	color: #dddddd;
 }
+
 .picker__day--infocus:hover,
 .picker__day--outfocus:hover {
 	cursor: pointer;
 	color: #000000;
 	background: #b1dcfb;
 }
+
 .picker__day--highlighted:hover,
 .picker--focused .picker__day--highlighted {
 	cursor: pointer;
 	color: #000000;
 	background: #b1dcfb;
 }
+
 .picker__day--selected,
 .picker__day--selected:hover,
 .picker--focused .picker__day--selected {
@@ -401,6 +405,7 @@ $BASE-DATE-PICKER
 	background: #36a3ff;
 	color: #ffffff;
 }
+
 .picker__day--disabled,
 .picker__day--disabled:hover,
 .picker--focused .picker__day--disabled {
@@ -409,6 +414,7 @@ $BASE-DATE-PICKER
 	color: #dddddd;
 	cursor: default;
 }
+
 .picker__day--highlighted.picker__day--disabled,
 .picker__day--highlighted.picker__day--disabled:hover {
 	background: #bbbbbb;
@@ -419,6 +425,7 @@ $BASE-DATE-PICKER
 .picker__footer {
 	text-align: center;
 }
+
 .picker__button--today,
 .picker__button--clear,
 .picker__button--close {
@@ -431,6 +438,7 @@ $BASE-DATE-PICKER
 	display: inline-block;
 	vertical-align: bottom;
 }
+
 .picker__button--today:hover,
 .picker__button--clear:hover,
 .picker__button--close:hover {
@@ -439,6 +447,7 @@ $BASE-DATE-PICKER
 	background: #b1dcfb;
 	border-bottom-color: #b1dcfb;
 }
+
 .picker__button--today:focus,
 .picker__button--clear:focus,
 .picker__button--close:focus {
@@ -446,6 +455,7 @@ $BASE-DATE-PICKER
 	border-color: #0089ec;
 	outline: none;
 }
+
 .picker__button--today:before,
 .picker__button--clear:before,
 .picker__button--close:before {
@@ -453,22 +463,26 @@ $BASE-DATE-PICKER
 	display: inline-block;
 	height: 0;
 }
+
 .picker__button--today:before,
 .picker__button--clear:before {
 	content: " ";
 	margin-right: .45em;
 }
+
 .picker__button--today:before {
 	top: -0.05em;
 	width: 0;
 	border-top: 0.66em solid #0059bc;
 	border-left: .66em solid transparent;
 }
+
 .picker__button--clear:before {
 	top: -0.25em;
 	width: .66em;
 	border-top: 3px solid #ee2200;
 }
+
 .picker__button--close:before {
 	content: "\D7";
 	top: -0.1em;
@@ -477,6 +491,7 @@ $BASE-DATE-PICKER
 	margin-right: .35em;
 	color: #777777;
 }
+
 .picker__button--today[disabled],
 .picker__button--today[disabled]:hover {
 	background: #f5f5f5;

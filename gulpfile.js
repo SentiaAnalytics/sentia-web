@@ -13,6 +13,7 @@ var gulp = require('gulp'),
   server,
   rename = require('gulp-rename'),
   livereload = require('gulp-livereload'),
+  minifyCSS = require('gulp-minify-css'),
   sourcemaps = require('gulp-sourcemaps');
 
 
@@ -74,7 +75,7 @@ gulp.task('clean-js', function () {
     .pipe(clean());
 });
 
-gulp.task('less', function () {
+gulp.task('less-dev', function () {
   return gulp.src('app/styles/style.less')
     .pipe(sourcemaps.init())
     .pipe(less())
@@ -82,16 +83,41 @@ gulp.task('less', function () {
     .pipe(gulp.dest('app/build/'))
     .pipe(livereload());
 });
+gulp.task('less', function () {
+  return gulp.src('app/styles/style.less')
+  .pipe(sourcemaps.init())
+  .pipe(less())
+  .pipe(minifyCSS())
+  .pipe(gzip())
+  .pipe(gulp.dest('app/build/'))
+  .pipe(livereload());
+});
+
 
 gulp.task('browserify', ['clean-js'], function () {
   return gulp.src('app/js/app.js')
     .pipe(browserify({
-      debug : true,
+      debug : false,
       transform : ['debowerify']
     }))
     .pipe(rename('bundle.js'))
+    .pipe(uglify({
+      mangle : false
+    }))
+    .pipe(gzip())
     .pipe(gulp.dest('app/build/'))
     .pipe(livereload());
+});
+
+gulp.task('browserify-dev', ['clean-js'], function () {
+  return gulp.src('app/js/app.js')
+  .pipe(browserify({
+    debug : true,
+    transform : ['debowerify']
+  }))
+  .pipe(rename('bundle.js'))
+  .pipe(gulp.dest('app/build/'))
+  .pipe(livereload());
 });
 
 gulp.task('compress-js', function () {
@@ -107,7 +133,7 @@ gulp.task('build', function (done) {
    run(['browserify','less'], 'compress-js', done);
 });
 gulp.task('build-dev', function (done) {
-  run(['browserify','less'], done);
+  run(['browserify-dev','less-dev'], done);
 });
 
 gulp.task('run', function () {

@@ -10,3 +10,15 @@ exports.read = {
   },
   middleware : [middleware.company]
 };
+
+exports.get = {
+  url : '',
+  handler : function (req, res, next) {
+    return StoresService.get(lodash.merge(req.params, req.query));
+  },
+  middleware : [middleware.company],
+  query : {
+    additionalProperties : false,
+    required : []
+  }
+};

@@ -2,9 +2,6 @@ var moment = require('moment'),
   lodash = require('lodash');
 module.exports = function($http, PosService) {
   'use strict';
-  this.selected = {
-    id: '54318d4064acfb0b3139807e'
-  };
   this.read = function (id) {
     return $http.get('/api/stores/' + id)
       .then(function (res) {

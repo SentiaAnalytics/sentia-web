@@ -1,10 +1,10 @@
+// #Cameras
+// Endpoints for Managing camera objects
+
 'use strict';
 var middleware = require('../middleware'),
   lodash = require('lodash'),
   CameraService = require('../services/cameras.service');
-
-// #Cameras
-// Endpoints for Managing camera objects
 
 // ## Read
 // get a specific camera by id
@@ -23,6 +23,7 @@ exports.read = {
     }
   }
 };
+
 // ## Find
 // get a list of cameras based on the supplied queries
 exports.find = {
@@ -51,5 +52,3 @@ exports.find = {
     }
   }
 };
-
-

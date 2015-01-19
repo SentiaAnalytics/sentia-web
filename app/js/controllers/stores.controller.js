@@ -10,7 +10,7 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
 
   //bindables
   $scope.activeTab = Number($routeParams.activeTab) || 1;
-  
+
 
   $scope.charts = {
     options : {
@@ -33,7 +33,7 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
 
   StoreService.read($parent.store._id)
     .then(function (store) {
-      $parent.store = store; 
+      $parent.store = store;
     });
 
   $scope.selectTab = selectTab; // function
@@ -77,10 +77,10 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
     controller: 'StoreController',
     store : $parent.store._id
   });
- 
+
 
  // function definitions
-  
+
   function selectTab (tab) {
     $location.search('activeTab', tab);
     $scope.activeTab = tab;
@@ -152,7 +152,7 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
     var data = $scope.charts.transactions.data.series[0].map(function (val, i) {
         if (val && $scope.charts.people.data.series[0][i]) {
           return Math.round(val / $scope.charts.people.data.series[0][i]* 10000)/ 100;
-        } 
+        }
         return 0;
       });
     $scope.charts.conversion = {
@@ -165,4 +165,3 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
 
   }
 };
-

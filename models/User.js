@@ -19,6 +19,7 @@ UserSchema = mongoose.Schema({
   lastname : String,
   company : mongoose.Schema.Types.ObjectId
 });
+
 UserSchema.set('toJSON', {transform : function (doc, ret, options) {
   delete ret.password;
 }});
@@ -33,6 +34,7 @@ UserSchema.pre('save', function (next) {
       return next();
     }.bind(this));
 });
+
 UserSchema.methods.savep = function () {
   return new P(function (resolve, reject) {
     this.save(function (err) {
