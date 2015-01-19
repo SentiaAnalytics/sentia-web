@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "node_modules/.bin/gulp",
+    "start": "NODE_ENV=prod node_modules/.bin/gulp",
     "test": " node_modules/.bin/gulp test"
   },
   "browserify-shim": {
