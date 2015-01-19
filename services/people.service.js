@@ -47,6 +47,5 @@ function checkPermissions (company, query) {
       }
       return query;
     });
-  
-}
 
+}

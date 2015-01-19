@@ -11,7 +11,7 @@ angular.module('chart', [])
     var defaults = {
       height: 250,
       showArea: true,
-       
+
       // low : 0,
       lineSmooth: false,
       axisX: {
@@ -19,6 +19,9 @@ angular.module('chart', [])
         labelOffset: {
           x: -3,
           y: 3
+        },
+        labelInterpolationFnc : function (x) {
+            return x + 1;
         }
       },
       axisY: {
@@ -56,7 +59,7 @@ angular.module('chart', [])
 
         function draw() {
           
-          
+
           var options = angular.extend($scope.options || {}, defaults);
           element.find('*').remove();
           if ($scope.charttype && $scope.charttype.toLowerCase() === 'bar') {
@@ -66,7 +69,7 @@ angular.module('chart', [])
             chart = chartist.Line(element[0], dummydata, options);
             addLineTooltip(element);
           }
-          
+
         }
         function easeOutQuad (x, t, b, c, d) {
           return -c * (t /= d) * (t - 2) + b;
@@ -143,7 +146,7 @@ angular.module('chart', [])
           }
           $element.find('.loader').hide();
           chart.update($scope.data);
-          
+
         }
       }
     };

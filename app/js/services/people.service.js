@@ -3,7 +3,7 @@ var moment = require('moment'),
 module.exports = function ($http, $q) {
   'use strict';
   var people = this;
-  
+
   people.get = function (query) {
     return $http.get('/api/people?json=' +JSON.stringify(query))
       .then(function(response) {
@@ -32,7 +32,7 @@ module.exports = function ($http, $q) {
         },
         'hour(time)' : {
           gte : 9,
-          lte : 23
+          lte : 21
         }
       },
       groupBy : ['x'],
@@ -45,12 +45,12 @@ module.exports = function ($http, $q) {
         if (!data || data.length === 0) {
           return;
         }
-        var range = lodash.range(9, 23),
+        var range = lodash.range(9, 22),
         temp = data.reduce(function (arr, e) {
           arr[e.x] = e.y;
           return arr;
         }, []),
-          dataSet = []; 
+          dataSet = [];
 
           range.forEach(function (e) {
             dataSet.push(temp[e] || 0);
@@ -104,4 +104,3 @@ module.exports = function ($http, $q) {
       });
   };
 };
-
