@@ -18,16 +18,18 @@ exports.read = function (query) {
     .then(function (query) {
       return models.Camera.findOne(query).exec();
     });
-    
-  
+
+
 };
 
 exports.find = function (query) {
   return P.resolve(query)
     .then(sanitizeQuery)
+    .then(logger.promise('cameras:service:debug:query'))
     .then(function (query) {
       return models.Camera.find(query).exec();
-    });
+    })
+    .then(logger.promise('cameras:service:debug:data'));
 };
 
 exports.delete = function (query) {

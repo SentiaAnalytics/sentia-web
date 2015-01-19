@@ -88,7 +88,7 @@
         <input type="text" id="camera-list-search" class="form-control" role="search" ng-model="camSearch">
       </div>
       <ul class="list list-widgets row">
-        <li ng-repeat="cam in $parent.store.cameras | filter : camSearch | orderBy : 'name'" class="col-md-4 col-sm-6 animate-scale">
+        <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" class="col-md-4 col-sm-6 animate-scale">
           <a href="/#/store/camera/{{cam._id}}">
             <div class="paper gutter-top" >
               <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->

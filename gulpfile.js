@@ -16,33 +16,9 @@ var gulp = require('gulp'),
   minifyCSS = require('gulp-minify-css'),
   sourcemaps = require('gulp-sourcemaps');
 
-
-gulp.task('unit', function() {
-  var mocha = require('gulp-mocha');
-  // return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
-  return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
-    .pipe(mocha({
-      reporter: 'spec'
-    }));
-});
-
-gulp.task('cucumber', function () {
-  var cucumber = require('gulp-cucumber');
-  return gulp.src('test/features/*.feature')
-    .pipe(cucumber({
-      'steps': 'test/features/steps/*.js',
-      'support': 'test/features/support/*.js',
-      'format': 'summary'
-    }));
-});
-
-gulp.task('startstop', function (done) {
-  run(['run', 'stop'], done);
-});
-
-gulp.task('cuke', function (done) {
-  run(['run', 'cucumber', 'stop'], done);
-});
+//###########
+//#build
+//###########
 
 gulp.task('watch', function() {
   return gulp.watch([
@@ -53,25 +29,8 @@ gulp.task('watch', function() {
     ], ['unit']);
 });
 
-gulp.task('jshint', function() {
-  var jshint = require('gulp-jshint');
-  return gulp.src([
-    '**/*.js',
-    '!test/**',
-    '!node_modules/**',
-    '!app/bower_components/**',
-    '!app/build/**',
-    '!gulpfile.js'
-    ])
-    .pipe(jshint())
-    .pipe(jshint.reporter(require('jshint-stylish')));
-});
-
-gulp.task('test', ['jshint', 'unit']);
-
-
-gulp.task('clean-js', function () {
-  gulp.src(['app/build/bundle.js', 'app/build/bundle.js.gz'])
+gulp.task('clean', function () {
+  gulp.src(['app/build/bundle.*', 'app/build/style.*'])
     .pipe(clean());
 });
 
@@ -93,8 +52,7 @@ gulp.task('less', function () {
   .pipe(livereload());
 });
 
-
-gulp.task('browserify', ['clean-js'], function () {
+gulp.task('browserify', function () {
   return gulp.src('app/js/app.js')
     .pipe(browserify({
       debug : false,
@@ -109,7 +67,7 @@ gulp.task('browserify', ['clean-js'], function () {
     .pipe(livereload());
 });
 
-gulp.task('browserify-dev', ['clean-js'], function () {
+gulp.task('browserify-dev', function () {
   return gulp.src('app/js/app.js')
   .pipe(browserify({
     debug : true,
@@ -120,7 +78,7 @@ gulp.task('browserify-dev', ['clean-js'], function () {
   .pipe(livereload());
 });
 
-gulp.task('compress-js', function () {
+gulp.task('compress', function () {
   return gulp.src('app/build/bundle.js')
     .pipe(uglify({
       mangle : false
@@ -130,11 +88,58 @@ gulp.task('compress-js', function () {
 });
 
 gulp.task('build', function (done) {
-   run(['browserify','less'], 'compress-js', done);
+   run('clean', ['browserify','less'], 'compress', done);
 });
 gulp.task('build-dev', function (done) {
-  run(['browserify-dev','less-dev'], done);
+  run(['clean', 'browserify-dev', 'less-dev'], done);
 });
+
+//###########
+//# Test
+//###########
+
+gulp.task('jshint', function() {
+  var jshint = require('gulp-jshint');
+  return gulp.src([
+    '**/*.js',
+    '!test/**',
+    '!node_modules/**',
+    '!app/bower_components/**',
+    '!app/build/**',
+    '!gulpfile.js'
+    ])
+    .pipe(jshint())
+    .pipe(jshint.reporter(require('jshint-stylish')));
+});
+
+gulp.task('unit', function() {
+  var mocha = require('gulp-mocha');
+  // return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
+  return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
+  .pipe(mocha({
+    reporter: 'spec'
+  }));
+});
+
+gulp.task('cucumber', function () {
+  var cucumber = require('gulp-cucumber');
+  return gulp.src('test/features/*.feature')
+  .pipe(cucumber({
+    'steps': 'test/features/steps/*.js',
+    'support': 'test/features/support/*.js',
+    'format': 'summary'
+  }));
+});
+
+gulp.task('test', ['jshint', 'unit']);
+
+gulp.task('cuke', function (done) {
+  run(['run', 'cucumber', 'stop'], done);
+});
+
+//###########
+//#run
+//###########
 
 gulp.task('run', function () {
   console.log('port:', config.port);

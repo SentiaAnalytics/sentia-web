@@ -52,7 +52,8 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
 
   CamService.find($parent.store._id)
     .then(function(cameras) {
-      $parent.store.cameras = cameras;
+      console.log('cameras found ',cameras.length);
+        $scope.cameras = cameras;
     });
 
   // watch
