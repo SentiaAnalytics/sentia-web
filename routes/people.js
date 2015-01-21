@@ -9,7 +9,7 @@ var PeoplesService = require('../services/people.service'),
 // ## Read
 //
 
-exports.find = {
+exports.get = {
   handler : function (req) {
     return PeoplesService.find(req.query, req.session.user.company);
   },

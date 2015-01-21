@@ -9,7 +9,7 @@ var MapsService = require('../services/maps.service'),
 // ## Read
 //
 
-exports.find = {
+exports.get = {
   handler : function (req) {
     return MapsService.find(req.query);
   },

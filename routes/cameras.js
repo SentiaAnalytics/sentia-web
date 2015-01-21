@@ -26,7 +26,7 @@ exports.read = {
 
 // ## Find
 // get a list of cameras based on the supplied queries
-exports.find = {
+exports.get = {
   handler : function (req, res, next) {
     return CameraService.find(req.query);
   },

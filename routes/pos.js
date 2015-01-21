@@ -9,7 +9,7 @@ var PosService = require('../services/pos.service'),
 
 // ## Read
 //
-exports.find = {
+exports.get = {
   handler : function (req) {
     return PosService.find(req.query, req.session.user.company);
   },

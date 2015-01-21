@@ -17,7 +17,7 @@ exports.read = function (query) {
   return models.Store.findOne(query).exec();
 };
 
-exports.find = function (query) {
+exports.get = function (query) {
   return models.Store.find(query).exec();
 };
 

@@ -35,7 +35,7 @@ exports.create = {
     additionalProperties:false
   }
 };
-exports.find = {
+exports.get = {
   handler : function (req) {
     return UsersService.find(req.query);
   },

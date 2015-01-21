@@ -4,13 +4,12 @@
  * @date   2014-04-11
  */
 var moment = require('moment');
-module.exports = function($scope, StoreService, CamService, PosService, PeopleService, $routeParams, $location) {
+module.exports = function($scope, $q, StoreService, CamService, PosService, PeopleService, $routeParams, $location) {
   'use strict';
   var $parent = $scope.$parent; // shorthand
 
   //bindables
   $scope.activeTab = Number($routeParams.activeTab) || 1;
-
 
   $scope.charts = {
     options : {
@@ -26,69 +25,77 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
   };
 
 
-  // temporarily hardcoded
-  $parent.store =  {
-    _id : '54318d4064acfb0b3139807e'
-  };
-
-  StoreService.read($parent.store._id)
-    .then(function (store) {
-      $parent.store = store;
-    });
-
   $scope.selectTab = selectTab; // function
   $scope.selectCamera = selectCamera; //function
 
-  //setup
-  document.title = 'Sentia - Store';
-  $location.search('activeTab', $scope.activeTab);
-  $location.search('date', moment($scope.$parent.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
-  if (!$parent.store) {
-    StoreService.read($routeParams.storeId)
-      .then(function (store) {
-        $parent.store = store;
+  // watch
+
+
+  init($routeParams);// get the store and build the $scope
+
+
+
+  function init (params) {
+    //setup
+    document.title = 'Sentia - Store';
+    $location.search('activeTab', $scope.activeTab);
+    $location.search('date', moment($scope.$parent.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
+
+
+    return $q.when(params.storeId)
+      .then(getStore)
+      .then(getCameras)
+      .then(watch)
+      .then(function () {
+        mixpanel.track('page viewed', {
+          'page': document.title,
+          'url': window.location.pathname,
+          controller: 'StoreController',
+          store : $scope.store._id
+        });
       });
   }
 
-  CamService.find($parent.store._id)
-    .then(function(cameras) {
-      console.log('cameras found ',cameras.length);
+  function getStore (id) {
+    return StoreService.getSelectedStore(id)
+      .then(function (store) {
+        $scope.store = store;
+        return store;
+      });
+  }
+
+  function getCameras (store) {
+    return CamService.find(store._id)
+      .then(function(cameras) {
         $scope.cameras = cameras;
+        return cameras;
+      });
+  }
+  function watch () {
+    $parent.$watch('date', function() {
+      $location.replace();
+      $location.search('date', moment($parent.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
+      getPos();
+      getPeople();
+      mixpanel.track('date changed', {
+        page : document.title,
+        controller : 'StoreCtrl',
+        store : $scope.store._id,
+        date : $parent.date
+      });
     });
-
-  // watch
-  $parent.$watch('date', function() {
-    $location.replace();
-    $location.search('date', moment($parent.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
-    getPos();
-    getPeople();
-    mixpanel.track('date changed', {
-      page : document.title,
-      controller : 'StoreCtrl',
-      store : $parent.store._id,
-      date : $parent.date
-    });
-  });
-
-  $scope.$watch('charts', getConversionChart, true);
-
-  mixpanel.track('page viewed', {
-    'page': document.title,
-    'url': window.location.pathname,
-    controller: 'StoreController',
-    store : $parent.store._id
-  });
+    $scope.$watch('charts', getConversionChart, true);
+  }
 
 
- // function definitions
-
+  // function definitions
   function selectTab (tab) {
     $location.search('activeTab', tab);
     $scope.activeTab = tab;
     mixpanel.track('switched tab', {
       page : document.title,
       controller: 'StoreCtrl',
-      store : $parent.store._id,
+      store : $scope.store._id,
       tab : $scope.activeTab
     });
   }
@@ -104,10 +111,10 @@ module.exports = function($scope, StoreService, CamService, PosService, PeopleSe
     $scope.charts.revenue = null;
     $scope.charts.transactions = null;
     $scope.charts.conversion = null;
-    if (!$parent.store) {
+    if (!$scope.store) {
       return;
     }
-    StoreService.getPosCharts($parent.store._id, $parent.date)
+    StoreService.getPosCharts($scope.store._id, $parent.date)
       .then(function (data) {
         $scope.charts.revenue = data.revenue;
         $scope.charts.transactions = data.transactions;
