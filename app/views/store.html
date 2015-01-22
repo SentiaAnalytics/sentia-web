@@ -93,7 +93,7 @@
             <div class="paper gutter-top" >
               <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->
               <div style="height :195px; overflow: hidden;">
-                <img ng-src="/images/cameras/{{cam._id}}.jpg" alt="" class="paper-image" style="transform:rotate({{cam.rotate || 0}}deg); -webkit-transform:rotate({{cam.rotate || 0}}deg)">
+                <img ng-src="api/cameras/{{cam._id}}/snapshot" alt="" class="paper-image" style="transform:rotate({{cam.rotate || 0}}deg); -webkit-transform:rotate({{cam.rotate || 0}}deg)">
               </div>
               <div class="container-fluid paper-label">
                 <h4>{{cam.name}}</h3>

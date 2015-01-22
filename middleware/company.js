@@ -8,6 +8,7 @@ module.exports = function (req, res, next) {
   if (!req.session.user.company) {
     throw new E.ForbiddenError('User session is not associated with a company.');
   }
+  req.query = req.query || {};
   req.query.company = objectId(req.session.user.company);
   return next();
 };

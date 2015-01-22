@@ -34,20 +34,17 @@ exports.get = {
   query : {
     additionalProperties : false,
     properties : {
-      name : {
-        type : 'string'
+      fields : {
+        type : 'object'
       },
-      store : {
-        stringType : 'integer'
+      where : {
+        type : 'object'
       },
-      limit : {
-        stringType : 'integer'
+      groupBy : {
+        type : 'array'
       },
-      skip : {
-        stringType : 'integer'
-      },
-      order : {
-        type : 'string'
+      orderBy : {
+        type : 'object'
       }
     }
   }

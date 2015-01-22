@@ -23,13 +23,14 @@ exports.read = function (query) {
 };
 
 exports.find = function (query) {
-  return P.resolve(query)
+  query.where = query.where || {};
+  query.where.company = query.company;
+  return P.resolve(query.where)
     .then(sanitizeQuery)
     .then(logger.promise('cameras:service:debug:query'))
     .then(function (query) {
       return models.Camera.find(query).exec();
-    })
-    .then(logger.promise('cameras:service:debug:data'));
+    });
 };
 
 exports.delete = function (query) {

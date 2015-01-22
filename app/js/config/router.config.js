@@ -7,22 +7,22 @@ module.exports = function($routeProvider) {
     })
     .when('/store/camera/:cameraId', {
       templateUrl: 'views/cam.html',
-      controller: 'CamController',
+      controller: 'CamerasController',
       reloadOnSearch: false
     })
     .when('/store/:storeId/report', {
       templateUrl: 'views/report.html',
-      controller: 'ReportController',
+      controller: 'ReportsController',
       reloadOnSearch: false
     })
     .when('/store', {
       templateUrl: 'views/store.html',
-      controller: 'StoreController',
+      controller: 'StoresController',
       reloadOnSearch: false
     })
     .when('/users', {
       templateUrl: 'views/users.html',
-      controller: 'UserController',
+      controller: 'UsersController',
       reloadOnSearch: false
     })
     .otherwise({

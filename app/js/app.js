@@ -36,20 +36,20 @@ require('./directives/chart.directive.js');
   ]);
 
   // Services
-  app.service('CamService', require('./services/cameras.service.js'));
-  app.service('SessionService', require('./services/sessions.service.js'));
-  app.service('PosService', require('./services/pos.service.js'));
-  app.service('PeopleService', require('./services/people.service.js'));
-  app.service('StoreService', require('./services/stores.service.js'));
-  app.service('ReportService', require('./services/reports.service.js'));
+  app.service('CamerasService', require('./services/CamerasService.js'));
+  app.service('SessionsService', require('./services/SessionsService.js'));
+  app.service('PosService', require('./services/PosService.js'));
+  app.service('PeopleService', require('./services/PeopleService.js'));
+  app.service('StoresService', require('./services/StoresService.js'));
+  app.service('ReportsService', require('./services/ReportsService.js'));
 
   // // Controllers
-  app.controller('CamController', require('./controllers/cameras.controller'));
-  app.controller('LoginController', require('./controllers/login.controller'));
-  app.controller('MainController', require('./controllers/main.controller'));
-  app.controller('StoreController', require('./controllers/stores.controller'));
-  app.controller('UserController', require('./controllers/users.controller'));
-  app.controller('ReportController', require('./controllers/reports.controller'));
+  app.controller('CamerasController', require('./controllers/CamerasController'));
+  app.controller('LoginController', require('./controllers/LoginController'));
+  app.controller('MainController', require('./controllers/MainController'));
+  app.controller('StoresController', require('./controllers/StoresController'));
+  app.controller('UsersController', require('./controllers/UsersController'));
+  app.controller('ReportsController', require('./controllers/ReportsController'));
 
   // // Filters
   // app.filter('heatFilter', require('./filters/heatFilter.js'));
