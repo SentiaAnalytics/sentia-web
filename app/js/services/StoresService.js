@@ -1,5 +1,3 @@
-var moment = require('moment'),
-  lodash = require('lodash');
 module.exports = function($http, $q) {
   'use strict';
 

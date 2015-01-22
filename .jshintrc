@@ -6,7 +6,6 @@
   "immed": true,
   "indent": 2,
   "latedef": "nofunc",
-  "maxlen": 160,
   "newcap": true,
   "noarg": true,
   "node": true,

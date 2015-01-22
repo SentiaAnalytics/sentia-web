@@ -10,7 +10,7 @@ var connection;
 
 exports.connect = function () {
   connection = mysql2.createConnection(config.mysql);
-}
+};
 exports.query = function (query) {
   return new P(function (resolve, reject) {
     connection.query(query, function(err, rows, fields) {
@@ -25,4 +25,3 @@ exports.close = function () {
   socksConn.dispose();
   connection.end();
 };
-
