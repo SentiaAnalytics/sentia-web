@@ -8,6 +8,9 @@ module.exports = {
     prefix : 'session'
   },
   gcloud : {
-    private_key : process.env.GCLOUD_PRIVATE_KEY
+    credentials :{
+      private_key : process.env.GCLOUD_PRIVATE_KEY,
+      client_email : process.env.GCLOUD_CLIENT_EMAIL
+    }
   }
 };

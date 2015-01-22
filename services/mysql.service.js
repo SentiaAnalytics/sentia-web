@@ -7,7 +7,6 @@ var SocksConnection = require('socksjs');
 var mysql_server_options, mysql_options, socks_options, socksConn;
 var connection;
 
-
 exports.connect = function () {
   connection = mysql2.createConnection(config.mysql);
 };
