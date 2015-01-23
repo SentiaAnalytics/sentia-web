@@ -1,7 +1,7 @@
 'use strict';
 var chai = require('chai'),
   should = chai.should(),
-  E = require('express-http-errors'),
+  HTTPError = require('node-http-error'),
   target = require('../../middleware/auth'),
   sinon = require('sinon');
 
@@ -12,7 +12,8 @@ describe('Middleware - Auth', function () {
     describe('where url is /session/authenticate', function() {
       var req = {
         session : {},
-        url : '/api/session/authenticate'
+        url : '/api/session/authenticate',
+        headers : {}
       },
       next = sinon.spy();
       before(function () {
@@ -31,7 +32,8 @@ describe('Middleware - Auth', function () {
     describe('when calling auth with a session', function() {
       var req = {
         session : {},
-        url : ''
+        url : '',
+        headers : {}
       },
       next = sinon.spy();
       before(function () {
@@ -44,7 +46,7 @@ describe('Middleware - Auth', function () {
 
       it('should call next with a single arg', function () {
         next.args[0].length.should.equal(1);
-        next.args[0][0].should.eql(new E.NotAuthorizedError('You must login to perform this action.'));
+        next.args[0][0].should.eql(new HTTPError(401, 'You must login to perform this action.'));
       });
     });
   });
@@ -53,7 +55,8 @@ describe('Middleware - Auth', function () {
       session : {
         user : 'user'
       },
-      url : ''
+      url : '',
+      headers : {}
     },
     next = sinon.spy();
     before(function () {
