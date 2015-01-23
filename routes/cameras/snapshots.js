@@ -17,3 +17,18 @@ exports.get = {
   },
   middleware : [middleware.company]
 };
+
+exports.create = {
+  url : '/cameras/:cameraId/snapshot',
+  handler: function (req, res, next) {
+    var stream = gcloudstorage.getWriteStream(req.query.company, 'cameras/' + req.params.cameraId + '/latest.jpg');
+    req.pipe(stream)
+      .on('end', function () {
+        res.status(201).end();
+      })
+      .on('error', function (err) {
+        next(err);
+      });
+  },
+  middleware : [middleware.company]
+};

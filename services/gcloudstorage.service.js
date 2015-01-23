@@ -18,8 +18,22 @@ exports.getReadStream = function (bucketName, filepath) {
     throw new HTTPError(400, 'Missing Filepath');
   }
   bucket = gcloud.storage().bucket(bucketName);
-  var readstream = bucket.file(filepath)
+  return bucket.file(filepath)
     .createReadStream();
-  logger.log('debug:gcloud', 'before return');
-  return readstream;
+};
+
+
+exports.getWriteStream = function (bucketName, filepath) {
+  var bucket;
+  if (!bucketName) {
+    logger.log('debug:gcloud:error', 'no company');
+    throw new HTTPError(500, 'Missing company');
+  }
+  if (!filepath) {
+    logger.log('debug:gcloud:error', 'no File Path');
+    throw new HTTPError(400, 'Missing Filepath');
+  }
+  bucket = gcloud.storage().bucket(bucketName);
+  return bucket.file(filepath)
+  .createWriteStream();
 };

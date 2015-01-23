@@ -1,10 +1,3 @@
-console.log('**********************');
-console.log(process.env.MONGOLAB_URI);
-console.log(process.env.MYSQL_URL);
-console.log(process.env.REDISCLOUD_URL);
-console.log(process.env.GCLOUD_CREDENTIALS);
-console.log('**********************');
-
 module.exports = {
   "port": process.env.PORT || 3000,
   "mongo" : process.env.MONGOLAB_URI,

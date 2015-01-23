@@ -16,7 +16,8 @@ exports.read = function (query) {
 };
 
 exports.find = function (query) {
-  return models.Company.find(query).exec();
+ logger.log('query:debug', query);
+  return models.Company.find(query.where).exec();
 };
 
 exports.delete = function (query) {

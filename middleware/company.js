@@ -4,11 +4,14 @@ var E = require('express-http-errors'),
   objectId = require('mongoose').Types.ObjectId;
 
 module.exports = function (req, res, next) {
-  console.log(req.session.user.company);
-  if (!req.session.user.company) {
-    throw new E.ForbiddenError('User session is not associated with a company.');
+  if (req.session.user && req.session.user.company) {
+    req.query.company = objectId(req.session.user.company);
+    return next();
   }
-  req.query = req.query || {};
-  req.query.company = objectId(req.session.user.company);
-  return next();
+  if (req.session.company) {
+    req.query.company = req.session.company._id;
+    return next();
+  }
+
+  throw new E.ForbiddenError('User session is not associated with a company.');
 };
