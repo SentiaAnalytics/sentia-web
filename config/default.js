@@ -1,3 +1,5 @@
+console.log(JSON.parse(process.env.GCLOUD_CREDENTIALS));
+
 module.exports = {
   "port": process.env.PORT || 3000,
   "mongo" : process.env.MONGOLAB_URI,
