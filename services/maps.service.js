@@ -18,6 +18,7 @@ exports.find = function (query) {
       return P.reject(new E.InternalError('Database Error'));
     });
 };
+
 exports._getCamera = function (query) {
   return models.Camera.findOne({_id : objectId(query.camera), company : query.company})
     .exec()
