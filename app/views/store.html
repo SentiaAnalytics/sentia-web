@@ -28,9 +28,6 @@
     <div class="container gutter-top-large gutter-bottom-large">
       <h1 class="text-center jumbo">{{store.name}}</h1>
       <h4 class="text-center caps gutter-top-large">{{cameras.length}} cameras</h4>
-      <div class="polaroid gutter-top-large col-sm-8 col-sm-offset-2">
-        <img src="stores/floorplans/testFloorplan" class="polaroid-image">
-      </div>
     </div>
   </swiper-slide>
   <swiper-slide>
@@ -115,20 +112,26 @@
       <div class="col-xs-10 col-xs-offset-1">
         <input type="text" id="camera-list-search" class="form-control" role="search" ng-model="camSearch">
       </div>
-      <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 floorplan-container">
-        <div class="floorplan">
-          <ul class="list">
-            <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" style="position:absolute; left:{{cam.pos.x}}%; top : {{cam.pos.y}}%">
-              <a ng-click="go('/store/camera/{{cam._id}}')">
-                <div class="floorplan-pin icon-location2 animate-drop a">
-                  <div class="floorplan-pin-shadow"></div>
-                </div>
-              </a>
-            </li>
-          </ul>
-          <img ng-src="images/{{store._id}}/mezz.jpg" class="polaroid-image">
-        </div>
-      </div>
+      <ul>
+        <li ng-repeat="floor in store.floors">
+          <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 floorplan-container">
+            <h3 class="caps">{{floor.name}}</h3>
+            <div class="floorplan">
+              <ul class="list">
+                <li ng-repeat="cam in cameras | filter : {floor: floor._id} | filter : camSearch" style="position:absolute; left:{{cam.pos.x}}%; top : {{cam.pos.y}}%">
+                  <a ng-click="go('/store/camera/{{cam._id}}')">
+                    <div class="floorplan-pin icon-location2 animate-drop a">
+                      <div class="floorplan-pin-shadow"></div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+              <img ng-src="api/stores/floorplans/{{floor._id}}" class="polaroid-image">
+            </div>
+          </div>
+        </li>
+      </ul>
+
       <!-- <ul class="list list-widgets row">
       <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" ng-class="{active: selectedCam._id === cam._id}" class="col-sm-6 animate-scale">
       <a ng-click="go('/store/camera/{{cam._id}}')">
