@@ -115,7 +115,7 @@ gulp.task('jshint', function() {
 gulp.task('unit', function() {
   var mocha = require('gulp-mocha');
   // return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
-  return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
+  return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js', 'test/app/**/*.test.js'])
   .pipe(mocha({
     reporter: 'spec'
   }));
