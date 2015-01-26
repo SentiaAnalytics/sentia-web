@@ -8,6 +8,6 @@ module.exports = {
     prefix : 'session'
   },
   gcloud : {
-    credentials :  JSON.parse(process.env.GCLOUD_CREDENTIALS)
+    credentials :  JSON.parse(process.env.GCLOUD_CREDENTIALS || '{}')
   }
 };

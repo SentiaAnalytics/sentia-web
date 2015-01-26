@@ -124,6 +124,9 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
      .then(function (data) {
        $scope.charts.revenue = data.revenue;
        $scope.charts.transactions = data.transactions;
+       $scope.charts.basketSize = {
+         total : data.revenue.total / data.transactions.total
+       };
      });
   }
   function updatePeopleCharts () {

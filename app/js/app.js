@@ -52,7 +52,8 @@ require('./directives/chart.directive.js');
   app.controller('ReportsController', require('./controllers/ReportsController'));
 
   // // Filters
-  // app.filter('heatFilter', require('./filters/heatFilter.js'));
+  app.filter('waiting', require('./filters/waiting.filter.js'));
+  app.filter('dkNumber', require('./filters/dkNumber.filter.js'));
 
   // configure routes
   app.config(require('./config/router.config.js'));
