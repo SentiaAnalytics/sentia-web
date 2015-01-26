@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 CompanySchema = mongoose.Schema({
   name : String
 });
+
 CompanySchema.methods.savep = function () {
   return new P(function (resolve, reject) {
     this.save(function (err) {

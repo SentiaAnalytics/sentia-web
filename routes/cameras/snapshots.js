@@ -26,9 +26,7 @@ exports.create = {
       .on('end', function () {
         res.status(201).end();
       })
-      .on('error', function (err) {
-        next(err);
-      });
+      .on('error', next);
   },
   middleware : [middleware.company]
 };
