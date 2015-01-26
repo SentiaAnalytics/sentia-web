@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'sentia-icon';
-	src:url('fonts/sentia-icon.eot?crpp32');
-	src:url('fonts/sentia-icon.eot?#iefixcrpp32') format('embedded-opentype'),
-		url('fonts/sentia-icon.woff?crpp32') format('woff'),
-		url('fonts/sentia-icon.ttf?crpp32') format('truetype'),
-		url('fonts/sentia-icon.svg?crpp32#sentia-icon') format('svg');
+	src:url('fonts/sentia-icon.eot?-tta7xt');
+	src:url('fonts/sentia-icon.eot?#iefix-tta7xt') format('embedded-opentype'),
+		url('fonts/sentia-icon.woff?-tta7xt') format('woff'),
+		url('fonts/sentia-icon.ttf?-tta7xt') format('truetype'),
+		url('fonts/sentia-icon.svg?-tta7xt#sentia-icon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -26,84 +26,116 @@
 .icon-chevron-down:before {
 	content: "\f0a3";
 }
+
 .icon-chevron-left:before {
 	content: "\f0a4";
 }
+
 .icon-chevron-right:before {
 	content: "\f078";
 }
+
 .icon-chevron-up:before {
 	content: "\f0a2";
 }
+
+.icon-location2:before {
+	content: "\f060";
+}
+
 .icon-location:before {
 	content: "\e600";
 }
+
 .icon-checkmark:before {
 	content: "\e601";
 }
+
 .icon-cancel:before {
 	content: "\e602";
 }
+
 .icon-home:before {
 	content: "\e603";
 }
+
 .icon-pencil:before {
 	content: "\e604";
 }
+
 .icon-camera:before {
 	content: "\e605";
 }
+
 .icon-tag:before {
 	content: "\e606";
 }
+
 .icon-undo:before {
 	content: "\e607";
 }
+
 .icon-redo:before {
 	content: "\e608";
 }
+
 .icon-forward:before {
 	content: "\e609";
 }
+
 .icon-reply:before {
 	content: "\e60a";
 }
+
 .icon-users:before {
 	content: "\e60b";
 }
+
 .icon-cog:before {
 	content: "\e60c";
 }
+
 .icon-pie:before {
 	content: "\e60d";
 }
+
 .icon-stats:before {
 	content: "\e60e";
 }
+
 .icon-bars:before {
 	content: "\e60f";
 }
+
 .icon-fire:before {
 	content: "\e610";
 }
+
 .icon-switch:before {
 	content: "\e611";
 }
+
 .icon-menu:before {
 	content: "\e612";
 }
+
 .icon-cloud-download:before {
 	content: "\e613";
 }
+
 .icon-cloud-upload:before {
 	content: "\e614";
 }
+
 .icon-shuffle:before {
 	content: "\e615";
 }
+
 .icon-file-xml:before {
 	content: "\e616";
 }
+
 .icon-calendar:before {
 	content: "\e617";
 }
+

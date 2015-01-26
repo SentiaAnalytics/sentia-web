@@ -115,6 +115,36 @@
         }
     }
 }
+.animate-drop {
+  -webkit-transition:0.2s linear all;
+  -moz-transition:0.2s linear all;
+  -o-transition:0.2s linear all;
+  transition:0.2s linear all;
+  position:relative;
+  &.ng-enter {
+    opacity : 0;
+    -webkit-transform : translateY(100%);
+    transform : translateY(100%);
+
+    &.ng-enter-active {
+      opacity:1;
+      -webkit-transform : translateY(0);
+      transform : translateY(0);
+
+    }
+  }
+  &.ng-leave {
+    opacity:1;
+    -webkit-transform : translateY(0);
+    transform : translateY(0);
+    &.ng-leave-active {
+      opacity:0;
+      -webkit-transform : translateY(100%);
+      transform : translateY(100%);
+    }
+  }
+}
+
 @keyframes fade-out {
   from {
     opacity: 1;

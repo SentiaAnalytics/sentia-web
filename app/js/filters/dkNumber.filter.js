@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function () {
   return function(input, decimals) {
-    if (Number.isNaN(Number(input))) {
+    if (isNaN(Number(input))) {
       return input;
     }
     decimals = decimals || 2;
