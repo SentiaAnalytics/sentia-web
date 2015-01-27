@@ -11,24 +11,7 @@ var PosService = require('../services/pos.service'),
 //
 exports.get = {
   handler : function (req) {
-    return PosService.find(req.query, req.session.user.company);
+    return PosService.find(req.query);
   },
-  query : {
-    additionalProperties : false,
-    required : ['where'],
-    properties : {
-      fields : {
-        type : 'object'
-      },
-      where : {
-        type : 'object'
-      },
-      groupBy : {
-        type : 'array'
-      },
-      orderBy : {
-        type : 'object'
-      }
-    }
-  }
+  middleware : [middleware.get]
 };

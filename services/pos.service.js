@@ -13,7 +13,10 @@ function Plogg (data) {
   return data;
 }
 
-exports.find = function (query, company) {
+exports.find = function (query) {
+  var company = query.where.company;
+  delete query.where.company;
+
   return P.resolve(query)
     .then(setTable)
     .then(setStore.bind(this, company))
@@ -29,10 +32,10 @@ exports.find = function (query, company) {
 function setTable (query) {
   query.from = 'pos';
   return query;
-} 
+}
 
 function setStore (company, query) {
-  return models.Store.findOne({_id : objectId(query.where.store), company : objectId(company)})
+  return models.Store.findOne({_id : objectId(query.where.store), company : company})
       .exec()
       .then(function (store) {
         log('pos.service:debug:store', store);
@@ -44,4 +47,3 @@ function setStore (company, query) {
         return query;
       });
 }
-

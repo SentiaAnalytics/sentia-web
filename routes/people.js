@@ -13,22 +13,5 @@ exports.get = {
   handler : function (req) {
     return PeoplesService.find(req.query, req.session.user.company);
   },
-  query : {
-    additionalProperties : false,
-    required : ['where'],
-    properties : {
-      fields : {
-        type : 'object'
-      },
-      where : {
-        type : 'object'
-      },
-      groupBy : {
-        type : 'array'
-      },
-      orderBy : {
-        type : 'object'
-      }
-    }
-  }
+  middleware : [middleware.get]
 };

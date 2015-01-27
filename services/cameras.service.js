@@ -23,8 +23,6 @@ exports.read = function (query) {
 };
 
 exports.find = function (query) {
-  query.where = query.where || {};
-  query.where.company = query.company;
   return P.resolve(query.where)
     .then(sanitizeQuery)
     .then(logger.promise('cameras:service:debug:query'))

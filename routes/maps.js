@@ -11,22 +11,7 @@ var MapsService = require('../services/maps.service'),
 
 exports.get = {
   handler : function (req) {
+    req.query.company = req.session.company;
     return MapsService.find(req.query);
-  },
-  middleware : [middleware.company],
-  query : {
-    additionalProperties : false,
-    required : ['camera', 'from', 'to'],
-    properties : {
-      camera : {
-        type : 'string'
-      },
-      from : {
-        type : 'string'
-      },
-      to : {
-        type : 'string'
-      }
-    }
   }
 };

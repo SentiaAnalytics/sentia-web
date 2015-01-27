@@ -11,36 +11,11 @@ exports.create = {
       })
       .catch(next);
   },
-  middleware : [middleware.company],
-  body : {
-    required : ['email', 'password'],
-    additionalProperties : false,
-    properties : {
-      email : {
-        type : 'string',
-        format : 'email'
-      },
-      password : {
-        type : 'string'
-      },
-      firstname : {
-        type : 'string'
-      },
-      lastname : {
-        type : 'string'
-      }
-    }
-  },
-  query :{
-    additionalProperties:false
-  }
+  middleware : [middleware.create]
 };
 exports.get = {
   handler : function (req) {
     return UsersService.find(req.query);
   },
-  middleware : [middleware.company],
-  query :{
-    additionalProperties:false
-  }
+  middleware : [middleware.get]
 };

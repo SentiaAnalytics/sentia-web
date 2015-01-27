@@ -18,7 +18,9 @@ exports.read = function (query) {
 };
 
 exports.get = function (query) {
-  return models.Store.find(query).exec();
+  console.log('getStore');
+  console.log(query.where);
+  return models.Store.find(query.where).exec();
 };
 
 exports.delete = function (query) {

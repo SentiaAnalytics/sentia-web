@@ -2,28 +2,29 @@
 'use strict';
 var HTTPError = require('node-http-error');
 var CompaniesService = require('../services/companies.service');
+var objectId = require('mongodb').ObjectID;
 module.exports = function(req, res, next) {
     // User is allowed, proceed to the next policy,
     // or if this is the last policy, the controller
-    if (req.session.user || req.url === '/api/session/authenticate') {
-        return next();
+    if (req.url === '/api/session/authenticate') {
+      return next();
+    }
+    if (req.session.user) {
+      req.session.user._id = objectId(req.session.user._id);
+      req.session.company = objectId(req.session.company);
+      return next();
     }
 
-    console.log(req.headers);
     // req has an authorization header (APIKEY)
     if (req.headers.authorization) {
-      console.log('auth header');
       return getCompany(req.headers.authorization)
         .then(function (company) {
-          console.log('company');
-          console.log(company);
-          req.session.company = company;
+          req.session.company = company._id;
           return next();
         });
     }
     // User is not allowed
     return next(new HTTPError(401, 'You must login to perform this action.'));
-
 };
 
 function getCompany(authToken) {

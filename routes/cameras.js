@@ -13,39 +13,16 @@ exports.read = {
   handler : function (req, res, next) {
     return CameraService.read(lodash.merge(req.params, req.query));
   },
-  middleware : [middleware.company],
-  params : {
-    required : ['_id'],
-    properties : {
-      id : {
-        type : 'integer'
-      }
-    }
-  }
+  middleware : [middleware.read]
 };
 
 // ## Find
 // get a list of cameras based on the supplied queries
 exports.get = {
   handler : function (req, res, next) {
+    console.log('GET CAMERA');
+    console.log(req.query);
     return CameraService.find(req.query);
   },
-  middleware : [middleware.company],
-  query : {
-    additionalProperties : false,
-    properties : {
-      fields : {
-        type : 'object'
-      },
-      where : {
-        type : 'object'
-      },
-      groupBy : {
-        type : 'array'
-      },
-      orderBy : {
-        type : 'object'
-      }
-    }
-  }
+  middleware : [middleware.get]
 };

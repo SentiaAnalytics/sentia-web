@@ -23,12 +23,22 @@
   // text-shadow: 0px 1px rgba(0, 0, 0, 0.3);
   outline: 1px solid transparent;
   -webkit-backface-visibility: hidden;
+  .floorplan-pin-details {
+    position: absolute;
+    -webkit-transform: translate3d(-90px, -230px, 100px);
+    width:200px;
+    display:none;
+  }
+  &:hover .floorplan-pin-details {
+    display:block;
+  }
   &.ng-enter {
     -webkit-transition: 0.3s;
     opacity: 0;
     .floorplan-pin-shadow {
       display:none !important;
     }
+
     -webkit-transform: rotateX(-65deg) translateY(-100%);
     &.ng-enter-active {
       .floorplan-pin-shadow {

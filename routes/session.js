@@ -8,20 +8,9 @@ exports.authenticate = {
     return SessionService.authenticate(req.body)
       .then(function (user) {
         req.session.user = user;
+        req.session.company = user.company;
         return user;
       });
-  },
-  body : {
-    required : ['email', 'password'],
-    additionalProperties : false,
-    properties : {
-      email : {
-        type : 'string'
-      },
-      password : {
-        type : 'string'
-      }
-    }
   },
   method : 'POST'
 };

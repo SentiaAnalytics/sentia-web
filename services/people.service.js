@@ -13,7 +13,9 @@ function Plogg (data) {
   return data;
 }
 
-exports.find = function (query, company) {
+exports.find = function (query) {
+  var company = query.where.company;
+  delete query.where.company;
   return P.resolve(query)
     .then(setTable)
     .then(checkPermissions.bind(this, company))

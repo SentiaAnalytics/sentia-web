@@ -36,7 +36,6 @@ app.get('/', function (req, res) {
 
 // middleware
 app.use(middleware.auth);
-app.use(middleware.jsonQuery);
 // load api routes
 app.use(routeloader({prefix : '/api'}));
 // error handling

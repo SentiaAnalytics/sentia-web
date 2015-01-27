@@ -8,17 +8,13 @@ exports.read = {
   handler : function (req, res, next) {
     return StoresService.read(lodash.merge(req.params, req.query));
   },
-  middleware : [middleware.company]
+  middleware : [middleware.read]
 };
 
 exports.get = {
   url : '',
   handler : function (req, res, next) {
-    return StoresService.get(lodash.merge(req.params, req.query));
+    return StoresService.get(req.query);
   },
-  middleware : [middleware.company],
-  query : {
-    additionalProperties : false,
-    required : []
-  }
+  middleware : [middleware.get]
 };
