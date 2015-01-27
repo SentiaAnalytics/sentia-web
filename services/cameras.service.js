@@ -34,6 +34,7 @@ exports.find = function (query) {
 exports.delete = function (query) {
   return models.Camera.findOneAndRemove(query)
     .exec();
+
 };
 function sanitizeQuery (query) {
   if(query.store) {

@@ -1,10 +1,13 @@
 'use strict';
 var mongoose = require('mongoose'),
-  logger = require('bragi'), 
+  logger = require('bragi'),
   P = require('bluebird'),
   config = require('config'),
   connection;
 
+mongoose.Promise.prototype.catch = function (func) {
+  return this.then(null, func);
+};
 module.exports = new P(function (resolve, reject) {
   connection = mongoose.connect(config.mongo).connection;
 
@@ -18,5 +21,3 @@ module.exports = new P(function (resolve, reject) {
     return resolve();
   });
 });
-
-

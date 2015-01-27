@@ -6,7 +6,9 @@ var mongoose = require('mongoose'),
 
 StoreSchema = mongoose.Schema({
   name : String,
-  Company :  mongoose.Schema.Types.ObjectId
+  company :  mongoose.Schema.Types.ObjectId,
+  dataId : String,
+  floors : Array
 });
 StoreSchema.methods.savep = function () {
   return new P(function (resolve, reject) {

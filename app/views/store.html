@@ -124,7 +124,7 @@
                       <div class="paper floorplan-pin-details">
                         <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->
                         <div style="overflow: hidden;">
-                          <img ng-src="api/cameras/{{cam._id}}/snapshot" alt="" class="paper-image" style="transform:rotate(0deg); -webkit-transform:rotate(0deg)" src="api/cameras/543197b8ab3de09c344bc1e7/snapshot">
+                          <img ng-src="api/cameras/{{cam._id}}/snapshot" alt="" class="paper-image" style="transform:rotate({{cam.rotate}}deg); -webkit-transform:rotate({{cam.rotate}}deg)" src="api/cameras/543197b8ab3de09c344bc1e7/snapshot">
                         </div>
                         <div class="container-fluid paper-label">
                           <h4 class="ng-binding">{{cam.name}}</h4>
