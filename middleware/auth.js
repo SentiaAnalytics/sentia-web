@@ -2,7 +2,7 @@
 'use strict';
 var HTTPError = require('node-http-error');
 var CompaniesService = require('../services/companies.service');
-var objectId = require('mongodb').ObjectID;
+var objectId = require('mongoose').Types.ObjectId;
 module.exports = function(req, res, next) {
     // User is allowed, proceed to the next policy,
     // or if this is the last policy, the controller
