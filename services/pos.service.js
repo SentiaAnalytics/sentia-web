@@ -3,7 +3,7 @@ var j2sql = require('json2sql'),
   db = require('./mysql.service'),
   log = require('bragi').log,
   models = require('../models'),
-  E = require('express-http-errors'),
+  HTTPError = require('node-http-error'),
   P = require('bluebird'),
   objectId = require('mongoose').Types.ObjectId,
   moment = require('moment');
@@ -26,7 +26,7 @@ exports.find = function (query) {
     .then(Plogg)
     .catch(function (err) {
       log('error:service:pos', err.stack);
-      return P.reject(new E.InternalError('Database Error'));
+      return P.reject(new HTTPError(500, 'Database Error'));
     });
 };
 function setTable (query) {
@@ -40,7 +40,7 @@ function setStore (company, query) {
       .then(function (store) {
         log('pos.service:debug:store', store);
         if (!store) {
-          return P.reject(new E.BadRequestError('Store does not exist'));
+          return P.reject(new HTTPError(400, 'Store does not exist'));
         }
         log('stuff', 'what!');
         query.where.store = store.toObject().dataId;

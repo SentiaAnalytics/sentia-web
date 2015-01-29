@@ -2,14 +2,14 @@
 var models = require('../models'),
   P = require('bluebird'),
   objectId = require('mongoose').Types.ObjectId,
-  E = require('express-http-errors'),
+  HTTPError = require('node-http-error'),
   logger = require('bragi');
 
 exports.create = function (query) {
   var camera = new models.Camera(query);
   return camera.savep()
     .catch(function (err) {
-      return P.reject(new E.InternalError('Database Error'));
+      return P.reject(new HTTPError(500, 'Database Error'));
     });
 };
 exports.read = function (query) {

@@ -1,7 +1,7 @@
 'use strict';
 var models = require('../models'),
   UsersService = require('./users.service'),
-  E = require('express-http-errors'),
+  HTTPError = require('node-http-error'),
   _ = require('lodash'),
   logger = require('bragi'),
   P = require('bluebird'),
@@ -22,13 +22,13 @@ exports.authenticate = function (credentials) {
 
 exports._validatePassword = function (user) {
   if (!user) {
-    return P.reject(new E.NotAuthorizedError('User not found'));
+    return P.reject(new HTTPError(401, 'User not found'));
   }
   return user.authenticate(this.password)
     .then(function () {
       return user;
     })
     .catch(function (err) {
-      return P.reject(new E.NotAuthorizedError('Invalid Password'));
+      return P.reject(new HTTPError(401, 'Invalid Password'));
     });
 };

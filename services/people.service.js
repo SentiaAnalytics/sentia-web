@@ -3,7 +3,7 @@ var j2sql = require('json2sql'),
   db = require('./mysql.service'),
   log = require('bragi').log,
   models = require('../models'),
-  E = require('express-http-errors'),
+  HTTPError = require('node-http-error'),
   P = require('bluebird'),
   objectId = require('mongoose').Types.ObjectId,
   moment = require('moment');
@@ -25,7 +25,7 @@ exports.find = function (query) {
     .then(Plogg)
     .catch(function (err) {
       log('error:service:people', err.stack);
-      return P.reject(new E.InternalError('Database Error'));
+      return P.reject(new HTTPError(500, 'Database Error'));
     });
 };
 
@@ -45,7 +45,7 @@ function checkPermissions (company, query) {
     .then(function (camera) {
       log('people.service:debug:camera', camera);
       if (!camera) {
-        return P.reject(new E.BadRequestError('Camera does not exist'));
+        return P.reject(new HTTPError(400, 'Camera does not exist'));
       }
       return query;
     });

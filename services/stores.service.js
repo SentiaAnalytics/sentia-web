@@ -1,7 +1,7 @@
 'use strict';
 var models = require('../models'),
   P = require('bluebird'),
-  E = require('express-http-errors'),
+  HTTPError = require('node-http-error'),
   logger = require('bragi');
 
 exports.create = function (body) {
@@ -9,7 +9,7 @@ exports.create = function (body) {
   var store = new models.Store(body);
   return store.savep()
     .catch(function (err) {
-      return P.reject(new E.InternalError('Database Error'));
+      return P.reject(new HTTPError(500, 'Database Error'));
     });
 };
 exports.read = function (query) {

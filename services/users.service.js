@@ -4,7 +4,7 @@ var P = require('bluebird'),
   logger = require('bragi'),
   models = require('../models'),
   bcrypt = require('./bcrypt.service'),
-  E = require('express-http-errors');
+  HTTPError = require('node-http-error');
 
 exports.create = function (query) {
   var user = new models.User(query);
@@ -12,9 +12,9 @@ exports.create = function (query) {
     .catch(function (err) {
       logger.log('debug:users', err);
       if (err.err && err.err.indexOf('duplicate key') !== 1) {
-        return P.reject(new E.BadRequestError('A user with that email already exists'));
+        return P.reject(new HTTPError(400, 'A user with that email already exists'));
       }
-      return P.reject(new E.InternalError('Database Error'));
+      return P.reject(new HTTPError(500, 'Database Error'));
     });
 };
 

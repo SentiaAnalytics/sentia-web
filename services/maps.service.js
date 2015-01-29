@@ -2,7 +2,7 @@
 var squel = require('squel'),
   db = require('./mysql.service'),
   models = require('../models'),
-  E = require('express-http-errors'),
+  HTTPError = require('node-http-error'),
   P = require('bluebird'),
   objectId = require('mongoose').Types.ObjectId,
   moment = require('moment');
@@ -15,7 +15,7 @@ exports.find = function (query) {
     .then(db.query)
     .catch(function (err) {
       console.log(err.stack);
-      return P.reject(new E.InternalError('Database Error'));
+      return P.reject(new HTTPError(500, 'Database Error'));
     });
 };
 
@@ -24,7 +24,7 @@ exports._getCamera = function (query) {
     .exec()
     .then(function (camera) {
       if (!camera) {
-        return P.reject(new E.badRequestError('Camera does not exist'));
+        return P.reject(new HTTPError(400, 'Camera does not exist'));
       }
       // query.dataId = camera.toObject().dataId;
       return query;
