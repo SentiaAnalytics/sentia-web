@@ -43,7 +43,7 @@ exports.update = function (params, body) {
   console.log(body);
   var query =  models
     .Camera
-    .update(params, body, {overwrite : true})
+    .update(params, body, {overwrite : true});
   console.log(query);
     return query.exec();
 
