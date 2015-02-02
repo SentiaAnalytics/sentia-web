@@ -18,47 +18,86 @@
   // position: absolute;
   -webkit-transform-origin: bottom;
   -webkit-transform: rotateX(-65deg) translate(-8px, -12px);
-  color: @brand-primary;
   -webkit-transition: -webkit-transform 1s;
+  -moz-transform-origin: bottom;
+  -moz-transform: rotateX(-65deg) translate(-8px, -12px);
+  -moz-transition: -webkit-transform 1s;
+  -o-transform-origin: bottom;
+  -o-transform: rotateX(-65deg) translate(-8px, -12px);
+  -o-transition: -webkit-transform 1s;
+  -ms-transform-origin: bottom;
+  -ms-transform: rotateX(-65deg) translate(-8px, -12px);
+  -ms-transition: -webkit-transform 1s;
+  transform-origin: bottom;
+  transform: rotateX(-65deg) translate(-8px, -12px);
+  transition: -webkit-transform 1s;
+
+
+  color: @brand-primary;
   // text-shadow: 0px 1px rgba(0, 0, 0, 0.3);
   outline: 1px solid transparent;
   -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
   .floorplan-pin-details {
     position: absolute;
     -webkit-transform: translate3d(-90px, -230px, 100px);
+    -moz-transform: translate3d(-90px, -230px, 100px);
+    -ms-transform: translate3d(-90px, -230px, 100px);
+    transform: translate3d(-90px, -230px, 100px);
     width:200px;
     display:none;
   }
 
   &.ng-enter {
     -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s;
     opacity: 0;
     .floorplan-pin-shadow {
       display:none !important;
     }
 
     -webkit-transform: rotateX(-65deg) translateY(-100%);
+    -moz-transform: rotateX(-65deg) translateY(-100%);
+    -ms-transform: rotateX(-65deg) translateY(-100%);
+    transform: rotateX(-65deg) translateY(-100%);
     &.ng-enter-active {
       .floorplan-pin-shadow {
         display:block;
       }
       opacity: 1;
       -webkit-transform: rotateX(-65deg);
+      -moz-transform: rotateX(-65deg);
+      -ms-transform: rotateX(-65deg);
+      transform: rotateX(-65deg);
     }
   }
   &.ng-leave {
     -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    transition: all 0.3s;
     opacity: 1;
     .floorplan-pin-shadow {
         display:block;
       }
     -webkit-transform: rotateX(-65deg) translateY(0);
+    -moz-transform: rotateX(-65deg) translateY(0);
+    -ms-transform: rotateX(-65deg) translateY(0);
+    transform: rotateX(-65deg) translateY(0);
     &.ng-leave-active {
       opacity: 0;
       .floorplan-pin-shadow {
         display:none !important;
       }
       -webkit-transform: rotateX(-65deg) translateY(-100%);
+      -moz-transform: rotateX(-65deg) translateY(-100%);
+      -ms-transform: rotateX(-65deg) translateY(-100%);
+      transform: rotateX(-65deg) translateY(-100%);
     }
   }
 }
@@ -66,6 +105,9 @@
   display:block;
   position:fixed;
   -webkit-transform: translate(-10px, 0);
+  -moz-transform: translate(-10px, 0);
+  -ms-transform: translate(-10px, 0);
+  transform: translate(-10px, 0);
 }
 .floorplan-pin-shadow {
   width: 5px;
@@ -80,9 +122,15 @@
 }
 .floorplan-flat {
   -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  transform: none;
   box-shadow: 0px 0px 20px -40px rgba(0, 0, 0, 0);
   .floorplan-pin {
     -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    transform: none;
   }
   .floorplan-pin-shadow {
     box-shadow: 0px 0px 0px transparent;
