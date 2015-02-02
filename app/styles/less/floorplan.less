@@ -29,9 +29,7 @@
     width:200px;
     display:none;
   }
-  &:hover .floorplan-pin-details {
-    display:block;
-  }
+
   &.ng-enter {
     -webkit-transition: 0.3s;
     opacity: 0;
@@ -63,6 +61,11 @@
       -webkit-transform: rotateX(-65deg) translateY(-100%);
     }
   }
+}
+.floorplan-pin-details {
+  display:block;
+  position:fixed;
+  -webkit-transform: translate(-10px, 0);
 }
 .floorplan-pin-shadow {
   width: 5px;
