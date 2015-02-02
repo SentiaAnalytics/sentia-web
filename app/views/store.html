@@ -36,33 +36,7 @@
         <!-- <pickadate date="date"></pickadate> -->
       </div>
       <div>
-        <div class="row">
-          <div class="col-sm-6 gutter-top-large">
-            <h5 class="caps text-center">Revenue</h5>
-            <h1 class="text-primary text-center jumbo">{{charts.revenue.total | waiting | dkNumber : 2}}
-              <span class="small">DKK</span>
-            </h1>
-          </div>
-          <div class="col-sm-6 gutter-top-large">
-            <h5 class="caps">Revenue Breakdown</h5>
-            <chart data="charts.revenue.data" options="charts.options" trigger="tabs.counter"></chart>
-          </div>
-          <div class="col-sm-6 gutter-top-large">
-            <h5 class="caps text-center">People in</h5>
-            <h1 class="text-success text-center jumbo">{{charts.people.total | waiting | dkNumber : 2}}</h1>
-          </div>
-          <div class="col-sm-6 gutter-top-large">
-            <h5 class="caps">People in Breakdown</h5>
-            <chart data="charts.people.data" options="charts.options" charttype="line" trigger="tabs.counter" class="ct-success"></chart>
-          </div>
-          <div class="col-sm-6 gutter-top-large">
-            <h5 class="caps text-center">Transactions</h5>
-            <h1 class="text-warning text-center jumbo">{{charts.transactions.total | waiting | dkNumber : 2}}</h1>
-          </div>
-          <div class="col-sm-6 gutter-top-large">
-            <h5 class="caps">Transactions breakdown</h5>
-            <chart data="charts.transactions.data" options="charts.options" trigger="tabs.counter" class="ct-warning"></chart>
-          </div>
+        <div class="row p-bottom-large clearfix">
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps text-center">Conversion Rate</h5>
             <h1 class="text-info text-center jumbo">{{charts.conversion.total | waiting | dkNumber : 2}}
@@ -70,25 +44,32 @@
             </h1>
           </div>
           <div class="col-sm-6 gutter-top-large">
-            <h5 class="caps">Conversion Rate Breakdown</h5>
-            <chart data="charts.conversion.data" options="charts.options" charttype="line" trigger="tabs.counter" class="ct-info"></chart>
-          </div>
-          <div class="col-sm-6 gutter-top-large">
             <h5 class="caps text-center">Basket Size</h5>
             <h1 class="text-primary text-center jumbo">{{charts.basketSize.total | waiting | dkNumber : 2}}
               <span class="small">DKK</span>
             </h1>
           </div>
-        </div>
-        <div class="row">
-
-
-
-
-
+          <div class="col-sm-12 gutter-top-large">
+            <h5 class="caps text-center">Revenue</h5>
+            <h1 class="text-primary text-center jumbo">{{charts.revenue.total | waiting | dkNumber : 2}}
+              <span class="small">DKK</span>
+            </h1>
+            <chart data="charts.revenue.data" options="charts.options" trigger="tabs.counter"></chart>
+          </div>
+          <div class="col-sm-6 gutter-top-large">
+            <h5 class="caps text-center">People in</h5>
+            <h1 class="text-success text-center jumbo">{{charts.people.total | waiting | dkNumber : 2}}</h1>
+            <chart data="charts.people.data" options="charts.options" charttype="line" trigger="tabs.counter" class="ct-success"></chart>
+          </div>
+          <div class="col-sm-6 gutter-top-large">
+            <h5 class="caps text-center">Transactions</h5>
+            <h1 class="text-warning text-center jumbo">{{charts.transactions.total | waiting | dkNumber : 2}}</h1>
+            <chart data="charts.transactions.data" options="charts.options" trigger="tabs.counter" class="ct-warning"></chart>
+          </div>
         </div>
       </div>
-      <!--  <div class="col-lg-6 gutter-top" ng-show="charts.revenue.data">
+    </div>
+    <!--  <div class="col-lg-6 gutter-top" ng-show="charts.revenue.data">
         <h5 class="caps">Revenue</h5>
 
       </div>
@@ -101,10 +82,10 @@
       <div class="col-lg-6 gutter-top" ng-show="charts.conversion">
         <h5 class="caps">Conversion Rate</h5>
       </div> -->
-      <div class="col-lg-12 gutter-top ng-hide">
-        <h5 class="caps">Funnel</h5>
-        <chart data="charts.people.data" options="charts.BarOptions" charttype="bar" trigger="tabs.counter" class="ct-success"></chart>
-      </div>
+    <div class="col-lg-12 gutter-top ng-hide">
+      <h5 class="caps">Funnel</h5>
+      <chart data="charts.people.data" options="charts.BarOptions" charttype="bar" trigger="tabs.counter" class="ct-success"></chart>
+    </div>
     </div>
   </swiper-slide>
   <swiper-slide>
