@@ -115,7 +115,7 @@
             <h3 class="caps">{{floor.name}}</h3>
             <div class="floorplan">
               <ul class="list">
-                <li ng-repeat="cam in cameras | filter : {floor: floor._id} | filter : camSearch" style="position:absolute; left:{{cam.pos.x}}%; top : {{cam.pos.y}}%">
+                <li ng-repeat="cam in cameras | filter : {floor: floor._id} | filter : camSearch" ng-style="{'position' : 'absolute', 'left' : cam.pos.x + '%', 'top' : cam.pos.y + '%'}">
                   <a href="/#/store/camera/{{cam._id}}" ng-mouseenter="setSelectedCam(cam)" ng-mouseleave="setSelectedCam(null)">
                     <div class="floorplan-pin icon-location2 animate-drop a">
                       <div class="floorplan-pin-shadow"></div>
