@@ -108,7 +108,7 @@
     </div>
   </swiper-slide>
   <swiper-slide>
-    <div id="camera-list" class="container-fluid p-top p-bottom">
+    <div id="camera-list" class="col-sm-6 p-top p-bottom">
       <div class="col-xs-10 col-xs-offset-1">
         <input type="text" id="camera-list-search" class="form-control" role="search" ng-model="camSearch">
       </div>
@@ -119,17 +119,8 @@
             <div class="floorplan">
               <ul class="list">
                 <li ng-repeat="cam in cameras | filter : {floor: floor._id} | filter : camSearch" style="position:absolute; left:{{cam.pos.x}}%; top : {{cam.pos.y}}%">
-                  <a ng-click="go('/store/camera/{{cam._id}}')">
+                  <a href="/#/store/camera/{{cam._id}}" ng-mouseenter="setSelectedCam(cam)" ng-mouseleave="setSelectedCam(null)">
                     <div class="floorplan-pin icon-location2 animate-drop a">
-                      <div class="paper floorplan-pin-details">
-                        <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->
-                        <div style="overflow: hidden;">
-                          <img ng-src="api/cameras/{{cam._id}}/snapshot" alt="" class="paper-image" style="transform:rotate({{cam.rotate}}deg); -webkit-transform:rotate({{cam.rotate}}deg)" src="api/cameras/543197b8ab3de09c344bc1e7/snapshot">
-                        </div>
-                        <div class="container-fluid paper-label">
-                          <h4 class="ng-binding">{{cam.name}}</h4>
-                        </div>
-                      </div>
                       <div class="floorplan-pin-shadow"></div>
                     </div>
                   </a>
@@ -152,6 +143,19 @@
 </a>
 </li>
 </ul> -->
+    </div>
+    <div class="col-sm-6 hidden-xs">
+      <div class="col-xs-8 col-xs-offset-2 gutter-top gutter-bottom">
+        <div class="paper" ng-show="selectedCam">
+          <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->
+          <div style="overflow: hidden;">
+            <img ng-src="api/cameras/{{selectedCam._id}}/snapshot" alt="" class="paper-image" style="transform:rotate({{selectedCam.rotate}}deg); -webkit-transform:rotate({{cam.rotate}}deg)" src="api/cameras/543197b8ab3de09c344bc1e7/snapshot">
+          </div>
+          <div class="container-fluid paper-label">
+            <h4 class="ng-binding">{{selectedCam.name}}</h4>
+          </div>
+        </div>
+      </div>
     </div>
   </swiper-slide>
 </swiper>

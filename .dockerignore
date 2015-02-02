@@ -1,0 +1,10 @@
+node_modules
+
+app/build/bundle.js
+app/build/bundle.js.gz
+app/build/style.css
+
+
+logs
+
+.sublime-project

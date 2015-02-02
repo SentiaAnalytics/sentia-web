@@ -15,6 +15,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
   $scope.activeTab = Number($routeParams.activeTab) || 1;
   $scope.selectTab = selectTab; // function
   $scope.selectCamera = selectCamera; //function
+  $scope.setSelectedCam = setSelectedCam;
   $scope.charts = {
     options : {
       range : [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
@@ -33,6 +34,9 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
   updateUrl();
   init($routeParams);// get the store and build the $scope
 
+  function setSelectedCam (cam) {
+    $scope.selectedCam = cam;
+  }
   function init (params) {
     return $q.when(params.storeId)
       .then(getStore)
