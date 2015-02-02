@@ -108,7 +108,7 @@
     </div>
   </swiper-slide>
   <swiper-slide>
-    <div id="camera-list" class="col-sm-6 p-top p-bottom">
+    <div id="camera-list" class="col-xs-12 p-top p-bottom">
       <div class="col-xs-10 col-xs-offset-1">
         <input type="text" id="camera-list-search" class="form-control" role="search" ng-model="camSearch">
       </div>
@@ -144,10 +144,9 @@
 </li>
 </ul> -->
     </div>
-    <div class="col-sm-6 hidden-xs">
+    <!-- <div class="col-sm-6 hidden-xs">
       <div class="col-xs-8 col-xs-offset-2 gutter-top gutter-bottom">
         <div class="paper floorplan-pin-details" ng-show="selectedCam">
-          <!-- <h5 class="searchable caps" ng-bind-html="'{{cam.name}}' | highlight:camSearch:false"></h5> -->
           <div style="overflow: hidden;">
             <img ng-src="api/cameras/{{selectedCam._id}}/snapshot" alt="" class="paper-image" style="transform:rotate({{selectedCam.rotate}}deg); -webkit-transform:rotate({{cam.rotate}}deg)" src="api/cameras/543197b8ab3de09c344bc1e7/snapshot">
           </div>
@@ -156,7 +155,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </swiper-slide>
 </swiper>
 </tabs>
