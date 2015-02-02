@@ -1,6 +1,6 @@
-var moment = require('moment');
 module.exports = function($http, $q) {
   'use strict';
+  var moment = require('moment');
   var selectedCamera = null; // stores the selected camera
 
   this.getSelectedCamera = function (id) {

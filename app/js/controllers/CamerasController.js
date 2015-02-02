@@ -3,10 +3,10 @@
  * @author Andreas
  * @date   2014-04-11
  */
-var moment = require('moment');
 /*jslint browser:true, nomen:true*/
 module.exports = function($scope, $routeParams, $location, CamerasService, PeopleService) {
   'use strict';
+  var moment = require('moment');
   var $parent = $scope.$parent;
   // bindables
 

@@ -3,13 +3,12 @@
  * @author  Andreas Møller
  * 2014
  */
-console.log(window.jQuery);
-require('pickadate');
-var moment = require('moment');
-require('jquery');
 angular.module('picker', [])
   .directive('picker', function() {
     'use strict';
+    require('pickadate');
+    var moment = require('moment');
+    require('jquery');
     return {
       template: '<button class="btn btn-default icon-chevron-left" ng-click="prevDate()"></button><input class="btn btn-default" disabled/><button class="btn btn-default icon-chevron-right" ng-click="nextDate()"></button>',
       restrict: 'E',

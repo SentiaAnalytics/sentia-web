@@ -3,10 +3,10 @@
  * @author Andreas
  * @date   2014-04-11
  */
-var moment = require('moment');
-var lodash = require('lodash');
 module.exports = function($scope, $q, StoresService, CamerasService, PosService, PeopleService, $routeParams, $location) {
   'use strict';
+  var moment = require('moment');
+  var lodash = require('lodash');
   var $parent = $scope.$parent; // shorthand
 
   //bindables

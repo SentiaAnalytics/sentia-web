@@ -1,7 +1,7 @@
-var lodash = require('lodash');
-var moment = require('moment');
 module.exports = function($http) {
   'use strict';
+  var lodash = require('lodash');
+  var moment = require('moment');
   // ## Get pos data
   // Takes a json2sql query object
   this.get = function (query) {

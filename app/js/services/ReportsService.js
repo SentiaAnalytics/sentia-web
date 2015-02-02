@@ -1,6 +1,6 @@
-var moment = require('moment');
 module.exports = function(Pos) {
   'use strict';
+  var moment = require('moment');
   this.getTotalRevenue = function (storeid, date) {
     var query = {
       fields : {

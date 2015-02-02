@@ -5,9 +5,9 @@
  */
 
 /*jslint browser:true, nomen:true*/
-var moment = require('moment');
 module.exports = function ($scope, $location, SessionsService) {
   'use strict';
+  var moment = require('moment');
 
 
   //bindables

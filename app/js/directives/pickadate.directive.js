@@ -3,13 +3,13 @@
  * @author  Andreas Møller
  * 2014
  */
-var moment = require('moment');
-var $ = require('jquery');
-require('../../bower_components/pickadate/lib/picker.js');
-require('../../bower_components/pickadate/lib/picker.date.js');
 angular.module('pickadate', [])
   .directive('pickadate', function() {
     'use strict';
+    var moment = require('moment');
+    var $ = require('jquery');
+    require('../../bower_components/pickadate/lib/picker.js');
+    require('../../bower_components/pickadate/lib/picker.date.js');
     return {
       template: '<div class="btn-group"><button class="btn btn-primary icon-chevron-left hidden-xs" ng-click="controls.prev()"></button><input class="btn btn-primary hidden-xs"><button class="btn btn-primary hidden-xs icon-chevron-right" ng-click="controls.next()"></button></div><button class="hidden-sm hidden-md hidden-lg btn btn-primary btn-icon" ng-click="open($event)" style="border-radius:4px;"><i class="icon-calendar" ></i></button>',
       restrict: 'E',

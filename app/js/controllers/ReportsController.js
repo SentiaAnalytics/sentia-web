@@ -3,9 +3,9 @@
 * @author Andreas
 * @date   2014-04-11
 */
-var moment = require('moment');
 module.exports = function($scope, $routeParams,  ReportsService) {
   'use strict';
+  var moment = require('moment');
   document.title = 'Sentia - Store';
   $scope.date = new Date();
   $scope.store = {

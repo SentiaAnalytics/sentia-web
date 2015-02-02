@@ -3,11 +3,11 @@
  * @author  Andreas Møller
  * 2014
  */
-var $ = require('jquery');
-var chartist = require('chartist');
 angular.module('chart', [])
   .directive('chart', function() {
     'use strict';
+    var $ = require('jquery');
+    var chartist = require('chartist');
     var defaults = {
       height: 250,
       showArea: true,
@@ -58,7 +58,7 @@ angular.module('chart', [])
 
 
         function draw() {
-          
+
 
           var options = angular.extend($scope.options || {}, defaults);
           element.find('*').remove();

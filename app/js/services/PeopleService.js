@@ -1,7 +1,7 @@
-var moment = require('moment'),
-  lodash = require('lodash');
 module.exports = function ($http, $q) {
   'use strict';
+  var moment = require('moment'),
+    lodash = require('lodash');
   var people = this;
 
   people.get = function (query) {
