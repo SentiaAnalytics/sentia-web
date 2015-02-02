@@ -112,7 +112,7 @@
       <ul>
         <li ng-repeat="floor in store.floors">
           <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 floorplan-container">
-            <h3 class="caps">{{floor.name}}</h3>
+            <h3 class="caps floorplan-title">{{floor.name}}</h3>
             <div class="floorplan">
               <ul class="list">
                 <li ng-repeat="cam in cameras | filter : {floor: floor._id} | filter : camSearch" ng-style="{'position' : 'absolute', 'left' : cam.pos.x + '%', 'top' : cam.pos.y + '%'}">
