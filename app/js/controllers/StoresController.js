@@ -45,7 +45,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
       .then(function () {
         mixpanel.track('page viewed', {
           'page': document.title,
-          'url': window.location.pathname,
+          'url': window.location,
           controller: 'StoreController',
           store : $scope.store._id
         });
@@ -78,11 +78,13 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
     $parent.$watch('date', function() {
       updateUrl();
       updateDashboard();
+      console.log($parent.date);
       mixpanel.track('date changed', {
         page : document.title,
         controller : 'StoreCtrl',
         store : $scope.store._id,
-        date : $parent.date
+        selected_date : $parent.date.toString(),
+        url : window.location
       });
     });
   }
@@ -95,7 +97,8 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
       page : document.title,
       controller: 'StoreCtrl',
       store : $scope.store._id,
-      tab : $scope.activeTab
+      tab : $scope.activeTab,
+      url : window.location
     });
   }
 

@@ -48,7 +48,8 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
       page : document.title,
       controller : 'CamController',
       camera : ($parent.camera)? $parent.camera._id : $routeParams.id,
-      date : $parent.date
+      selected_date : $parent.date.toString(),
+      url : window.location
     });
   });
 
@@ -57,9 +58,9 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
   // analytics
   mixpanel.track('page viewed', {
     'page': document.title,
-    'url': window.location.pathname,
     controller: 'CamController',
-    camera : ($parent.camera)? $parent.camera._id : $routeParams.id
+    camera : ($parent.camera)? $parent.camera._id : $routeParams.id,
+    url : window.location
   });
 
 
@@ -70,7 +71,8 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
       page : document.title,
       controller: 'CamController',
       camera : $parent.camera.id,
-      tab : tab
+      tab : tab,
+      url : window.location
     });
     $scope.tabs.active = tab;
     $location.search('tab', tab);

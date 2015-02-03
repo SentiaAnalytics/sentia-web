@@ -28,6 +28,7 @@ module.exports = function ($scope, $location, SessionsService) {
   });
 
   mixpanel.track('page load', {
+    url : window.location,
     page : window.title,
     path : window.location.pathname
   });
