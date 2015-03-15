@@ -62,7 +62,6 @@ exports.stop = function () {
   console.log('stopping services');
   require('services/mysql.service').close();
   require('services/redis.service').end();
-        console.log('stuff');
   return new P(function (resolve) {
     mongoose.connection.close(function () {
         process.exit(0);

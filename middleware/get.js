@@ -10,8 +10,6 @@ module.exports = function (req, res, next) {
       return next(new HTTPError(400, 'Invalid json'));
     }
   }
-  console.log('SESSION');
-  console.log(req.session);
   req.query = lodash.extend({}, req.query);
   req.query.where = lodash.extend({}, req.query.where, {company: req.session.company});
   logger.log('middleware.get:debug:query', req.query);

@@ -20,8 +20,6 @@ exports.read = {
 // get a list of cameras based on the supplied queries
 exports.get = {
   handler : function (req, res, next) {
-    console.log('GET CAMERA');
-    console.log(req.query);
     return CameraService.find(req.query);
   },
   middleware : [middleware.get]

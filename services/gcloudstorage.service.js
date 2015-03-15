@@ -3,7 +3,6 @@ var config = require('config');
 var logger = require('bragi');
 var Stream = require('stream').Readable;
 var HTTPError = require('node-http-error');
-console.log(config);
 var gcloud = require('gcloud')({
   credentials: config.gcloud.credentials
 });

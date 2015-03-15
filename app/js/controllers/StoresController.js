@@ -58,7 +58,8 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
   function updateUrl () {
     $location.replace();
     $location.search('activeTab', $scope.activeTab);
-    $location.search('date', moment($scope.$parent.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
+    $location.search('startDate', moment($scope.$parent.startDate).format('YYYY-MM-DDTHH:mm:ss.00Z'));
+    $location.search('endDate', moment($scope.$parent.endDate).format('YYYY-MM-DDTHH:mm:ss.00Z'));
   }
 
   function getStore (id) {
@@ -81,12 +82,12 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
     $parent.$watch('date', function() {
       updateUrl();
       updateDashboard();
-      console.log($parent.date);
+      console.log($parent.startDate);
       mixpanel.track('date changed', {
         page : document.title,
         controller : 'StoreCtrl',
         store : $scope.store._id,
-        selected_date : $parent.date.toString(),
+        selected_date : $parent.startDate.toString(),
         url : window.location
       });
     });
@@ -130,7 +131,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
 
   }
   function updatePosCharts() {
-     return PosService.getPosCharts($scope.store._id, $parent.date)
+     return PosService.getPosCharts($scope.store._id, $parent.startDate)
      .then(function (data) {
        $scope.charts.revenue = data.revenue;
        $scope.charts.transactions = data.transactions;
@@ -162,7 +163,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
     }
 
     function getLineChartData (cameras) {
-      return PeopleService.getLineChart(cameras, $parent.date)
+      return PeopleService.getLineChart(cameras, $parent.startDate)
         .then(function (data) {
           if (!data) {
             return;
@@ -184,7 +185,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
   }
 
   function updateChurnData () {
-    return PeopleService.getChurnRateData($parent.date)
+    return PeopleService.getChurnRateData($parent.startDate)
     .then(addCameraNamesToChurnData)
       .then(updateViewModel);
 

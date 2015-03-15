@@ -98,7 +98,7 @@ gulp.task('jshint', function() {
     '!test/**',
     '!node_modules/**',
     '!app/bower_components/**',
-    '!app/build/**',
+    '!app/dist/**',
     '!gulpfile.js'
     ])
     .pipe(jshint())

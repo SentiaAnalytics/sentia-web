@@ -18,7 +18,11 @@ module.exports = function ($scope, $location, SessionsService) {
   // shared bindables
   $scope.store = null;
   $scope.camera = null;
-  $scope.date = moment.utc($location.$$search.date) // take the date from the url or use today
+  $scope.startDate = moment.utc($location.$$search.startDate) // take the date from the url or use today
+    .startOf('day')
+    .toDate();
+    
+  $scope.endDate = moment.utc($location.$$search.endDate) // take the date from the url or use today
     .startOf('day')
     .toDate();
 

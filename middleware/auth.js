@@ -10,7 +10,7 @@ module.exports = function(req, res, next) {
       return next();
     }
     if (req.session.user) {
-      req.session.user._id = objectId(req.session.user._id);
+      // req.session.user._id = objectId(req.session.user._id);
       req.session.company = objectId(req.session.company);
       return next();
     }
