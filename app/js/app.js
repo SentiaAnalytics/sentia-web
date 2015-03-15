@@ -16,7 +16,7 @@ require('./directives/heatmap.directive.js');
 require('./directives/picker.directive.js');
 require('./directives/swiper.directive.js');
 require('./directives/pickadate.directive.js');
-require('./directives/chart.directive.js');
+require('./directives/charts');
 (function() {
   'use strict';
   // create new angular module app
@@ -32,7 +32,7 @@ require('./directives/chart.directive.js');
     'ui.utils',
     'sFlowmap',
     'sHeatmap',
-    'chart'
+    'charts'
   ]);
 
   // Services

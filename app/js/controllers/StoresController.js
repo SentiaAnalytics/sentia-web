@@ -21,10 +21,13 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
       range : [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
     },
     BarOptions : {
-      axisX :{
-        labelOffset : {
-          x : '50%'
-        }
+    },
+    churn: {
+      data : {
+        labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10'],
+        series: [
+          [1, 2, 4, 8, 6, -2, -1, -4, -6, -2]
+        ]
       }
     }
   };
@@ -117,13 +120,13 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
     if (!$scope.store) {
       return;
     }
+    updateChurnData();
+
+    // Conversion Charts requires both pos and people charts
     promises.push(updatePosCharts());
     promises.push(updatePeopleCharts());
     $q.all(promises)
       .then(updateConversionCharts);
-
-
-
 
   }
   function updatePosCharts() {
@@ -136,6 +139,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
        };
      });
   }
+
   function updatePeopleCharts () {
     var cameraQuery = {
       where : {
@@ -143,7 +147,6 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
         counter: 'entrance'
       }
     };
-
     return $q.when(cameraQuery)
       .then(getEntranceCameras)
       .then(getLineChartData)
@@ -178,6 +181,29 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
          };
        });
     }
+  }
+
+  function updateChurnData () {
+    return PeopleService.getChurnRateData($parent.date)
+    .then(addCameraNamesToChurnData)
+      .then(updateViewModel);
+
+    function addCameraNamesToChurnData (data) {
+      data.labels = data.labels.map(function (label) {
+        //return the name of the camera from the id
+        return lodash.find($scope.cameras, function (camera) {
+          return camera._id === label;
+        }).name;
+      });
+      console.log(data);
+      return data;
+    }
+    function updateViewModel (data) {
+      $scope.charts.churn = {};
+      $scope.charts.churn.data = data;
+
+    }
+
   }
 
   function updateConversionCharts () {

@@ -2,11 +2,13 @@
 * Copyright © 2014 Gion Kunz
 * Free to use under the WTFPL license.
 * http://www.wtfpl.net/ */
-chart {
+linechart,
+barchart {
   display:block;
   position:relative;
 }
-chart .loader {
+linechart .loader,
+barchart .loader {
   background: rgba(0,0,0,0.00);
 }
 .ct-chart .ct-label, .ct-chart .ct-label.ct-horizontal {
@@ -17,7 +19,7 @@ chart .loader {
   color: @gray-light;
   font-size: .75rem;
   text-align: left;
-  
+
 }
 
 .ct-chart-bar .ct-label.ct-horizontal {
@@ -516,19 +518,19 @@ chart .loader {
   .ct-warning & {
     background:@brand-warning;
     &::after {
-      border-top-color: @brand-warning; 
+      border-top-color: @brand-warning;
     }
   }
   .ct-info & {
     background:@brand-info;
     &::after {
-      border-top-color: @brand-info; 
+      border-top-color: @brand-info;
     }
   }
   .ct-success & {
     background:@brand-success;
     &::after {
-      border-top-color: @brand-success; 
+      border-top-color: @brand-success;
     }
   }
 }

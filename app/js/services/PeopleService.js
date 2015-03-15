@@ -62,7 +62,7 @@ module.exports = function ($http, $q) {
           };
       });
   };
-  people.getBarchart = function (date) {
+  people.getChurnRateData = function (date) {
     var query = {
       fields : {
         'sum(people_in)' : 'people',

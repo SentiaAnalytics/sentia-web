@@ -20,17 +20,10 @@ var gulp = require('gulp'),
 //#build
 //###########
 
-gulp.task('watch', function() {
-  return gulp.watch([
-      'server.js',
-      'routes/**/*.js',
-      'services/**/*.js',
-      'test/**/*.js'
-    ], ['unit']);
-});
+
 
 gulp.task('clean', function () {
-  gulp.src(['app/build/bundle.*', 'app/build/style.*'])
+  return gulp.src(['app/build/bundle.*', 'app/build/style.*'])
     .pipe(clean());
 });
 
@@ -39,7 +32,7 @@ gulp.task('less-dev', function () {
     .pipe(sourcemaps.init())
     .pipe(less())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('app/build/'))
+    .pipe(gulp.dest('app/dist/'))
     .pipe(livereload());
 });
 gulp.task('less', function () {
@@ -48,7 +41,7 @@ gulp.task('less', function () {
   .pipe(less())
   .pipe(minifyCSS())
   .pipe(gzip())
-  .pipe(gulp.dest('app/build/'))
+  .pipe(gulp.dest('app/dist/'))
   .pipe(livereload());
 });
 
@@ -63,7 +56,7 @@ gulp.task('browserify', function () {
       mangle : false
     }))
     .pipe(gzip())
-    .pipe(gulp.dest('app/build/'))
+    .pipe(gulp.dest('app/dist/'))
     .pipe(livereload());
 });
 
@@ -74,7 +67,7 @@ gulp.task('browserify-dev', function () {
     transform : ['debowerify']
   }))
   .pipe(rename('bundle.js'))
-  .pipe(gulp.dest('app/build/'))
+  .pipe(gulp.dest('app/dist/'))
   .pipe(livereload());
 });
 
@@ -84,14 +77,14 @@ gulp.task('compress', function () {
       mangle : false
     }))
     .pipe(gzip())
-    .pipe(gulp.dest('app/build/'));
+    .pipe(gulp.dest('app/dist/'));
 });
 
 gulp.task('build', function (done) {
    run('clean', ['browserify','less'], 'compress', done);
 });
 gulp.task('build-dev', function (done) {
-  run(['clean', 'browserify-dev', 'less-dev'], done);
+  run('clean', ['browserify-dev', 'less-dev'], done);
 });
 
 //###########
@@ -135,6 +128,15 @@ gulp.task('test', ['jshint', 'unit']);
 
 gulp.task('cuke', function (done) {
   run(['run', 'cucumber', 'stop'], done);
+});
+
+gulp.task('watch', function() {
+  return gulp.watch([
+      'server.js',
+      'routes/**/*.js',
+      'services/**/*.js',
+      'test/**/*.js'
+    ], ['unit']);
 });
 
 //###########

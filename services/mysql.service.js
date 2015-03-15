@@ -3,8 +3,6 @@ var mysql2 = require('mysql2');
 var config = require('config');
 var P = require('bluebird');
 var url = require("url");
-var SocksConnection = require('socksjs');
-var mysql_server_options, mysql_options, socks_options, socksConn;
 var connection;
 
 exports.connect = function () {
@@ -21,6 +19,5 @@ exports.query = function (query) {
   });
 };
 exports.close = function () {
-  socksConn.dispose();
   connection.end();
 };

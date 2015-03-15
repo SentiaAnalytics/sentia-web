@@ -53,17 +53,21 @@
             <h1 class="text-primary text-center jumbo">{{charts.revenue.total | waiting | dkNumber : 2}}
               <span class="small">DKK</span>
             </h1>
-            <chart data="charts.revenue.data" options="charts.options" trigger="tabs.counter"></chart>
+            <linechart data="charts.revenue.data" options="charts.options" trigger="tabs.counter"></linechart>
+          </div>
+          <div class="col-sm-12 gutter-top-large">
+            <h5 class="caps text-center">Churn Rate</h5>
+            <barchart data="charts.churn.data" options="charts.BarOptions" trigger="tabs.counter"></barchart>
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps text-center">People in</h5>
             <h1 class="text-success text-center jumbo">{{charts.people.total | waiting | dkNumber : 2}}</h1>
-            <chart data="charts.people.data" options="charts.options" charttype="line" trigger="tabs.counter" class="ct-success"></chart>
+            <linechart data="charts.people.data" options="charts.options" charttype="line" trigger="tabs.counter" class="ct-success"></linechart>
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps text-center">Transactions</h5>
             <h1 class="text-warning text-center jumbo">{{charts.transactions.total | waiting | dkNumber : 2}}</h1>
-            <chart data="charts.transactions.data" options="charts.options" trigger="tabs.counter" class="ct-warning"></chart>
+            <linechart data="charts.transactions.data" options="charts.options" trigger="tabs.counter" class="ct-warning"></linechart>
           </div>
         </div>
       </div>
