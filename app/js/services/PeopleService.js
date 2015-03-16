@@ -88,19 +88,7 @@ module.exports = function ($http, $q) {
         if(data.length === 0) {
           return;
         }
-        var labels = [],
-          dataSet = [];
-        data.sort(function (a, b) {
-          return b.people - a.people;
-        });
-        data.forEach(function (e) {
-          labels.push(e.cam);
-          dataSet.push(e.people);
-        });
-        return {
-          labels : labels,
-          series : [dataSet]
-        };
+        return data;
       });
   };
 };

@@ -186,21 +186,41 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
 
   function updateChurnData () {
     return PeopleService.getChurnRateData($parent.startDate)
-    .then(addCameraNamesToChurnData)
+      .then(addCameraNamesToChurnData)
+      .then(sortChurnRateData)
+      .then(convertDataToChartFormat)
       .then(updateViewModel);
 
     function addCameraNamesToChurnData (data) {
-      if (!data) {
-        return;
-      }
-      data.labels = data.labels.map(function (label) {
+      data = data.map(function (dataPoint) {
         //return the name of the camera from the id
-        return lodash.find($scope.cameras, function (camera) {
-          return camera._id === label;
+        dataPoint.name = lodash.find($scope.cameras, function (camera) {
+          return camera._id === dataPoint.cam;
         }).name;
+        return dataPoint;
       });
-      console.log(data);
       return data;
+    }
+    function sortChurnRateData (data) {
+        return data.sort(function (a, b) {
+          if (a.name > b.name) {
+            return 1
+          }
+          return -1
+        });
+    }
+    function convertDataToChartFormat (data) {
+      var labels = [];
+      var values = [];
+
+      data.forEach(function (e) {
+          labels.push(e.name);
+          values.push(Number(e.people));
+      });
+      return {
+        labels: labels,
+        series : [values]
+      };
     }
     function updateViewModel (data) {
       $scope.charts.churn = {};
