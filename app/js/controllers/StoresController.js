@@ -79,7 +79,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
   }
   // initiate watchers for the controller
   function watch () {
-    $parent.$watch('date', function() {
+    $parent.$watch('startDate', function() {
       updateUrl();
       updateDashboard();
       console.log($parent.startDate);
@@ -190,6 +190,9 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
       .then(updateViewModel);
 
     function addCameraNamesToChurnData (data) {
+      if (!data) {
+        return;
+      }
       data.labels = data.labels.map(function (label) {
         //return the name of the camera from the id
         return lodash.find($scope.cameras, function (camera) {
