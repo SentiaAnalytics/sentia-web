@@ -19,7 +19,7 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
   // setup
   document.title = 'Sentia.io - Camera';
   $location.replace();
-  $location.search('date', moment($scope.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
+  // $location.search('date', moment($scope.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
   $location.search('tab', $scope.activeTab);
 
 
@@ -35,10 +35,10 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
 
   refresh(); // update charts
   // watch
-  $scope.$parent.$watch('date', function() {
+  $scope.$parent.$watch('startDate', function() {
     //update url
     $location.replace();
-    $location.search('date', moment($parent.date).format('YYYY-MM-DDTHH:mm:ss.00Z'));
+    $location.search('startSate', moment($parent.startDate).format('YYYY-MM-DDTHH:mm:ss.00Z'));
 
     //update data
     refresh();
@@ -48,7 +48,7 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
       page : document.title,
       controller : 'CamController',
       camera : ($parent.camera)? $parent.camera._id : $routeParams.id,
-      selected_date : $parent.date.toString(),
+      selected_date : $parent.startDate.toString(),
       url : window.location
     });
   });
@@ -87,7 +87,7 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
     if (!$parent.camera) {
       return;
     }
-    PeopleService.getLineChart($parent.camera._id, $parent.date)
+    PeopleService.getLineChart($parent.camera._id, $parent.startDate)
       .then(function (data) {
         if (!data) {
           return;
@@ -107,7 +107,7 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
     }
     var query = {
       camera: $parent.camera._id,
-      date: $parent.date
+      date: $parent.startDate
     };
 
     $scope.map = undefined;
