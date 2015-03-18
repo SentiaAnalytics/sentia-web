@@ -1,9 +1,13 @@
 'use strict';
 module.exports = function filterFunction () {
   return function(input) {
-    if (input === undefined || input === null) {
-      return ' ... ';
+    if (isValidNumber(input)) {
+      return input;
     }
-    return input;
+    return ' ... ';
   };
 };
+
+function isValidNumber (input) {
+  return typeof input === 'number' && !isNaN(input);
+}

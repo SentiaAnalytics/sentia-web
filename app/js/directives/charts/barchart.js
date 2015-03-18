@@ -33,7 +33,7 @@ function link($scope, element) {
 
   function draw () {
     $element.find('*').remove();
-    chart = new chartist.Bar($element[0], $scope.data, $scope.options);
+    chart = new chartist.Bar($element[0], dummydata, $scope.options);
     addTooltip();
   }
 

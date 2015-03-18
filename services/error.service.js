@@ -6,8 +6,8 @@ module.exports = function (err, req, res, next) {
   }
   logger.log('errorhandler:error', err.stack || err);
     // console.error(err.stack);
-  if (err.code) {
-    return res.status(err.code)
+  if (err.status) {
+    return res.status(err.status)
       .send(err.message);
   }
   return res.status(500)

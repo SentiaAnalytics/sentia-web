@@ -79,17 +79,18 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
   }
   // initiate watchers for the controller
   function watch () {
-    $parent.$watch('startDate', function() {
-      updateUrl();
-      updateDashboard();
-      console.log($parent.startDate);
-      mixpanel.track('date changed', {
-        page : document.title,
-        controller : 'StoreCtrl',
-        store : $scope.store._id,
-        selected_date : $parent.startDate.toString(),
-        url : window.location
-      });
+    $parent.$watch('startDate', onDateChange);
+    $parent.$watch('endDate', onDateChange);
+  }
+  function onDateChange () {
+    updateUrl();
+    updateDashboard();
+    mixpanel.track('date changed', {
+      page : document.title,
+      controller : 'StoreCtrl',
+      store : $scope.store._id,
+      selected_date : $parent.startDate.toString(),
+      url : window.location
     });
   }
 
@@ -121,86 +122,93 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
     if (!$scope.store) {
       return;
     }
+    updateTotals();
     updateChurnData();
+    updatePeopleChart();
+    updatePosCharts();
 
     // Conversion Charts requires both pos and people charts
-    promises.push(updatePosCharts());
-    promises.push(updatePeopleCharts());
-    $q.all(promises)
-      .then(updateConversionCharts);
+    // promises.push(updatePosCharts());
+    // promises.push(updatePeopleCharts());
+    // $q.all(promises)
+    //   .then(updateConversionCharts);
 
   }
-  function updatePosCharts() {
-     return PosService.getPosCharts($scope.store._id, $parent.startDate)
-     .then(function (data) {
-       $scope.charts.revenue = data.revenue;
-       $scope.charts.transactions = data.transactions;
-       $scope.charts.basketSize = {
-         total : data.revenue.total / data.transactions.total
-       };
-     });
+
+  function updateTotals () {
+    $scope.totalRevenue = null;
+    $scope.totalTransactions = null;
+    $scope.totalPeopleIn = null;
+    updateTotalPeopleIn();
+    updatePosTotals();
   }
 
-  function updatePeopleCharts () {
-    var cameraQuery = {
-      where : {
-        store : $scope.store._id,
-        counter: 'entrance'
-      }
+  function updateTotalPeopleIn () {
+    var query = {
+      startDate: $parent.startDate,
+      endDate: $parent.endDate,
+      cameras: $scope.cameras.reduce(function (cameras, cam) {
+        if (cam.counter === 'entrance') {
+          cameras.push(cam._id);
+        }
+        return cameras;
+      },[])
     };
-    return $q.when(cameraQuery)
-      .then(getEntranceCameras)
-      .then(getLineChartData)
-      .then(function (data) {
-        $scope.charts.people = data;
+
+    PeopleService.getTotalPeopleIn(query)
+      .then(function (totalPeopleIn) {
+          $scope.totalPeopleIn = totalPeopleIn;
       });
+  }
 
-    function getEntranceCameras (query) {
-      return CamerasService.get(query)
-        .then(function (cameras) {
-          return lodash.pluck(cameras, '_id');
-        });
-    }
+  function updatePosTotals () {
+    var query = {
+      startDate: $parent.startDate,
+      endDate: $parent.endDate,
+      storeId: $scope.store._id
+    };
 
-    function getLineChartData (cameras) {
-      return PeopleService.getLineChart(cameras, $parent.startDate)
-        .then(function (data) {
-          if (!data) {
-            return;
-          }
-
-
-         var total = data
-          .series[0]
-          .reduce(function (sum, val) {
-            return sum + val;
-          },0);
-
-         return {
-           total : total,
-           data : data
-         };
-       });
-    }
+    PosService.getPosTotals(query)
+      .then(function (posTotals) {
+        $scope.totalRevenue = posTotals.revenue;
+        $scope.totalTransactions = posTotals.transactions;
+      });
   }
 
   function updateChurnData () {
-    return PeopleService.getChurnRateData($parent.startDate)
+    $scope.churnRateData = null;
+
+    var query = {
+      startDate: $parent.startDate,
+      endDate: $parent.endDate,
+      cameras: $scope.cameras.reduce(function (cameras, cam) {
+          if (cam.hasOwnProperty('counter')) {
+            cameras.push(cam._id);
+          }
+          return cameras;
+      },[])
+    };
+    return PeopleService.getChurnRateData(query)
       .then(addCameraNamesToChurnData)
       .then(sortChurnRateData)
       .then(convertDataToChartFormat)
       .then(updateViewModel);
 
     function addCameraNamesToChurnData (data) {
+      if (!data) {
+        return $q.reject('No Churn Data');
+      }
       data = data.map(function (dataPoint) {
         //return the name of the camera from the id
-        dataPoint.name = lodash.find($scope.cameras, function (camera) {
+        var cam = lodash.find($scope.cameras, function (camera) {
           return camera._id === dataPoint.cam;
-        }).name;
+        });
+        dataPoint.name = cam ? cam.name: 'unknown';
         return dataPoint;
       });
       return data;
     }
+
     function sortChurnRateData (data) {
         return data.sort(function (a, b) {
           if (a.name > b.name) {
@@ -209,6 +217,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
           return -1
         });
     }
+
     function convertDataToChartFormat (data) {
       var labels = [];
       var values = [];
@@ -222,13 +231,45 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
         series : [values]
       };
     }
-    function updateViewModel (data) {
-      $scope.charts.churn = {};
-      $scope.charts.churn.data = data;
 
+    function updateViewModel (data) {
+      $scope.churnRateData = data;
     }
 
   }
+
+  function updatePosCharts() {
+    var query = {
+      storeId: $scope.store._id,
+      startDate: $parent.startDate,
+      endDate: $parent.endDate
+    };
+     return PosService.getPosCharts(query)
+     .then(function (data) {
+       $scope.revenueData = data.revenue;
+       $scope.transactionsData = data.transactions;
+     });
+  }
+
+  function updatePeopleChart () {
+    $scope.peopleInData = null;
+    var query = {
+      startDate: $parent.startDate,
+      endDate: $parent.endDate,
+      cameras: $scope.cameras.reduce(function (cameras, cam) {
+        if (cam.counter === 'entrance') {
+          cameras.push(cam._id);
+        }
+        return cameras;
+      },[])
+    };
+    return PeopleService.getLineChart(query)
+      .then(function (data) {
+        $scope.peopleInData = data;
+     });
+  }
+
+
 
   function updateConversionCharts () {
     if (!$scope.charts.transactions || !$scope.charts.people) {

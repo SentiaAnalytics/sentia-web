@@ -15,7 +15,9 @@ angular.module('pickadate', [])
       restrict: 'E',
       scope: {
         date: '=date',
-        show : '=show'
+        show : '=show',
+        from : '=from',
+        to : '=to',
       },
       link: function postLink(scope, element) {
         var $input, picker;
@@ -23,7 +25,7 @@ angular.module('pickadate', [])
           today:false,
           clear : false,
           close: false,
-          format : 'd mmm, yyyy',
+          format : 'd mmm',
           // editable: false,
           max: true,
           min : false
@@ -61,6 +63,16 @@ angular.module('pickadate', [])
         scope.$watch('date', function (newDate) {
           if (!moment(newDate).isSame(moment(picker.get()))) {
             picker.set('select', newDate, {muted : true});
+          }
+        });
+        scope.$watch('from',function (from) {
+          if (from) {
+            picker.set('min', from);
+          }
+        });
+        scope.$watch('to',function (to) {
+          if (to) {
+            picker.set('max', to);
           }
         });
 

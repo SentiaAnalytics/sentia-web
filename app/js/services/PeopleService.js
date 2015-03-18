@@ -14,20 +14,46 @@ module.exports = function ($http, $q) {
         return $q.reject(error);
       });
   };
-
-  people.getLineChart = function (camera, date) {
+  people.getTotalPeopleIn = function (args) {
     var query = {
+      fields : {
+        'sum(people_in)' : 'peopleIn'
+      },
+      where : {
+        cam : args.cameras,
+        time : {
+          gte : moment(args.startDate)
+            .format('YYYY-MM-DD HH:mm:ss'),
+          lt : moment(args.endDate)
+            .endOf('day')
+            .format('YYYY-MM-DD HH:mm:ss')
+        },
+        'hour(time)' : {
+          gte : 9,
+          lte : 20
+        }
+      }
+    };
+    return people.get(query)
+      .then(function (data) {
+        return Number(data[0].peopleIn);
+      });
+
+  };
+
+  people.getLineChart = function (query) {
+    var json = {
       fields : {
         'hour(time)' : 'x',
         'people_in' : 'y'
       },
       where : {
-        cam : camera,
+        cam : query.cameras,
         time : {
-          gte : moment(date)
+          gte : moment(query.startDate)
             .format('YYYY-MM-DD HH:mm:ss'),
-          lt : moment(date)
-            .add(1, 'day')
+          lt : moment(query.endDate)
+            .endOf('day')
             .format('YYYY-MM-DD HH:mm:ss')
         },
         'hour(time)' : {
@@ -40,7 +66,7 @@ module.exports = function ($http, $q) {
         'x': true
       }
     };
-    return people.get(query)
+    return people.get(json)
       .then(function (data) {
         if (!data || data.length === 0) {
           return;
@@ -62,19 +88,20 @@ module.exports = function ($http, $q) {
           };
       });
   };
-  people.getChurnRateData = function (date) {
-    var query = {
+  people.getChurnRateData = function (query) {
+    var json = {
       fields : {
         'sum(people_in)' : 'people',
         'cam' : 'cam'
       },
       where : {
+        cam: query.cameras,
         'time' : {
-          gt : moment(date)
-            .format('YYYY-MM-DD'),
-          lte : moment(date)
-            .add(1, 'day')
-            .format('YYYY-MM-DD')
+          gt : moment(query.startDate)
+            .format('YYYY-MM-DD HH:mm:ss'),
+          lte : moment(query.endDate)
+            .endOf('day')
+            .format('YYYY-MM-DD HH:mm:ss'),
         },
         'hour(time)' : {
           gte : 9,
@@ -83,7 +110,7 @@ module.exports = function ($http, $q) {
       },
       groupBy : ['cam']
     };
-    return people.get(query)
+    return people.get(json)
       .then(function(data) {
         if(data.length === 0) {
           return;

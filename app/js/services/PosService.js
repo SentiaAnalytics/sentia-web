@@ -10,29 +10,57 @@ module.exports = function($http) {
         return response.data || undefined;
       })
       .catch (function(error) {
-        console.log(error);
         return error;
       });
   };
 
-
+  this.getPosTotals = function (query) {
+    var json = {
+      fields : {
+        'sum(amount)' : 'revenue',
+        'count(distinct(salesno))' : 'transactions'
+      },
+      where : {
+        store : query.storeId,
+        type : 'Item',
+        'starttime' : {
+          gt : moment(query.startDate)
+            .format('YYYY-MM-DD HH:mm:ss'),
+          lte : moment(query.endDate)
+            .endOf('day')
+            .format('YYYY-MM-DD HH:mm:ss'),
+        },
+        'hour(starttime)' : {
+          gte : 9,
+          lte : 20
+        }
+      }
+    };
+    return this.get(json)
+    .then(function(data) {
+      return {
+        revenue: data[0].revenue,
+        transactions: data[0].transactions
+      };
+    });
+  };
   // helper functions
-  this.getPosCharts = function (storeId, date) {
-    var query = {
+  this.getPosCharts = function (query) {
+    var json = {
       fields : {
         'sum(amount)' : 'revenue',
         'count(distinct(salesno))' : 'transactions',
         'hour(starttime)' : 'step'
       },
       where : {
-        store : storeId,
+        store : query.storeId,
         type : 'Item',
         'starttime' : {
-          gt : moment(date)
-          .format('YYYY-MM-DD'),
-          lte : moment(date)
-          .add(1, 'day')
-          .format('YYYY-MM-DD')
+          gt : moment(query.startDate)
+            .format('YYYY-MM-DD HH:mm:ss'),
+          lte : moment(query.endDate)
+            .endOf('day')
+            .format('YYYY-MM-DD HH:mm:ss'),
         },
         'hour(starttime)' : {
           gte : 9,
@@ -44,9 +72,8 @@ module.exports = function($http) {
         step : true
       }
     };
-    return this.get(query)
+    return this.get(json)
     .then(function(data) {
-      console.log(data);
       return processPosChartData(data);
     });
   };
@@ -59,9 +86,7 @@ module.exports = function($http) {
       arr[item.step] = item;
       return arr;
     }, []);
-    var totalTransactions = 0,
-    totalRevenue = 0,
-    transactionData = [],
+    var transactionData = [],
     revenueData = [];
 
     range.forEach(function (i) {
@@ -69,8 +94,6 @@ module.exports = function($http) {
       if (!temp[i]) {
         temp[i] = {revenue : 0, transactions : 0};
       }
-      totalRevenue += Number(temp[i].revenue);
-      totalTransactions += Number(temp[i].transactions);
 
       // push dataset to appropriate array
       revenueData.push(Math.round(Number(temp[i].revenue) * 100)/100);
@@ -78,18 +101,12 @@ module.exports = function($http) {
     });
     return {
       revenue : {
-        total : Math.round(totalRevenue * 100) / 100,
-        data : {
-          labels : range,
-          series : [revenueData]
-        }
+        labels : range,
+        series : [revenueData]
       },
       transactions : {
-        total : totalTransactions,
-        data : {
-          labels : range,
-          series : [transactionData]
-        }
+        labels : range,
+        series : [transactionData]
       }
     };
   }
