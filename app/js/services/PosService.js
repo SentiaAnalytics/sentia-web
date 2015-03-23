@@ -1,6 +1,6 @@
 module.exports = function($http) {
   'use strict';
-  var lodash = require('lodash');
+  var _ = require('lodash');
   var moment = require('moment');
   // ## Get pos data
   // Takes a json2sql query object
@@ -17,61 +17,49 @@ module.exports = function($http) {
   this.getPosTotals = function (query) {
     var json = {
       fields : {
-        'sum(amount)' : 'revenue',
-        'count(distinct(salesno))' : 'transactions'
+        'sum(revenue)' : 'revenue',
+        'sum(transactions)' : 'transactions'
       },
       where : {
         store : query.storeId,
-        type : 'Item',
-        'starttime' : {
-          gt : moment(query.startDate)
-            .format('YYYY-MM-DD HH:mm:ss'),
+        'date' : {
+          gte : moment(query.startDate)
+            .format('YYYY-MM-DD'),
           lte : moment(query.endDate)
-            .endOf('day')
-            .format('YYYY-MM-DD HH:mm:ss'),
-        },
-        'hour(starttime)' : {
-          gte : 9,
-          lte : 20
+            .format('YYYY-MM-DD'),
         }
       }
     };
     return this.get(json)
     .then(function(data) {
       return {
-        revenue: data[0].revenue,
-        transactions: data[0].transactions
+        revenue: Number(data[0].revenue) || 0,
+        transactions: Number(data[0].transactions) || 0
       };
     });
   };
-  // helper functions
-  this.getPosCharts = function (query) {
+  this.getPosChartData = function (query) {
     var json = {
       fields : {
-        'sum(amount)' : 'revenue',
-        'count(distinct(salesno))' : 'transactions',
-        'hour(starttime)' : 'step'
+        'sum(revenue)' : 'revenue',
+        'sum(transactions)' : 'transactions',
+        'date': 'step'
       },
       where : {
         store : query.storeId,
-        type : 'Item',
-        'starttime' : {
-          gt : moment(query.startDate)
-            .format('YYYY-MM-DD HH:mm:ss'),
+        'date' : {
+          gte : moment(query.startDate)
+            .format('YYYY-MM-DD'),
           lte : moment(query.endDate)
-            .endOf('day')
-            .format('YYYY-MM-DD HH:mm:ss'),
-        },
-        'hour(starttime)' : {
-          gte : 9,
-          lte : 20
+            .format('YYYY-MM-DD'),
         }
       },
-      groupBy : ['step'],
+      groupBy: getGroupBy(query),
       orderBy : {
         step : true
       }
     };
+
     return this.get(json)
     .then(function(data) {
       return processPosChartData(data);
@@ -80,35 +68,28 @@ module.exports = function($http) {
 
   function processPosChartData (data) {
     // There might be holes in our input data (if values are 0)
-    var range = lodash.range(9, 21); // this gets translated to +1
-    // build temp array for easy access to data
-    var temp = data.reduce(function (arr, item) {
-      arr[item.step] = item;
-      return arr;
-    }, []);
-    var transactionData = [],
-    revenueData = [];
-
-    range.forEach(function (i) {
-      //body
-      if (!temp[i]) {
-        temp[i] = {revenue : 0, transactions : 0};
-      }
-
-      // push dataset to appropriate array
-      revenueData.push(Math.round(Number(temp[i].revenue) * 100)/100);
-      transactionData.push(Math.round(Number(temp[i].transactions)));
-    });
+    var labels = _.pluck(data, 'step');
     return {
       revenue : {
-        labels : range,
-        series : [revenueData]
+        labels : labels,
+        series : [_.pluck(data, 'revenue')]
       },
       transactions : {
-        labels : range,
-        series : [transactionData]
+        labels : labels,
+        series : [_.pluck(data, 'transactions')]
       }
     };
+  }
+
+  function getGroupBy (query) {
+    var start = moment(query.startDate);
+    var end = moment(query.endDate);
+    if (start.isSame(end, 'day')) {
+      return ['hour(date)'];
+    } else if (start.isSame(end, 'month')) {
+      return ['date(date)'];
+    }
+    return ['month(date)'];
   }
 
 

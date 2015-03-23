@@ -1,8 +1,8 @@
 'use strict';
 var j2sql = require('json2sql'),
-  db = require('./mysql.service'),
+  db = require('../mysql.service'),
   log = require('bragi').log,
-  models = require('../models'),
+  models = require('../../models'),
   HTTPError = require('node-http-error'),
   P = require('bluebird'),
   objectId = require('mongoose').Types.ObjectId,
@@ -28,6 +28,9 @@ exports.find = function (query) {
       return P.reject(new HTTPError(500, 'Database Error'));
     });
 };
+
+
+
 
 function setTable (query) {
   query.from = 'people';

@@ -16,21 +16,6 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
   $scope.selectTab = selectTab; // function
   $scope.selectCamera = selectCamera; //function
   $scope.setSelectedCam = setSelectedCam;
-  $scope.charts = {
-    options : {
-      range : [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
-    },
-    BarOptions : {
-    },
-    churn: {
-      data : {
-        labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10'],
-        series: [
-          [1, 2, 4, 8, 6, -2, -1, -4, -6, -2]
-        ]
-      }
-    }
-  };
 
   // setup
   document.title = 'Sentia - Store';
@@ -115,7 +100,6 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
 
 
   function updateDashboard () {
-    var promises = [];
     // reset
     $scope.charts = {};
     // if no store object is present, return;
@@ -126,13 +110,6 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
     updateChurnData();
     updatePeopleChart();
     updatePosCharts();
-
-    // Conversion Charts requires both pos and people charts
-    // promises.push(updatePosCharts());
-    // promises.push(updatePeopleCharts());
-    // $q.all(promises)
-    //   .then(updateConversionCharts);
-
   }
 
   function updateTotals () {
@@ -239,12 +216,14 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
   }
 
   function updatePosCharts() {
+       $scope.revenueData = null;
+       $scope.transactionsData = null;
     var query = {
       storeId: $scope.store._id,
       startDate: $parent.startDate,
       endDate: $parent.endDate
     };
-     return PosService.getPosCharts(query)
+     return PosService.getPosChartData(query)
      .then(function (data) {
        $scope.revenueData = data.revenue;
        $scope.transactionsData = data.transactions;
@@ -270,23 +249,4 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
   }
 
 
-
-  function updateConversionCharts () {
-    if (!$scope.charts.transactions || !$scope.charts.people) {
-      return;
-    }
-    var data = $scope.charts.transactions.data.series[0].map(function (val, i) {
-      if (val && $scope.charts.people.data.series[0][i]) {
-        return Math.round(val / $scope.charts.people.data.series[0][i]* 10000)/ 100;
-      }
-      return 0;
-    });
-    $scope.charts.conversion = {
-      total : Math.round(($scope.charts.transactions.total / $scope.charts.people.total) * 10000) / 100,
-      data :  {
-        labels : $scope.charts.transactions.data.labels,
-        series : [data]
-      }
-    };
-  }
 };

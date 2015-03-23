@@ -1,6 +1,20 @@
 'use strict';
 var chartist = require('chartist');
 var $ = require('jquery');
+var defaults = {
+  height: 250,
+
+  axisY: {
+    labelInterpolationFnc: function (val) {
+        if (val > 1000000) {
+          return Math.round(val/10000) / 100 + 'M';
+        }
+        if (val > 10000) {
+          return Math.round(val/100) / 100 + 'K';
+        }
+    }
+  }
+};
 module.exports = function() {
   return {
     template: '',
@@ -17,24 +31,24 @@ module.exports = function() {
 function link($scope, element) {
   var chart;
   var $element = $(element[0]);
-  var dummydata = {
-      // A labels array that can contain any sort of values
-      labels: [0],
-      // Our series array that contains series objects or in this case series data arrays
-      series: [
-        [0]
-      ]
-    };
+  var options = angular.extend({}, $scope.options, defaults);
   element.addClass('ct-chart');
-  draw();
-  $element.append('<div class="loader"></div>');
-  $scope.$watch('data', update);
-  $scope.$watch('trigger', update);
+  render();
+  $scope.$watch('data', render);
+  $scope.$watch('trigger', render);
 
-  function draw () {
+  function render () {
     $element.find('*').remove();
-    chart = new chartist.Bar($element[0], dummydata, $scope.options);
+    if (!$scope.data) {
+      showLoader();
+      return;
+    }
+    chart = new chartist.Bar($element[0], $scope.data, options);
     addTooltip();
+  }
+
+  function showLoader () {
+    $element.append('<div class="loader"></div>');
   }
 
   function addTooltip() {
@@ -69,19 +83,5 @@ function link($scope, element) {
 
   function easeOutQuad(x, t, b, c, d) {
     return -c * (t /= d) * (t - 2) + b;
-  }
-
-  function update () {
-    if (!chart || !chart.optionsProvider) {
-      return;
-    }
-    if (!$scope.data) {
-      $element.find('.loader').show();
-      chart.update(dummydata);
-      return;
-    }
-    $element.find('.loader').hide();
-    chart.update($scope.data);
-
   }
 }

@@ -5,7 +5,10 @@
  */
 module.exports=  function() {
     'use strict';
+
+
     var $ = require('jquery');
+    var moment = require('moment');
     var chartist = require('chartist');
     var defaults = {
       height: 250,
@@ -19,16 +22,31 @@ module.exports=  function() {
           x: -3,
           y: 3
         },
-        labelInterpolationFnc : function (x) {
-            return x + 1;
-        }
+        labelInterpolationFnc : labelHour
       },
       axisY: {
         labelOffset: {
           y: 10
+        },
+        labelInterpolationFnc: function (val) {
+            if (val > 1000000) {
+              return Math.round(val/10000) / 100 + 'M';
+            }
+            if (val > 10000) {
+              return Math.round(val/100) / 100 + 'K';
+            }
         }
       }
     };
+    function labelMonth(date) {
+      return moment(date).format('MMM');
+    }
+    function labelDay(date) {
+      return moment(date).format('D');
+    }
+    function labelHour(date) {
+      return moment(date).format('HH');
+    }
     return {
       template: '',
       restrict: 'E',
@@ -41,35 +59,38 @@ module.exports=  function() {
       link: function postLink($scope, element) {
         var chart;
         var $element = $(element[0]);
-        var dummydata = {
-            // A labels array that can contain any sort of values
-            labels: [0],
-            // Our series array that contains series objects or in this case series data arrays
-            series: [
-              [0]
-            ]
-          };
+        var options = angular.extend({}, $scope.options, defaults);
         $element.addClass('ct-chart');
-        draw();
-        $element.append('<div class="loader"></div>');
-        $scope.$watch('data', update);
-        $scope.$watch('trigger', update);
+        render();
+        $scope.$watch('data', render);
+        $scope.$watch('trigger', render);
 
 
-        function draw() {
-
-
-          var options = angular.extend($scope.options || {}, defaults);
-          element.find('*').remove();
-
-          chart = chartist.Line(element[0], dummydata, options);
-          addLineTooltip(element);
-
+        function render () {
+          $element.find('*').remove();
+          if ($scope.data) {
+            options.axisX.labelInterpolationFnc = getLabelFunc();
+            chart = chartist.Line($element[0], $scope.data, options);
+            addLineTooltip($element);
+          } else {
+            showLoader();
+          }
         }
-        function easeOutQuad (x, t, b, c, d) {
-          return -c * (t /= d) * (t - 2) + b;
+        function showLoader () {
+          $element.append('<div class="loader"></div>');
         }
 
+        function getLabelFunc() {
+          var start = moment($scope.data.labels[0]);
+          var end = moment($scope.data.labels[$scope.data.labels.length-1]);
+
+          if (start.isSame(end, 'day')) {
+            return labelHour;
+          } else if (start.isSame(end, 'month')) {
+            return labelDay;
+          }
+          return labelMonth;
+        }
 
         function addLineTooltip (element) {
           var $toolTip = $(element[0])
@@ -102,19 +123,10 @@ module.exports=  function() {
           });
         }
 
-        function update() {
-          if (!chart || !chart.optionsProvider) {
-            return;
-          }
-          if (!$scope.data) {
-            $element.find('.loader').show();
-            chart.update(dummydata);
-            return;
-          }
-          $element.find('.loader').hide();
-          chart.update($scope.data);
-
+        function easeOutQuad (x, t, b, c, d) {
+          return -c * (t /= d) * (t - 2) + b;
         }
+
       }
     };
   };

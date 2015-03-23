@@ -39,7 +39,7 @@ angular.module('pickadate', [])
             return;
           }
           scope.$apply(function () {
-            scope.date = moment(picker.get()).toDate();
+            scope.date = moment(value.select).toDate();
           });
         });
         scope.controls = {
@@ -68,6 +68,7 @@ angular.module('pickadate', [])
         scope.$watch('from',function (from) {
           if (from) {
             picker.set('min', from);
+            picker.set('max', new Date()  );
           }
         });
         scope.$watch('to',function (to) {

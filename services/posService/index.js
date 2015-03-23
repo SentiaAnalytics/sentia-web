@@ -1,8 +1,8 @@
 'use strict';
 var j2sql = require('json2sql'),
-  db = require('./mysql.service'),
+  db = require('../mysql.service'),
   log = require('bragi').log,
-  models = require('../models'),
+  models = require('../../models'),
   HTTPError = require('node-http-error'),
   P = require('bluebird'),
   objectId = require('mongoose').Types.ObjectId,
@@ -13,13 +13,14 @@ function Plogg (data) {
   return data;
 }
 
-exports.find = function (query) {
+exports.get = function (query) {
   var company = query.where.company;
   delete query.where.company;
+  delete query.where.store;
 
   return P.resolve(query)
     .then(setTable)
-    .then(setStore.bind(this, company))
+    // .then(setStore.bind(this, company))
     .then(j2sql.select)
     .then(Plogg)
     .then(db.query)
@@ -29,8 +30,9 @@ exports.find = function (query) {
       return P.reject(new HTTPError(500, 'Database Error'));
     });
 };
-function setTable (query) {
-  query.from = 'pos';
+
+function setTable(query) {
+  query.from = 'pos_aggregated_daily';
   return query;
 }
 

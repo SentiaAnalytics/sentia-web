@@ -1,7 +1,11 @@
 module.exports = function ($http, $q) {
   'use strict';
+  var DAY = 1000 * 60 * 60 * 23;
+  var MONTH = 1000 * 60 * 60 * 24 * 32;
+
+
   var moment = require('moment'),
-    lodash = require('lodash');
+    _ = require('lodash');
   var people = this;
 
   people.get = function (query) {
@@ -44,15 +48,16 @@ module.exports = function ($http, $q) {
   people.getLineChart = function (query) {
     var json = {
       fields : {
-        'hour(time)' : 'x',
-        'people_in' : 'y'
+        'time' : 'date',
+        'sum(people_in)' : 'people'
       },
       where : {
         cam : query.cameras,
         time : {
           gte : moment(query.startDate)
+            .startOf('day')
             .format('YYYY-MM-DD HH:mm:ss'),
-          lt : moment(query.endDate)
+          lte : moment(query.endDate)
             .endOf('day')
             .format('YYYY-MM-DD HH:mm:ss')
         },
@@ -61,31 +66,17 @@ module.exports = function ($http, $q) {
           lte : 20
         }
       },
-      groupBy : ['x'],
+      groupBy : getGroupBy(query),
       orderBy : {
-        'x': true
+        'time': true
       }
     };
     return people.get(json)
       .then(function (data) {
-        if (!data || data.length === 0) {
-          return;
-        }
-        var range = lodash.range(9, 21),
-        temp = data.reduce(function (arr, e) {
-          arr[e.x] = e.y;
-          return arr;
-        }, []),
-          dataSet = [];
-
-          range.forEach(function (e) {
-            dataSet.push(temp[e] || 0);
-          });
-
-          return {
-            labels : range,
-            series : [dataSet]
-          };
+        return {
+          labels: _.pluck(data, 'date'),
+          series: [_.pluck(data, 'people')]
+        };
       });
   };
   people.getChurnRateData = function (query) {
@@ -118,4 +109,14 @@ module.exports = function ($http, $q) {
         return data;
       });
   };
+  function getGroupBy (query) {
+    var start = moment(query.startDate);
+    var end = moment(query.endDate);
+    if (start.isSame(end, 'day')) {
+      return ['hour(time)'];
+    } else if (start.isSame(end, 'month')) {
+      return ['date(time)'];
+    }
+    return ['month(time)'];
+  }
 };
