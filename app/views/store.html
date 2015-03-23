@@ -71,24 +71,7 @@
           </div>
         </div>
       </div>
-    </div>
-    <!--  <div class="col-lg-6 gutter-top" ng-show="charts.revenue.data">
-        <h5 class="caps">Revenue</h5>
-
-      </div>
-      <div class="col-lg-6 gutter-top" ng-show="charts.transactions.data">
-        <h5 class="caps">Transactions</h5>
-      </div>
-      <div class="col-lg-6 gutter-top" ng-show="charts.people">
-        <h5 class="caps">People In</h5>
-      </div>
-      <div class="col-lg-6 gutter-top" ng-show="charts.conversion">
-        <h5 class="caps">Conversion Rate</h5>
-      </div> -->
-    <div class="col-lg-12 gutter-top ng-hide">
-      <h5 class="caps">Funnel</h5>
-      <chart data="charts.people.data" options="charts.BarOptions" charttype="bar" trigger="tabs.counter" class="ct-success"></chart>
-    </div>
+      <div class="spacer"></div>
     </div>
   </swiper-slide>
   <swiper-slide>
@@ -113,31 +96,7 @@
         </li>
       </ul>
 
-      <!-- <ul class="list list-widgets row">
-      <li ng-repeat="cam in cameras | filter : camSearch | orderBy : 'name'" ng-class="{active: selectedCam._id === cam._id}" class="col-sm-6 animate-scale">
-      <a ng-click="go('/store/camera/{{cam._id}}')">
-      <div class="widget a widget-content gutter-top" style="transform:rotate({{cam.rotate || 0}}deg); -webkit-transform:rotate({{cam.rotate || 0}}deg)">
-      <div style="height :195px; overflow: hidden; border: 5px solid white; box-shadow : 0px 1px 5px rgba(0,0,0,0.4);">
-      <img ng-src="/images/cameras/{{cam._id}}.jpg" alt="" class="header-image">
     </div>
-  </div>
-</a>
-</li>
-</ul> -->
-    </div>
-    <!-- <div class="col-sm-6 hidden-xs">
-      <div class="col-xs-8 col-xs-offset-2 gutter-top gutter-bottom">
-        <div class="paper floorplan-pin-details" ng-show="selectedCam">
-          <div style="overflow: hidden;">
-            <img ng-src="api/cameras/{{selectedCam._id}}/snapshot" alt="" class="paper-image" style="transform:rotate({{selectedCam.rotate}}deg); -webkit-transform:rotate({{cam.rotate}}deg)" src="api/cameras/543197b8ab3de09c344bc1e7/snapshot">
-          </div>
-          <div class="container-fluid paper-label">
-            <h4 class="ng-binding">{{selectedCam.name}}</h4>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </swiper-slide>
 </swiper>
 </tabs>
-<!-- </div> -->
