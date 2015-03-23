@@ -1,8 +1,5 @@
 module.exports = function ($http, $q) {
   'use strict';
-  var DAY = 1000 * 60 * 60 * 23;
-  var MONTH = 1000 * 60 * 60 * 24 * 32;
-
 
   var moment = require('moment'),
     _ = require('lodash');

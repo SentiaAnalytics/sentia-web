@@ -189,9 +189,9 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
     function sortChurnRateData (data) {
         return data.sort(function (a, b) {
           if (a.name > b.name) {
-            return 1
+            return 1;
           }
-          return -1
+          return -1;
         });
     }
 
