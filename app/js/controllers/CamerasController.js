@@ -35,11 +35,14 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
 
   refresh(); // update charts
   // watch
-  $scope.$parent.$watch('startDate', function() {
+  $scope.$parent.$watch('endDate', function() {
     //update url
     $location.replace();
-    $location.search('startSate', moment($parent.startDate).format('YYYY-MM-DDTHH:mm:ss.00Z'));
+    $location.search('endDate', moment($parent.endDate).format('YYYY-MM-DDTHH:mm:ss.00Z'));
 
+    if ($parent.startDate > $parent.endDate) {
+      $parent.startDate = moment($parent.endDate).toDate();
+    }
     //update data
     refresh();
 
@@ -48,7 +51,7 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
       page : document.title,
       controller : 'CamController',
       camera : ($parent.camera)? $parent.camera._id : $routeParams.id,
-      selected_date : $parent.startDate.toString(),
+      selected_date : $parent.endDate.toString(),
       url : window.location
     });
   });
@@ -87,7 +90,7 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
     if (!$parent.camera) {
       return;
     }
-    PeopleService.getLineChart($parent.camera._id, $parent.startDate)
+    PeopleService.getLineChart($parent.camera._id, $parent.endDate)
       .then(function (data) {
         if (!data) {
           return;
@@ -107,7 +110,8 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
     }
     var query = {
       camera: $parent.camera._id,
-      date: $parent.startDate
+      startDate: $parent.endDate,
+      endDate: $parent.endDate
     };
 
     $scope.map = undefined;

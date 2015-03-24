@@ -33,22 +33,15 @@ module.exports = function($http, $q) {
       });
   };
 
-  this.getMap = function(data) {
-    var query = {
-      camera : data.camera,
-      from : moment(data.date)
-        .hours(0)
-        .minutes(0)
-        .seconds(0)
+  this.getMap = function(query) {
+    var json = {
+      camera : query.camera,
+      from : moment(query.startDate)
         .format('YYYY-MM-DD'),
-      to : moment(data.date)
-        .add(1, 'day')
-        .hours(0)
-        .minutes(0)
-        .seconds(0)
+      to : moment(query.endDate)
         .format('YYYY-MM-DD')
     };
-    return $http.get('/api/maps?camera=' +query.camera+ '&from=' + query.from + '&to=' + query.to)
+    return $http.get('/api/maps?camera=' +json.camera+ '&from=' + json.from + '&to=' + json.to)
       .then(function(response) {
         return response.data || undefined;
       })

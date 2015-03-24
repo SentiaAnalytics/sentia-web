@@ -45,13 +45,19 @@ angular.module('pickadate', [])
         scope.controls = {
           next : function () {
             var date = moment(scope.date).add(1, 'day');
-            if (!date.isAfter(moment(), 'day')) {
-              scope.date = date.toDate();
+
+            var to = scope.to || new Date();
+            if (date.toDate() > to) {
+              return;
             }
+            scope.date = date.toDate();
           },
           prev : function () {
             var date = moment(scope.date).subtract(1, 'day');
-            scope.date = date.toDate();
+            if (scope.from && date.toDate() < scope.from) {
+              return;
+            }
+              scope.date = date.toDate();
           }
         };
 

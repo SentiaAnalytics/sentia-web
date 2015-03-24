@@ -68,6 +68,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
     $parent.$watch('endDate', onDateChange);
   }
   function onDateChange () {
+
     updateUrl();
     updateDashboard();
     mixpanel.track('date changed', {
