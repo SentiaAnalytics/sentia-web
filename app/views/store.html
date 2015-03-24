@@ -38,13 +38,13 @@
         <div class="row p-bottom-large clearfix">
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps text-center">Conversion Rate</h5>
-            <h1 class="text-info text-center jumbo">{{totalTransactions/ totalPeopleIn * 100 | waiting | dkNumber : 2}}
+            <h1 class="text-info text-center jumbo">{{(totalTransactions/ totalPeopleIn) || 0 * 100 | waiting | dkNumber : 2}}
               <span class="small">%</span>
             </h1>
           </div>
           <div class="col-sm-6 gutter-top-large">
             <h5 class="caps text-center">Basket Size</h5>
-            <h1 class="text-primary text-center jumbo">{{totalRevenue / totalTransactions | waiting | dkNumber : 2}}
+            <h1 class="text-primary text-center jumbo">{{(totalRevenue / totalTransactions) || 0 | waiting | dkNumber : 2}}
               <span class="small">DKK</span>
             </h1>
           </div>

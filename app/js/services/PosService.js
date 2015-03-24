@@ -22,7 +22,7 @@ module.exports = function($http) {
       },
       where : {
         store : query.storeId,
-        'date' : {
+        'date(time)' : {
           gte : moment(query.startDate)
             .format('YYYY-MM-DD'),
           lte : moment(query.endDate)
@@ -43,11 +43,11 @@ module.exports = function($http) {
       fields : {
         'sum(revenue)' : 'revenue',
         'sum(transactions)' : 'transactions',
-        'date': 'step'
+        'time': 'step'
       },
       where : {
         store : query.storeId,
-        'date' : {
+        'date(time)' : {
           gte : moment(query.startDate)
             .format('YYYY-MM-DD'),
           lte : moment(query.endDate)
@@ -67,6 +67,14 @@ module.exports = function($http) {
   };
 
   function processPosChartData (data) {
+
+
+    if (data.length === 0) {
+      return {
+        revenue : {},
+        transactions : {}
+      };
+    }
     // There might be holes in our input data (if values are 0)
     var labels = _.pluck(data, 'step');
     return {
@@ -85,11 +93,11 @@ module.exports = function($http) {
     var start = moment(query.startDate);
     var end = moment(query.endDate);
     if (start.isSame(end, 'day')) {
-      return ['hour(date)'];
+      return ['hour(time)'];
     } else if (start.isSame(end, 'month')) {
-      return ['date(date)'];
+      return ['date(time)'];
     }
-    return ['month(date)'];
+    return ['month(time)'];
   }
 
 

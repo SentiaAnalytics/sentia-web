@@ -43,8 +43,10 @@ function link($scope, element) {
       showLoader();
       return;
     }
-    chart = new chartist.Bar($element[0], $scope.data, options);
-    addTooltip();
+    if ($scope.data.labels && $scope.data.labels.length > 0) {
+      chart = new chartist.Bar($element[0], $scope.data, options);
+      addTooltip();
+    }
   }
 
   function showLoader () {

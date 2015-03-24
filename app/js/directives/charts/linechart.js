@@ -69,9 +69,11 @@ module.exports=  function() {
         function render () {
           $element.find('*').remove();
           if ($scope.data) {
-            options.axisX.labelInterpolationFnc = getLabelFunc();
-            chart = chartist.Line($element[0], $scope.data, options);
-            addLineTooltip($element);
+            if ($scope.data.labels && $scope.data.labels.length > 0) {
+              options.axisX.labelInterpolationFnc = getLabelFunc();
+              chart = chartist.Line($element[0], $scope.data, options);
+              addLineTooltip($element);
+            }
           } else {
             showLoader();
           }

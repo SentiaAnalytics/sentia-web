@@ -169,7 +169,10 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
       .then(addCameraNamesToChurnData)
       .then(sortChurnRateData)
       .then(convertDataToChartFormat)
-      .then(updateViewModel);
+      .then(updateViewModel)
+      .catch(function () {
+        $scope.churnRateData = {};
+      });
 
     function addCameraNamesToChurnData (data) {
       if (!data) {

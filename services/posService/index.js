@@ -32,7 +32,7 @@ exports.get = function (query) {
 };
 
 function setTable(query) {
-  query.from = 'pos_aggregated_daily';
+  query.from = 'pos_aggregated_hourly';
   return query;
 }
 

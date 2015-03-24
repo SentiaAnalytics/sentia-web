@@ -37,7 +37,7 @@ module.exports = function ($http, $q) {
     };
     return people.get(query)
       .then(function (data) {
-        return Number(data[0].peopleIn);
+        return Number(data[0].peopleIn) || 0;
       });
 
   };
@@ -70,6 +70,9 @@ module.exports = function ($http, $q) {
     };
     return people.get(json)
       .then(function (data) {
+        if (data.length === 0) {
+          return {};
+        }
         return {
           labels: _.pluck(data, 'date'),
           series: [_.pluck(data, 'people')]
@@ -100,8 +103,8 @@ module.exports = function ($http, $q) {
     };
     return people.get(json)
       .then(function(data) {
-        if(data.length === 0) {
-          return;
+        if (data.length === 0) {
+          return $q.reject();
         }
         return data;
       });
