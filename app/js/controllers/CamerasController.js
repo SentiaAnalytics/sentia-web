@@ -90,17 +90,27 @@ module.exports = function($scope, $routeParams, $location, CamerasService, Peopl
     if (!$parent.camera) {
       return;
     }
-    PeopleService.getLineChart($parent.camera._id, $parent.endDate)
-      .then(function (data) {
-        if (!data) {
-          return;
-        }
-        $scope.charts.people = {
-          total : data.series[0].reduce(function (result, item) {
-            return result + item;
-          },0),
-          data : data
-        };
+    var query = {
+      cameras: [$scope.camera._id],
+      startDate: $parent.endDate,
+      endDate: $parent.endDate
+    };
+    updatePeopleTotal(query);
+    updatePeopleChart(query);
+
+  }
+  function updatePeopleChart (query) {
+    $scope.peopleChartData = null;
+    PeopleService.getLineChart(query)
+      .then(function (peopleChartData) {
+          $scope.peopleChartData = peopleChartData;
+      });
+  }
+  function updatePeopleTotal (query) {
+    $scope.totalPeopleIn = null;
+    PeopleService.getTotalPeopleIn(query)
+      .then(function (totalPeopleIn) {
+          $scope.totalPeopleIn = totalPeopleIn;
       });
   }
 

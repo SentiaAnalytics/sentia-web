@@ -15,17 +15,17 @@ module.exports = function ($http, $q) {
         return $q.reject(error);
       });
   };
-  people.getTotalPeopleIn = function (args) {
-    var query = {
+  people.getTotalPeopleIn = function (query) {
+    var json = {
       fields : {
         'sum(people_in)' : 'peopleIn'
       },
       where : {
-        cam : args.cameras,
+        cam : query.cameras,
         time : {
-          gte : moment(args.startDate)
+          gte : moment(query.startDate)
             .format('YYYY-MM-DD HH:mm:ss'),
-          lt : moment(args.endDate)
+          lt : moment(query.endDate)
             .endOf('day')
             .format('YYYY-MM-DD HH:mm:ss')
         },
@@ -35,7 +35,7 @@ module.exports = function ($http, $q) {
         }
       }
     };
-    return people.get(query)
+    return people.get(json)
       .then(function (data) {
         return Number(data[0].peopleIn) || 0;
       });
