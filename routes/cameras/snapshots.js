@@ -5,7 +5,7 @@ var logger = require('bragi');
 var middleware = require('../../middleware');
 
 exports.read = {
-  url : '/cameras/:cameraId/snapshot',
+  url : '/cameras/:cameraId/snapshot.jpg',
   handler: function (req, res, next) {
     var stream = gcloudstorage.getReadStream(req.params.company, 'cameras/' + req.params.cameraId + '/latest.jpg');
     stream.pipe(res);
