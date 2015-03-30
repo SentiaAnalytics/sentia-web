@@ -1,5 +1,5 @@
 'use strict';
-var bcrypt = require('bcrypt'),
+var bcrypt = require('bcrypt-nodejs'),
   P = require('bluebird');
 
 exports.hash = function (password) {

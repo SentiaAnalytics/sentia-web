@@ -187,8 +187,8 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
         dataPoint.name = cam ? cam.name: 'unknown';
         return dataPoint;
       });
-      data = data.filter(function  () {
-        return dataPoint.name !== 'Camera F';
+      data = data.filter(function  (e) {
+        return e.name !== 'Camera F';
       })
       return data;
     }
