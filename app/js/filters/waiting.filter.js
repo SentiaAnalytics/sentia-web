@@ -9,5 +9,5 @@ module.exports = function filterFunction () {
 };
 
 function isValidNumber (input) {
-  return typeof input === 'number' && !isNaN(input);
+  return typeof input === 'number' && !isNaN(input) && input !== Number.POSITIVE_INFINITY;
 }

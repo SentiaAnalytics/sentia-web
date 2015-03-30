@@ -6,6 +6,10 @@ app/build/bundle.js
 app/build/bundle.js.gz
 app/build/style.css
 
+app/dist/bundle.js
+app/dist/bundle.js.gz
+app/dist/style.css
+
 
 logs
 

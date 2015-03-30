@@ -29,7 +29,7 @@
         <div class="col-sm-8 col-sm-offset-2 gutter-bottom">
           <div class="paper row" >
             <div class="map-container " style="transform:rotate({{camera.rotate || 0}}deg); -webkit-transform:rotate({{camera.rotate || 0}}deg)">
-              <img ng-src="/api/cameras/{{camera._id}}/snapshot" alt="" class="paper-image" >
+              <img ng-src="/api/cameras/{{camera._id}}/snapshot.jpg" alt="" class="paper-image" >
               <div class="loader" ng-show="!map"></div>
               <s-heatmap data="map" cols="camera.cols" rows="camera.rows" class="ng-isolate-scope">
                 <canvas style="width : 100%; height : 100%" width="1280" height="720"></canvas>
