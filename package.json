@@ -61,7 +61,8 @@
     "socksjs": "^0.4.5",
     "squel": "^3.8.1",
     "tokenize": "0.0.3",
-    "url-builder": "^0.2.1"
+    "url-builder": "^0.2.1",
+    "bcrypt-nodejs": "0.0.3"
   },
   "devDependencies": {
     "chai": "~1.9.1",
