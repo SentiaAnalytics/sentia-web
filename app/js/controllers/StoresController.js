@@ -189,7 +189,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
       });
       data = data.filter(function  (e) {
         return e.name !== 'Camera F';
-      })
+      });
       return data;
     }
 
