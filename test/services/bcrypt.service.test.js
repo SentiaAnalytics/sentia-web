@@ -2,7 +2,7 @@
 var chai = require('chai'),
   should = chai.should(),
   sinon = require('sinon'),
-  bcrypt = require('bcrypt'),
+  bcrypt = require('bcrypt-nodejs'),
   target = require('../../services/bcrypt.service');
 chai.use(require('chai-as-promised'));
 
