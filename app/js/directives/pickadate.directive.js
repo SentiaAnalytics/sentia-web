@@ -6,7 +6,8 @@
 angular.module('pickadate', [])
   .directive('pickadate', function() {
     'use strict';
-    var moment = require('moment');
+    var _ = require('lodash');
+    var moment = _.partialRight(require('moment-timezone').tz, 'Europe/Copenhagen');
     var $ = require('jquery');
     require('../../bower_components/pickadate/lib/picker.js');
     require('../../bower_components/pickadate/lib/picker.date.js');
@@ -39,7 +40,7 @@ angular.module('pickadate', [])
             return;
           }
           scope.$apply(function () {
-            scope.date = moment(value.select).toDate();
+            scope.date = moment(value.select);
           });
         });
         scope.controls = {
@@ -47,17 +48,17 @@ angular.module('pickadate', [])
             var date = moment(scope.date).add(1, 'day');
 
             var to = scope.to || new Date();
-            if (date.toDate() > to) {
+            if (date.isAfter(to)) {
               return;
             }
-            scope.date = date.toDate();
+            scope.date = date;
           },
           prev : function () {
             var date = moment(scope.date).subtract(1, 'day');
-            if (scope.from && date.toDate() < scope.from) {
+            if (scope.from && !date.isBefore(scope.from)) {
               return;
             }
-              scope.date = date.toDate();
+              scope.date = date;
           }
         };
 
@@ -68,18 +69,18 @@ angular.module('pickadate', [])
         };
         scope.$watch('date', function (newDate) {
           if (!moment(newDate).isSame(moment(picker.get()))) {
-            picker.set('select', newDate, {muted : true});
+            picker.set('select', newDate.toDate(), {muted : true});
           }
         });
         scope.$watch('from',function (from) {
           if (from) {
-            picker.set('min', from);
+            picker.set('min', from.toDate());
             picker.set('max', new Date()  );
           }
         });
         scope.$watch('to',function (to) {
           if (to) {
-            picker.set('max', to);
+            picker.set('max', to.toDate());
           }
         });
 

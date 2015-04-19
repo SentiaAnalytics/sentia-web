@@ -8,7 +8,6 @@ module.exports=  function() {
 
 
     var $ = require('jquery');
-    var moment = require('moment');
     var chartist = require('chartist');
     var defaults = {
       height: 250,
@@ -39,13 +38,13 @@ module.exports=  function() {
       }
     };
     function labelMonth(date) {
-      return moment(date).format('MMM');
+      return date.format('MMM');
     }
     function labelDay(date) {
-      return moment(date).format('D');
+      return date.format('D');
     }
     function labelHour(date) {
-      return moment(date).format('HH');
+      return Number(date.format('HH')) + 1;
     }
     return {
       template: '',
@@ -83,8 +82,8 @@ module.exports=  function() {
         }
 
         function getLabelFunc() {
-          var start = moment($scope.data.labels[0]);
-          var end = moment($scope.data.labels[$scope.data.labels.length-1]);
+          var start = $scope.data.labels[0];
+          var end = $scope.data.labels[$scope.data.labels.length-1];
 
           if (start.isSame(end, 'day')) {
             return labelHour;

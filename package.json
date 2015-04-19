@@ -13,6 +13,7 @@
   "author": "Andreas Møller",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "bluebird": "^2.3.2",
     "body-parser": "~1.6.3",
     "bragi": "0.0.11",
@@ -48,6 +49,7 @@
     "json2sql": "0.0.1",
     "lodash": "~2.4.1",
     "moment": "~2.8.2",
+    "moment-timezone": "^0.3.1",
     "mongoose": "^3.8.22",
     "mysql": "^2.5.1",
     "mysql2": "^0.12.5",
@@ -60,8 +62,7 @@
     "socksjs": "^0.4.5",
     "squel": "^3.8.1",
     "tokenize": "0.0.3",
-    "url-builder": "^0.2.1",
-    "bcrypt-nodejs": "0.0.3"
+    "url-builder": "^0.2.1"
   },
   "devDependencies": {
     "chai": "~1.9.1",

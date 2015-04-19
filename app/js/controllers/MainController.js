@@ -7,7 +7,8 @@
 /*jslint browser:true, nomen:true*/
 module.exports = function ($scope, $location, SessionsService) {
   'use strict';
-  var moment = require('moment');
+  var _ = require('lodash');
+  var moment = _.partialRight(require('moment-timezone').tz, 'Europe/Copenhagen');
 
 
   //bindables
@@ -18,13 +19,11 @@ module.exports = function ($scope, $location, SessionsService) {
   // shared bindables
   $scope.store = null;
   $scope.camera = null;
-  $scope.startDate = moment.utc($location.$$search.startDate) // take the date from the url or use today
-    .startOf('day')
-    .toDate();
+  $scope.startDate = moment($location.$$search.startDate) // take the date from the url or use today
+    .startOf('day');
 
-  $scope.endDate = moment.utc($location.$$search.endDate) // take the date from the url or use today
-    .endOf('day')
-    .toDate();
+  $scope.endDate = moment($location.$$search.endDate) // take the date from the url or use today
+    .endOf('day');
 
   // setup
   mixpanel.register({

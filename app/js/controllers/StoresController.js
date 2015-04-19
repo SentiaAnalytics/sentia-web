@@ -5,8 +5,7 @@
  */
 module.exports = function($scope, $q, StoresService, CamerasService, PosService, PeopleService, $routeParams, $location) {
   'use strict';
-  var moment = require('moment');
-  var lodash = require('lodash');
+  var _ = require('lodash');
   var $parent = $scope.$parent; // shorthand
 
   //bindables
@@ -43,8 +42,8 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
   function updateUrl () {
     $location.replace();
     $location.search('activeTab', $scope.activeTab);
-    $location.search('startDate', moment($scope.$parent.startDate).format('YYYY-MM-DDTHH:mm:ss.00Z'));
-    $location.search('endDate', moment($scope.$parent.endDate).format('YYYY-MM-DDTHH:mm:ss.00Z'));
+    $location.search('startDate', $scope.$parent.startDate.format('YYYY-MM-DDTHH:mm:ss.00Z'));
+    $location.search('endDate', $scope.$parent.endDate.format('YYYY-MM-DDTHH:mm:ss.00Z'));
   }
 
   function getStore (id) {
@@ -181,7 +180,7 @@ module.exports = function($scope, $q, StoresService, CamerasService, PosService,
       }
       data = data.map(function (dataPoint) {
         //return the name of the camera from the id
-        var cam = lodash.find($scope.cameras, function (camera) {
+        var cam = _.find($scope.cameras, function (camera) {
           return camera._id === dataPoint.cam;
         });
         dataPoint.name = cam ? cam.name: 'unknown';

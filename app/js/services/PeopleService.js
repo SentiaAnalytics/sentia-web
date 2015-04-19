@@ -1,8 +1,7 @@
 module.exports = function ($http, $q) {
   'use strict';
-
-  var moment = require('moment'),
-    _ = require('lodash');
+  var _ = require('lodash');
+  var moment = _.partialRight(require('moment-timezone').tz, 'Europe/Copenhagen');
   var people = this;
 
   people.get = function (query) {
@@ -23,16 +22,17 @@ module.exports = function ($http, $q) {
       where : {
         cam : query.cameras,
         time : {
-          gte : moment(query.startDate)
+          gte : query.startDate
+            .clone()
+            .startOf('day')
+            .tz('UTC')
             .format('YYYY-MM-DD HH:mm:ss'),
-          lt : moment(query.endDate)
+          lte : query.endDate
+            .clone()
             .endOf('day')
+            .tz('UTC')
             .format('YYYY-MM-DD HH:mm:ss')
         },
-        'hour(time)' : {
-          gte : 9,
-          lte : 20
-        }
       }
     };
     return people.get(json)
@@ -50,16 +50,20 @@ module.exports = function ($http, $q) {
       },
       where : {
         cam : query.cameras,
-        time : {
-          gte : moment(query.startDate)
+        'date(time)' : {
+          gte : query.startDate
+            .clone()
             .startOf('day')
+            .tz('UTC')
             .format('YYYY-MM-DD HH:mm:ss'),
-          lte : moment(query.endDate)
+          lt : query.endDate
+            .clone()
             .endOf('day')
+            .tz('UTC')
             .format('YYYY-MM-DD HH:mm:ss')
         },
         'hour(time)' : {
-          gte : 9,
+          gte : 8,
           lte : 20
         }
       },
@@ -69,6 +73,11 @@ module.exports = function ($http, $q) {
       }
     };
     return people.get(json)
+      .then(function (data) {
+        return _.map(data, function (e) {
+          return _.defaults({date: moment(e.date)}, e);
+        });
+      })
       .then(function (data) {
         if (data.length === 0) {
           return {};
@@ -88,20 +97,30 @@ module.exports = function ($http, $q) {
       where : {
         cam: query.cameras,
         'time' : {
-          gt : moment(query.startDate)
+          gte : query.startDate
+            .clone()
+            .startOf('day')
+            .tz('UTC')
             .format('YYYY-MM-DD HH:mm:ss'),
-          lte : moment(query.endDate)
+          lt : query.endDate
+            .clone()
             .endOf('day')
+            .tz('UTC')
             .format('YYYY-MM-DD HH:mm:ss'),
         },
         'hour(time)' : {
           gte : 9,
-          lte : 23
+          lte : 20
         }
       },
       groupBy : ['cam']
     };
     return people.get(json)
+      .then(function (data) {
+        return _.map(data, function (e) {
+          return _.defaults({date: moment(e.date)}, e);
+        });
+      })
       .then(function(data) {
         if (data.length === 0) {
           return $q.reject();

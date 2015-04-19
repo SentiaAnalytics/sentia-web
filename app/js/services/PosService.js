@@ -1,9 +1,8 @@
 module.exports = function($http) {
   'use strict';
   var _ = require('lodash');
-  var moment = require('moment');
-  // ## Get pos data
-  // Takes a json2sql query object
+  var moment = _.partialRight(require('moment-timezone').tz, 'Europe/Copenhagen');
+
   this.get = function (query) {
     return $http.get('/api/pos?json=' +JSON.stringify(query))
       .then(function(response) {
@@ -23,13 +22,20 @@ module.exports = function($http) {
       where : {
         store : query.storeId,
         'date(time)' : {
-          gte : moment(query.startDate)
-            .format('YYYY-MM-DD'),
-          lte : moment(query.endDate)
-            .format('YYYY-MM-DD'),
+          gte : query.startDate
+            .clone()
+            .startOf('day')
+            .tz('UTC')
+            .format('YYYY-MM-DD HH:mm:ss'),
+          lt : query.endDate
+            .clone()
+            .endOf('day')
+            .tz('UTC')
+            .format('YYYY-MM-DD HH:mm:ss'),
         }
       }
     };
+
     return this.get(json)
     .then(function(data) {
       return {
@@ -38,6 +44,7 @@ module.exports = function($http) {
       };
     });
   };
+
   this.getPosChartData = function (query) {
     var json = {
       fields : {
@@ -48,10 +55,16 @@ module.exports = function($http) {
       where : {
         store : query.storeId,
         'date(time)' : {
-          gte : moment(query.startDate)
-            .format('YYYY-MM-DD'),
-          lte : moment(query.endDate)
-            .format('YYYY-MM-DD'),
+          gte : query.startDate
+            .clone()
+            .startOf('day')
+            .tz('UTC')
+            .format('YYYY-MM-DD HH:mm:ss'),
+          lt : query.endDate
+            .clone()
+            .endOf('day')
+            .tz('UTC')
+            .format('YYYY-MM-DD HH:mm:ss'),
         }
       },
       groupBy: getGroupBy(query),
@@ -61,9 +74,14 @@ module.exports = function($http) {
     };
 
     return this.get(json)
-    .then(function(data) {
-      return processPosChartData(data);
-    });
+      .then(function (data) {
+        return _.map(data, function (e) {
+          return _.defaults({step: moment(e.step)}, e);
+        });
+      })
+      .then(function(data) {
+        return processPosChartData(data);
+      });
   };
 
   function processPosChartData (data) {
@@ -90,8 +108,8 @@ module.exports = function($http) {
   }
 
   function getGroupBy (query) {
-    var start = moment(query.startDate);
-    var end = moment(query.endDate);
+    var start = query.startDate;
+    var end = query.endDate;
     if (start.isSame(end, 'day')) {
       return ['hour(time)'];
     } else if (start.isSame(end, 'month')) {
