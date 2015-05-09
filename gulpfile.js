@@ -76,6 +76,6 @@ gulp.task('watch', ['run'], function () {
   reload.listen();
   gulp.watch(['services/**/*.js', 'api/**/*.js'], ['spec']);
   gulp.watch([PUBLICDIR + 'js/**/*', PUBLICDIR + 'spec/**/*'], ['spec', 'webpack']);
-  gulp.watch(PUBLICDIR + 'less/**/*.less', ['less']);
+  gulp.watch(PUBLICDIR + 'styles/**/*.less', ['less']);
   gulp.watch([PUBLICDIR + 'index.html', PUBLICDIR + 'img/**/*', PUBLICDIR + 'templates/**/*'], ['static']);
 });
