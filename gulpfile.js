@@ -1,176 +1,81 @@
 'use strict';
-var gulp = require('gulp'),
-  watch = require('gulp-watch'),
-  clean = require('gulp-clean'),
-  config = require('config'),
-  run = require('run-sequence'),
-  P = require('bluebird'),
-  browserify = require('gulp-browserify'),
-  gzip = require('gulp-gzip'),
-  uglify = require('gulp-uglify'),
-  less = require('gulp-less'),
-  shell = require('gulp-shell'),
-  server,
-  rename = require('gulp-rename'),
-  livereload = require('gulp-livereload'),
-  minifyCSS = require('gulp-minify-css'),
-  sourcemaps = require('gulp-sourcemaps');
+//modules
+var gulp = require('gulp');
+var webpack = require('gulp-webpack');
+var rename = require('gulp-rename');
+var less = require('gulp-less');
+var sourcemaps = require('gulp-sourcemaps');
+var reload = require('gulp-livereload');
+var mocha = require('gulp-spawn-mocha');
+var run = require('gulp-run');
+require('babel/register');
+//constants
+var PUBLICDIR = 'app/';
 
-//###########
-//#build
-//###########
+// BUILD
+gulp.task('webpack', function () {
 
-
-
-gulp.task('clean', function () {
-  return gulp.src(['app/build/bundle.*', 'app/build/style.*'])
-    .pipe(clean());
-});
-
-gulp.task('less-dev', function () {
-  return gulp.src('app/styles/style.less')
-    .pipe(sourcemaps.init())
-    .pipe(less())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('app/dist/'))
-    .pipe(livereload());
-});
-gulp.task('less', function () {
-  return gulp.src('app/styles/style.less')
-  .pipe(sourcemaps.init())
-  .pipe(less())
-  .pipe(minifyCSS())
-  .pipe(gzip())
-  .pipe(gulp.dest('app/dist/'))
-  .pipe(livereload());
-});
-
-gulp.task('browserify', function () {
-  return gulp.src('app/js/app.js')
-    .pipe(browserify({
-      debug : false,
-      transform : ['debowerify']
-    }))
+  var webpackConfig = {
+      devtool: "#inline-source-map",
+      module: {
+        loaders: [
+          // { test: /\.jsx$/, exclude: /node_modules/, loader: 'jsx-loader' },
+          { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader'}
+        ]
+      }
+    };
+  return gulp.src(PUBLICDIR + 'js/main.js')
+    .pipe(webpack(webpackConfig))
     .pipe(rename('bundle.js'))
-    .pipe(uglify({
-      mangle : false
-    }))
-    .pipe(gzip())
-    .pipe(gulp.dest('app/dist/'))
-    .pipe(livereload());
+    .pipe(gulp.dest(PUBLICDIR))
+    .pipe(reload());
 });
 
-gulp.task('browserify-dev', function () {
-  return gulp.src('app/js/app.js')
-  .pipe(browserify({
-    debug : true,
-    transform : ['debowerify']
-  }))
-  .pipe(rename('bundle.js'))
-  .pipe(gulp.dest('app/dist/'))
-  .pipe(livereload());
+gulp.task('less', function () {
+    return gulp.src(PUBLICDIR + 'styles/style.less')
+      .pipe(sourcemaps.init())
+      .pipe(less())
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest(PUBLICDIR))
+      .pipe(reload());
 });
 
-gulp.task('compress', function () {
-  return gulp.src('app/build/bundle.js')
-    .pipe(uglify({
-      mangle : false
-    }))
-    .pipe(gzip())
-    .pipe(gulp.dest('app/dist/'));
+gulp.task('static'  , function () {
+  reload();
 });
 
-gulp.task('build', function (done) {
-   run('clean', ['browserify','less'], 'compress', done);
-});
-gulp.task('build-dev', function (done) {
-  run('clean', ['browserify-dev', 'less-dev'], done);
-});
+gulp.task('build', ['less', 'webpack', 'static']);
 
-//###########
-//# Test
-//###########
-
-gulp.task('jshint', function() {
-  var jshint = require('gulp-jshint');
-  return gulp.src([
-    '**/*.js',
-    '!test/**',
-    '!node_modules/**',
-    '!app/bower_components/**',
-    '!app/dist/**',
-    '!gulpfile.js'
-    ])
-    .pipe(jshint())
-    .pipe(jshint.reporter(require('jshint-stylish')));
+// TEST
+gulp.task('spec',function () {
+    return gulp.src([
+      'test/**/spec/**/*.js'
+      ])
+      .pipe(mocha({
+        reporter: 'dot',
+        compilers: 'js:babel/register'
+      }));
 });
+gulp.task('resttest', function () {
+  return gulp.src(['test/setup.js','test/**/*.js'])
+    .pipe(mocha({
+      reporter: 'dot',
+      compilers: 'js:babel/register'
+    }));
+});
+gulp.task('test', ['spec', 'resttest']);
 
-gulp.task('unit', function() {
-  var mocha = require('gulp-mocha');
-  // return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js'])
-  return gulp.src(['test/routes/**/*.js', 'test/services/**/*.js', 'test/middleware/**/*.js', 'test/app/**/*.test.js'])
-  .pipe(mocha({
-    reporter: 'spec'
-  }));
+gulp.task('run', ['build'], function (done) {
+  done();
+  run('node node_modules/.bin/babel-node main.js').exec()
+    .pipe(rename('server.log'))
+    .pipe(gulp.dest('logs'));
 });
 
-gulp.task('cucumber', function () {
-  var cucumber = require('gulp-cucumber');
-  return gulp.src('test/features/*.feature')
-  .pipe(cucumber({
-    'steps': 'test/features/steps/*.js',
-    'support': 'test/features/support/*.js',
-    'format': 'summary'
-  }));
-});
-
-gulp.task('test', ['jshint', 'unit']);
-
-gulp.task('cuke', function (done) {
-  run(['run', 'cucumber', 'stop'], done);
-});
-
-gulp.task('watch', function() {
-  return gulp.watch([
-      'server.js',
-      'routes/**/*.js',
-      'services/**/*.js',
-      'test/**/*.js'
-    ], ['unit']);
-});
-
-//###########
-//#run
-//###########
-
-gulp.task('run', function () {
-  console.log('port:', config.port);
-    return require('./server').start()
-      .then(function (s) {
-        server = s;
-      });
-});
-
-gulp.task('stop', function () {
-  return new P(function (resolve) {
-    require('./server').stop(function () {
-      return resolve('done');
-    });
-  });
-});
-
-gulp.task('default', function () {
-  run('build', 'run');
-});
-
-gulp.task('live', ['build-dev', 'run'], function() {
-  livereload.listen();
-  gulp.watch('app/styles/**/*.less', ['less-dev']);
-  gulp.watch('app/js/**/*.js', ['browserify-dev']);
-  gulp.watch([
-     'app/views/**',
-     'app/images/**',
-     'app/index.html'
-  ])
-    .on('change', livereload.changed);
+gulp.task('watch', ['run'], function () {
+  reload.listen();
+  gulp.watch(['services/**/*.js', 'api/**/*.js'], ['spec']);
+  gulp.watch([PUBLICDIR + 'js/**/*', PUBLICDIR + 'spec/**/*'], ['spec', 'webpack']);
+  gulp.watch(PUBLICDIR + 'less/**/*.less', ['less']);
+  gulp.watch([PUBLICDIR + 'index.html', PUBLICDIR + 'img/**/*', PUBLICDIR + 'templates/**/*'], ['static']);
 });

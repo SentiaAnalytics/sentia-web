@@ -4,7 +4,7 @@ module.exports = {
   "mysql" : process.env.MYSQL_URL,
   redis : process.env.REDISCLOUD_URL,
   session : {
-    client : this.redis,
+    client : process.env.REDISCLOUD_URL,
     prefix : 'session'
   },
   gcloud : {
