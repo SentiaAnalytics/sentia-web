@@ -63,7 +63,10 @@
     "squel": "^3.8.1",
     "tokenize": "0.0.3",
     "url-builder": "^0.2.1",
-    "webpack": "^1.8.11"
+    "webpack": "^1.8.11",
+    "gulp-webpack": "^1.4.0",
+    "babel": "^5.2.17",
+    "bluebird": "^2.9.25"
   },
   "devDependencies": {
     "chai": "~1.9.1",
