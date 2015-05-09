@@ -1,3 +1,2 @@
 'use strict';
-import message from './services/test.js';
-console.log(message);
+import Router from './components/Router.jsx';
