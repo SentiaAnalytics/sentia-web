@@ -1,13 +1,9 @@
 import React from 'react';
-
+import {RouteHandler} from 'react-router';
 export default class App extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {message: 'hello'};
-  }
   render () {
     return (
-      <h1>{this.state.message}</h1>
+      <RouteHandler/>
     );
   }
 }
