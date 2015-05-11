@@ -9,7 +9,7 @@ exports.authenticate = {
       .then(function (user) {
         req.session.user = user;
         req.session.company = user.company;
-        return user;
+        return {user: user};
       });
   },
   method : 'POST'

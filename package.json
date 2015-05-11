@@ -54,8 +54,6 @@
     "mysql": "^2.5.1",
     "mysql2": "^0.12.5",
     "node-http-error": "^0.2.0",
-    "react": "^0.13.3",
-    "react-router": "^0.13.3",
     "redis": "~0.12.1",
     "requireindex": "~1.1.0",
     "run-sequence": "^1.0.1",
@@ -65,8 +63,9 @@
     "url-builder": "^0.2.1",
     "webpack": "^1.8.11",
     "gulp-webpack": "^1.4.0",
-    "babel": "^5.2.17",
-    "bluebird": "^2.9.25"
+    "ramda": "^0.13.0",
+    "superagent": "^1.2.0",
+    "flux": "^2.0.3"
   },
   "devDependencies": {
     "chai": "~1.9.1",
@@ -79,7 +78,6 @@
     "request": "~2.40.0",
     "sinon": "~1.10.3",
     "sqlite3": "~2.2.7",
-    "url-builder": "~0.2.1",
-    "zombie": "^2.5.1"
+    "url-builder": "~0.2.1"
   }
 }
