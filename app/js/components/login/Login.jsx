@@ -3,18 +3,15 @@ import LoginForm from './LoginForm.jsx';
 import * as sessionStore from '../../stores/sessionStore';
 
 export default class Login extends React.Component {
-  contextTypes: {
-    router: React.PropTypes.func
-  }
-  
+
   componentDidMount () {
-    sessionStore.onChange(this.handleChange);
+    sessionStore.onChange(event =>this.handleChange(event));
   }
-  
+
   componentWillUnmount () {
     sessionStore.removeListener(this.handleChange);
   }
-  
+
   handleChange () {
 
     let session = sessionStore.get();
@@ -22,12 +19,16 @@ export default class Login extends React.Component {
       this.context.router.transitionTo('dashboard');
     }
   }
-  
+
   render () {
     return (
-      <div className="full-height container">
+      <div className="full-height container table">
         <LoginForm/>
       </div>
     );
   }
 }
+
+Login.contextTypes= {
+  router: React.PropTypes.func
+};

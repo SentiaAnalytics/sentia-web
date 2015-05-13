@@ -11,6 +11,7 @@ var run = require('gulp-run');
 require('babel/register');
 //constants
 var PUBLICDIR = 'app/';
+require('./gulp/tests');
 
 // BUILD
 gulp.task('webpack', function () {
@@ -19,7 +20,6 @@ gulp.task('webpack', function () {
       devtool: "#inline-source-map",
       module: {
         loaders: [
-          // { test: /\.jsx$/, exclude: /node_modules/, loader: 'jsx-loader' },
           { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader'}
         ]
       }
@@ -47,23 +47,8 @@ gulp.task('static'  , function () {
 gulp.task('build', ['less', 'webpack', 'static']);
 
 // TEST
-gulp.task('spec',function () {
-    return gulp.src([
-      'test/**/spec/**/*.js'
-      ])
-      .pipe(mocha({
-        reporter: 'dot',
-        compilers: 'js:babel/register'
-      }));
-});
-gulp.task('resttest', function () {
-  return gulp.src(['test/setup.js','test/**/*.js'])
-    .pipe(mocha({
-      reporter: 'dot',
-      compilers: 'js:babel/register'
-    }));
-});
-gulp.task('test', ['spec', 'resttest']);
+
+
 
 gulp.task('run', ['build'], function (done) {
   done();
