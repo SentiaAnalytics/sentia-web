@@ -1,34 +1,31 @@
 import React from 'react';
+import {Navigation} from 'react-router';
 import LoginForm from './LoginForm.jsx';
 import * as sessionStore from '../../stores/sessionStore';
 
-export default class Login extends React.Component {
+export default React.createClass({
+  mixins:[Navigation],
 
-  componentDidMount () {
-    sessionStore.onChange(event =>this.handleChange(event));
-  }
+  componentDidMount: function () {
+    sessionStore.onChange(this.handleChange);
+  },
 
-  componentWillUnmount () {
+  componentWillUnmount: function () {
     sessionStore.removeListener(this.handleChange);
-  }
+  },
 
-  handleChange () {
-
+  handleChange: function () {
     let session = sessionStore.get();
     if (session.hasOwnProperty('user')) {
-      this.context.router.transitionTo('dashboard');
+      this.transitionTo('dashboard');
     }
-  }
+  },
 
-  render () {
+  render: function () {
     return (
       <div className="full-height container table">
         <LoginForm/>
       </div>
     );
   }
-}
-
-Login.contextTypes= {
-  router: React.PropTypes.func
-};
+});

@@ -7,9 +7,9 @@ import {Dashboard} from './dashboard';
 let Route = Router.Route;
 
 var routes =  (
-  <Route name="app" path="/" handler={App}>
+  <Route name="app" handler={App}>
     <Route name="login" path="/login" handler={Login}/>
-    <Route name="home" handler={Home}>
+    <Route name="home" path="/"handler={Home}>
       <Route name="dashboard" path="/dashboard" handler={Dashboard}/>
     </Route>
   </Route>
