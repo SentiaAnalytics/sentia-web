@@ -19,7 +19,7 @@ export function removeListener(listener){
     return store.removeListener(listener);
 }
 
-export let dispatchToken = store.register(actionListener)
+export let dispatchToken = store.register(actionListener);
 
 function actionListener(action){
     switch(action.actionType){
@@ -41,7 +41,3 @@ function updateAndEmit(session){
 function login(credentials){
     sessionAPI.login(credentials);
 }
-
-
-
-

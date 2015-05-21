@@ -1,0 +1,16 @@
+.sidebar {
+  position: absolute;
+  left:0;
+  top:0;
+  height:100vh;
+  transform: translateX(-100%);
+
+  &.is-docked {
+    position:static;
+  }
+
+  &.is-open,
+  &.is-docked {
+    transform: translateX(0%);
+  }
+}

@@ -1,19 +1,46 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
-// import sessionStore from '../../stores/sessionStore';
-// import sessionErrorStore from '../../stores/sessionErrorStore';
+import * as sessionStore from '../../stores/sessionStore';
+import * as sessionErrorStore from '../../stores/sessionErrorStore';
+import Topbar from './Topbar.jsx';
+import Sidebar from './Sidebar.jsx';
 export default React.createClass({
-  // componentDidMount () {
-  //   sessionStore.onChange(event => this.onSessionChange(event));
-  //   sessionErrorStore.onChange(event => this.onSessionError(event));
-  // }
-  // componentWillUnmount () {
-  //   sessionStore.removeListener(event => this.onSessionChange(event));
-  //   sessionErrorStore.onChange(event => this.onSessionError(event));
-  // }
-  render:() => {
+
+  getInitialState: function () {
+    return {
+      session: sessionStore.get(),
+      error: sessionErrorStore.get()
+    };
+  },
+
+  componentDidMount: function () {
+    sessionStore.onChange(this.sessionChangeHandler);
+    sessionErrorStore.onChange(this.sessionErrorHandler);
+  },
+
+  componentWillUnmount: function () {
+    sessionStore.removeListener(this.sessionChangeHandler);
+    sessionErrorStore.onChange(this.sessionErrorHandler);
+  },
+
+  sessionChangeHandler: function () {
+    this.setState({session: sessionStore.get()});
+  },
+
+  sessionErrorHandler: function () {
+    this.setState({
+      session: sessionStore.get(),
+      error: sessionErrorStore.get()
+    });
+  },
+
+  render: function () {
     return (
-      <RouteHandler/>
+      <div className="bg-gray-ligther">
+        <Sidebar session={this.state.session} open={true}/>
+        <Topbar session={this.state.session}/>
+        <RouteHandler session={this.state.session} error={this.state.error}/>
+      </div>
     );
   }
 });

@@ -3,8 +3,9 @@ import React from 'react';
 import * as utils from '../../services/utils';
 import dispatcher from '../../services/dispatcher';
 
-export default class LoginForm extends React.Component {
-  render () {
+export default React.createClass({
+
+  render: function () {
     return (
       <div className="valign-center">
         <form className="col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" onSubmit={this.login}>
@@ -19,9 +20,9 @@ export default class LoginForm extends React.Component {
         </form>
       </div>
     );
-  }
+  },
 
-  login(event){
+  login: function (event){
     event.preventDefault();
     let credentials = utils.getFormModel(event.target);
     dispatcher.dispatch({
@@ -30,4 +31,4 @@ export default class LoginForm extends React.Component {
     });
   }
 
-}
+});
