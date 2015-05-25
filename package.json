@@ -10,8 +10,8 @@
     "test": "npm prune && NODE_ENV=testing node node_modules/.bin/gulp test",
     "live": "NODE_ENV=develop node node_modules/.bin/gulp watch"
   },
-  "browserify-shim": {
-    "angular": "angular"
+  "engines": {
+    "node": "0.12.x"
   },
   "author": "Andreas Møller",
   "license": "ISC",
