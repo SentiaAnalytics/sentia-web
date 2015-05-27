@@ -2,7 +2,7 @@ import React from 'react';
 import {RouteHandler} from 'react-router';
 import * as sessionStore from '../../stores/sessionStore';
 import * as sessionErrorStore from '../../stores/sessionErrorStore';
-// import Topbar from './Topbar.jsx';
+import Topbar from './Topbar.jsx';
 import Sidebar from './Sidebar.jsx';
 export default React.createClass({
 
@@ -38,7 +38,7 @@ export default React.createClass({
     return (
       <div className="bg-gray-ligther">
         <Sidebar session={this.state.session} open={true}/>
-        // <Topbar session={this.state.session}/>
+        <Topbar session={this.state.session}/>
         <RouteHandler session={this.state.session} error={this.state.error}/>
       </div>
     );

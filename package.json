@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node node_modules/.bin/babel-node main.js",
     "build": "node node_modules/.bin/gulp build",
-    "test": "npm prune && NODE_ENV=testing node node_modules/.bin/gulp test",
-    "live": "NODE_ENV=develop node node_modules/.bin/gulp watch"
+    "test": "npm prune && node node_modules/.bin/gulp test",
+    "live": "node node_modules/.bin/gulp watch"
   },
   "engines": {
     "node": "0.12.x"
