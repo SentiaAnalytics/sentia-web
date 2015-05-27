@@ -27,8 +27,7 @@ gulp.task('webpack', function () {
   return gulp.src(PUBLICDIR + 'js/main.js')
     .pipe(webpack(webpackConfig))
     .pipe(rename('bundle.js'))
-    .pipe(gulp.dest(PUBLICDIR))
-    .pipe(reload());
+    .pipe(gulp.dest(PUBLICDIR));
 });
 
 gulp.task('less', function () {
@@ -36,8 +35,7 @@ gulp.task('less', function () {
       .pipe(sourcemaps.init())
       .pipe(less())
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest(PUBLICDIR))
-      .pipe(reload());
+      .pipe(gulp.dest(PUBLICDIR));
 });
 
 gulp.task('static'  , function () {
