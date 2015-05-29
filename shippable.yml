@@ -9,3 +9,8 @@ install:
 
 script:
   - npm test
+
+after_succeess:
+  - echo "after_succeess"
+after_script:
+  - echo "after_script"
