@@ -10,7 +10,7 @@ install:
 script:
   - npm test
 
-after_succeess:
-  - echo "after_succeess"
-after_script:
-  - echo "after_script"
+after_success:
+  - docker build -t gcr.io/sentia-analytics/web:$SHIPPABLE_BUILD_NUMBER
+  - cd /tmp && gcloud -q auth activate-service-account --key-file key.json
+  - sudo docker push gcr.io/sentia-analytics/web:$SHIPPABLE_BUILD_NUMBER
