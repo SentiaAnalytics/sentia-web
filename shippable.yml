@@ -9,6 +9,3 @@ install:
 
 script:
   - npm test
-
-after_script:
-  - cat /tmp/key.json
