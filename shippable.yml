@@ -6,6 +6,11 @@ node_js:
 
 install:
   - npm install
+  - echo $SHIPPABLE_API_KEY
+  - echo $apiKey
 
 script:
   - npm test
+
+env:
+  - secure: gnorDbSWXPaNCgDzWL0bqdKBOnoBhCSRghXKWHHdNvEPh2P81XrUkM+1tvvPB7R1WMPB+yfjlAQoG1yINFL+pY+OCeh4DoOM/6cRDTx1Fe9daF4XegtlFqPo12IWkrJdMK56o/jzi0JA0ltnfN5sWRpEjWUNiED8VjEjaXSgTOMqeTtx9cxTexpZP8/tKizNGsy7DmN6fPk+i0ZFzKSaw3NE+8NUYyS3u1PX+0WDYZyUIf1EdahMgZhr8NddCodXh90tBLtD68poOmtT6pW6uwTsBl83HESFQCYd1jFKALvjdpEOgsTUBG5TAFDVTTFTk8rM8VbA+3w1FkwOQjua6g==
