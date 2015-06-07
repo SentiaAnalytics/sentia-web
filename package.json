@@ -54,6 +54,7 @@
     "mongoose": "^3.8.22",
     "mysql2": "^0.12.5",
     "node-http-error": "^0.2.0",
+    "qwest": "^1.7.0",
     "ramda": "^0.13.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",

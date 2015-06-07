@@ -8,7 +8,7 @@ export default React.createClass({
   render: function () {
     return (
       <div className="valign-center">
-        <form className="col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" onSubmit={this.login}>
+        <form id="loginform" className="col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" onSubmit={this.login}>
           <div className="uppercase">Welcome</div>
           <div className="form-group">
             <input className="form-control" type="email" name="email"/>

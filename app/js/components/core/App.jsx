@@ -3,7 +3,10 @@ import {RouteHandler} from 'react-router';
 export default React.createClass({
   render: () => {
     return (
-      <RouteHandler/>
+      <div>
+        <h1>Sentia</h1>
+        <RouteHandler/>
+      </div>
     );
   }
 });

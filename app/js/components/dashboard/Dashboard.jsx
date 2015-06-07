@@ -2,6 +2,9 @@
 import React from 'react';
 
 export default React.createClass({
+  componentDidMount: function () {
+    document.title = 'Sentia Analytics - Dashboard';
+  },
   render: function () {
     return (
       <div className="">

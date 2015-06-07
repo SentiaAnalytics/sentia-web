@@ -9,12 +9,20 @@ export function fetchSession() {
 
 export function login(credentials) {
   http.post('/api/session/authenticate', credentials)
-    .then(dispatchChangeAction);
+    .then(dispatchChangeAction)
+    .catch(dispatchLoginError)
 }
 
 function dispatchChangeAction(session) {
   dispatcher.dispatch({
     actionType: 'SESSION_CHANGED',
     session: session
+  });
+}
+
+function dispatchLoginError (err) {
+  dispatcher.dispatch({
+    actionType: 'LOGIN_ERROR',
+    error: err
   });
 }
