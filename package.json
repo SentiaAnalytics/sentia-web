@@ -57,6 +57,7 @@
     "qwest": "^1.7.0",
     "ramda": "^0.13.0",
     "react": "^0.13.3",
+    "react-datepicker": "^0.8.0",
     "react-router": "^0.13.3",
     "redis": "~0.12.1",
     "requireindex": "~1.1.0",
