@@ -3,4 +3,11 @@ build:
   steps:
     - script:
       name: gcloud
-      code: gcloud
+      code: gcloud --help
+
+build:
+  box: google/cloud-sdk
+  steps:
+    - script:
+      name: hello world
+      code: echo "hello world"
