@@ -5,7 +5,10 @@ import moment from 'moment';
 export default React.createClass({
 
   getInitialState: function () {
-    return {open: true, docked: false};
+    return {
+      start_date: moment(),
+      end
+    };
   },
 
   render: function() {

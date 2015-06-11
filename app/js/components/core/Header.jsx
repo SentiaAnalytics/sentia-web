@@ -11,7 +11,8 @@ export default React.createClass({
   render: function() {
     return (
       <div className="">
-        <Datepicker>
+        <Datepicker
+        start_date: moment()>
       </div>
     );
   }
