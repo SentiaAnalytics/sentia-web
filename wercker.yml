@@ -5,9 +5,6 @@ build:
       name: gcloud
       code: gcloud --help
 
-build:
-  box: google/cloud-sdk
-  steps:
     - script:
-      name: hello world
-      code: echo "hello world"
+      name: docker build
+      code:  gcloud preview docker build gcr.io/sentia-analytics/web .
