@@ -13,7 +13,5 @@ dependencies:
 test:
   override:
     - npm test
-
-deployment:
-  pre:
-    docker build -t gcr.io/sentia-analytics/web .
+    - docker build -t gcr.io/sentia-analytics/web .
+    
