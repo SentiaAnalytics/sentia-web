@@ -1,6 +1,10 @@
 machine:
   services:
     - docker
+  ruby:
+    version: rbx-2.2.6
+  node:
+    version: 0.10.22
 
 dependencies:
   override:
