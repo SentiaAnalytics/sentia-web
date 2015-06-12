@@ -14,7 +14,7 @@ test:
   override:
     - npm test
     - docker build -t gcr.io/sentia_analytics/web .
-    - sh bin/runDocker.sh
+    - sh ci/runDocker.sh
     - sleep 5
     - curl http://localhost
     - cd cucumber && bundle install && bundle exec cucumber
