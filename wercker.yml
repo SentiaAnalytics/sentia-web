@@ -7,7 +7,7 @@ build:
 
     - script:
       name: set gcloud credentials
-      code: google-cloud-sdk/bin/gcloud -q auth activate-service-account --key-file gcloud.json
+      code: gcloud -q auth activate-service-account --key-file gcloud.json
 
     - script:
       name: pull image
