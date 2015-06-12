@@ -1,14 +1,10 @@
 build:
-  box: google/cloud-sdk
+  box: dockercore/docker
   steps:
     - script:
-      name: create key file
-      code: echo $GCLOUD_KEY >> gcloud.json
+      name: docker build
+      code: docker build -t gcr.io/sentia-analytics/web .
 
     - script:
-      name: set gcloud credentials
-      code: gcloud -q auth activate-service-account --key-file gcloud.json
-
-    - script:
-      name: pull image
-      code: gcloud preview docker pull gcr.io/sentia-analytics/web:react.2
+      name: docker run
+      code: sh runDocker.sh
