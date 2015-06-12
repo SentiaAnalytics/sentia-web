@@ -10,7 +10,7 @@ require 'random_data'
 end
 
 def host
-  @host ||= ENV['TEST_HOST'] || 'http://localhost'
+  @host ||= ENV['TEST_HOST'] || 'http://localhost:3000'
 end
 puts host
 
