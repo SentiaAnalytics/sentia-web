@@ -16,4 +16,4 @@ test:
     - docker build -t gcr.io/sentia_analytics/web .
     - sh runDocker.sh
     - sleep 5
-    - cd cucumber && bundle install be cucumber
+    - cd cucumber && bundle install && be cucumber
