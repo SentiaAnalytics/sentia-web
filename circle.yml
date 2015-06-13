@@ -7,6 +7,9 @@ machine:
     version: 0.10.22
 
 dependencies:
+  pre:
+    - apt-get update && apt-get install phantomjs
+    - phantomjs --version
   override:
     - npm install
 
