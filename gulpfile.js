@@ -44,7 +44,6 @@ gulp.task('static'  , function () {
 
 gulp.task('build', ['less', 'webpack', 'static']);
 
-// TEST
 
 
 

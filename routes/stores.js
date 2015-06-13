@@ -1,12 +1,11 @@
 'use strict';
 var StoresService = require('../services/stores.service'),
-  middleware = require('../middleware'),
-  lodash = require('lodash');
+  middleware = require('../middleware');
 
 exports.read = {
   url : ':_id',
   handler : function (req, res, next) {
-    return StoresService.read(lodash.merge(req.params, req.query));
+    return StoresService.read(R.merge(req.params, req.query));
   },
   middleware : [middleware.read]
 };

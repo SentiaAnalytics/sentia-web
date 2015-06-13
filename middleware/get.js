@@ -1,6 +1,5 @@
 'use strict';
 var HTTPError = require('node-http-error');
-var lodash = require('lodash');
 var logger = require('bragi');
 module.exports = function (req, res, next) {
   if (req.query && req.query.json) {
@@ -10,8 +9,8 @@ module.exports = function (req, res, next) {
       return next(new HTTPError(400, 'Invalid json'));
     }
   }
-  req.query = lodash.extend({}, req.query);
-  req.query.where = lodash.extend({}, req.query.where, {company: req.session.company});
+  req.query = R.merge({}, req.query);
+  req.query.where = R.merge(req.query.where, {company: req.session.company});
   logger.log('middleware.get:debug:query', req.query);
   return next();
 };

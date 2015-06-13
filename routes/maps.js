@@ -3,7 +3,6 @@
 //
 'use strict';
 var MapsService = require('../services/maps.service'),
-  lo = require('lodash'),
   middleware = require('../middleware');
 
 // ## Read

@@ -3,7 +3,6 @@
 //
 'use strict';
 var PeoplesService = require('../services/peopleCounter'),
-  lo = require('lodash'),
   middleware = require('../middleware');
 
 // ## Read

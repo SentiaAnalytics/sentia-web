@@ -19,7 +19,7 @@ class LoginPage
   end
 
   def login(cred = credentials)
-    within '#loginform' do
+    within find('#loginform') do
       fill_in 'email', with: cred[:email]
       fill_in 'password', with: cred[:password]
       find('input[type=submit]').click

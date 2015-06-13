@@ -1,6 +1,5 @@
 'use strict';
 var P = require('bluebird'),
-  lodash = require('lodash'),
   logger = require('bragi'),
   models = require('../models'),
   bcrypt = require('./bcrypt.service'),

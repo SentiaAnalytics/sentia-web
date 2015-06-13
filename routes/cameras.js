@@ -3,7 +3,6 @@
 
 'use strict';
 var middleware = require('../middleware'),
-  lodash = require('lodash'),
   CameraService = require('../services/cameras.service');
 
 // ## Read
@@ -11,7 +10,7 @@ var middleware = require('../middleware'),
 exports.read = {
   url : ':_id',
   handler : function (req, res, next) {
-    return CameraService.read(lodash.merge(req.params, req.query));
+    return CameraService.read(R.merge(req.params, req.query));
   },
   middleware : [middleware.read]
 };

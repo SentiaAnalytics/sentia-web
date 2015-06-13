@@ -18,6 +18,8 @@
   "trailing": true,
   "white": false,
   "globals": {
+     "R": false,
+     "Promise": false,
      "describe" : false,
      "before": false,
      "beforeEach": false,

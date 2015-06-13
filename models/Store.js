@@ -1,7 +1,6 @@
 'use strict';
 var mongoose = require('mongoose'),
   logger = require('bragi'),
-  P = require('bluebird'),
   StoreSchema;
 
 StoreSchema = mongoose.Schema({
@@ -11,7 +10,7 @@ StoreSchema = mongoose.Schema({
   floors : Array
 });
 StoreSchema.methods.savep = function () {
-  return new P(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
     this.save(function (err) {
       if (err) {
         logger.log('debug:users', err);
