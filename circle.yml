@@ -8,7 +8,7 @@ machine:
 
 dependencies:
   pre:
-    - apt-get update && apt-get install phantomjs
+    - sudo apt-get update && sudo apt-get install phantomjs
     - phantomjs --version
   override:
     - npm install
