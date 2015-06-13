@@ -6,14 +6,16 @@ machine:
   node:
     version: 0.10.22
 
+  environment:
+    TEST_MODE: ff
+
 dependencies:
-  pre:
-    - sudo npm i -g phantomjs
-    - phantomjs --version
   override:
     - npm install
 
 test:
+  pre:
+    -  echo $TEST_MODE
   override:
     - npm test
     - docker build -t gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM .
