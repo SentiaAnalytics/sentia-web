@@ -12,8 +12,9 @@ end
 def host
   @host ||= ENV['TEST_HOST'] || 'http://localhost:3000'
 end
-puts host
-
+def screenshot_dir
+  (ENV['CIRCLE_ARTIFACTS'] || '.') + '/screenshots/'
+end
 Capybara.app_host = host
 Capybara.default_wait_time = 5
 
@@ -30,7 +31,7 @@ puts '=== SCREENSHOTS ==='
 puts 'screenshots auto saved on failure to ./screenshots'
 puts 'ENV DISABLE_FAILURE_SCREENSHOTS will do what it says on the tin'
 puts 'default will prune old screenshots'
-Capybara.save_and_open_page_path = './screenshots/'
+Capybara.save_and_open_page_path = screenshot_dir
 Capybara::Screenshot.autosave_on_failure = false if ENV['DISABLE_SCREENSHOTS']
 Capybara::Screenshot.prune_strategy = :keep_last_run
 
