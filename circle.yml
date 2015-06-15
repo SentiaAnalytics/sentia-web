@@ -15,7 +15,6 @@ dependencies:
     - wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.zip && unzip google-cloud-sdk.zip && rm google-cloud-sdk.zip
     - sudo google-cloud-sdk/install.sh --usage-reporting=true --path-update=true --bash-completion=true --rc-path=/.bashrc --disable-installation-options
     - sudo google-cloud-sdk/bin/gcloud --quiet components update preview alpha beta app
-    - sudo chmod a+x google-cloud-sdk/bin/gcloud
   override:
     - npm install
 
@@ -24,7 +23,7 @@ test:
     -  echo $TEST_MODE
   override:
     - echo $PATH
-    - gcloud --help
+    - sudo chmod a+x google-cloud-sdk/bin/gcloud && gcloud --help
     - npm test
     - docker build -t gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM .
     - sh ci/runDocker.sh && sleep 5
