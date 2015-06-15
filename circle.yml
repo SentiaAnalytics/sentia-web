@@ -10,7 +10,7 @@ machine:
     TEST_MODE: ff
     PATH: /home/ubuntu/web/google-cloud-sdk/bin:$PATH
 
-dependency:
+dependencies:
   pre:
     - sh ci/setup_gcloud.sh
   override:
