@@ -26,3 +26,4 @@ test:
     - sh ci/runDocker.sh && sleep 5
     - curl --retry 10 --retry-delay 5 -v http://localhost:3000
     - cd cucumber && bundle install && bundle exec cucumber
+    - gcloud --help
