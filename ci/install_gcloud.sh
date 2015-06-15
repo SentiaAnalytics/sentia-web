@@ -1,5 +1,5 @@
 #!/bin/bash
-apt-get update && apt-get install -y -qq --no-install-recommends openssh-client python-openssl && apt-get clean
+sudo apt-get update && sudo apt-get install -y -qq --no-install-recommends openssh-client python-openssl && sudo apt-get clean
 wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.zip
 unzip google-cloud-sdk.zip
 rm google-cloud-sdk.zip
