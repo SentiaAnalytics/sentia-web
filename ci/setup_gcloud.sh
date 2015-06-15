@@ -14,8 +14,8 @@ sudo gcloud --quiet components update  preview  alpha  beta  app
 
 #config
 $GCLOUD_CREDENTIALS >> gcloud.json
-gcloud -q auth activate-service-account --key-file gcloud.json
-gcloud config set project sentia-analytics
-gcloud config set compute/zone europe-west1-b
-gcloud config set container/cluster web-cluster
-gcloud alpha container get-credentials
+sudo gcloud -q auth activate-service-account --key-file gcloud.json
+sudo gcloud config set project sentia-analytics
+sudo gcloud config set compute/zone europe-west1-b
+sudo gcloud config set container/cluster web-cluster
+sudo gcloud alpha container get-credentials
