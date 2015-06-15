@@ -9,3 +9,16 @@ machine:
   environment:
     TEST_MODE: ff
     PATH: /home/ubuntu/web/google-cloud-sdk/bin:$PATH
+
+dependency:
+  pre:
+    - sh ci/setup_gcloud.sh
+  override:
+    - npm install
+
+test:
+  pre:
+    - npm test
+  override:
+    - docker build -t gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM .
+    - sh ci/run_docker.sh && sleep 5 && sh ci/run_cucumber.sh

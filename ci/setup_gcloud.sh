@@ -9,6 +9,7 @@ sudo google-cloud-sdk/install.sh \
   --bash-completion=true \
   --rc-path=/.bashrc \
   --disable-installation-options
+
 alias gcloud=google-cloud-sdk/bin/gcloud
 sudo gcloud --quiet components update  preview  alpha  beta  app
 
