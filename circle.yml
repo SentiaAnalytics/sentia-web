@@ -8,6 +8,7 @@ machine:
 
   environment:
     TEST_MODE: ff
+    PATH: ~/google-cloud-sdk/bin:$PATH
 
 dependencies:
   pre:
@@ -21,6 +22,7 @@ test:
   pre:
     -  echo $TEST_MODE
   override:
+    - echo $PATH
     - gcloud --help
     - npm test
     - docker build -t gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM .
