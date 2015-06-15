@@ -12,6 +12,7 @@ machine:
 
 dependencies:
   pre:
+    - sh ci/install_gcloud.sh
     - sh ci/setup_gcloud.sh
   override:
     - npm install
