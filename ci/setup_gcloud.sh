@@ -1,8 +1,6 @@
 #!/bin/bash
 #install
-echo $GCLOUD_CREDENTIALS
 echo $GCLOUD_CREDENTIALS >> gcloud.json
-cat gcloud.json
 wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.zip
 unzip google-cloud-sdk.zip
 rm google-cloud-sdk.zip
