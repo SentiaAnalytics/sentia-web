@@ -12,20 +12,14 @@ machine:
 
 dependencies:
   pre:
-    - wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.zip && unzip google-cloud-sdk.zip && rm google-cloud-sdk.zip
-    - sudo google-cloud-sdk/install.sh --usage-reporting=true --path-update=true --bash-completion=true --rc-path=/.bashrc --disable-installation-options
-    - sudo google-cloud-sdk/bin/gcloud --quiet components update preview alpha beta app
+    - sh ci/setup_gcloud.sh
   override:
     - npm install
 
 test:
   pre:
-    -  echo $TEST_MODE
-  override:
-    - echo $PATH
-    - sudo chmod a+x google-cloud-sdk/bin/gcloud && gcloud --help
     - npm test
+  override:
     - docker build -t gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM .
-    - sh ci/runDocker.sh && sleep 5
-    - curl --retry 10 --retry-delay 5 -v http://localhost:3000
-    - cd cucumber && bundle install && bundle exec cucumber
+    - sh ci/run_docker.sh && sleep 5
+    - sh ci/run_cucumber.sh
