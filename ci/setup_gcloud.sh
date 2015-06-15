@@ -12,7 +12,7 @@ sudo google-cloud-sdk/install.sh \
   --disable-installation-options
 sudo google-cloud-sdk/bin/gcloud --quiet components update  preview  alpha  beta  app
 ls
-cat gcloud.json
+less gcloud.json
 sudo google-cloud-sdk/bin/gcloud -q auth activate-service-account --key-file gcloud.json
 sudo google-cloud-sdk/bin/gcloud config set project sentia-analytics
 sudo google-cloud-sdk/bin/gcloud config set compute/zone europe-west1-b
