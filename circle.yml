@@ -5,6 +5,8 @@ machine:
     version: rbx-2.2.6
   node:
     version: 0.10.22
+  python:
+    version: pypy-2.2.1
 
   environment:
     TEST_MODE: ff
@@ -12,8 +14,12 @@ machine:
     CLOUDSDK_PYTHON_SITEPACKAGES: 1
 
 dependencies:
+  pre:
+    - sh ci/install_gcloud.sh
+    - sh ci/setup_gcloud.sh
   override:
     - npm install
+
 
 test:
   pre:
@@ -21,10 +27,3 @@ test:
   override:
     - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
     - sh ci/run_docker.sh && sleep 5 && sh ci/run_cucumber.sh
-
-deployment:
-  hub:
-    branch: react
-    commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
