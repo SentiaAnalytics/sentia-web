@@ -1,6 +1,5 @@
 'use strict';
 var config = require('config');
-var logger = require('bragi');
 var Stream = require('stream').Readable;
 var HTTPError = require('node-http-error');
 var gcloud = require('gcloud')({
@@ -13,7 +12,7 @@ exports.getReadStream = function (bucketName, filepath) {
     throw new HTTPError(500, 'Missing company');
   }
   if (!filepath) {
-    logger.log('debug:gcloud:error', 'no File Path');
+    logger.log('debug', 'gcloud:error', 'no File Path');
     throw new HTTPError(400, 'Missing Filepath');
   }
   bucket = gcloud.storage().bucket(bucketName);
@@ -25,11 +24,11 @@ exports.getReadStream = function (bucketName, filepath) {
 exports.getWriteStream = function (bucketName, filepath) {
   var bucket;
   if (!bucketName) {
-    logger.log('debug:gcloud:error', 'no company');
+    logger.log('debug', 'gcloud:error', 'no company');
     throw new HTTPError(500, 'Missing company');
   }
   if (!filepath) {
-    logger.log('debug:gcloud:error', 'no File Path');
+    logger.log('debug','gcloud:error', 'no File Path');
     throw new HTTPError(400, 'Missing Filepath');
   }
   bucket = gcloud.storage().bucket(bucketName);

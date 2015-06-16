@@ -49,6 +49,7 @@ app.on('close', function () {
 exports.start = function () {
   return bootstrap()
     .then(function () {
+      logger.log('info', 'server started');
       return new P(function (resolve) {
         server = app.listen(config.port, resolve);
       });

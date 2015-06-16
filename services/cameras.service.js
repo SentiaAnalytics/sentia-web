@@ -2,8 +2,7 @@
 var models = require('../models'),
   P = require('bluebird'),
   objectId = require('mongoose').Types.ObjectId,
-  HTTPError = require('node-http-error'),
-  logger = require('bragi');
+  HTTPError = require('node-http-error');
 
 exports.create = function (query) {
   var camera = new models.Camera(query);
@@ -25,7 +24,6 @@ exports.read = function (query) {
 exports.find = function (query) {
   return P.resolve(query.where)
     .then(sanitizeQuery)
-    .then(logger.promise('cameras:service:debug:query'))
     .then(function (query) {
       return models.Camera.find(query).exec();
     });

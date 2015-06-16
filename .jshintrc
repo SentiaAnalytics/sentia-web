@@ -20,6 +20,7 @@
   "globals": {
      "R": false,
      "Promise": false,
+     "logger": false,
      "describe" : false,
      "before": false,
      "beforeEach": false,
