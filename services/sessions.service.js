@@ -2,7 +2,6 @@
 var models = require('../models'),
   UsersService = require('./users.service'),
   HTTPError = require('node-http-error'),
-  logger = require('bragi'),
   bcrypt = require('./bcrypt.service');
 
 
@@ -13,7 +12,7 @@ exports.authenticate = function (credentials) {
     .exec()
     .then(exports._validatePassword.bind(credentials))
     .then(null, function (err) {
-      logger.log('debug:authenticate', err);
+      logger.log('debug', ' authenticate', err);
       return Promise.reject(err);
     });
 };

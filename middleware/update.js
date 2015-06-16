@@ -1,7 +1,6 @@
 'use strict';
 var HTTPError = require('node-http-error');
 var objectId = require('mongoose').Types.ObjectId;
-var log = require('bragi').log;
 module.exports = function (req, res, next) {
   req.params = R.merge(req.params, {company : req.session.company});
   req.params._id = objectId(req.params._id);

@@ -3,7 +3,6 @@
 //
 'use strict';
 var PosService = require('../services/posService'),
-  logger = require('bragi').log,
   middleware = require('../middleware');
 
 // ## Read

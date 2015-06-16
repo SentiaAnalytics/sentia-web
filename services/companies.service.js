@@ -1,8 +1,7 @@
 'use strict';
 var models = require('../models'),
   P = require('bluebird'),
-  HTTPError = require('node-http-error'),
-  logger = require('bragi');
+  HTTPError = require('node-http-error');
 
 exports.create = function (query) {
   var company = new models.Company(query);

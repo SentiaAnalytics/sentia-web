@@ -1,7 +1,6 @@
 'use strict';
 var gcloudstorage = require('../../services/gcloudstorage.service');
 var HTTPError = require('node-http-error');
-var logger = require('bragi');
 var middleware = require('../../middleware');
 
 exports.read = {
