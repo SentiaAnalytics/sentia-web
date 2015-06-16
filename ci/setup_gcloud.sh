@@ -2,6 +2,8 @@
 #install
 echo $GCLOUD_KEY >> gcloud.json
 sudo google-cloud-sdk/bin/gcloud version
+echo "pyton sitepackages"
+echo $CLOUDSDK_PYTHON_SITEPACKAGES
 sudo google-cloud-sdk/bin/gcloud auth activate-service-account --key-file="gcloud.json" 932979765667-beermpahkg10ptkodefiqhl08ka646i4.apps.googleusercontent.com
 # sudo google-cloud-sdk/bin/gcloud config set project sentia-analytics
 # sudo google-cloud-sdk/bin/gcloud config set compute/zone europe-west1-b
