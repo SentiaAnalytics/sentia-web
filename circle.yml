@@ -17,7 +17,6 @@ dependencies:
   override:
     - npm install
 
-
 test:
   pre:
     - npm test
@@ -26,7 +25,7 @@ test:
     - sh ci/run_docker.sh && sleep 5 && sh ci/run_cucumber.sh
 
 deployment:
-     branch: react
-     commands:
-       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-       - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
+   branch: react
+   commands:
+     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+     - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
