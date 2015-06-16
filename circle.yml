@@ -19,7 +19,7 @@ test:
   pre:
     - npm test
   override:
-    - docker build -t cullophid/web:$CIRCLE_BUILD_NUM .
+    - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
     - sh ci/run_docker.sh && sleep 5 && sh ci/run_cucumber.sh
 
 deployment:
@@ -27,4 +27,4 @@ deployment:
     branch: react
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push cullophid/web
+      - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
