@@ -23,8 +23,10 @@ test:
     - ci/docker_run:
         background: true
   override:
-    - npm test
-    - ci/cucumber
+    - npm test:
+      parallel: true
+    - ci/cucumber:
+      parallel: true
 
 
 deployment:
