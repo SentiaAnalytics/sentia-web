@@ -3,4 +3,4 @@ docker run \
   -e MONGOLAB_URI=$MONGOLAB_URI \
   -e MYSQL_URL=$MYSQL_URL \
   -e REDISCLOUD_URL=$REDISCLOUD_URL \
-  cullophid/sentia:$CIRCLE_BUILD_NUM
+  cullophid/sentia:$CIRCLE_BUILD_NUM >> $CIRCLE_ARTIFACTS/docker.log

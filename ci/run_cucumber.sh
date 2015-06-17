@@ -1,4 +1,2 @@
 #!/bin/bash
-cd cucumber
-bundle install
-bundle exec cucumber
+(cd cucumber && bundle install && bundle exec cucumber)

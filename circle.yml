@@ -22,7 +22,9 @@ test:
     - npm test
   override:
     - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
-    - sh ci/docker_run.sh && sleep 5 && sh ci/run_cucumber.sh
+    - ci/docker_run.sh:
+      background: true
+    - sleep 5 && ci/run_cucumber.sh
   post:
 
 deployment:
