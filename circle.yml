@@ -18,4 +18,5 @@ dependencies:
     - ci/install_gcloud
 
 test:
-  - echo "test"
+  override:
+    - echo "test"
