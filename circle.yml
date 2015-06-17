@@ -20,7 +20,7 @@ dependencies:
 test:
   pre:
     - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
-    - ci/docker_run:
+    - ci/run_docker:
         background:
           true
   override:
@@ -29,8 +29,9 @@ test:
 
 
 deployment:
-  hub:
+  pre:
+    - ci/install_gcloud
+  production:
     branch: react
     commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
+      - echo "deploy"
