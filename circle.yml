@@ -24,12 +24,8 @@ test:
         background:
           true
   override:
-    - npm test:
-      parallel:
-        true
-    - ci/cucumber:
-      parallel:
-        true
+    - npm test
+    - ci/cucumber
 
 
 deployment:
