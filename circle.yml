@@ -15,23 +15,7 @@ machine:
 
 dependencies:
   override:
-    - npm install
+    - ci/install_gcloud
 
 test:
-  pre:
-    - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
-    - ci/run_docker:
-        background:
-          true
-  override:
-    - npm test
-    - ci/cucumber
-
-
-deployment:
-  pre:
-    - ci/install_gcloud
-  production:
-    branch: react
-    commands:
-      - echo "deploy"
+  - echo "test"
