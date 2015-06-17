@@ -18,14 +18,13 @@ dependencies:
     - npm install
 
 test:
-  pre:
-    - npm test
   override:
-    - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
-    - ci/docker_run.sh:
-      background: true
-    - sleep 5 && ci/run_cucumber.sh
+    - npm test
   post:
+    - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
+    - ci/docker_run:
+      background: true
+    - sleep 5 && ci/cucumber
 
 deployment:
   hub:
