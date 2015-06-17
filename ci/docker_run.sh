@@ -1,5 +1,4 @@
 docker run \
-  -d \
   -p 3000:3000 \
   -e MONGOLAB_URI=$MONGOLAB_URI \
   -e MYSQL_URL=$MYSQL_URL \
