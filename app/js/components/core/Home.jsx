@@ -37,7 +37,7 @@ export default React.createClass({
     return (
       <div className="bg-gray-ligther">
         <Sidebar session={this.state.session} open={true}/>
-        <h1>v0.0.20</h1>
+        <h1>v0.0.21</h1>
         <RouteHandler session={this.state.session} error={this.state.error}/>
       </div>
     );
