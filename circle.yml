@@ -15,7 +15,7 @@ machine:
 
 dependencies:
   override:
-    - npm install
+    # - npm install
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 
 test:
