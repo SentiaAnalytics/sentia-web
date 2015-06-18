@@ -4,13 +4,14 @@ import dispatcher from './dispatcher';
 
 export function fetchSession() {
   return http.get('/api/session')
-    .then(dispatchChangeAction);
+    .then(dispatchChangeAction)
+    .catch(dispatchError('SESSION_ERROR'));
 }
 
 export function login(credentials) {
   http.post('/api/session/authenticate', credentials)
     .then(dispatchChangeAction)
-    .catch(dispatchLoginError)
+    .catch(dispatchError('LOGIN_ERROR'));
 }
 
 function dispatchChangeAction(session) {
@@ -25,4 +26,13 @@ function dispatchLoginError (err) {
     actionType: 'LOGIN_ERROR',
     error: err
   });
+}
+
+function dispatchError (type) {
+  return function (err) {
+    dispatcher.dispatch({
+      actionType: type,
+      error: err
+    });
+  }
 }

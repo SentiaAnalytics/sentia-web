@@ -25,6 +25,9 @@ function actionListener(action){
     case 'LOGIN_ERROR':
       updateAndEmit('Invalid email or password');
       break;
+    case 'SESSION_ERROR':
+      updateAndEmit('Missing Session');
+      break;
   }
 }
 

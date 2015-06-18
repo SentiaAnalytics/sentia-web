@@ -1,20 +1,21 @@
 import React from 'react';
-import {RouteHandler} from 'react-router';
+import {Navigation, RouteHandler} from 'react-router';
 import * as sessionStore from '../../stores/sessionStore';
+import dispatcher from '../../services/dispatcher';
 import * as sessionErrorStore from '../../stores/sessionErrorStore';
 import Sidebar from './Sidebar.jsx';
 export default React.createClass({
-
+  mixins:[Navigation],
   getInitialState: function () {
-    return {
-      session: sessionStore.get(),
-      error: sessionErrorStore.get()
-    };
+    return { session: sessionStore.get() };
   },
 
   componentDidMount: function () {
     sessionStore.onChange(this.sessionChangeHandler);
     sessionErrorStore.onChange(this.sessionErrorHandler);
+    if (!sessionStore.get()) {
+      dispatcher.dispatch({actionType: 'FETCH_SESSION'})
+    }
   },
 
   componentWillUnmount: function () {
@@ -27,18 +28,14 @@ export default React.createClass({
   },
 
   sessionErrorHandler: function () {
-    this.setState({
-      session: sessionStore.get(),
-      error: sessionErrorStore.get()
-    });
+    return this.transitionTo('login');
   },
 
   render: function () {
     return (
       <div className="bg-gray-ligther">
-        <Sidebar session={this.state.session} open={true}/>
         <h1>v0.0.21</h1>
-        <RouteHandler session={this.state.session} error={this.state.error}/>
+        <RouteHandler session={this.state.session} />
       </div>
     );
   }

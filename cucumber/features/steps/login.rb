@@ -5,6 +5,9 @@ end
 Then(/^I should be on the login page$/) do
   expect(page).to have_title(login_page.title)
 end
+Then(/^I should be redirected to the login page$/) do
+  expect(page).to have_title(login_page.title)
+end
 
 Then(/^I should see the login form/) do
   login_page.loginform
