@@ -20,7 +20,7 @@ dependencies:
 
 test:
   pre:
-    - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
+    # - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
     # - ci/run_docker:
     #     background:
     #       true
