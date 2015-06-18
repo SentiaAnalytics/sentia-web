@@ -34,5 +34,5 @@ deployment:
     branch: react
     commands:
       - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
-      - docker pull colluphid/deploy-web:latest
-      - docker run colluphid/deploy-web:latest -e CIRCLE_BUILD_NUM=$CIRCLE_BUILD_NUM
+      - docker pull colluphid/deploy-web
+      - docker run colluphid/deploy-web -e CIRCLE_BUILD_NUM=$CIRCLE_BUILD_NUM
