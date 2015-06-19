@@ -15,6 +15,7 @@ machine:
 
 dependencies:
   override:
+    - ci/install_gcloud
     # - npm install
     # - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 
@@ -32,8 +33,6 @@ test:
 deployment:
   hub:
     branch: react
-    pre:
-      - ci/install_gcloud
     commands:
       - echo "deploy"
       # - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
