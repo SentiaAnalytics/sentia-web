@@ -34,7 +34,7 @@ export default React.createClass({
   render: function () {
     return (
       <div className="bg-gray-ligther">
-        <h1>v0.0.21</h1>
+        <h1>v0.0.22</h1>
         <RouteHandler session={this.state.session} />
       </div>
     );
