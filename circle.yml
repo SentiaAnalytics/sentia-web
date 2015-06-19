@@ -9,6 +9,9 @@ machine:
     version: pypy-2.2.1
 
   environment:
+    SENTIA_PROJECT: sentia-analytics
+    SENTIA_ZONE: europe-west1-b
+    SENTIA_CLUSTER: web-cluster
     TEST_MODE: ff
     PATH: ~/web/google-cloud-sdk/bin:$PATH
     CLOUDSDK_PYTHON_SITEPACKAGES: 1
@@ -35,6 +38,7 @@ deployment:
     branch: react
     commands:
       - echo "deploy"
+      - kubectl rolling-update web-controller --image=cullophid/sentia:250
       # - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
       # - docker pull cullophid/deploy-web
       # - docker run -e BUILD=273 cullophid/deploy-web
