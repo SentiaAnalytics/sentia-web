@@ -29,10 +29,10 @@ test:
     # - ci/cucumber
 
 
-deployment:
-  hub:
-    branch: react
-    commands:
+# deployment:
+  # hub:
+  #   branch: react
+  #   commands:
       # - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
       # - docker pull cullophid/deploy-web
       # - docker run -e BUILD=273 cullophid/deploy-web
