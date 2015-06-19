@@ -29,7 +29,9 @@ test:
     # - ci/cucumber
 
 
-# deployment:
+deployment:
+  pre:
+    - ci/install_gcloud
   # hub:
   #   branch: react
   #   commands:
