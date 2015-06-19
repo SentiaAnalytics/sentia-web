@@ -11,4 +11,6 @@ gcloud config set compute/zone $SENTIA_ZONE
 gcloud config set container/cluster $SENTIA_CLUSTER
 
 echo $GCLOUD_KEY >> gcloud.json
+echo $GCLOUD_PRIVATE_KEY >> $HOME/.ssh/google_compute_engine
+echo $GCLOUD_PUBLIC_KEY >> $HOME/.ssh/google_compute_engine.pub
 gcloud -q auth activate-service-account --key-file gcloud.json
