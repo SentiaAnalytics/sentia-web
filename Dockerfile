@@ -1,7 +1,6 @@
 FROM google/nodejs
 
-WORKDIR /app
-ADD . /app
+ADD . .
 RUN npm install
 Run npm run build
 
