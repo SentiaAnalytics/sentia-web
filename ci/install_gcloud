@@ -16,4 +16,4 @@ echo $GCLOUD_KEY >> gcloud.json
 # sudo chmod 600 $HOME/.ssh/google_compute_engine
 # sudo chmod 600 $HOME/.ssh/google_compute_engine.pub
 gcloud -q auth activate-service-account --key-file gcloud.json
-gcloud -q compute config-ssh
+gcloud compute config-ssh --quiet
