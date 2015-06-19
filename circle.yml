@@ -32,9 +32,10 @@ test:
 deployment:
   pre:
     - ci/install_gcloud
-  # hub:
-  #   branch: react
-  #   commands:
+  hub:
+    branch: react
+    commands:
+      - echo "deploy"
       # - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
       # - docker pull cullophid/deploy-web
       # - docker run -e BUILD=273 cullophid/deploy-web
