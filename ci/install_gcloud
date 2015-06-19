@@ -12,4 +12,3 @@ gcloud config set container/cluster $SENTIA_CLUSTER
 
 echo $GCLOUD_KEY >> gcloud.json
 gcloud -q auth activate-service-account --key-file gcloud.json
-gcloud alpha container get-credentials
