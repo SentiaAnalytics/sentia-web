@@ -10,7 +10,7 @@ machine:
 
   environment:
     TEST_MODE: ff
-    PATH: /home/ubuntu/web/google-cloud-sdk/bin:$PATH
+    PATH: ~/web/google-cloud-sdk/bin:$PATH
     CLOUDSDK_PYTHON_SITEPACKAGES: 1
 
 dependencies:
