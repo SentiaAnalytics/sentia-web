@@ -6,3 +6,4 @@ gcloud --quiet components update pkg-go pkg-python pkg-java preview alpha beta a
 gcloud --quiet config set component_manager/disable_update_check true
 echo $GCLOUD_KEY >> gcloud.json
 gcloud -q auth activate-service-account --key-file gcloud.json
+gcloud alpha container get-credentials
