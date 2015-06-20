@@ -7,10 +7,14 @@ export default React.createClass({
   },
   render: function () {
     return (
-      <div className="">
+      <div>
       <h1>Dashboard</h1>
-      <p>{this.props.session}</p>
-      <p>{this.props.error}</p>
+      <div className="container-fluid">
+        <article className="widget col-sm-6">
+          <h1>revenue</h1>
+          <p>1.323.923</p>
+        </article>
+      </div>
       </div>
     );
   }
