@@ -24,7 +24,7 @@ dependencies:
 test:
   override:
     - npm test
-    - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
+    - docker build -t gcr.io/sentia-analytics/web:$CIRCLE_BUILD_NUM .
     - ci/run_docker:
         background:
           true
@@ -37,5 +37,5 @@ deployment:
     branch: react
     commands:
       - ci/install_gcloud
-      - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
-      - kubectl rolling-update web-controller --image=cullophid/sentia:$CIRCLE_BUILD_NUM
+      - gcloud alpha docker push gcr.io/sentia-analytics/web:$CIRCLE_BUILD_NUM
+      - kubectl rolling-update web-controller --image=gcr.io/sentia-analytics/web:$CIRCLE_BUILD_NUM
