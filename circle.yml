@@ -38,4 +38,4 @@ deployment:
     commands:
       - ci/install_gcloud
       - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
-      - kubectl rolling-update web-controller --image=cullophid/sentia:$CIRCLE_BUILD_NUM --update-period 10m
+      - kubectl rolling-update web-controller --image=cullophid/sentia:$CIRCLE_BUILD_NUM
