@@ -37,5 +37,5 @@ deployment:
     branch: react
     commands:
       - ci/install_gcloud
-      - gcloud preview docker push gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM
+      - gcloud docker push gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM
       - kubectl rolling-update web-controller --image=gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM
