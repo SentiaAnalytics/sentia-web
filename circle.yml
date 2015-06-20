@@ -18,18 +18,17 @@ machine:
 
 dependencies:
   override:
-    - ci/install_gcloud
     - npm install
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 
 test:
-  pre:
+  override:
+    - npm test
     - docker build -t cullophid/sentia:$CIRCLE_BUILD_NUM .
     - ci/run_docker:
         background:
           true
-  override:
-    - npm test
+    - sleep 5
     - ci/cucumber
 
 
@@ -37,6 +36,6 @@ deployment:
   hub:
     branch: react
     commands:
-      - echo "deploy"
+      - ci/install_gcloud
       - docker push cullophid/sentia:$CIRCLE_BUILD_NUM
-      - kubectl rolling-update web-controller --image=cullophid/sentia:$CIRCLE_BUILD_NUM
+      - kubectl rolling-update web-controller --image=cullophid/sentia:$CIRCLE_BUILD_NUM --update-period 10m
