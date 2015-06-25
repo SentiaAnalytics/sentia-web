@@ -18,6 +18,7 @@ machine:
 
 dependencies:
   override:
+    - echo $GCLOUD_KEY
     - npm install
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 
@@ -28,7 +29,6 @@ test:
     - ci/run_docker:
         background:
           true
-    - sleep 5
     - ci/cucumber
 
 
