@@ -1,5 +1,4 @@
 'use strict';
-import React from 'react';
 
 export default React.createClass({
   componentDidMount: function () {

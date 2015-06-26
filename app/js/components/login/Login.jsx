@@ -1,4 +1,4 @@
-import React from 'react';
+'use strict';
 import {Navigation} from 'react-router';
 import LoginForm from './LoginForm.jsx';
 import * as sessionStore from '../../stores/sessionStore';

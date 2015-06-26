@@ -1,6 +1,5 @@
-import React from 'react';
+'use strict';
 import ReactDatepicker from 'react-datepicker';
-import moment from 'moment';
 
 export default React.createClass({
 

@@ -1,5 +1,4 @@
 'use strict';
-import R from 'ramda';
 import * as axios from 'axios';
 export let get = R.curry(_get);
 export let post = R.curry(_post);

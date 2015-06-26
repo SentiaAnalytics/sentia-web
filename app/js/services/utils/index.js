@@ -1,6 +1,4 @@
 'use strict';
-import R from 'ramda';
-
 export function getFormModel (form) {
   return R.pipe(
     R.invoke('querySelectorAll', ['[name]']),

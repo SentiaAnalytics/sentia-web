@@ -1,4 +1,4 @@
-import React from 'react';
+'use strict';
 import {Navigation, RouteHandler} from 'react-router';
 import * as sessionStore from '../../stores/sessionStore';
 import dispatcher from '../../services/dispatcher';
