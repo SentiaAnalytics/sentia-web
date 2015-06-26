@@ -1,5 +1,4 @@
 'use strict';
-import R from 'ramda';
 import storeFactory from '../services/storeFactory';
 
 let store = storeFactory();

@@ -27,7 +27,8 @@ gulp.task('webpack', function () {
   return gulp.src(PUBLICDIR + 'js/main.js')
     .pipe(webpack(webpackConfig))
     .pipe(rename('bundle.js'))
-    .pipe(gulp.dest(PUBLICDIR));
+    .pipe(gulp.dest(PUBLICDIR))
+    .pipe(reload());
 });
 
 gulp.task('less', function () {
@@ -35,7 +36,8 @@ gulp.task('less', function () {
       .pipe(sourcemaps.init())
       .pipe(less())
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest(PUBLICDIR));
+      .pipe(gulp.dest(PUBLICDIR))
+      .pipe(reload());
 });
 
 gulp.task('static'  , function () {
@@ -44,9 +46,6 @@ gulp.task('static'  , function () {
 
 gulp.task('build', ['less', 'webpack', 'static']);
 
-
-
-
 gulp.task('run', ['build'], function (done) {
   done();
   run('node node_modules/.bin/babel-node main.js').exec()
@@ -54,10 +53,14 @@ gulp.task('run', ['build'], function (done) {
     .pipe(gulp.dest('logs'));
 });
 
-gulp.task('watch', ['run'], function () {
-  reload.listen();
+gulp.task('watch', function () {
   gulp.watch(['services/**/*.js', 'api/**/*.js'], ['spec']);
-  gulp.watch([PUBLICDIR + 'js/**/*', PUBLICDIR + 'spec/**/*'], ['spec', 'webpack']);
+  gulp.watch([PUBLICDIR + 'js/**/*'], ['spec']);
+});
+
+gulp.task('live', ['run'], function () {
+  reload.listen();
+  gulp.watch([PUBLICDIR + 'js/**/*'], ['webpack']);
   gulp.watch(PUBLICDIR + 'styles/**/*.less', ['less']);
   gulp.watch([PUBLICDIR + 'index.html', PUBLICDIR + 'img/**/*', PUBLICDIR + 'templates/**/*'], ['static']);
 });

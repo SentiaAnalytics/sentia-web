@@ -1,2 +1,4 @@
 'use strict';
-import Router from './components/Router.jsx';
+import './globals';
+import * as Router from './components/Router.jsx';
+Router.init();

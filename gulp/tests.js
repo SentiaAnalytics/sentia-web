@@ -1,11 +1,10 @@
-'use strict';
+  'use strict';
 var gulp = require('gulp');
 var mocha = require('gulp-spawn-mocha');
 
 gulp.task('spec',function () {
     return gulp.src([
-      'app/js/**/spec/**/*.js',
-      'test/**/spec/**/*.js'
+      'app/js/**/spec/**/*.js'
       ])
       .pipe(mocha({
         reporter: 'dot',

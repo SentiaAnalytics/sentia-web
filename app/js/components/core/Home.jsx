@@ -33,9 +33,7 @@ export default React.createClass({
 
   render: function () {
     return (
-      <div className="bg-gray-ligther">
-        <RouteHandler session={this.state.session} />
-      </div>
+      <RouteHandler session={this.state.session} />
     );
   }
 });
