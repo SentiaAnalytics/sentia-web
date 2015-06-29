@@ -3,6 +3,10 @@
 export default React.createClass({
   componentDidMount: function () {
     document.title = 'Sentia Analytics - Dashboard';
+    dispatecher.dispatch({
+      actionType: 'FETCH_STORE',
+      storeId: '123'
+    });
   },
   render: function () {
     return (

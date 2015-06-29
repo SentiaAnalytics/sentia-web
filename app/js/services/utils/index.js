@@ -1,5 +1,5 @@
 'use strict';
-export function getFormModel (form) {
+export function getFormData (form) {
   return R.pipe(
     R.invoke('querySelectorAll', ['[name]']),
     R.map(switcher(basicInputs, checkbox, radio)),

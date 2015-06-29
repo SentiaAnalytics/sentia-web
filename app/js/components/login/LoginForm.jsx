@@ -23,7 +23,7 @@ export default React.createClass({
 
   login: function (event){
     event.preventDefault();
-    let credentials = utils.getFormModel(event.target);
+    let credentials = utils.getFormData(event.target);
     dispatcher.dispatch({
       actionType: 'LOGIN',
       credentials: credentials
