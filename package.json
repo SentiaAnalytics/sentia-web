@@ -4,10 +4,10 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "node node_modules/.bin/babel-node main.js",
-    "build": "node node_modules/.bin/gulp build",
-    "test": "npm prune && node node_modules/.bin/gulp test",
-    "live": "node node_modules/.bin/gulp watch",
+    "start": "babel-node main.js",
+    "build": "gulp build",
+    "test": "npm prune && gulp test",
+    "live": "gulp watch",
     "karma": "karma start"
   },
   "engines": {

@@ -1,9 +1,10 @@
 'use strict';
+import dispatcher from '../../services/dispatcher';
 
 export default React.createClass({
   componentDidMount: function () {
     document.title = 'Sentia Analytics - Dashboard';
-    dispatecher.dispatch({
+    dispatcher.dispatch({
       actionType: 'FETCH_STORE',
       storeId: '123'
     });
