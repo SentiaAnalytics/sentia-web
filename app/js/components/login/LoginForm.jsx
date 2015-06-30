@@ -1,5 +1,5 @@
 'use strict';
-import * as utils from '../../services/utils';
+import * as utils from '../../utils';
 import dispatcher from '../../services/dispatcher';
 
 export default React.createClass({

@@ -1,13 +1,15 @@
 'use strict';
-import storeFactory from '../services/storeFactory';
-import {dateStoreToken} from '../dateStore';
-import * as sessionAPI from '../services/sessionAPI';
+import storeFactory from '../../services/storeFactory';
+import * as dateStore from '../dateStore';
+import * as storesStore from '../storesStore';
+import * as helper from './helper';
+import * as api from './api';
 
-let store = storeFactory();
-let totalRevenue;
+const store = storeFactory();
+let PosData;
 
-export function getTotalRevenue(){
-  return totalRevenue;
+export function get(){
+  return PosData;
 }
 
 export function onChange(listener){
@@ -18,18 +20,39 @@ export function removeListener(listener){
   return store.removeListener(listener);
 }
 
-export let dispatchToken = store.register(actionListener);
+export const dispatchToken = store.register(actionListener);
 
 function actionListener(action){
   switch(action.actionType){
     case 'DATE_CHANGED':
-      store.waitfor(dateStoreToken);
-      updateAndEmit(action.startDate, action.endDate);
+      store.waitfor([dateStore.dispatchToken]);
+      fetchPosData();
+      break;
+    case 'STORE_CHANGED':
+      store.waitfor([storesStore.dispatchToken]);
+      fetchPosData();
+      break;
+    case 'POS_CHANGED':
+      updateAndEmit(action.data);
       break;
   }
 }
 
-function updateAndEmit(date, store){
+function fetchPosData () {
+  const store = storesStore.getSelectedStore();
+  const startDate = dateStore.getFromDate();
+  const endDate = dateStore.getEndDate();
+  console.log(store);
+  console.log(startDate);
+  console.log(endDate);
+  if (!store || !startDate || !endDate) return;
 
+  const query = helper.generateJsonQuery({store, startDate, endDate});
+  api.getData(query);
+}
+
+function updateAndEmit(data){
+  console.log('pos data');
+  console.log(data);
   store.emitChange();
 }

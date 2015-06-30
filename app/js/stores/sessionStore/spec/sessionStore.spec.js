@@ -1,8 +1,8 @@
 'use strict';
 import {expect} from 'chai';
 import sinon from 'sinon';
-import dispatcher from '../../services/dispatcher';
-import * as sessionStore from '../sessionStore';
+import dispatcher from '../../../services/dispatcher';
+import * as sessionStore from '../';
 
 describe.skip('SessionStore', function () {
   describe('actionListener', function () {

@@ -1,13 +1,13 @@
 'use strict';
+import '../../../globals';
 import {expect} from 'chai';
-import '../../globals';
 import sinon from 'sinon';
-import dispatcher from '../../services/dispatcher';
-import * as dateStore from '../dateStore';
+import dispatcher from '../../../services/dispatcher';
+import * as dateStore from '../';
 
 describe('dateStore', function () {
   after(function () {
-      dispatcher.unregister(dateStore.dispatchToken);
+    dispatcher.unregister(dateStore.dispatchToken);
   });
 
   describe('When recieving UPDATE_DATE', function () {

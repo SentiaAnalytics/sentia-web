@@ -16,7 +16,7 @@ describe('dateStore', function () {
           actionType: 'STORE_CHANGED',
           store: {
             id : 1,
-            name: 'store'
+            name: 'Tiger 30'
           }
         };
         storesStore.onChange(listener);

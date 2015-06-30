@@ -1,6 +1,6 @@
 'use strict';
-import storeFactory from '../services/storeFactory';
-import * as sessionAPI from '../services/sessionAPI';
+import storeFactory from '../../services/storeFactory';
+import * as api from './api';
 
 let store = storeFactory();
 let Session;
@@ -23,10 +23,10 @@ export let dispatchToken = store.register(actionListener);
 function actionListener(action){
   switch(action.actionType){
     case 'FETCH_SESSION':
-      sessionAPI.fetchSession();
+      api.fetchSession();
       break;
     case 'LOGIN':
-      sessionAPI.login(action.credentials);
+      api.login(action.credentials);
       break;
     case 'SESSION_CHANGED':
       updateAndEmit(action.session);

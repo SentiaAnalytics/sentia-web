@@ -1,5 +1,5 @@
 'use strict';
-import storeFactory from '../services/storeFactory';
+import storeFactory from '../../services/storeFactory';
 
 let store = storeFactory();
 let LoginError;

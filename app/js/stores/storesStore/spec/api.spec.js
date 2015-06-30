@@ -22,7 +22,7 @@ describe('StoresStore', function () {
       sinon.stub(http, 'get', function (url) {
         return Promise.resolve({
           id: 1,
-          name: 'Store'
+          name: 'Tiger 30'
         });
       });
     });
@@ -41,7 +41,7 @@ describe('StoresStore', function () {
 
           expect(action).to.have.property('actionType', 'STORE_CHANGED');
           expect(action).to.have.property('store');
-          expect(action.store).to.eql({id: 1, name: 'Store'});
+          expect(action.store).to.eql({id: 1, name: 'Tiger 30'});
         });
     });
   });

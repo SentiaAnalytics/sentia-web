@@ -1,0 +1,22 @@
+{
+  "fields" : {
+    "sum(revenue)" : "revenue",
+    "sum(transactions)" : "transactions",
+    "time": "step"
+  },
+  "where" : {
+    "store" : query.store.id,
+    'date(time)' : {
+      gte : query.startDate
+        .tz('UTC')
+        .format('YYYY-MM-DD HH:mm:ss'),
+      lt : query.endDate
+        .tz('UTC')
+        .format('YYYY-MM-DD HH:mm:ss'),
+    }
+  },
+  "groupBy": getGroupBy(query),
+  "orderBy" : {
+    step : true
+  }
+};

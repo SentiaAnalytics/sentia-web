@@ -1,6 +1,5 @@
 'use strict';
-import storeFactory from '../services/storeFactory';
-import * as sessionAPI from '../services/sessionAPI';
+import storeFactory from '../../services/storeFactory';
 
 let store = storeFactory();
 let startDate = moment().startOf('day');

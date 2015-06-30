@@ -1,6 +1,6 @@
 'use strict';
-import * as http from './http';
-import dispatcher from './dispatcher';
+import * as http from '../../services/http';
+import dispatcher from '../../services/dispatcher';
 
 export function fetchSession() {
   return http.get('/api/session')
