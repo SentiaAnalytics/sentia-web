@@ -1,5 +1,5 @@
 {
-  "curly": true,
+  "curly": false,
   "eqeqeq": true,
   "gcl": true,
   "esnext": true,
@@ -19,6 +19,7 @@
   "white": false,
   "globals": {
      "R": false,
+     "rx": false,
      "Promise": false,
      "moment": false,
      "describe" : false,

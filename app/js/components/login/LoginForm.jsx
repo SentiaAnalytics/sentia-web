@@ -1,6 +1,6 @@
-'use strict';
 import * as utils from '../../utils';
 import dispatcher from '../../services/dispatcher';
+import sessionStore from '../../stores/sessionStore';
 
 export default React.createClass({
 
@@ -23,11 +23,12 @@ export default React.createClass({
 
   login: function (event){
     event.preventDefault();
-    let credentials = utils.getFormData(event.target);
-    dispatcher.dispatch({
-      actionType: 'LOGIN',
-      credentials: credentials
-    });
+    sessionStore
+      .update
+      .onNext({
+        type: 'LOGIN',
+        payload: utils.getFormData(event.target)
+      });
   }
 
 });

@@ -1,40 +1,21 @@
 'use strict';
-import storeFactory from '../../services/storeFactory';
-import * as api from './api';
+import api from './api';
 
-let store = storeFactory();
-let Session;
+let store = new rx.BehaviorSubject(null);
+let errors = new rx.BehaviorSubject(null);
+let update = new rx.Subject();
 
-
-export function get(){
-  return R.clone(Session);
-}
-
-export function onChange(listener){
-  return store.onChange(listener);
-}
-
-export function removeListener(listener){
-  return store.removeListener(listener);
-}
-
-export let dispatchToken = store.register(actionListener);
-
-function actionListener(action){
-  switch(action.actionType){
-    case 'FETCH_SESSION':
-      api.fetchSession();
-      break;
-    case 'LOGIN':
-      api.login(action.credentials);
-      break;
-    case 'SESSION_CHANGED':
-      updateAndEmit(action.session);
-      break;
-  }
-}
-
-function updateAndEmit(session){
-  Session = R.clone(session);
-  store.emitChange();
-}
+export default {
+  store,
+  update,
+  errors,
+};
+update
+  .filter((request) => {
+    return request && (request.action === 'login' || request.action === 'fetch');
+  })
+  .flatMap(request => {
+    return api[request.action](request.payload);
+  })
+  .filter((session) => session.user)
+  .subscribe(store);

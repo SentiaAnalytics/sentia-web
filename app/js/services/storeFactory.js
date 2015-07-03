@@ -14,7 +14,7 @@ export default function () {
     waitFor: waitFor
   };
 
-  function waitFor (tokens) {
+    function waitFor (tokens) {
     dispatcher.waitFor(tokens);
   }
 

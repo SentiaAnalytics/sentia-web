@@ -1,19 +1,10 @@
 'use strict';
-import * as http from '../../services/http';
-import dispatcher from '../../services/dispatcher';
+import http from '../../services/http';
 
-export function fetchStore(id) {
-    return Promise.resolve({
-        id :1,
-        name: 'Tiger 30'
-      })
-      .then(dispatchChangeAction);
-// return http.get('/api/stores/' + id)
-//   .then(dispatchChangeAction);
-}
-function dispatchChangeAction(store) {
-  dispatcher.dispatch({
-    actionType: 'STORE_CHANGED',
-    store: store
-  });
+export default {
+  fetchStore
+};
+
+function fetchStore (id) {
+  return http.get(`api/stores/${id}`);
 }

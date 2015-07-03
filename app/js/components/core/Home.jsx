@@ -1,34 +1,42 @@
 'use strict';
 import {Navigation, RouteHandler} from 'react-router';
-import * as sessionStore from '../../stores/sessionStore';
 import dispatcher from '../../services/dispatcher';
-import * as sessionErrorStore from '../../stores/sessionErrorStore';
+import sessionStore from '../../stores/sessionStore';
 import Sidebar from './Sidebar.jsx';
+
 export default React.createClass({
   mixins:[Navigation],
-  getInitialState: function () {
-    return { session: sessionStore.get() };
+
+  getInitialState () {
+    return {session:null};
   },
 
-  componentDidMount: function () {
-    sessionStore.onChange(this.sessionChangeHandler);
-    sessionErrorStore.onChange(this.sessionErrorHandler);
-    if (!sessionStore.get()) {
-      dispatcher.dispatch({actionType: 'FETCH_SESSION'})
+  componentDidMount () {
+    console.log('MOUNT');
+    this.sessionErrorObserver = sessionStore
+      .errors
+      .filter((error) => error)
+      .subscribe(this.transitionTo.bind(this, 'login'));
+
+    this.sessionObserver = sessionStore
+      .session
+      .map((session) => {
+        return {session}
+      })
+      .subscribe(this.setState.bind(this));
+    if (!sessionStore.session.getValue()) {
+      console.log('fetch session');
+      sessionStore.update.onNext({
+        type: 'FETCH_SESSION'
+      });
     }
+
   },
 
-  componentWillUnmount: function () {
-    sessionStore.removeListener(this.sessionChangeHandler);
-    sessionErrorStore.onChange(this.sessionErrorHandler);
-  },
-
-  sessionChangeHandler: function () {
-    this.setState({session: sessionStore.get()});
-  },
-
-  sessionErrorHandler: function () {
-    return this.transitionTo('login');
+  componentWillUnmount () {
+    console.log('DISPOSE');
+    this.sessionErrorObserver.dispose();
+    this.sessionObserver.dispose();
   },
 
   render: function () {

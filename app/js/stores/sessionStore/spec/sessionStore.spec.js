@@ -1,37 +1,52 @@
 'use strict';
 import {expect} from 'chai';
 import sinon from 'sinon';
-import dispatcher from '../../../services/dispatcher';
-import * as sessionStore from '../';
+import http from '../../../services/http';
+import sessionStore from '../';
 
-describe.skip('SessionStore', function () {
-  describe('actionListener', function () {
-    let listener;
-
-    afterEach(function () {
-        sessionStore.removeListener(listener);
-    });
-
-    it('should update and emit when SESSION_CHANGED is recieved', function (done) {
-      let session = {
+describe('sessionStore', function () {
+  before(function () {
+    sinon.stub(http, 'get', function (url) {
+      console.log('GET');
+      return new rx.BehaviorSubject({
         user: {
-          firstname : 'andreas'
+          firstname: 'Andreas',
+          lastname: 'Moeller'
         }
-      };
-      listener = sinon.spy(function () {
-        expect(listener.calledOnce).to.equal(true);
-        let call = listener.call(0);
-        expect(call.args).to.eql([]);
-        expect(sessionStore.get).to.eql(session);
-      });
-
-      sessionStore.onChange(listener);
-
-      dispatcher.dispatch({
-        actionType: 'SESSION_CHANGED',
-        session: session
       });
     });
-
   });
+
+  after(function () {
+    http.get.restore();
+  });
+
+  describe('fetch', function () {
+
+    beforeEach(function () {
+      sessionStore.store.onNext(null);
+    });
+
+    it('should fetch the current session when recieving a fetch action', function (done) {
+      let spy = sinon.spy(onChange);
+      sessionStore.store.subscribe(spy);
+
+      sessionStore.update.onNext({action: 'fetch'});
+
+      function onChange (session) {
+        if(!session) return;
+
+        expect(spy.calledTwice).to.be.true;
+        expect(session).to.eql({
+          user: {
+            firstname: 'Andreas',
+            lastname: 'Moeller'
+          }
+        });
+        done();
+      }
+    });
+  });
+
+
 });

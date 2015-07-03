@@ -1,37 +1,35 @@
 'use strict';
 import dispatcher from '../../services/dispatcher';
 import * as storesStore from '../../stores/storesStore';
-import * as dateStore from '../../stores/dateStore';
+import dateStore from '../../stores/dateStore';
 import * as posStore from '../../stores/posStore';
 
 
 export default React.createClass({
   getInitialState () {
       return {
-        store: null,
         startDate: null,
-        endDate: null,
-        pos: null
+        endDate: null
       };
   },
 
   componentDidMount() {
     document.title = 'Sentia Analytics - Dashboard';
-    storesStore.onChange(this.handleChange)
-    dateStore.onChange(this.handleChange)
-    posStore.onChange(this.handleChange)
-    dispatcher.dispatch({
-      actionType: 'FETCH_STORE',
-      storeId: '123'
-    });
+    this.dateObserver = dateStore.dates
+      .map(dates => {
+        return R.merge(this.state, dates)
+      })
+      .subscribe(this.setState.bind(this))
+  },
+
+  componentWillUnmount () {
+    this.dateObserver.dispose();
   },
 
   handleChange () {
     const state = {
-      store: storesStore.getSelectedStore(),
       startDate: dateStore.getStartDate(),
-      endDate: dateStore.getEndDate(),
-      pos: posStore.get()
+      endDate: dateStore.getEndDate()
     };
 
     this.setState(state);
@@ -42,10 +40,19 @@ export default React.createClass({
     return (
       <div className="full-height gutter-top gutter-bottom bg-gray-lighter">
         <div className="container-fluid">
-          <article className="paper col-sm-6">
-            <h1>revenue</h1>
-            <p>{pos && pos.totalRevenue}</p>
-          </article>
+          <div className="col-sm-6">
+            <article className="paper container-fluid">
+              <h1>date</h1>
+              <p>{startDate && startDate.toString()}</p>
+              <p>{endDate && endDate.toString()}</p>
+            </article>
+          </div>
+          <div className="col-sm-6">
+            <article className="paper container-fluid">
+              <h1>revenue</h1>
+              <p>{pos && pos.totalRevenue}</p>
+            </article>
+          </div>
         </div>
       </div>
     );

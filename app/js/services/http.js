@@ -1,18 +1,31 @@
 'use strict';
 import * as axios from 'axios';
-export let get = R.curry(_get);
-export let post = R.curry(_post);
 
-function _get (url) {
-  return axios.get(url)
+export default {
+  get,
+  post: R.curry(post)
+};
+
+function get (url) {
+  let promise = axios.get(url)
     .then(function (res) {
+      if (res.status >= 300) throw new Error(res);
       return res.data;
     });
+
+  return rx
+    .Observable
+    .fromPromise(promise);
 }
 
-function _post (url, data) {
-  return axios.post(url, data)
+function post (url, data) {
+  let promise = axios.post(url, data)
     .then(function (res) {
+      if (res.status >= 300) throw new Error(res);
       return res.data;
     });
+
+  return rx
+    .Observable
+    .fromPromise(promise);
 }

@@ -1,38 +1,17 @@
 'use strict';
-import * as http from '../../services/http';
+import http from '../../services/http';
 import dispatcher from '../../services/dispatcher';
 
-export function fetchSession() {
-  return http.get('/api/session')
-    .then(dispatchChangeAction)
-    .catch(dispatchError('SESSION_ERROR'));
+export default{
+  fetch,
+  login
+};
+
+function fetch() {
+  return http.get('/api/session');
+
 }
 
-export function login(credentials) {
-  http.post('/api/session/authenticate', credentials)
-    .then(dispatchChangeAction)
-    .catch(dispatchError('LOGIN_ERROR'));
-}
-
-function dispatchChangeAction(session) {
-  dispatcher.dispatch({
-    actionType: 'SESSION_CHANGED',
-    session: session
-  });
-}
-
-function dispatchLoginError (err) {
-  dispatcher.dispatch({
-    actionType: 'LOGIN_ERROR',
-    error: err
-  });
-}
-
-function dispatchError (type) {
-  return function (err) {
-    dispatcher.dispatch({
-      actionType: type,
-      error: err
-    });
-  }
+function login(credentials) {
+  return http.post('/api/session/authenticate', credentials);
 }

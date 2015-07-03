@@ -1,39 +1,28 @@
 'use strict';
-import storeFactory from '../../services/storeFactory';
+let store = new rx.BehaviorSubject({
+  startDate: moment()
+    .startOf('day'),
+  endDate: moment()
+    .endOf('day'),
+});
+let error = new rx.BehaviorSubject(null);
+let update = new rx.Subject();
 
-let store = storeFactory();
-let startDate = moment().startOf('day');
-let endDate = moment().endOf('day');
+export default {
+  store,
+  update,
+  error,
+};
 
-
-export function getStartDate(){
-  return moment(startDate);
-}
-
-export function getEndDate(){
-  return moment(endDate);
-}
-
-export function onChange(listener){
-  return store.onChange(listener);
-}
-
-export function removeListener(listener){
-  return store.removeListener(listener);
-}
-
-export let dispatchToken = store.register(actionListener);
-
-function actionListener(action){
-  switch(action.actionType){
-    case 'UPDATE_DATE':
-      updateAndEmit(action.startDate, action.endDate);
-      break;
-  }
-}
-
-function updateAndEmit(d1, d2){
-  startDate = moment(d1 || startDate).startOf('day');
-  endDate = moment(d2 || endDate).endOf('day');
-  store.emitChange();
-}
+update
+  .filter((dates) => {
+    return (moment.isMoment(dates.startDate) || moment.isMoment(dates.endDate));
+  })
+  .map(R.partial(R.merge(store.getValue())))
+  .map(dates => {
+    return {
+      startDate: dates.startDate.startOf('day'),
+      endDate: dates.endDate.endOf('day')
+    };
+  })
+  .subscribe(store);
