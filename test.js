@@ -1,6 +1,18 @@
-const a = {a: 1, b: 2};
+'use strict';
+var rx = require('rx');
 
-a.b = 2;
-a = 'hey';
+var source = new rx.BehaviorSubject(0);
 
-console.log(a);
+source.subscribe(function (value) {
+    console.log('sub1', value);
+});
+
+source.subscribe(function (value) {
+    console.log('sub2', value);
+});
+
+source.onNext(1);
+source.onNext(2);
+source.onNext(3);
+source.onNext(4);
+source.onNext(5);

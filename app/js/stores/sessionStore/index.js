@@ -10,6 +10,7 @@ export default {
   update,
   errors,
 };
+
 update
   .filter((request) => {
     return request && (request.action === 'login' || request.action === 'fetch');

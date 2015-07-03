@@ -9,7 +9,6 @@ export default{
 
 function fetch() {
   return http.get('/api/session');
-
 }
 
 function login(credentials) {
