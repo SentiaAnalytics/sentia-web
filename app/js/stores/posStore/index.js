@@ -14,13 +14,14 @@ store.subscribe(R.identity, (err) => error.onNext(err));
 
 error.subscribe(function (err) {
   console.log('err');
-  console.log(err);
+  console.log(err && err.stack);
 });
 
 store.forEach(function (value) {
-    console.log('store updated');
+    console.log('posStore updated');
     console.log(value);
 });
+
 
 rx.Observable.combineLatest(
     dateStore.store,
@@ -29,4 +30,5 @@ rx.Observable.combineLatest(
   )
   .filter(helper.filterInput)
   .flatMap(helper.fetchData)
+  .map(helper.processResult)
   .subscribe(store);

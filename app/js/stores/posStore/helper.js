@@ -2,23 +2,21 @@
 import storeStore from '../storeStore';
 import dateStore from '../dateStore';
 import http from '../../services/http';
+import util from '../../util';
 
 export default {
   filterInput,
   fetchData,
   buildJsonQuery,
-  getGroupBy
+  getGroupBy,
+  processResult
 };
 
 function filterInput (query) {
-  console.log('filterInput');
-  console.log(query);
   return (query.startDate && query.endDate && query.store);
 }
 
 function fetchData (query) {
-  console.log('fetchData');
-  console.log(query);
   let jsonQuery = buildJsonQuery(query);
   return http.get('/api/pos?json' + JSON.stringify(jsonQuery));
 }
@@ -57,4 +55,24 @@ function getGroupBy (query) {
       return ['date(time)'];
     }
     return ['month(time)'];
+}
+
+function processResult (result) {
+  return {
+    totalRevenue: sum('revenue', result),
+    totalTransactions: sum('transactions', result)
+  };
+
+  function sum (prop, result) {
+    return R.pipe(
+      R.map(R.pipe(R.prop(prop), Number)),
+      R.filter((x) => !isNaN(x)),
+      R.sum,
+      (x) => {
+        console.log(x);
+        return x;
+      },
+      util.round(2)
+    )(result);
+  }
 }

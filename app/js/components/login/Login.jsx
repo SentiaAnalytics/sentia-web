@@ -9,7 +9,7 @@ export default React.createClass({
   componentDidMount: function () {
     document.title = 'Sentia Analytics - Login';
     sessionStore
-      .session
+      .store
       .filter((session) => session)
       .subscribe(this.transitionTo.bind(this, 'dashboard'));
   },

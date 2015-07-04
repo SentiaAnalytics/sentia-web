@@ -1,5 +1,11 @@
 'use strict';
-export function getFormData (form) {
+export default {
+  getFormData,
+  switcher,
+  round: R.curry(round)
+};
+
+function getFormData (form) {
   return R.pipe(
     R.invoke('querySelectorAll', ['[name]']),
     R.map(switcher(basicInputs, checkbox, radio)),
@@ -22,7 +28,7 @@ export function getFormData (form) {
     }
 }
 
-export function switcher () {
+function switcher () {
   var functions = Array.prototype.slice.call(arguments);
   return function () {
     var args = Array.prototype.slice.call(arguments);
@@ -40,7 +46,7 @@ export function switcher () {
   };
 }
 
-export function round (decimal, number) {
-  let int = Math.pow  (10, decimal);
-  return Math.round(number * int) / int;
+function round (decimal, number) {
+  let decimalMultiplier = Math.pow(10, decimal);
+  return Math.round(number * decimalMultiplier) / decimalMultiplier;
 }

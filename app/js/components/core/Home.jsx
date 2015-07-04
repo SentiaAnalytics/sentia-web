@@ -1,11 +1,11 @@
 'use strict';
 import {Navigation, RouteHandler} from 'react-router';
-import dispatcher from '../../services/dispatcher';
 import sessionStore from '../../stores/sessionStore';
 import Sidebar from './Sidebar.jsx';
 
 export default React.createClass({
   mixins:[Navigation],
+  observers: [],
 
   getInitialState () {
     return {session:null};
@@ -13,30 +13,22 @@ export default React.createClass({
 
   componentDidMount () {
     console.log('MOUNT');
-    this.sessionErrorObserver = sessionStore
-      .errors
+    this.observers.push(sessionStore
+      .error
       .filter((error) => error)
-      .subscribe(this.transitionTo.bind(this, 'login'));
+      .subscribe(this.transitionTo.bind(this, 'login')));
 
-    this.sessionObserver = sessionStore
-      .session
+    this.observers.push(sessionStore
+      .store
       .map((session) => {
         return {session}
       })
-      .subscribe(this.setState.bind(this));
-    if (!sessionStore.session.getValue()) {
-      console.log('fetch session');
-      sessionStore.update.onNext({
-        type: 'FETCH_SESSION'
-      });
-    }
-
+      .subscribe(this.setState.bind(this)));
   },
 
   componentWillUnmount () {
     console.log('DISPOSE');
-    this.sessionErrorObserver.dispose();
-    this.sessionObserver.dispose();
+    observers.forEach((x) => x.dispose());
   },
 
   render: function () {

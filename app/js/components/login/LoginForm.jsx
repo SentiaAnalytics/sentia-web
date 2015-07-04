@@ -1,4 +1,4 @@
-import * as utils from '../../utils';
+import util from '../../util';
 import dispatcher from '../../services/dispatcher';
 import sessionStore from '../../stores/sessionStore';
 
@@ -26,8 +26,8 @@ export default React.createClass({
     sessionStore
       .update
       .onNext({
-        type: 'LOGIN',
-        payload: utils.getFormData(event.target)
+        action: 'login',
+        payload: util.getFormData(event.target)
       });
   }
 
