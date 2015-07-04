@@ -3,15 +3,30 @@ import storeStore from '../storeStore';
 import dateStore from '../dateStore';
 import helper from './helper';
 
-let store = new rx.BehaviorSubject();
-let error = new rx.Subject();
+let store = new rx.BehaviorSubject(null);
+let error = new rx.BehaviorSubject(null);
 
 export default {
   store,
   error
 };
+store.subscribe(R.identity, (err) => error.onNext(err));
 
-rx.Observable.merge(dateStore.store, storeStore.store)
-  .map(helper.buildQuery)
+error.subscribe(function (err) {
+  console.log('err');
+  console.log(err);
+});
+
+store.forEach(function (value) {
+    console.log('store updated');
+    console.log(value);
+});
+
+rx.Observable.combineLatest(
+    dateStore.store,
+    storeStore.store,
+    (dates, store) => R.merge(dates, {store:store})
+  )
   .filter(helper.filterInput)
-  .flatMap(helper.getPosData)
+  .flatMap(helper.fetchData)
+  .subscribe(store);

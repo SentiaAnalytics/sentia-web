@@ -4,26 +4,22 @@ import dateStore from '../dateStore';
 import http from '../../services/http';
 
 export default {
-  buildQuery,
   filterInput,
   fetchData,
   buildJsonQuery,
   getGroupBy
 };
 
-function buildQuery () {
-  return R.merge(
-    dateStore.store.getValue(),
-    {storeid: R.prop('id', storeStore.store.getValue())}
-  );
-}
-
 function filterInput (query) {
-  return query.startDate && query.endDate && query.storeId;
+  console.log('filterInput');
+  console.log(query);
+  return (query.startDate && query.endDate && query.store);
 }
 
 function fetchData (query) {
-  let jsonQuery = buildQuery(query);
+  console.log('fetchData');
+  console.log(query);
+  let jsonQuery = buildJsonQuery(query);
   return http.get('/api/pos?json' + JSON.stringify(jsonQuery));
 }
 

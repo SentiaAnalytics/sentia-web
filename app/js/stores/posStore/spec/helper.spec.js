@@ -12,7 +12,6 @@ describe('postStore - helper', function () {
       storeId: 1
     };
     let json = helper.buildJsonQuery(query);
-    console.log(json);
     expect(json).to.eql(require('./data/jsonQuery.json'))
   });
 

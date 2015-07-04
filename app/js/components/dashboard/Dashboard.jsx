@@ -1,8 +1,8 @@
 'use strict';
 import dispatcher from '../../services/dispatcher';
-import * as storesStore from '../../stores/storesStore';
+import storeStore from '../../stores/storeStore';
 import dateStore from '../../stores/dateStore';
-import * as posStore from '../../stores/posStore';
+import posStore from '../../stores/posStore';
 
 
 export default React.createClass({

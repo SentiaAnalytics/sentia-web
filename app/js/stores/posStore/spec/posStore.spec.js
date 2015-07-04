@@ -7,6 +7,7 @@ import storeStore from '../../storeStore';
 
 describe('posStore', function () {
   let observer;
+
   beforeEach(function () {
     dateStore.update.onNext(moment());
     storeStore.store.onNext(null);
@@ -27,6 +28,7 @@ describe('posStore', function () {
 
     dateStore.update.onNext(moment());
     storeStore.store.onNext({
+      id: 'bababa',
       name: 'store'
     });
 
