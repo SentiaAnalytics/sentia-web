@@ -1,0 +1,18 @@
+{
+  "fields": {
+    "sum(revenue)": "revenue",
+    "sum(transactions)": "transactions",
+    "time": "step"
+  },
+  "where": {
+    "store": 1,
+    "date(time)": {
+      "gte": "1970-01-01 00:00:00",
+      "lt": "1970-01-01 00:00:00"
+    }
+  },
+  "groupBy": ["hour(time)"],
+  "orderBy": {
+    "step": true
+  }
+}
