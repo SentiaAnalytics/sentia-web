@@ -12,9 +12,8 @@ namespace :quality do
   end
 end
 
-Cucumber::Rake::Task.new(:login, 'Login') do |t|
-  t.cucumber_opts = '--format pretty -t ~@wip -t @login'
+Cucumber::Rake::Task.new(:test, 'TEST') do |t|
+  t.cucumber_opts = '--format pretty -t ~@wip'
 end
 
-task default: ['quality:rubocop',
-               :login]
+task default: ['Cucumber:test']

@@ -27,8 +27,7 @@ export default React.createClass({
   },
 
   componentWillUnmount () {
-    console.log('DISPOSE');
-    observers.forEach((x) => x.dispose());
+    this.observers.forEach((x) => x.dispose());
   },
 
   render: function () {

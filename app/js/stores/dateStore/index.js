@@ -14,6 +14,10 @@ export default {
   error,
 };
 
+store.subscribe(
+  (value) => console.log('dateStore', value),
+  (err) => console.error('dateStore', err));
+
 update
   .filter((dates) => {
     return (moment.isMoment(dates.startDate) || moment.isMoment(dates.endDate));

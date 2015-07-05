@@ -2,7 +2,6 @@
 Feature: Dashboard page
   As a logged in user
 
-
   Scenario: Visit Dashboard
     Given I am logged in
     When I go to the dashboard page

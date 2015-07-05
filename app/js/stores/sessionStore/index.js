@@ -10,13 +10,19 @@ export default {
   update,
   error,
 };
+store.subscribe(() => error.onNext(null), (error) => console.error('sessionStore', error));
+
 
 update
   .filter((request) => {
     return request && (request.action === 'login' || request.action === 'fetch');
   })
   .flatMap(request => {
-    return api[request.action](request.payload);
+    return api[request.action](request.payload)
+      .catch(function (err) {
+        error.onNext(err);
+        return rx.Observable.empty()
+      });
   })
   .filter((session) => session.user)
   .subscribe(store);

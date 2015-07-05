@@ -11,6 +11,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
+    console.log('componentDidMount');
     document.title = 'Sentia Analytics - Dashboard';
     this.observer = rx.Observable.combineLatest(
         dateStore.store,
