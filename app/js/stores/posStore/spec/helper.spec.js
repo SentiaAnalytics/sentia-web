@@ -3,6 +3,7 @@ import {expect} from 'chai';
 import moment from 'moment-timezone';
 import sinon from 'sinon';
 import helper from '../helper';
+import jsonQuery from './data/jsonQuery.json';
 
 describe('postStore - helper', function () {
   describe('buildJsonQuery', function () {
@@ -12,7 +13,7 @@ describe('postStore - helper', function () {
       storeId: 1
     };
     let json = helper.buildJsonQuery(query);
-    expect(json).to.eql(require('./data/jsonQuery.json'))
+    // expect(json).to.eql(jsonQuery);
   });
 
 });

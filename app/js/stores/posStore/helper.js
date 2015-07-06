@@ -1,6 +1,5 @@
 'use strict';
 import storeStore from '../storeStore';
-import dateStore from '../dateStore';
 import http from '../../services/http';
 import util from '../../util';
 
@@ -18,7 +17,7 @@ function filterInput (query) {
 
 function fetchData (query) {
   let jsonQuery = buildJsonQuery(query);
-  return http.get('/api/pos?json' + JSON.stringify(jsonQuery));
+  return http.get('/api/pos?json=' + JSON.stringify(jsonQuery));
 }
 
 function buildJsonQuery (query) {
@@ -26,7 +25,7 @@ function buildJsonQuery (query) {
     "fields" : {
       "sum(revenue)" : "revenue",
       "sum(transactions)" : "transactions",
-      "time": "step"
+      "time": "time"
     },
     "where" : {
       "store" : query.storeId,
@@ -34,14 +33,14 @@ function buildJsonQuery (query) {
         gte : query.startDate
           .tz('UTC')
           .format('YYYY-MM-DD HH:mm:ss'),
-        lt : query.endDate
+        lte : query.endDate
           .tz('UTC')
           .format('YYYY-MM-DD HH:mm:ss'),
       }
     },
     "groupBy": getGroupBy(query),
     "orderBy" : {
-      step : true
+      time : true
     }
   };
 }
@@ -57,22 +56,12 @@ function getGroupBy (query) {
     return ['month(time)'];
 }
 
-function processResult (result) {
-  return {
-    totalRevenue: sum('revenue', result),
-    totalTransactions: sum('transactions', result)
-  };
-
-  function sum (prop, result) {
-    return R.pipe(
-      R.map(R.pipe(R.prop(prop), Number)),
-      R.filter((x) => !isNaN(x)),
-      R.sum,
-      (x) => {
-        console.log(x);
-        return x;
-      },
-      util.round(2)
-    )(result);
-  }
+function processResult (data) {
+  return R.map(e => {
+    return {
+      revenue: parseInt(e.revenue, 10) || 0,
+      transactions: parseInt(e.transactions, 10) || 0,
+      time: moment(e.time)
+    };
+  }, data);
 }

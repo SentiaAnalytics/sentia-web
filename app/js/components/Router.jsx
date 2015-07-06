@@ -1,8 +1,9 @@
 'use strict';
 import Router from 'react-router';
-import {Login} from './login';
-import {App, Home} from './core';
-import {Dashboard} from './dashboard';
+import Login from './Login';
+import App from './App';
+import Home from './Home';
+import Dashboard from './Dashboard';
 let Route = Router.Route;
 
 var routes =  (

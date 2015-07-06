@@ -1,7 +1,7 @@
 'use strict';
 import {Navigation} from 'react-router';
 import LoginForm from './LoginForm.jsx';
-import sessionStore from '../../stores/sessionStore';
+import sessionStore from '../stores/sessionStore';
 
 export default React.createClass({
   mixins:[Navigation],

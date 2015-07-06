@@ -1,7 +1,8 @@
 'use strict';
 import {Navigation, RouteHandler} from 'react-router';
-import sessionStore from '../../stores/sessionStore';
-import Sidebar from './Sidebar.jsx';
+import sessionStore from '../stores/sessionStore';
+import Sidebar from './Sidebar';
+import Header from './Header';
 
 export default React.createClass({
   mixins:[Navigation],
@@ -12,7 +13,6 @@ export default React.createClass({
   },
 
   componentDidMount () {
-    console.log('MOUNT');
     this.observers.push(sessionStore
       .error
       .filter((error) => error)
@@ -32,7 +32,10 @@ export default React.createClass({
 
   render: function () {
     return (
-      <RouteHandler session={this.state.session} />
+      <div>
+        <Header/>
+        <RouteHandler session={this.state.session} />
+      </div>
     );
   }
 });

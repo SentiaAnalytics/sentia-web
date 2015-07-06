@@ -1,6 +1,5 @@
 'use strict';
 import http from '../../services/http';
-import dispatcher from '../../services/dispatcher';
 
 export default{
   fetch,

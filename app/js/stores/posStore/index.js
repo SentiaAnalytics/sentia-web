@@ -1,33 +1,36 @@
 'use strict';
 import storeStore from '../storeStore';
-import dateStore from '../dateStore';
+import startDateStore from '../startDateStore';
+import endDateStore from '../endDateStore';
 import helper from './helper';
 
-let store = new rx.BehaviorSubject(null);
+let store = new rx.BehaviorSubject([]);
 let error = new rx.BehaviorSubject(null);
+
 
 export default {
   store,
-  error
+  error,
 };
-store.subscribe(R.identity, (err) => error.onNext(err));
 
-error.subscribe(function (err) {
-  console.log('err');
+store.subscribe(
+  R.identity,
+  (err) => {
+  console.error('posStore', err);
   console.log(err && err.stack);
 });
 
-store.forEach(function (value) {
-    console.log('posStore updated');
-    console.log(value);
-});
-
-
 rx.Observable.combineLatest(
-    dateStore.store,
-    storeStore.store,
-    (dates, store) => R.merge(dates, {store:store})
-  )
+  startDateStore.store,
+  endDateStore.store,
+  storeStore.store,
+  (startDate, endDate, store) => {
+    return {
+      startDate,
+      endDate,
+      store
+    };
+  })
   .filter(helper.filterInput)
   .flatMap(helper.fetchData)
   .map(helper.processResult)

@@ -1,6 +1,5 @@
-import util from '../../util';
-import dispatcher from '../../services/dispatcher';
-import sessionStore from '../../stores/sessionStore';
+import util from '../util';
+import sessionStore from '../stores/sessionStore';
 
 export default React.createClass({
 

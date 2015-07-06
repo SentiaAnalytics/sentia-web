@@ -6,6 +6,7 @@ import sinon from 'sinon';
 import storeStore from '../';
 
 describe('StoresStore', function () {
+  let subject;
   before(function () {
       sinon.stub(http, 'get', function (url) {
         return new rx.BehaviorSubject({
@@ -23,13 +24,17 @@ describe('StoresStore', function () {
       storeStore.store.onNext(null);
   });
 
+  afterEach(function () {
+    if(subject) subject.dispose();
+  });
+
   it('should hold an initial value of null', function () {
     expect(storeStore.store.getValue()).to.equal(null);
   });
 
-  it('should fetch and emit a new store if a valid request is sent to update', function (done) {
+  it.skip('should fetch and emit a new store if a valid request is sent to update', function (done) {
     let spy = sinon.spy(storeUpdated);
-    storeStore.store.subscribe(spy);
+    subject = storeStore.store.subscribe(spy);
     storeStore.update.onNext('1234');
 
     function storeUpdated (store) {

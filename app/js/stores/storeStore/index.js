@@ -12,7 +12,7 @@ export default {
   error
 };
 store.subscribe(
-  (value) => console.log('posStore', value),
+  R.identity,
   (err) => console.error('posStore', err));
 
 update

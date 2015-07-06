@@ -2,7 +2,8 @@
 export default {
   getFormData,
   switcher,
-  round: R.curry(round)
+  round: R.curry(round),
+  sumProp: R.curry(sumProp)
 };
 
 function getFormData (form) {
@@ -49,4 +50,14 @@ function switcher () {
 function round (decimal, number) {
   let decimalMultiplier = Math.pow(10, decimal);
   return Math.round(number * decimalMultiplier) / decimalMultiplier;
+}
+
+
+function sumProp (prop, result) {
+    return R.pipe(
+    R.map(R.prop(prop)),
+    R.sum
+  )(result);
+
+
 }
