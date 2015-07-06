@@ -36,7 +36,7 @@ describe('posStore', function () {
     expect(posStore.store.getValue()).to.eql([]);
   });
 
-  it('should update the store whe dependencies are updated', function (done) {
+  it.skip('should update the store whe dependencies are updated', function (done) {
     let spy = sinon.spy(onChange);
     subject = posStore.store.subscribe(spy);
 
