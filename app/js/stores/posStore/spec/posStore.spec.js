@@ -5,6 +5,7 @@ import http from '../../../services/http';
 import sinon from 'sinon';
 import posStore from '../index';
 import startDateStore from '../../startDateStore';
+import endDateStore from '../../endDateStore';
 import storeStore from '../../storeStore';
 import jsonResponse from './data/jsonResponse.json';
 
@@ -15,7 +16,6 @@ describe('posStore', function () {
     sinon.stub(http, 'get', function () {
       return new rx.BehaviorSubject(jsonResponse);
     });
-
   });
 
   after(function () {
@@ -28,6 +28,8 @@ describe('posStore', function () {
 
   beforeEach(function () {
       storeStore.store.onNext(null);
+      startDateStore.update.onNext(moment());
+      endDateStore.update.onNext(moment());
       posStore.store.onNext([]);
   });
 
@@ -36,11 +38,12 @@ describe('posStore', function () {
     expect(posStore.store.getValue()).to.eql([]);
   });
 
-  it.skip('should update the store whe dependencies are updated', function (done) {
-    let spy = sinon.spy(onChange);
-    subject = posStore.store.subscribe(spy);
-
+  it('should update the store whe dependencies are updated', function (done) {
     startDateStore.update.onNext(moment());
+    endDateStore.update.onNext(moment());
+    let spy = sinon.spy(onChange);
+
+    subject = posStore.store.subscribe(spy, x => console.log('ERRRRRR', x))
 
     storeStore.store.onNext({
       id: 'bababa',
@@ -48,8 +51,7 @@ describe('posStore', function () {
     });
 
     function onChange (posData) {
-      console.log('CHANGE', posData);
-      if (!R.isEmpty(posData)) return;
+      if (R.isEmpty(posData)) return;
 
       expect(spy.calledTwice).to.equal(true);
       expect(R.pluck('revenue', posData)).to.eql(R.pluck('revenue',jsonResponse));

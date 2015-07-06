@@ -14,11 +14,9 @@ export default {
 };
 
 store.subscribe(
-  R.identity,
-  (err) => {
-  console.error('posStore', err);
-  console.log(err && err.stack);
-});
+  (x) => x,
+  (err) => console.error('posStore', err, err.stack));
+
 
 rx.Observable.combineLatest(
   startDateStore.store,

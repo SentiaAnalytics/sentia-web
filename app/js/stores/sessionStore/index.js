@@ -12,7 +12,6 @@ export default {
 };
 store.subscribe(() => error.onNext(null), (error) => console.error('sessionStore', error));
 
-
 update
   .filter((request) => {
     return request && (request.action === 'login' || request.action === 'fetch');

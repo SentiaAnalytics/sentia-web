@@ -1,12 +1,10 @@
 'use strict';
 let store = new rx.BehaviorSubject(moment().endOf('day'));
-let error = new rx.BehaviorSubject(null);
 let update = new rx.Subject();
 
 export default {
   store,
   update,
-  error,
 };
 
 store.subscribe(

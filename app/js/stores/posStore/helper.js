@@ -59,8 +59,8 @@ function getGroupBy (query) {
 function processResult (data) {
   return R.map(e => {
     return {
-      revenue: parseInt(e.revenue, 10) || 0,
-      transactions: parseInt(e.transactions, 10) || 0,
+      revenue: parseFloat(e.revenue) || 0,
+      transactions: parseFloat(e.transactions) || 0,
       time: moment(e.time)
     };
   }, data);

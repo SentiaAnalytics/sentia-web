@@ -12,7 +12,7 @@ export default {
   error
 };
 store.subscribe(
-  R.identity,
+  (x) => x,
   (err) => console.error('posStore', err));
 
 update

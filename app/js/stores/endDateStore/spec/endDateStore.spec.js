@@ -5,8 +5,8 @@ import sinon from 'sinon';
 import startDateStore from '../';
 
 describe('endDateStore', function () {
-  it('should expose (update, store error)', function () {
-     expect(startDateStore).to.have.all.keys(['update','store', 'error']);
+  it('should expose (update, store)', function () {
+     expect(startDateStore).to.have.all.keys(['update','store']);
   });
 
   it('should ignore invalid updates', function () {
