@@ -37,6 +37,10 @@ app.get('/', function (req, res) {
 // middleware
 app.use(middleware.auth);
 // load api routes
+app.use((req, res, next) => {
+  logger.info(req.method, req.url);
+  next();
+})
 app.use(routeloader({prefix : '/api'}));
 // error handling
 app.use(require('./services/error.service'));
