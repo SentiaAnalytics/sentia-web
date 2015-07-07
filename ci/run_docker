@@ -5,4 +5,4 @@ docker run \
   -e REDISCLOUD_URL=$REDISCLOUD_URL \
   -e LOGGLY_SUBDOMAIN=$LOGGLY_SUBDOMAIN \
   -e LOGGLY_TOKEN=$LOGGLY_TOKEN \
-  gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM
+  gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM >> $CIRCLE_ARTIFACTS/docker.log
