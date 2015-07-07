@@ -56,7 +56,8 @@ function round (decimal, number) {
 function sumProp (prop, result) {
     return R.pipe(
     R.map(R.prop(prop)),
-    R.sum
+    R.sum,
+    R.partial(round, 2)
   )(result);
 
 

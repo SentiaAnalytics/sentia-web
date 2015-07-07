@@ -30,10 +30,10 @@ function buildJsonQuery (query) {
     "where" : {
       "store" : query.storeId,
       'date(time)' : {
-        gte : query.startDate
+        gte : moment(query.startDate)
           .tz('UTC')
           .format('YYYY-MM-DD HH:mm:ss'),
-        lte : query.endDate
+        lte : moment(query.endDate)
           .tz('UTC')
           .format('YYYY-MM-DD HH:mm:ss'),
       }

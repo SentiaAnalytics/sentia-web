@@ -14,12 +14,18 @@ export default React.createClass({
 
   componentDidMount () {
     this.observers.push(sessionStore
-      .error
-      .filter((error) => error)
-      .subscribe(this.transitionTo.bind(this, 'login')));
+    .error
+    .filter((error) => error)
+    .subscribe(this.transitionTo.bind(this, 'login')));
+
+    this.observers.push(
+      sessionStore.store
+        .filter(session => session && !session.user)
+        .subscribe(this.transitionTo.bind(this, 'login')));
 
     this.observers.push(sessionStore
       .store
+      .filter(session => session && session.user)
       .map((session) => {
         return {session}
       })

@@ -10,7 +10,7 @@ export default React.createClass({
     document.title = 'Sentia Analytics - Login';
     sessionStore
       .store
-      .filter((session) => session)
+      .filter((session) => session && session.user)
       .subscribe(R.partial(this.transitionTo, 'dashboard'));
   },
 

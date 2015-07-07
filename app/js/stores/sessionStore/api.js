@@ -3,7 +3,8 @@ import http from '../../services/http';
 
 export default{
   fetch,
-  login
+  login,
+  logout
 };
 
 function fetch() {
@@ -12,4 +13,10 @@ function fetch() {
 
 function login(credentials) {
   return http.post('/api/session/authenticate', credentials);
+}
+
+function logout () {
+  return http.del('/api/session').map(x => {
+    return {};
+  });
 }

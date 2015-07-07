@@ -27,7 +27,7 @@ export default React.createClass({
   render: function() {
     let date = this.props.dateStore.store.getValue();
     return (
-        <button className="btn btn-primary">{date.format('YYYY-MM-DD')}</button>
+        <input type="text" id={this.props.id} className="btn btn-primary" defaultValue={date.format('YYYY-MM-DD')}/>
     );
   }
 });

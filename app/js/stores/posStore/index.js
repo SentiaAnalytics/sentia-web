@@ -22,14 +22,18 @@ rx.Observable.combineLatest(
   startDateStore.store,
   endDateStore.store,
   storeStore.store,
-  (startDate, endDate, store) => {
-    return {
-      startDate,
-      endDate,
-      store
-    };
+  (startDate, endDate, store) =>  {
+    return { startDate, endDate, store };
   })
   .filter(helper.filterInput)
-  .flatMap(helper.fetchData)
+  .flatMap(fetchData)
   .map(helper.processResult)
   .subscribe(store);
+
+function fetchData (query) {
+  return helper.fetchData(query)
+    .catch(function (err) {
+      error.onNext(err);
+      return rx.Observable.empty();
+    });
+}

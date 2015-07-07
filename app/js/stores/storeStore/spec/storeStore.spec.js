@@ -6,46 +6,28 @@ import sinon from 'sinon';
 import storeStore from '../';
 
 describe('StoresStore', function () {
-  let subject;
-  before(function () {
-      sinon.stub(http, 'get', function (url) {
-        return new rx.BehaviorSubject({
-          id: url.split('/').pop(),
-          name: 'store'
-        });
-      });
-  });
+  before(stubHttp);
 
-  after(function () {
-      http.get.restore();
-  });
+  after(() => http.get.restore());
 
-  beforeEach(function () {
+  beforeEach(() => {
       storeStore.store.onNext(null);
   });
 
-  afterEach(function () {
-    if(subject) subject.dispose();
-  });
 
   it('should hold an initial value of null', function () {
     expect(storeStore.store.getValue()).to.equal(null);
   });
 
-  it.skip('should fetch and emit a new store if a valid request is sent to update', function (done) {
-    let spy = sinon.spy(storeUpdated);
-    subject = storeStore.store.subscribe(spy);
+  it('should fetch and emit a new store if a valid request is sent to update', function () {
     storeStore.update.onNext('1234');
 
-    function storeUpdated (store) {
-      if(!store) return;
-      expect(spy.calledTwice).to.be.true;
-      expect(store).to.eql({
-        id: '1234',
-        name: 'store'
-      });
-      done();
-    }
+    let store = storeStore.store.getValue();
+
+    expect(store).to.eql({
+      id: '1234',
+      name: 'store'
+    });
   });
 
   it('should filter invalid requests', function () {
@@ -56,3 +38,13 @@ describe('StoresStore', function () {
     expect(storeStore.store.getValue()).to.equal(null);
   });
 });
+function stubHttp () {
+  sinon.stub(http, 'get', function (url) {
+    return new rx.BehaviorSubject({
+      id: url.split('/').pop(),
+      name: 'store'
+    });
+  });
+
+  
+}

@@ -9,21 +9,14 @@ import endDateStore from '../../endDateStore';
 import storeStore from '../../storeStore';
 import jsonResponse from './data/jsonResponse.json';
 
+let shouldHttpFail = false;
 describe('posStore', function () {
   let subject;
 
-  before(function () {
-    sinon.stub(http, 'get', function () {
-      return new rx.BehaviorSubject(jsonResponse);
-    });
-  });
+  before(stubHttp);
 
   after(function () {
     http.get.restore();
-  });
-
-  afterEach(function () {
-    if (subject) subject.dispose();
   });
 
   beforeEach(function () {
@@ -38,24 +31,31 @@ describe('posStore', function () {
     expect(posStore.store.getValue()).to.eql([]);
   });
 
-  it('should update the store whe dependencies are updated', function (done) {
-    startDateStore.update.onNext(moment());
-    endDateStore.update.onNext(moment());
-    let spy = sinon.spy(onChange);
-
-    subject = posStore.store.subscribe(spy, x => console.log('ERRRRRR', x))
-
+  it('should update the store whe dependencies are updated', function () {
     storeStore.store.onNext({
       id: 'bababa',
       name: 'store'
     });
+    let posData = posStore.store.getValue();
 
-    function onChange (posData) {
-      if (R.isEmpty(posData)) return;
+    expect(R.pluck('revenue', posData)).to.eql(R.pluck('revenue',jsonResponse));
+  });
 
-      expect(spy.calledTwice).to.equal(true);
-      expect(R.pluck('revenue', posData)).to.eql(R.pluck('revenue',jsonResponse));
-      done();
-    }
+  it('should catch http errors', function () {
+    shouldHttpFail = true;
+    storeStore.store.onNext({
+      id: 'bababa',
+      name: 'store'
+    });
+    let posData = posStore.store.getValue();
+    let error = posStore.error.getValue();
+    expect(posData).to.eql([]);
+    expect(error).to.equal('http error');
   });
 });
+function stubHttp () {
+  sinon.stub(http, 'get', function (url) {
+    if(shouldHttpFail) return rx.Observable.throw('http error');
+    return new rx.BehaviorSubject(jsonResponse);
+  });
+}

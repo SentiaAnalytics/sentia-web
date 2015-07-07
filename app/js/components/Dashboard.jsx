@@ -55,13 +55,13 @@ export default React.createClass({
           <div className="col-sm-4 gutter-bottom">
             <article className="paper paper-widget-small container-fluid">
               <h1>revenue</h1>
-              <p>{pos && util.sumProp('revenue', pos)}</p>
+              <p id="total-revenue">{pos && util.sumProp('revenue', pos)}</p>
             </article>
           </div>
           <div className="col-sm-4 gutter-bottom">
             <article className="paper paper-widget-small container-fluid">
               <h1>transactions</h1>
-              <p>{pos && util.sumProp('transactions', pos)}</p>
+              <p id="total-transactions">{pos && util.sumProp('transactions', pos)}</p>
             </article>
           </div>
           <div className="col-sm-6 gutter-bottom">
