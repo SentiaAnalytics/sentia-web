@@ -1,2 +1,2 @@
 #!/bin/bash
-(cd cucumber && bundle install && bundle exec cucumber -t ~@wip >> $CIRCLE_ARTIFACTS/cucumber.log)
+(cd cucumber && bundle install && bundle exec cucumber -t ~@wip)

@@ -2,20 +2,26 @@
 var gulp = require('gulp');
 var mocha = require('gulp-spawn-mocha');
 
+var mochaReporter = process.env.CIRCLE_TEST_REPORTS ? 'mocha-junit-reporter': 'dot';
+
 gulp.task('spec',function () {
     return gulp.src([
       'app/js/**/spec/**/*.js'
       ])
       .pipe(mocha({
-        reporter: 'dot',
-        compilers: 'js:babel/register'
+        compilers: 'js:babel/register',
+        reporter: mochaReporter,
+        // reporter: 'dot',
       }));
 });
 
 gulp.task('resttest', function () {
   return gulp.src(['test/setup.js','test/**/*.js'])
     .pipe(mocha({
-      reporter: 'dot',
+      reporter: mochaReporter,
+      // reporterOptions: {
+      //   mochaFile: mochaReportPath + '/rest.xml'
+      // },
       compilers: 'js:babel/register'
     }));
 });

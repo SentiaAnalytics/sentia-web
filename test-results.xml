@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" timestamp="2015-07-08T22:22:19" time="0.016" tests="20" failures="0">
+  <testsuite name="endDateStore" timestamp="2015-07-08T22:22:19" tests="3" failures="0" time="0">
+    <testcase name="endDateStore should expose (update, store)" time="0" className="should expose (update, store)">
+    </testcase>
+    <testcase name="endDateStore should ignore invalid updates" time="0" className="should ignore invalid updates">
+    </testcase>
+    <testcase name="endDateStore should update the store when a valid update is pushed" time="0" className="should update the store when a valid update is pushed">
+    </testcase>
+  </testsuite>
+  <testsuite name="peopleStore" timestamp="2015-07-08T22:22:19" tests="3" failures="0" time="0.011">
+    <testcase name="peopleStore should not update the store until all dependencies are met" time="0" className="should not update the store until all dependencies are met">
+    </testcase>
+    <testcase name="posStore should not update the store until all dependencies are met" time="0" className="should not update the store until all dependencies are met">
+    </testcase>
+    <testcase name="posStore should update the store whe dependencies are updated" time="0.011" className="should update the store whe dependencies are updated">
+    </testcase>
+  </testsuite>
+  <testsuite name="posStore" timestamp="2015-07-08T22:22:19" tests="3" failures="0" time="0.003">
+    <testcase name="posStore should catch http errors" time="0.002" className="should catch http errors">
+    </testcase>
+    <testcase name="sessionStore fetch should fetch the current session when recieving a fetch action" time="0.001" className="should fetch the current session when recieving a fetch action">
+    </testcase>
+    <testcase name="sessionStore fetch it should catch errors and send them to the error observable" time="0" className="it should catch errors and send them to the error observable">
+    </testcase>
+  </testsuite>
+  <testsuite name="fetch" timestamp="2015-07-08T22:22:19" tests="2" failures="0" time="0">
+    <testcase name="sessionStore login should login when recieving valid credentials" time="0" className="should login when recieving valid credentials">
+    </testcase>
+    <testcase name="sessionStore login should throw when recieving bad credentials" time="0" className="should throw when recieving bad credentials">
+    </testcase>
+  </testsuite>
+  <testsuite name="login" timestamp="2015-07-08T22:22:19" tests="2" failures="0" time="0">
+    <testcase name="sessionStore logout should destroy the current session" time="0" className="should destroy the current session">
+    </testcase>
+    <testcase name="startDateStore should expose (update, store)" time="0" className="should expose (update, store)">
+    </testcase>
+  </testsuite>
+  <testsuite name="logout" timestamp="2015-07-08T22:22:19" tests="1" failures="0" time="0">
+    <testcase name="startDateStore should ignore invalid updates" time="0" className="should ignore invalid updates">
+    </testcase>
+  </testsuite>
+  <testsuite name="startDateStore" timestamp="2015-07-08T22:22:19" tests="3" failures="0" time="0.002">
+    <testcase name="startDateStore should update the store when a valid update is pushed" time="0.001" className="should update the store when a valid update is pushed">
+    </testcase>
+    <testcase name="StoresStore should hold an initial value of null" time="0" className="should hold an initial value of null">
+    </testcase>
+    <testcase name="StoresStore should fetch and emit a new store if a valid request is sent to update" time="0.001" className="should fetch and emit a new store if a valid request is sent to update">
+    </testcase>
+  </testsuite>
+  <testsuite name="StoresStore" timestamp="2015-07-08T22:22:19" tests="3" failures="0" time="0">
+    <testcase name="StoresStore should filter invalid requests" time="0" className="should filter invalid requests">
+    </testcase>
+  </testsuite>
+</testsuites>
