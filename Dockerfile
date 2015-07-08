@@ -2,7 +2,6 @@ FROM google/nodejs
 
 ADD . .
 RUN npm install --prod
-RUN npm run build
 
 RUN ls app/
 
