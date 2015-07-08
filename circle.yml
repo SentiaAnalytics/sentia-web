@@ -29,7 +29,7 @@ test:
     - ci/run_docker:
         background:
           true
-    - sleep 5 && ci/cucumber >> $CIRCLE_
+    - sleep 5 && ci/cucumber
 
 
 deployment:
