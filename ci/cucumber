@@ -1,2 +1,2 @@
 #!/bin/bash
-(cd cucumber && bundle install && bundle exec cucumber -t ~@wip --format json --out $CIRCLE_TEST_REPORTS/cucumber/tests.cucumber)
+(cd cucumber && bundle install && bundle exec cucumber -t ~@wip)
