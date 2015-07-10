@@ -9,8 +9,6 @@ export default React.createClass({
     this.picker = new Pikaday({
       field: element,
       onSelect: function () {
-        console.log('select');
-        console.log(this.getMoment());
         dateStore.update.onNext(this.getMoment());
       }
     })
@@ -26,8 +24,9 @@ export default React.createClass({
 
   render: function() {
     let date = this.props.dateStore.store.getValue();
+    let classes = this.props.classes + " btn btn-primary"
     return (
-        <input type="text" id={this.props.id} className="btn btn-primary" defaultValue={date.format('YYYY-MM-DD')}/>
+        <input type="text" id={this.props.id} className={classes} defaultValue={date.format('YYYY-MM-DD')}/>
     );
   }
 });

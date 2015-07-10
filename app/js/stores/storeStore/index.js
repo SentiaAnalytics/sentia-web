@@ -12,15 +12,14 @@ export default {
   error
 };
 store.subscribe(
-  (x) => x,
-  (err) => console.error('posStore', err));
+  (x) => console.log('storeStore', x),
+  (err) => console.error('storeStore', err));
 
 update
   .filter(id => typeof id === 'string')
   .flatMap(fetchData)
   .subscribe(store);
 
-update.onNext("54318d4064acfb0b3139807e"); // for now just load the store
 
 function fetchData (query) {
   return fetchStore(query)

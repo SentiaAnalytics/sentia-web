@@ -41,7 +41,6 @@ export default React.createClass({
 });
 
 function prepareDataForChart (prop, data) {
-  console.log('prep', prop, data);
    return {
      labels: R.map((x) => x.time.format('DD/MM/YYYY'), data),
      series : [R.map(R.prop(prop), data)]

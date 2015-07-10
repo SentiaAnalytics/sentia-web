@@ -14,13 +14,9 @@ export default React.createClass({
     return (
       <div className="bg-gray navbar navbar-default">
         <div className="container-fluid">
-          <form className="navbar-form navbar-left">
-            <div className="form-group">
-              <Datepicker dateStore={startDateStore} id="start-date-picker"/>
-              <Datepicker dateStore={endDateStore} id="end-date-picker"/>
-            </div>
-          </form>
-          <button className="pull-right btn btn-danger" onClick={this.logout}>logout</button>
+            <Datepicker dateStore={startDateStore} id="start-date-picker" classes="navbar-btn"/>
+            <Datepicker dateStore={endDateStore} id="end-date-picker"/>
+            <button className="pull-right navbar-btn btn-danger" onClick={this.logout}>logout</button>
         </div>
       </div>
     );

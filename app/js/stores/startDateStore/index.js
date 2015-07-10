@@ -8,7 +8,7 @@ export default {
 };
 
 store.subscribe(
-  R.identity,
+  x => console.log('startDate', x),
   (err) => console.error('startDate', err));
 
 update

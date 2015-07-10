@@ -1,6 +1,7 @@
 'use strict';
 import {Navigation, RouteHandler} from 'react-router';
 import sessionStore from '../stores/sessionStore';
+import storeStore from '../stores/storeStore';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
@@ -13,6 +14,11 @@ export default React.createClass({
   },
 
   componentDidMount () {
+    this.addObservers()
+    storeStore.update.onNext("54318d4064acfb0b3139807e"); // for now just load the store
+  },
+
+  addObservers () {
     this.observers.push(sessionStore
     .error
     .filter((error) => error)
