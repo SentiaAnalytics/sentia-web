@@ -40,6 +40,7 @@ end
 When(/^I am logged in$/) do
   login_page.go
   login_page.login
+  expect(page).to have_title(dashboard_page.title)
 end
 
 Then(/^I should see an invalid credentials error$/) do
