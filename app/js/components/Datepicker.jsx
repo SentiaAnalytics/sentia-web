@@ -6,8 +6,6 @@ export default React.createClass({
   componentDidMount () {
     let element = this.getDOMNode();
     let {minDate, maxDate, dateStore} = this.props;
-    console.log(this.props);
-    console.log(minDate, maxDate, dateStore);
     this.picker = new Pikaday({
       field: element,
       minDate: minDate? moment(minDate).toDate(): null,

@@ -14,7 +14,7 @@ export default React.createClass({
   },
 
   componentDidMount () {
-
+    console.log('HOME');
     this.addObservers()
     sessionStore.update.onNext({action: 'fetch'});
     storeStore.update.onNext(this.props.params.id); // for now just load the store

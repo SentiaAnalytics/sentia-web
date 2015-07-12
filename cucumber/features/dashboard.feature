@@ -5,7 +5,6 @@ Feature: Dashboard page
     When I go to the dashboard page
     Then I should be on the dashboard page
 
-  @wip
   Scenario: Check Data
     Given I am logged in
       And I go to the dashboard page

@@ -10,7 +10,8 @@ export default React.createClass({
     document.title = 'Sentia Analytics - Login';
     sessionStore
       .store
-      .tap(session => console.log('login session', session))
+      .skip(1)
+      .tap(session => console.log('login session', R.keys(session)))
       .filter((session) => session && session.user)
       .subscribe(session => {
         this.transitionTo('dashboard', {id: '54318d4064acfb0b3139807e'});
