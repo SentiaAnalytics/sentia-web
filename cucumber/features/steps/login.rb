@@ -16,6 +16,7 @@ end
 When(/^I log in$/) do
   login_page.go
   login_page.login
+  expect(page).to have_title(dashboard_page.title)
 end
 
 When(/^I log in with a bad email$/) do
