@@ -16,8 +16,12 @@ export default React.createClass({
     return (
       <div className="bg-gray navbar navbar-default">
         <div className="container-fluid">
-            <Datepicker date={startDate} maxDate={endDate} dateStore={startDateStore} id="start-date-picker" classes="navbar-btn"/>
-            <Datepicker date={endDate} minDate={startDate}  dateStore={endDateStore} id="end-date-picker"/>
+          <div className="col-xs-3 no-gutter">
+            <Datepicker date={startDate} maxDate={endDate} dateStore={startDateStore} id="start-date-picker" classes="navbar-btn btn-block"/>
+          </div>
+          <div className="col-xs-3 no-gutter">
+            <Datepicker date={endDate} minDate={startDate}  dateStore={endDateStore} id="end-date-picker"  classes="navbar-btn btn-block"/>
+          </div>
             <button className="pull-right btn navbar-btn btn-danger" onClick={this.logout}>logout</button>
         </div>
       </div>
