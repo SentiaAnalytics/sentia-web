@@ -5,6 +5,7 @@ import posStore from '../stores/posStore';
 import peopleStore from '../stores/peopleStore';
 import util from '../util';
 import Linechart from './Linechart';
+import Numberwidget from './Numberwidget';
 
 export default React.createClass({
   observers: [],
@@ -47,7 +48,9 @@ export default React.createClass({
     const {dates, pos, people} = this.state;
     let totalRevenue = pos? util.sumProp('revenue', pos): 0;
     let totalTransactions = pos? util.sumProp('transactions', pos): 0;
+    let totalPeople = people? util.sumProp('people', people): 0;
     let basketSize = util.round(2, totalRevenue/totalTransactions);
+    let conversion = util.round(2, totalTransactions/totalPeople);
     return (
       <div className="full-height gutter-top gutter-bottom bg-gray-lighter">
         <div className="container-fluid">
@@ -59,28 +62,19 @@ export default React.createClass({
             </article>
           </div>
           <div className="col-sm-6 gutter-bottom">
-            <article className="paper paper-widget-small container-fluid">
-              <h1>revenue</h1>
-              <p id="total-revenue">{totalRevenue}</p>
-            </article>
+            <Numberwidget id="total-revenue" title="revenue" value={totalRevenue}/>
           </div>
           <div className="col-sm-6 gutter-bottom">
-            <article className="paper paper-widget-small container-fluid">
-              <h1>transactions</h1>
-              <p id="total-transactions">{totalTransactions}</p>
-            </article>
+            <Numberwidget id="total-transactions" title="transactions" value={totalTransactions}/>
           </div>
           <div className="col-sm-6 gutter-bottom">
-            <article className="paper paper-widget-small container-fluid">
-              <h1>Basket size</h1>
-              <p id="basket-size">{basketSize}</p>
-            </article>
+            <Numberwidget id="basket-size" title="Basket Size" value={basketSize}/>
           </div>
           <div className="col-sm-6 gutter-bottom">
-            <article className="paper paper-widget-small container-fluid">
-              <h1>people in</h1>
-              <p id="total-revenue">{people && util.sumProp('people', people)}</p>
-            </article>
+            <Numberwidget id="total-people" title="Peope in" value={totalPeople}/>
+          </div>
+          <div className="col-sm-6 gutter-bottom">
+            <Numberwidget id="conversion" title="Conversion Rate" value={conversion}/>
           </div>
           <div className="col-sm-6 gutter-bottom">
             <article className="paper paper-widget container-fluid">

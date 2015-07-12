@@ -13,21 +13,29 @@ class DashboardPage
     'Sentia Analytics - Dashboard'
   end
 
-  def set_start_date(date)
-    fill_in 'start-date-picker', with: "#{date}\n"
+  def start_date(date)
+    fill_in 'start-date-picker', with: "#{date}\n\t"
   end
 
-  def set_end_date(date)
-    fill_in 'end-date-picker', with: "#{date}\n"
+  def end_date(date)
+    fill_in 'end-date-picker', with: "#{date}\n\t"
+    find('body').click
   end
 
-  def get_revenue
-    find('#jhg')
-    find('#total-revenue').text
+  def total_revenue
+    find('#total-revenue')
   end
 
-  def get_transactions
-    find('#total-transactions').text
+  def total_transactions
+    find('#total-transactions')
+  end
+
+  def basket_size
+    find('#basket-size')
+  end
+
+  def conversion
+    find('#conversion')
   end
 end
 

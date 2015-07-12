@@ -10,15 +10,23 @@ Then(/^I should be on the dashboard page$/) do
   expect(page).to have_title(dashboard_page.title)
 end
 
-When(/^I select a date range$/) do
-  dashboard_page.set_start_date '2015-01-01'
-  dashboard_page.set_end_date '2015-04-30'
+When(/^I select a date range from (.+) to (.+)$/) do |start_date, end_date|
+  dashboard_page.start_date start_date
+  dashboard_page.end_date end_date
 end
 
-Then(/^the total revenue should be (\d+)$/) do |revenue|
-  expect(dashboard_page.get_revenue).to equal(revenue)
+Then(/^the total revenue should be (.+)$/) do |revenue|
+  expect(dashboard_page.total_revenue).to have_content(revenue)
 end
 
-Then(/^the total transactions should be (\d+)$/) do |transactions|
-  expect(dashboard_page.get_transactions).to equal(transactions)
+Then(/^the total transactions should be (.+)$/) do |transactions|
+  expect(dashboard_page.total_transactions).to have_content(transactions)
+end
+
+Then(/^the basket size should be (.+)$/) do |basket_size|
+  expect(dashboard_page.basket_size).to have_content(basket_size)
+end
+
+Then(/^the conversion should be (.+)$/) do |conversion|
+  expect(dashboard_page.conversion).to have_content(conversion)
 end
