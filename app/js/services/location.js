@@ -7,11 +7,14 @@ export default {
   get,
   set: R.curry(set)
 };
+
 function get (prop) {
+  if (typeof window === 'undefined') return null;
   return getQuery(url.parse(window.location.href))[prop];
 }
 
 function set (prop, value) {
+  if (typeof window === 'undefined') return null;
   let location = url.parse(window.location.href);
   R.pipe(
     () => getQuery(location),
