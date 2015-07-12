@@ -14,10 +14,12 @@ class DashboardPage
   end
 
   def start_date(date)
+    find('#start-date-picker')
     fill_in 'start-date-picker', with: "#{date}\n\t"
   end
 
   def end_date(date)
+    find('#end-date-picker')
     fill_in 'end-date-picker', with: "#{date}\n\t"
     find('body').click
   end
