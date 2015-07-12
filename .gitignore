@@ -5,7 +5,7 @@ node_modules
 app/bundle.js
 app/bundle.js.gz
 app/style.css
-cucumber/screenshots/
+screenshots/
 
 logs
 
