@@ -45,6 +45,9 @@ export default React.createClass({
 
   render () {
     const {dates, pos, people} = this.state;
+    let totalRevenue = pos? util.sumProp('revenue', pos): 0;
+    let totalTransactions = pos? util.sumProp('transactions', pos): 0;
+    let basketSize = util.round(2, totalRevenue/totalTransactions);
     return (
       <div className="full-height gutter-top gutter-bottom bg-gray-lighter">
         <div className="container-fluid">
@@ -58,13 +61,19 @@ export default React.createClass({
           <div className="col-sm-6 gutter-bottom">
             <article className="paper paper-widget-small container-fluid">
               <h1>revenue</h1>
-              <p id="total-revenue">{pos && util.sumProp('revenue', pos)}</p>
+              <p id="total-revenue">{totalRevenue}</p>
             </article>
           </div>
           <div className="col-sm-6 gutter-bottom">
             <article className="paper paper-widget-small container-fluid">
               <h1>transactions</h1>
-              <p id="total-transactions">{pos && util.sumProp('transactions', pos)}</p>
+              <p id="total-transactions">{totalTransactions}</p>
+            </article>
+          </div>
+          <div className="col-sm-6 gutter-bottom">
+            <article className="paper paper-widget-small container-fluid">
+              <h1>Basket size</h1>
+              <p id="basket-size">{basketSize}</p>
             </article>
           </div>
           <div className="col-sm-6 gutter-bottom">
