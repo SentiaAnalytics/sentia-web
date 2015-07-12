@@ -1,2 +1,2 @@
 #!/bin/bash
-(cd cucumber && bundle install && bundle exec cucumber -t ~@wip)
+bundle install && bundle exec cucumber -t ~@wip cucumber
