@@ -2,7 +2,7 @@
 class DashboardPage
   include Capybara::DSL
   def url
-    "#{host}/#/"
+    "#{host}/"
   end
 
   def go

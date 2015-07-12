@@ -9,7 +9,6 @@ import Header from './Header';
 export default React.createClass({
   mixins:[Navigation],
   observers: [],
-
   getInitialState () {
     return {session:null};
   },
@@ -17,6 +16,7 @@ export default React.createClass({
   componentDidMount () {
 
     this.addObservers()
+    sessionStore.update.onNext({action: 'fetch'});
     storeStore.update.onNext(this.props.params.id); // for now just load the store
   },
 
