@@ -11,7 +11,9 @@ export default React.createClass({
     sessionStore
       .store
       .filter((session) => session && session.user)
-      .subscribe(R.partial(this.transitionTo, 'dashboard'));
+      .subscribe(session => {
+        this.transitionTo('dashboard', {id: '54318d4064acfb0b3139807e'});
+      });
   },
 
 

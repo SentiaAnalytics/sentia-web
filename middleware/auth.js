@@ -6,7 +6,7 @@ var objectId = require('mongoose').Types.ObjectId;
 module.exports = function(req, res, next) {
     // User is allowed, proceed to the next policy,
     // or if this is the last policy, the controller
-    if (req.url === '/api/session/authenticate') {
+    if (req.url === '/session/authenticate') {
       return next();
     }
     if (req.session.user) {

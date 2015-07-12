@@ -9,6 +9,11 @@ export default {
   error
 };
 
+store.subscribe(
+  store => store,
+  error => console.error('cameraList', error)
+);
+
 storeStore
   .store
   .flatMap(fetchData)

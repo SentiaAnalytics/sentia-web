@@ -1,4 +1,5 @@
 'use strict';
+import location from '../services/location';
 import {Navigation, RouteHandler} from 'react-router';
 import sessionStore from '../stores/sessionStore';
 import storeStore from '../stores/storeStore';
@@ -14,8 +15,9 @@ export default React.createClass({
   },
 
   componentDidMount () {
+
     this.addObservers()
-    storeStore.update.onNext("54318d4064acfb0b3139807e"); // for now just load the store
+    storeStore.update.onNext(this.props.params.id); // for now just load the store
   },
 
   addObservers () {
@@ -43,9 +45,10 @@ export default React.createClass({
   },
 
   render: function () {
+      let {startDate, endDate} = this.props.query;
     return (
       <div>
-        <Header/>
+        <Header startDate={startDate} endDate={endDate}/>
         <RouteHandler session={this.state.session} />
       </div>
     );

@@ -30,19 +30,18 @@ app.use(gzipStatic(__dirname + '/app'));
 
 app.use(express.static(__dirname + '/app'));
 
-app.get('/', function (req, res) {
-  res.send('app/index.html');
-});
-
 // middleware
-app.use(middleware.auth);
+app.use('/api', middleware.auth);
 // load api routes
 app.use((req, res, next) => {
   logger.info(req.method, req.url);
   next();
-})
+});
 app.use(routeloader({prefix : '/api'}));
 // error handling
+app.get('/*', function (req, res) {
+  res.sendFile(__dirname + '/app/index.html');
+});
 app.use(require('./services/error.service'));
 
 app.on('close', function () {

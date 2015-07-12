@@ -6,5 +6,5 @@ export default {
 };
 
 function fetchStore (id) {
-  return http.get(`api/stores/${id}`);
+  return http.get(`/api/stores/${id}`);
 }

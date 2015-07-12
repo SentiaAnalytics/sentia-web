@@ -33,7 +33,7 @@ describe('posStore', function () {
 
   it('should update the store whe dependencies are updated', function () {
     storeStore.store.onNext({
-      id: 'bababa',
+      _id: 'bababa',
       name: 'store'
     });
     let posData = posStore.store.getValue();
@@ -44,7 +44,7 @@ describe('posStore', function () {
   it('should catch http errors', function () {
     shouldHttpFail = true;
     storeStore.store.onNext({
-      id: 'bababa',
+      _id: 'bababa',
       name: 'store'
     });
     let posData = posStore.store.getValue();

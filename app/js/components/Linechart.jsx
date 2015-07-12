@@ -1,6 +1,5 @@
 'use strict';
 import Chartist from 'chartist';
-import posStore from '../stores/posStore';
 const defaultData = {
   labels:[0],
   series: [[0]]
@@ -20,10 +19,11 @@ export default React.createClass({
   componentDidMount () {
     let element = this.getDOMNode();
     let store = this.props.store;
-    let data = prepareDataForChart(this.props.type, posStore.store.getValue());
+    let type = this.props.type;
+    let data = prepareDataForChart(type, store.getValue());
     this.chart = new Chartist.Line(element, defaultData, defaultOptions);
 
-    this.observable = posStore.store
+    this.observable = store
       .filter(x => !R.isEmpty(x))
       .map(R.partial(prepareDataForChart, this.props.type))
       .subscribe((x)=> this.chart.update(x), err => console.error('lineChart', err));

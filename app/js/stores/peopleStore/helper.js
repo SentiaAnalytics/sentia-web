@@ -1,10 +1,10 @@
 'use strict';
-import storeStore from '../storeStore';
 import http from '../../services/http';
 import util from '../../util';
 
 export default {
   filterInput,
+  getEntranceCameras,
   fetchData,
   buildJsonQuery,
   getGroupBy,
@@ -12,7 +12,17 @@ export default {
 };
 
 function filterInput (query) {
-  return (query.startDate && query.endDate && query.store);
+  return (
+    query.startDate &&
+    query.endDate &&
+    query.cameras &&
+    !R.isEmpty(query.cameras)
+  );
+}
+
+function getEntranceCameras (query) {
+  return R.lensProp('cameras')
+    .map(R.filter(cam => cam.counter === 'entrance'), query);
 }
 
 function fetchData (query) {
@@ -23,26 +33,18 @@ function fetchData (query) {
 function buildJsonQuery (query) {
   return {
       fields : {
-        'time' : 'date',
+        'time' : 'time',
         'sum(people_in)' : 'people'
       },
       where : {
-        cam : query.cameras,
+        cam : R.map(R.prop('_id'),query.cameras),
         'date(time)' : {
-          gte : query.startDate
-            .clone()
-            .startOf('day')
+          gte : moment(query.startDate)
             .tz('UTC')
             .format('YYYY-MM-DD HH:mm:ss'),
-          lt : query.endDate
-            .clone()
-            .endOf('day')
+          lt : moment(query.endDate)
             .tz('UTC')
             .format('YYYY-MM-DD HH:mm:ss')
-        },
-        'hour(time)' : {
-          gte : 8,
-          lte : 20
         }
       },
       groupBy : getGroupBy(query),
@@ -66,8 +68,7 @@ function getGroupBy (query) {
 function processResult (data) {
   return R.map(e => {
     return {
-      revenue: parseFloat(e.revenue) || 0,
-      transactions: parseFloat(e.transactions) || 0,
+      people: parseInt(e.people, 10) || 0,
       time: moment(e.time)
     };
   }, data);

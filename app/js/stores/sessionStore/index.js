@@ -12,9 +12,11 @@ export default {
   error,
 };
 store.subscribe(() => error.onNext(null), (error) => console.error('sessionStore', error));
-// store.subscribe(x => console.log('STORE',x));
+store.subscribe(x => console.log('session',x));
+error.subscribe(x => console.log('sesison eeror', x));
 update
   .filter((request) => {
+    console.log('UPDATE', request);
     return api.hasOwnProperty(request.action);
   })
   .flatMap(request => {
@@ -26,4 +28,4 @@ update
   })
   .subscribe(store);
 
-update.onNext({action: 'fetch'}) // try and load the session
+// update.onNext({action: 'fetch'}) // try and load the session

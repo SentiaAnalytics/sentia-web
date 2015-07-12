@@ -1,7 +1,7 @@
 'use strict';
 import {fetchStore} from './api';
 
-let store = new rx.BehaviorSubject(null);
+let store = new rx.BehaviorSubject();
 
 let update = new rx.Subject();
 let error = new rx.Subject();
@@ -11,15 +11,27 @@ export default {
   store,
   error
 };
-store.subscribe(
-  (x) => console.log('storeStore', x),
-  (err) => console.error('storeStore', err));
 
-update
-  .filter(id => typeof id === 'string')
-  .flatMap(fetchData)
-  .subscribe(store);
+setup();
 
+function setup () {
+  setupUpdate();
+  setupLogging();
+}
+
+
+function setupUpdate () {
+  update
+    .filter(id => typeof id === 'string')
+    .flatMap(fetchData)
+    .subscribe(store);
+}
+
+function setupLogging () {
+  store.subscribe(
+    (x) => x,
+    (err) => console.error('storeStore', err));
+}
 
 function fetchData (query) {
   return fetchStore(query)

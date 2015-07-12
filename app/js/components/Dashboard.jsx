@@ -2,6 +2,7 @@
 import startDateStore from '../stores/startDateStore';
 import endDateStore from '../stores/endDateStore';
 import posStore from '../stores/posStore';
+import peopleStore from '../stores/peopleStore';
 import util from '../util';
 import Linechart from './Linechart';
 
@@ -23,13 +24,15 @@ export default React.createClass({
         startDateStore.store,
         endDateStore.store,
         posStore.store,
-        (startDate, endDate, pos) => {
+        peopleStore.store,
+        (startDate, endDate, pos, people) => {
           return{
             dates: {
               startDate,
               endDate
             },
-            pos
+            pos,
+            people
           };
         })
       .subscribe(this.setState.bind(this));
@@ -41,37 +44,48 @@ export default React.createClass({
   },
 
   render () {
-    const {dates, pos} = this.state;
+    const {dates, pos, people} = this.state;
     return (
       <div className="full-height gutter-top gutter-bottom bg-gray-lighter">
         <div className="container-fluid">
-          <div className="col-sm-4 gutter-bottom">
+          <div className="col-sm-6 gutter-bottom">
             <article className="paper paper-widget-small container-fluid">
               <h1>date</h1>
               <p>{dates.startDate.format('MMM Do YYYY')}</p>
               <p>{dates.endDate.format('MMM Do YYYY')}</p>
             </article>
           </div>
-          <div className="col-sm-4 gutter-bottom">
+          <div className="col-sm-6 gutter-bottom">
             <article className="paper paper-widget-small container-fluid">
               <h1>revenue</h1>
               <p id="total-revenue">{pos && util.sumProp('revenue', pos)}</p>
             </article>
           </div>
-          <div className="col-sm-4 gutter-bottom">
+          <div className="col-sm-6 gutter-bottom">
             <article className="paper paper-widget-small container-fluid">
               <h1>transactions</h1>
               <p id="total-transactions">{pos && util.sumProp('transactions', pos)}</p>
             </article>
           </div>
           <div className="col-sm-6 gutter-bottom">
-            <article className="paper paper-widget container-fluid">
-              <Linechart store={posStore} type="revenue"/>
+            <article className="paper paper-widget-small container-fluid">
+              <h1>people in</h1>
+              <p id="total-revenue">{people && util.sumProp('people', people)}</p>
             </article>
           </div>
           <div className="col-sm-6 gutter-bottom">
             <article className="paper paper-widget container-fluid">
-              <Linechart store={posStore} type="transactions"/>
+              <Linechart store={posStore.store} type="revenue"/>
+            </article>
+          </div>
+          <div className="col-sm-6 gutter-bottom">
+            <article className="paper paper-widget container-fluid">
+              <Linechart store={posStore.store} type="transactions"/>
+            </article>
+          </div>
+          <div className="col-sm-6 gutter-bottom">
+            <article className="paper paper-widget container-fluid">
+              <Linechart store={peopleStore.store} type="people"/>
             </article>
           </div>
         </div>

@@ -5,17 +5,22 @@ export default React.createClass({
 
   componentDidMount () {
     let element = this.getDOMNode();
-    let dateStore = this.props.dateStore
+    let {minDate, maxDate, dateStore} = this.props;
+    console.log(this.props);
+    console.log(minDate, maxDate, dateStore);
     this.picker = new Pikaday({
       field: element,
+      minDate: minDate? moment(minDate).toDate(): null,
+      maxDate: maxDate? moment(maxDate).toDate(): null,
       onSelect: function () {
         dateStore.update.onNext(this.getMoment());
       }
-    })
+    });
 
     this.observable = dateStore
       .store
       .subscribe(() => this.forceUpdate());
+    dateStore.update.onNext(moment(this.props.date));
   },
 
   componentWillUnmount () {

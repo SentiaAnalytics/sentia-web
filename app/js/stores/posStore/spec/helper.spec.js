@@ -10,7 +10,9 @@ describe('postStore - helper', function () {
     let query = {
       startDate: moment(123),
       endDate: moment(456),
-      storeId: 1
+      store: {
+        _id: 1
+      }
     };
     let json = helper.buildJsonQuery(query);
     // expect(json).to.eql(jsonQuery);

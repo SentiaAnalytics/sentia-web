@@ -1,3 +1,4 @@
+'use strict';
 import util from '../util';
 import sessionStore from '../stores/sessionStore';
 
@@ -22,6 +23,7 @@ export default React.createClass({
 
   login: function (event){
     event.preventDefault();
+    console.log(sessionStore.store);
     sessionStore
       .update
       .onNext({

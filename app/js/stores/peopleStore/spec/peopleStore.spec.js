@@ -6,6 +6,7 @@ import sinon from 'sinon';
 import peopleStore from '../index';
 import startDateStore from '../../startDateStore';
 import endDateStore from '../../endDateStore';
+import cameraListStore from '../../cameraListStore';
 import jsonResponse from './data/jsonResponse.json';
 
 let shouldHttpFail = false;
@@ -18,19 +19,22 @@ describe('peopleStore', function () {
   beforeEach(function () {
       startDateStore.update.onNext(moment());
       endDateStore.update.onNext(moment());
+      cameraListStore.store.onNext([]);
       peopleStore.store.onNext([]);
   });
 
   it('should not update the store until all dependencies are met', function () {
-    startDateStore.update.onNext(moment());
     expect(peopleStore.store.getValue()).to.eql([]);
   });
 
-  it.skip('should update the store whe dependencies are updated', function () {
+  it('should update the store whe dependencies are updated', function () {
+
+    cameraListStore.store.onNext([{
+      counter: 'entrance'
+    }]);
 
     let peopleData = peopleStore.store.getValue();
-
-    expect(R.pluck('people_in', peopleData)).to.eql(R.pluck('people_in',jsonResponse));
+    expect(R.pluck('people', peopleData)).to.eql(R.pluck('people',jsonResponse));
   });
 
   it.skip('should catch http errors', function () {

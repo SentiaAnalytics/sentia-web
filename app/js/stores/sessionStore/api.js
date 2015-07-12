@@ -12,6 +12,7 @@ function fetch() {
 }
 
 function login(credentials) {
+  console.log('CREDENTIALS');
   return http.post('/api/session/authenticate', credentials);
 }
 

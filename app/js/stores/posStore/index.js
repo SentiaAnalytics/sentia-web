@@ -14,7 +14,7 @@ export default {
 };
 
 store.subscribe(
-  store => console.log('posStore', store),
+  store => store,
   (err) => console.error('posStore', err, err.stack));
 
 

@@ -1,5 +1,5 @@
 'use strict';
-import storeStore from '../storeStore';
+import cameraListStore from '../cameraListStore';
 import startDateStore from '../startDateStore';
 import endDateStore from '../endDateStore';
 import helper from './helper';
@@ -14,18 +14,19 @@ export default {
 };
 
 store.subscribe(
-  (x) => x,
-  (err) => console.error('posStore', err, err.stack));
+  (x) => console.log('peopleStore', x),
+  (err) => console.error('peopleStore', err, err.stack));
 
 
 rx.Observable.combineLatest(
   startDateStore.store,
   endDateStore.store,
-  storeStore.store,
-  (startDate, endDate, store) =>  {
-    return { startDate, endDate, store };
+  cameraListStore.store,
+  (startDate, endDate, cameras) =>  {
+    return { startDate, endDate, cameras };
   })
   .filter(helper.filterInput)
+  .map(helper.getEntranceCameras)
   .flatMap(fetchData)
   .map(helper.processResult)
   .subscribe(store);

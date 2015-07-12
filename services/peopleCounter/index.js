@@ -13,7 +13,15 @@ exports.find = function (query) {
   return P.resolve(query)
     .then(setTable)
     .then(checkPermissions.bind(this, company))
+    .then(query => {
+        console.log(query);
+        return query;
+    })
     .then(j2sql.select)
+    .then(query => {
+        console.log(query);
+        return query;
+    })
     .then(db.query)
     .catch(function (err) {
       logger.log('error','service:people', err.stack);

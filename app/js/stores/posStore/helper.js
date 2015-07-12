@@ -28,7 +28,7 @@ function buildJsonQuery (query) {
       "time": "time"
     },
     "where" : {
-      "store" : query.storeId,
+      "store" : query.store._id,
       'date(time)' : {
         gte : moment(query.startDate)
           .tz('UTC')

@@ -11,12 +11,14 @@ export default React.createClass({
   },
 
   render: function() {
+    let {startDate, endDate} = this.props;
+    console.log(this.props);
     return (
       <div className="bg-gray navbar navbar-default">
         <div className="container-fluid">
-            <Datepicker dateStore={startDateStore} id="start-date-picker" classes="navbar-btn"/>
-            <Datepicker dateStore={endDateStore} id="end-date-picker"/>
-            <button className="pull-right navbar-btn btn-danger" onClick={this.logout}>logout</button>
+            <Datepicker date={startDate} maxDate={endDate} dateStore={startDateStore} id="start-date-picker" classes="navbar-btn"/>
+            <Datepicker date={endDate} minDate={startDate}  dateStore={endDateStore} id="end-date-picker"/>
+            <button className="pull-right btn navbar-btn btn-danger" onClick={this.logout}>logout</button>
         </div>
       </div>
     );
