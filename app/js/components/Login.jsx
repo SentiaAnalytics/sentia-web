@@ -9,7 +9,6 @@ export default React.createClass({
   componentDidMount: function () {
     document.title = 'Sentia Analytics - Login';
     sessionStore
-      .store
       .skip(1)
       .tap(session => console.log('login session', R.keys(session)))
       .filter((session) => session && session.user)

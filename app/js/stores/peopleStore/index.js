@@ -1,17 +1,13 @@
 'use strict';
+import storeFactory from '../../services/storeFactory';
 import cameraListStore from '../cameraListStore';
 import startDateStore from '../startDateStore';
 import endDateStore from '../endDateStore';
 import helper from './helper';
 
-let store = new rx.BehaviorSubject([]);
-let error = new rx.BehaviorSubject(null);
+let store = storeFactory.create([]);
 
-
-export default {
-  store,
-  error,
-};
+export default store;
 
 store.subscribe(
   (x) => console.log('peopleStore', x),
@@ -19,9 +15,9 @@ store.subscribe(
 
 
 rx.Observable.combineLatest(
-  startDateStore.store,
-  endDateStore.store,
-  cameraListStore.store,
+  startDateStore,
+  endDateStore,
+  cameraListStore,
   (startDate, endDate, cameras) =>  {
     return { startDate, endDate, cameras };
   })
@@ -34,7 +30,7 @@ rx.Observable.combineLatest(
 function fetchData (query) {
   return helper.fetchData(query)
     .catch(function (err) {
-      error.onNext(err);
+      store.error.onNext(err);
       return rx.Observable.empty();
     });
 }

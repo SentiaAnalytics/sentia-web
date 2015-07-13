@@ -24,9 +24,7 @@ export default React.createClass({
   login: function (event){
     event.preventDefault();
     console.log(sessionStore.store);
-    sessionStore
-      .update
-      .onNext({
+    sessionStore.set({
         action: 'login',
         payload: util.getFormData(event.target)
       });

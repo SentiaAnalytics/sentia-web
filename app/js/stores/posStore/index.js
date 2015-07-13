@@ -3,15 +3,12 @@ import storeStore from '../storeStore';
 import startDateStore from '../startDateStore';
 import endDateStore from '../endDateStore';
 import helper from './helper';
+import storeFactory  from '../../services/storeFactory';
 
-let store = new rx.BehaviorSubject([]);
-let error = new rx.BehaviorSubject(null);
+let store = storeFactory.create([]);
 
 
-export default {
-  store,
-  error,
-};
+export default store;
 
 store.subscribe(
   store => store,
@@ -19,9 +16,9 @@ store.subscribe(
 
 
 rx.Observable.combineLatest(
-  startDateStore.store,
-  endDateStore.store,
-  storeStore.store,
+  startDateStore,
+  endDateStore,
+  storeStore,
   (startDate, endDate, store) =>  {
     return { startDate, endDate, store };
   })
@@ -33,7 +30,7 @@ rx.Observable.combineLatest(
 function fetchData (query) {
   return helper.fetchData(query)
     .catch(function (err) {
-      error.onNext(err);
+      store.error.onNext(err);
       return rx.Observable.empty();
     });
 }

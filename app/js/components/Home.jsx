@@ -16,8 +16,8 @@ export default React.createClass({
   componentDidMount () {
     console.log('HOME');
     this.addObservers()
-    sessionStore.update.onNext({action: 'fetch'});
-    storeStore.update.onNext(this.props.params.id); // for now just load the store
+    sessionStore.set({action: 'fetch'});
+    storeStore.set(this.props.params.id); // for now just load the store
   },
 
   addObservers () {
@@ -27,12 +27,11 @@ export default React.createClass({
     .subscribe(this.transitionTo.bind(this, 'login')));
 
     this.observers.push(
-      sessionStore.store
+      sessionStore
         .filter(session => session && !session.user)
         .subscribe(this.transitionTo.bind(this, 'login')));
 
     this.observers.push(sessionStore
-      .store
       .filter(session => session && session.user)
       .map((session) => {
         return {session}
@@ -48,7 +47,7 @@ export default React.createClass({
       let {startDate, endDate} = this.props.query;
     return (
       <div>
-        <Header startDate={startDate} endDate={endDate}/>
+        <Header/>
         <RouteHandler session={this.state.session} />
       </div>
     );

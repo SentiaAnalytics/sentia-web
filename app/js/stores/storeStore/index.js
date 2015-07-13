@@ -1,16 +1,11 @@
 'use strict';
+import storeFactory from '../../services/storeFactory';
 import {fetchStore} from './api';
 
-let store = new rx.BehaviorSubject();
+let store = storeFactory.create();
 
-let update = new rx.Subject();
-let error = new rx.Subject();
 
-export default {
-  update,
-  store,
-  error
-};
+export default store;
 
 setup();
 
@@ -21,7 +16,7 @@ function setup () {
 
 
 function setupUpdate () {
-  update
+  store.set
     .filter(id => typeof id === 'string')
     .flatMap(fetchData)
     .subscribe(store);
@@ -36,7 +31,7 @@ function setupLogging () {
 function fetchData (query) {
   return fetchStore(query)
     .catch(function (err) {
-      error.onNext(err);
+      store.error.onNext(err);
       return rx.Observable.empty();
     });
 }

@@ -20,15 +20,15 @@ describe('sessionStore', function () {
 
   describe('fetch', function () {
     beforeEach(function () {
-      sessionStore.store.onNext(null);
+      sessionStore.onNext(null);
     });
 
     it('should fetch the current session when recieving a fetch action', function () {
       shouldHttpFail = false;
 
-      sessionStore.update.onNext({action: 'fetch'});
+      sessionStore.set({action: 'fetch'});
 
-      expect(sessionStore.store.getValue()).to.eql({
+      expect(sessionStore.getValue()).to.eql({
         user: {
           firstname: 'Andreas',
           lastname: 'Moeller'
@@ -37,9 +37,9 @@ describe('sessionStore', function () {
     });
     it('it should catch errors and send them to the error observable', function () {
       shouldHttpFail = true;
-      sessionStore.update.onNext({action: 'fetch'});
+      sessionStore.set({action: 'fetch'});
 
-      let data = sessionStore.store.getValue();
+      let data = sessionStore.getValue();
       let error = sessionStore.error.getValue();
 
       expect(data).to.equal(null);
@@ -50,20 +50,20 @@ describe('sessionStore', function () {
   describe('login', function () {
 
     beforeEach(function () {
-      sessionStore.store.onNext(null);
+      sessionStore.onNext(null);
     });
 
 
     it('should login when recieving valid credentials', function () {
 
-      sessionStore.update.onNext({
+      sessionStore.set({
         action: 'login',
         payload: {
           email : 'andreas@example.com',
           password: 'password'
         }
       });
-      let session = sessionStore.store.getValue();
+      let session = sessionStore.getValue();
       expect(session).to.eql({
         user: {
           email: 'andreas@example.com',
@@ -74,14 +74,14 @@ describe('sessionStore', function () {
     });
 
     it('should throw when recieving bad credentials', function () {
-      sessionStore.update.onNext({
+      sessionStore.set({
         action: 'login',
         payload: {
           email : 'andreas@example.com',
           password: 'badPassword'
         }
       });
-      let store = sessionStore.store.getValue();
+      let store = sessionStore.getValue();
       let error = sessionStore.error.getValue();
 
       expect(store).to.equal(null);
@@ -91,10 +91,10 @@ describe('sessionStore', function () {
   });
   describe('logout', function () {
     it('should destroy the current session', function () {
-      sessionStore.store.onNext(exampleSession);
-      sessionStore.update.onNext({action: 'logout'});
+      sessionStore.onNext(exampleSession);
+      sessionStore.set({action: 'logout'});
 
-      expect(sessionStore.store.getValue()).to.eql({});
+      expect(sessionStore.getValue()).to.eql({});
     });
   });
 });

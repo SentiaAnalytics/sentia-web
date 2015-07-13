@@ -6,7 +6,7 @@ var mochaReporter = process.env.CIRCLE_TEST_REPORTS ? 'mocha-junit-reporter': 'd
 
 gulp.task('spec',function () {
     return gulp.src([
-      'app/js/**/spec/**/*.js'
+      'app/js/**/_spec/**/*.js'
       ])
       .pipe(mocha({
         compilers: 'js:babel/register',

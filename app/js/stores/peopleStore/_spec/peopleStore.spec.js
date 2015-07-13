@@ -17,29 +17,29 @@ describe('peopleStore', function () {
   after(teardown);
 
   beforeEach(function () {
-      startDateStore.update.onNext(moment());
-      endDateStore.update.onNext(moment());
-      cameraListStore.store.onNext([]);
-      peopleStore.store.onNext([]);
+      startDateStore.set(moment());
+      endDateStore.set(moment());
+      cameraListStore.onNext([]);
+      peopleStore.onNext([]);
   });
 
   it('should not update the store until all dependencies are met', function () {
-    expect(peopleStore.store.getValue()).to.eql([]);
+    expect(peopleStore.getValue()).to.eql([]);
   });
 
   it('should update the store whe dependencies are updated', function () {
 
-    cameraListStore.store.onNext([{
+    cameraListStore.onNext([{
       counter: 'entrance'
     }]);
 
-    let peopleData = peopleStore.store.getValue();
+    let peopleData = peopleStore.getValue();
     expect(R.pluck('people', peopleData)).to.eql(R.pluck('people',jsonResponse));
   });
 
   it.skip('should catch http errors', function () {
     shouldHttpFail = true;
-    let peopleData = peopleStore.store.getValue();
+    let peopleData = peopleStore.getValue();
     let error = peopleStore.error.getValue();
     expect(peopleData).to.eql([]);
     expect(error).to.equal('http error');

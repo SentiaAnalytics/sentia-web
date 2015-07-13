@@ -1,13 +1,9 @@
   'use strict';
 import location from '../../services/location';
+import storeFactory from '../../services/storeFactory';
+let store = storeFactory.create(moment(location.get('to')).endOf('day'));
 
-let store = new rx.BehaviorSubject(moment(location.get('to')).endOf('day'));
-let update = new rx.Subject();
-
-export default {
-  store,
-  update,
-};
+export default store;
 
 setup();
 
@@ -18,7 +14,7 @@ function setup () {
 }
 
 function setupUpdate () {
-  update
+  store.set
     .filter(date => moment.isMoment(date))
     .map(date => date.endOf('day'))
     .filter(date=> !date.isSame(store.getValue()))

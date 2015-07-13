@@ -62,3 +62,11 @@ function sumProp (prop, result) {
 
 
 }
+
+export function getEnumerablePropertyNames(target) {
+    var result = [];
+    for (var key in target) {
+        result.push(key);
+    }
+    return result;
+}

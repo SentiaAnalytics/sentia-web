@@ -20,34 +20,34 @@ describe('posStore', function () {
   });
 
   beforeEach(function () {
-      storeStore.store.onNext(null);
-      startDateStore.update.onNext(moment());
-      endDateStore.update.onNext(moment());
-      posStore.store.onNext([]);
+      storeStore.onNext(null);
+      startDateStore.set(moment());
+      endDateStore.set(moment());
+      posStore.onNext([]);
   });
 
   it('should not update the store until all dependencies are met', function () {
-    startDateStore.update.onNext(moment());
-    expect(posStore.store.getValue()).to.eql([]);
+    startDateStore.set(moment());
+    expect(posStore.getValue()).to.eql([]);
   });
 
   it('should update the store whe dependencies are updated', function () {
-    storeStore.store.onNext({
+    storeStore.onNext({
       _id: 'bababa',
       name: 'store'
     });
-    let posData = posStore.store.getValue();
+    let posData = posStore.getValue();
 
     expect(R.pluck('revenue', posData)).to.eql(R.pluck('revenue',jsonResponse));
   });
 
   it('should catch http errors', function () {
     shouldHttpFail = true;
-    storeStore.store.onNext({
+    storeStore.onNext({
       _id: 'bababa',
       name: 'store'
     });
-    let posData = posStore.store.getValue();
+    let posData = posStore.getValue();
     let error = posStore.error.getValue();
     expect(posData).to.eql([]);
     expect(error).to.equal('http error');

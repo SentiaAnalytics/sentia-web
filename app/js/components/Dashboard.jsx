@@ -11,10 +11,10 @@ export default React.createClass({
   observers: [],
   getInitialState () {
     return {
-      pos:posStore.store.getValue(),
+      pos:posStore.getValue(),
       dates: {
-        startDate: startDateStore.store.getValue(),
-        endDate: endDateStore.store.getValue()
+        startDate: startDateStore.getValue(),
+        endDate: endDateStore.getValue()
       }
     };
   },
@@ -22,10 +22,10 @@ export default React.createClass({
   componentDidMount () {
     document.title = 'Sentia Analytics - Dashboard';
     this.observer = rx.Observable.combineLatest(
-        startDateStore.store,
-        endDateStore.store,
-        posStore.store,
-        peopleStore.store,
+        startDateStore,
+        endDateStore,
+        posStore,
+        peopleStore,
         (startDate, endDate, pos, people) => {
           return{
             dates: {
@@ -78,17 +78,17 @@ export default React.createClass({
           </div>
           <div className="col-sm-6 gutter-bottom">
             <article className="paper paper-widget container-fluid">
-              <Linechart store={posStore.store} type="revenue"/>
+              <Linechart store={posStore} type="revenue"/>
             </article>
           </div>
           <div className="col-sm-6 gutter-bottom">
             <article className="paper paper-widget container-fluid">
-              <Linechart store={posStore.store} type="transactions"/>
+              <Linechart store={posStore} type="transactions"/>
             </article>
           </div>
           <div className="col-sm-6 gutter-bottom">
             <article className="paper paper-widget container-fluid">
-              <Linechart store={peopleStore.store} type="people"/>
+              <Linechart store={peopleStore} type="people"/>
             </article>
           </div>
         </div>

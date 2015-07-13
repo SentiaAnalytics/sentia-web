@@ -1,37 +1,36 @@
 'use strict';
 import location from '../../services/location';
+import storeFactory from '../../services/storeFactory';
+console.log('START DATE', location.get('from'));
+let store = storeFactory.create(moment(location.get('from')).startOf('day'));
 
-let store = new rx.BehaviorSubject(moment(location.get('from')).startOf('day'));
-let update = new rx.Subject();
+export default store;
 
-export default {
-  store,
-  update,
-};
- setup();
+setup();
 
 function setup () {
-  setupUrlUpdate();
-  setupUpdate();
-  setupLogging();
+setupUrlUpdate();
+setupLogging();
+setupUpdate();
+} 
+
+function setupUpdate () {
+store.set
+  .filter(date => moment.isMoment(date))
+  .map(date => date.startOf('day'))
+  .filter(date=> !date.isSame(store.getValue()))
+  .subscribe(store);
 }
 
 function setupUrlUpdate () {
-  store
-    .map(date => date.format('YYYY-MM-DD'))
-    .subscribe(location.set('from'));
-}
-
-function setupUpdate () {
-  update
-    .filter(date => moment.isMoment(date))
-    .map(date => date.startOf('day'))
-    .filter(date=> !date.isSame(store.getValue()))
-    .subscribe(store);
+return store
+  .tap(x => console.log('SETTING START DATE', x.toDate()))
+  .map(date => date.format('YYYY-MM-DD'))
+  .subscribe(location.set('from'));
 }
 
 function setupLogging () {
-  store.subscribe(
-    x => x,
-    (err) => console.error('startDate', err));
+return store.subscribe(
+  x => x,
+  (err) => console.error('startDate', err));
 }

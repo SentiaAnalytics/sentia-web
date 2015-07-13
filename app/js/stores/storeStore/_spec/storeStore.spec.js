@@ -11,18 +11,18 @@ describe('StoresStore', function () {
   after(() => http.get.restore());
 
   beforeEach(() => {
-      storeStore.store.onNext(null);
+      storeStore.onNext(null);
   });
 
 
   it('should hold an initial value of null', function () {
-    expect(storeStore.store.getValue()).to.equal(null);
+    expect(storeStore.getValue()).to.equal(null);
   });
 
   it('should fetch and emit a new store if a valid request is sent to update', function () {
-    storeStore.update.onNext('1234');
+    storeStore.set('1234');
 
-    let store = storeStore.store.getValue();
+    let store = storeStore.getValue();
 
     expect(store).to.eql({
       id: '1234',
@@ -31,11 +31,11 @@ describe('StoresStore', function () {
   });
 
   it('should filter invalid requests', function () {
-    storeStore.update.onNext({
+    storeStore.set({
       id: '4321'
     });
 
-    expect(storeStore.store.getValue()).to.equal(null);
+    expect(storeStore.getValue()).to.equal(null);
   });
 });
 function stubHttp () {
@@ -45,6 +45,4 @@ function stubHttp () {
       name: 'store'
     });
   });
-
-  
 }
