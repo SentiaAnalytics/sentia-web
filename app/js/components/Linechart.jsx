@@ -10,7 +10,8 @@ const defaultOptions = {
     showGrid: false
   },
   axisX: {
-    showGrid: false
+    showGrid: false,
+    labelInterpolationFnc: (date) => date && date.format('YYY-MM-DD')
   },
   showArea: true
 };
@@ -26,7 +27,8 @@ export default React.createClass({
     this.observable = store
       .filter(x => !R.isEmpty(x))
       .map(R.partial(prepareDataForChart, this.props.type))
-      .subscribe((x)=> this.chart.update(x), err => console.error('lineChart', err));
+      .map(addChartOptions)
+      .subscribe((x)=> this.chart.update(x.data, x.options), err => console.error('lineChart', err));
   },
 
   componentWillUnmount () {
@@ -42,7 +44,36 @@ export default React.createClass({
 
 function prepareDataForChart (prop, data) {
    return {
-     labels: R.map((x) => x.time.format('DD/MM/YYYY'), data),
+     labels: R.map((x) => x.time, data),
      series : [R.map(R.prop(prop), data)]
    }
+}
+
+function addChartOptions (data) {
+  console.log(data);
+  if (data.labels.length === 0) return {data: data, options: {}};
+  let start = R.head(data.labels);
+  let end = R.last(data.labels);
+  let labelFunc
+  if (start.isSame(end, 'day')) {
+    labelFunc = hourlabels
+  } else if (start.isSame(end, 'month')) {
+    labelFunc = daylabels
+  } else {
+    labelFunc = monthlabels
+  }
+  return {
+    data: data,
+    options: R.assocPath(['axisX', 'labelInterpolationFnc'], labelFunc, defaultOptions)
+  }
+}
+
+function hourlabels (date) {
+   return date.format('HH:00');
+}
+function daylabels (date) {
+   return date.format('Do');
+}
+function monthlabels (date) {
+  return date.format('MMM');
 }

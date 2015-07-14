@@ -3,7 +3,6 @@ import util from '../util';
 import sessionStore from '../stores/sessionStore';
 
 export default React.createClass({
-
   render: function () {
     return (
       <div className="valign-center">
@@ -23,7 +22,6 @@ export default React.createClass({
 
   login: function (event){
     event.preventDefault();
-    console.log(sessionStore.store);
     sessionStore.set({
         action: 'login',
         payload: util.getFormData(event.target)
