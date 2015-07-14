@@ -15,6 +15,9 @@
 
 
 @brand-primary:         #36a3ff;
+@theme-primary:         #5d8fc2;
+@theme-secondary:       #64bd63;
+@theme-tertiary:        #dd5826;
 @brand-success:         rgb(131, 144, 65);
 @brand-info:            rgb(62, 152, 148);
 @brand-warning:         #F38630;
@@ -28,7 +31,7 @@
 //** Background color for `<body>`.
 @body-bg:               #fff;
 //** Global text color on `<body>`.
-@text-color:            @gray-dark;
+@text-color:            @gray;
 
 //** Global textual link color.
 @link-color:            @brand-primary;
@@ -353,7 +356,7 @@
 
 // Basics of a navbar
 @navbar-height:                    50px;
-@navbar-margin-bottom:             @line-height-computed;
+@navbar-margin-bottom:             0;
 @navbar-border-radius:             0;
 @navbar-padding-horizontal:        floor((@grid-gutter-width / 2));
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);

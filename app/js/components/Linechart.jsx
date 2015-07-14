@@ -10,15 +10,22 @@ const defaultOptions = {
     showGrid: false
   },
   axisX: {
-    showGrid: false,
-    labelInterpolationFnc: (date) => date && date.format('YYY-MM-DD')
+    showGrid: false
   },
   lineSmooth: Chartist.Interpolation.simple({
     divisor: 2
   }),
   showArea: true,
-  showLine: true,
-  showPoint: true
+  showLine: false,
+  showPoint: true,
+  fullWidth: true,
+  fullHeight: true,
+  chartPadding: {
+    top: 20,
+    right: 0,
+    bottom: 0,
+    left: 0,
+  },
 };
 export default React.createClass({
 
@@ -32,8 +39,7 @@ export default React.createClass({
     this.observable = store
       .filter(x => !R.isEmpty(x))
       .map(R.partial(prepareDataForChart, this.props.type))
-      .map(addChartOptions)
-      .subscribe((x)=> this.chart.update(x.data, x.options), err => console.error('lineChart', err));
+      .subscribe((data)=> this.chart.update(data), err => console.error('lineChart', err));
   },
 
   componentWillUnmount () {
@@ -49,7 +55,7 @@ export default React.createClass({
 
 function prepareDataForChart (prop, data) {
    return {
-     labels: R.map((x) => x.time, data),
+     labels: prepareLabels(R.map((x) => x.time, data)),
      series : [R.map(R.prop(prop), data)]
    }
 }
@@ -57,41 +63,19 @@ function prepareDataForChart (prop, data) {
 function addChartOptions (data) {
   console.log(data);
   if (data.labels.length === 0) return {data: data, options: {}};
-  let start = R.head(data.labels);
-  let end = R.last(data.labels);
-  let labelFunc = createLabelInterpolationFunction(start, end);
+  let labelFunc = createLabelInterpolationFunction(data.labels);
   return {
     data: data,
     options: R.assocPath(['axisX', 'labelInterpolationFnc'], labelFunc, defaultOptions)
   }
 }
-function createLabelInterpolationFunction (start, end) {
-  let diff = moment.duration(end.diff(start));
-  console.log(diff);
-  let lastDate;
-
-  if (diff.asDays() <= 1) {
-    console.log('HOURLABELS');
-    return hourlabels
-  } else if (diff.asDays() <= 32) {
-    console.log('DAYLABELS');
-    return daylabels
-  } else {
-    console.log('MONTHLABELS');
-    return monthlabels
-  }
-  function hourlabels (date) {
-     return date.format('HH:00');
-  }
-  function daylabels (date) {
-    let label =  date.format('Do');
-    if (!date.isSame(lastDate, 'month')) {
-      label += '<br>' + date.format('MMM');
-    }
-    lastDate = date;
-    return label;
-  }
-  function monthlabels (date) {
-    return date.format('MMM');
-  }
+function prepareLabels (labels) {
+  let ratio = Math.max(Math.ceil(labels.length/ 10), 1);
+  let currentDate;
+  return labels.map((x,i) => {
+    if (currentDate && x.isSame(currentDate, 'day')) return '';
+    if (i % ratio !== 0) return '';
+    currentDate = x;
+    return x.format('Do');
+  })
 }

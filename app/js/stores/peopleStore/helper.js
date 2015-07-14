@@ -47,7 +47,7 @@ function buildJsonQuery (query) {
             .format('YYYY-MM-DD HH:mm:ss')
         }
       },
-      groupBy : getGroupBy(query),
+      groupBy : ['date(time), hour(time)'],
       orderBy : {
         'time': true
       }

@@ -3,9 +3,9 @@
 export default React.createClass({
   render: function() {
     return (
-      <article className="paper paper-widget-small container-fluid">
-        <h1>{this.props.title}</h1>
-        <p id={this.props.id}>{this.props.value}</p>
+      <article className="container-fluid text-center">
+        <h1 className="small uppercase text-primary">{this.props.title}</h1>
+        <p className="h1" id={this.props.id}>{this.props.value}</p>
       </article>
     );
   }

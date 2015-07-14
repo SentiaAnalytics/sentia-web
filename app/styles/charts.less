@@ -4,11 +4,44 @@
   width:100%;
 }
 
-.ct-series-a .ct-line,
 .ct-series-a .ct-point {
-  stroke: @brand-primary;
+  opacity:0;
+  stroke-width: 10px;
+  &:hover {
+    opacity:1;
+  }
 }
-.ct-series-a .ct-area {
-  fill: @brand-primary;
+
+.ct-area {
   fill-opacity: 0.8;
+}
+
+.chart-primary {
+   .ct-area {
+    fill: @theme-primary;
+  }
+  .ct-line,
+  .ct-point {
+    stroke: @theme-primary;
+  }
+}
+
+.chart-secondary {
+  .ct-area {
+    fill: @theme-secondary;
+  }
+  .ct-line,
+  .ct-point {
+    stroke: @theme-secondary;
+  }
+}
+.chart-tertiary {
+  .ct-area {
+    fill: @theme-tertiary;
+  }
+
+  .ct-line,
+  .ct-point {
+    stroke: @theme-tertiary;
+  }
 }

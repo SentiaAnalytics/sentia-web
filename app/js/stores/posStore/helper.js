@@ -7,7 +7,6 @@ export default {
   filterInput,
   fetchData,
   buildJsonQuery,
-  getGroupBy,
   processResult
 };
 
@@ -38,22 +37,11 @@ function buildJsonQuery (query) {
           .format('YYYY-MM-DD HH:mm:ss'),
       }
     },
-    "groupBy": getGroupBy(query),
+    "groupBy": ['date(time), hour(time)'],
     "orderBy" : {
       time : true
     }
   };
-}
-
-function getGroupBy (query) {
-  var diff = moment.duration(query.endDate.diff(query.startDate));
-  if (diff.asDays() <= 1) {
-    return ['hour(time)'];
-  } else if (diff.asDays() <= 32) {
-    return ['date(time)'];
-  } else {
-    return ['month(time)'];
-  }
 }
 
 function processResult (data) {

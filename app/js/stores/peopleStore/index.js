@@ -10,7 +10,7 @@ let store = storeFactory.create([]);
 export default store;
 
 store.subscribe(
-  (x) => console.log('peopleStore', x),
+  (x) => x,
   (err) => console.error('peopleStore', err, err.stack));
 
 

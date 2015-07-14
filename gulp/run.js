@@ -24,7 +24,7 @@ gulp.task('watch', function () {
   gulp.watch(['app/js/**/*'], ['spec']);
 });
 
-gulp.task('live', ['run'], function () {
+gulp.task('live', function () {
   reload.listen();
   gulp.watch(['app/js/**/*'], ['browserify']);
   gulp.watch('app/styles/**/*.less', ['less']);

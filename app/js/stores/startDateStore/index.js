@@ -1,7 +1,7 @@
 'use strict';
 import location from '../../services/location';
 import storeFactory from '../../services/storeFactory';
-console.log('START DATE', location.get('from'));
+
 let store = storeFactory.create(moment(location.get('from')).startOf('day'));
 
 export default store;
@@ -12,7 +12,7 @@ function setup () {
 setupUrlUpdate();
 setupLogging();
 setupUpdate();
-} 
+}
 
 function setupUpdate () {
 store.set

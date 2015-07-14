@@ -20,10 +20,10 @@ describe('posStore', function () {
   });
 
   beforeEach(function () {
-      storeStore.onNext(null);
-      startDateStore.set(moment());
-      endDateStore.set(moment());
-      posStore.onNext([]);
+    storeStore.onNext(null);
+    startDateStore.set(moment());
+    endDateStore.set(moment());
+    posStore.onNext([]);
   });
 
   it('should not update the store until all dependencies are met', function () {
