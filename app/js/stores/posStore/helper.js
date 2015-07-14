@@ -46,14 +46,14 @@ function buildJsonQuery (query) {
 }
 
 function getGroupBy (query) {
-  var start = query.startDate;
-    var end = query.endDate;
-    if (start.isSame(end, 'day')) {
-      return ['hour(time)'];
-    } else if (start.isSame(end, 'month')) {
-      return ['date(time)'];
-    }
+  var diff = moment.duration(query.endDate.diff(query.startDate));
+  if (diff.asDays() <= 1) {
+    return ['hour(time)'];
+  } else if (diff.asDays() <= 32) {
+    return ['date(time)'];
+  } else {
     return ['month(time)'];
+  }
 }
 
 function processResult (data) {

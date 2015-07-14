@@ -13,7 +13,12 @@ const defaultOptions = {
     showGrid: false,
     labelInterpolationFnc: (date) => date && date.format('YYY-MM-DD')
   },
-  showArea: true
+  lineSmooth: Chartist.Interpolation.simple({
+    divisor: 2
+  }),
+  showArea: true,
+  showLine: true,
+  showPoint: true
 };
 export default React.createClass({
 
@@ -54,26 +59,39 @@ function addChartOptions (data) {
   if (data.labels.length === 0) return {data: data, options: {}};
   let start = R.head(data.labels);
   let end = R.last(data.labels);
-  let labelFunc
-  if (start.isSame(end, 'day')) {
-    labelFunc = hourlabels
-  } else if (start.isSame(end, 'month')) {
-    labelFunc = daylabels
-  } else {
-    labelFunc = monthlabels
-  }
+  let labelFunc = createLabelInterpolationFunction(start, end);
   return {
     data: data,
     options: R.assocPath(['axisX', 'labelInterpolationFnc'], labelFunc, defaultOptions)
   }
 }
+function createLabelInterpolationFunction (start, end) {
+  let diff = moment.duration(end.diff(start));
+  console.log(diff);
+  let lastDate;
 
-function hourlabels (date) {
-   return date.format('HH:00');
-}
-function daylabels (date) {
-   return date.format('Do');
-}
-function monthlabels (date) {
-  return date.format('MMM');
+  if (diff.asDays() <= 1) {
+    console.log('HOURLABELS');
+    return hourlabels
+  } else if (diff.asDays() <= 32) {
+    console.log('DAYLABELS');
+    return daylabels
+  } else {
+    console.log('MONTHLABELS');
+    return monthlabels
+  }
+  function hourlabels (date) {
+     return date.format('HH:00');
+  }
+  function daylabels (date) {
+    let label =  date.format('Do');
+    if (!date.isSame(lastDate, 'month')) {
+      label += '<br>' + date.format('MMM');
+    }
+    lastDate = date;
+    return label;
+  }
+  function monthlabels (date) {
+    return date.format('MMM');
+  }
 }
