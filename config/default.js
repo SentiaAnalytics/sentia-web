@@ -10,6 +10,5 @@ module.exports = {
   gcloud : {
     credentials :  JSON.parse(process.env.GCLOUD_CREDENTIALS || '{}')
   },
-  logglySubdomain: process.env.LOGGLY_SUBDOMAIN,
-  logglyInputToken: process.env.LOGGLY_TOKEN,
+  environment: 'production'
 };

@@ -38,7 +38,8 @@
     "requireindex": "^1.1.0",
     "squel": "^4.0.0",
     "winston": "^1.0.0",
-    "winston-loggly": "^1.1.0"
+    "winston-loggly": "^1.1.0",
+    "winston-papertrail": "^1.0.1"
   },
   "devDependencies": {
     "axios": "^0.5.4",

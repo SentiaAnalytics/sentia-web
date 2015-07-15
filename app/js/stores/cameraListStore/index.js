@@ -12,11 +12,12 @@ store.subscribe(
 );
 
 storeStore
+  .filter(store => store && store._id)
+  .tap(x => console.log('cameralist', x))
   .flatMap(fetchData)
   .subscribe(store);
 
-function fetchData (e) {
-  if (!e || !e._id) return rx.Observable.of([]);
+function fetchData (store) {
   return helper.fetchCameraList(store._id)
     .catch(function (err) {
       store.error.onNext(err);
