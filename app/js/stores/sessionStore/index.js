@@ -11,10 +11,7 @@ store.subscribe(x => console.log('session',x));
 store.error.subscribe(x => console.log('sesison eeror', x));
 
 store.set
-  .filter((request) => {
-    console.log('UPDATE', request);
-    return api.hasOwnProperty(request.action);
-  })
+  .filter((request) =>  api.hasOwnProperty(request.action))
   .flatMap(request => {
     return api[request.action](request.payload)
       .catch(function (err) {

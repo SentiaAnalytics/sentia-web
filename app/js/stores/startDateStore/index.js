@@ -24,7 +24,6 @@ store.set
 
 function setupUrlUpdate () {
 return store
-  .tap(x => console.log('SETTING START DATE', x.toDate()))
   .map(date => date.format('YYYY-MM-DD'))
   .subscribe(location.set('from'));
 }

@@ -24,7 +24,7 @@ function setupUpdate () {
 
 function setupLogging () {
   store.subscribe(
-    (x) => x,
+    (x) => console.log('STORE', x),
     (err) => console.error('storeStore', err));
 }
 
