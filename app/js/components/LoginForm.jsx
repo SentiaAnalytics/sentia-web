@@ -1,6 +1,6 @@
 'use strict';
 import util from '../util';
-import sessionStore from '../stores/sessionStore';
+import sessionContainer from '../containers/sessionContainer';
 
 export default React.createClass({
   render: function () {
@@ -22,7 +22,7 @@ export default React.createClass({
 
   login: function (event){
     event.preventDefault();
-    sessionStore.set({
+    sessionContainer.observer.onNext({
         action: 'login',
         payload: util.getFormData(event.target)
       });

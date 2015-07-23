@@ -1,8 +1,8 @@
 'use strict';
 import location from '../services/location';
 import {Navigation, RouteHandler} from 'react-router';
-import sessionStore from '../stores/sessionStore';
-import storeStore from '../stores/storeStore';
+import sessionContainer from '../containers/sessionContainer';
+import storeContainer from '../containers/storeContainer';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
@@ -16,22 +16,22 @@ export default React.createClass({
   componentDidMount () {
     console.log('HOME');
     this.addObservers()
-    sessionStore.set({action: 'fetch'});
-    storeStore.set(this.props.params.id); // for now just load the store
+    sessionContainer.observer.onNext({action: 'fetch'});
+    storeContainer.observer.onNext(this.props.params.id); // for now just load the store
   },
 
   addObservers () {
-    this.observers.push(sessionStore
+    this.observers.push(sessionContainer
     .error
     .filter((error) => error)
     .subscribe(this.transitionTo.bind(this, 'login')));
 
     this.observers.push(
-      sessionStore
+      sessionContainer.observable
         .filter(session => session && !session.user)
         .subscribe(this.transitionTo.bind(this, 'login')));
 
-    this.observers.push(sessionStore
+    this.observers.push(sessionContainer.observable
       .filter(session => session && session.user)
       .map((session) => {
         return {session}

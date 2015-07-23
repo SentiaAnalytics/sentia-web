@@ -1,5 +1,5 @@
 'use strict';
-import sessionStore from '../stores/sessionStore';
+import sessionContainer from '../containers/sessionContainer';
 
 export default React.createClass({
 
@@ -14,7 +14,7 @@ export default React.createClass({
     );
   },
   logout () {
-    sessionStore.set({action: 'logout'});
+    sessionContainer.observer.onNext({action: 'logout'});
   }
 
 });

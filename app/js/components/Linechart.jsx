@@ -33,10 +33,10 @@ export default React.createClass({
     let element = this.getDOMNode();
     let store = this.props.store;
     let type = this.props.type;
-    let data = prepareDataForChart(type, store.getValue());
+    let data = prepareDataForChart(type, store.observable.getValue());
     this.chart = new Chartist.Line(element, defaultData, defaultOptions);
 
-    this.observable = store
+    this.observable = store.observable
       .filter(x => !R.isEmpty(x))
       .map(R.partial(prepareDataForChart, this.props.type))
       .subscribe((data)=> this.chart.update(data), err => console.error('lineChart', err));
@@ -61,7 +61,6 @@ function prepareDataForChart (prop, data) {
 }
 
 function addChartOptions (data) {
-  console.log(data);
   if (data.labels.length === 0) return {data: data, options: {}};
   let labelFunc = createLabelInterpolationFunction(data.labels);
   return {
@@ -69,13 +68,29 @@ function addChartOptions (data) {
     options: R.assocPath(['axisX', 'labelInterpolationFnc'], labelFunc, defaultOptions)
   }
 }
+
 function prepareLabels (labels) {
   let ratio = Math.max(Math.ceil(labels.length/ 10), 1);
   let currentDate;
-  return labels.map((x,i) => {
-    if (currentDate && x.isSame(currentDate, 'day')) return '';
-    if (i % ratio !== 0) return '';
-    currentDate = x;
-    return x.format('Do');
-  })
+  return R.pipe(
+    R.groupBy(x => x.format('YYYY-MM-DD')),
+    R.mapObj(list => {
+      let center = Math.floor(list.length/2);
+      return list.map((value, key) => {
+        let label;
+        if (key === center) {
+          if (currentDate && currentDate.isSame(value, 'month')) {
+            label = value.format('Do');
+          } else {
+            label = value.format('Do, <br> MMM');
+          }
+          currentDate = value;
+          return label
+        }
+        return '';
+      })
+    }),
+    R.values,
+    R.flatten
+  )(labels);
 }

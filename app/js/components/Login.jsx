@@ -1,14 +1,14 @@
 'use strict';
 import {Navigation} from 'react-router';
 import LoginForm from './LoginForm.jsx';
-import sessionStore from '../stores/sessionStore';
+import sessionContainer from '../containers/sessionContainer';
 
 export default React.createClass({
   mixins:[Navigation],
 
   componentDidMount: function () {
     document.title = 'Sentia Analytics - Login';
-    sessionStore
+    sessionContainer.observable
       .skip(1)
       .tap(session => console.log('login session', R.keys(session)))
       .filter((session) => session && session.user)

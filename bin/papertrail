@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+'use strict';
+var _ = require('highland');
+var axios = require('axios');
+
+_(process.stdin)
+  .flatMap(function (buffer) {
+    return _(buffer.toString().split('\n'));
+  })
+  .map(function (entry) {
+    return 'Development ' + entry;
+  })
+  .each(function (entry) {
+    axios.post('http://logs3.papertrailapp.com:15237', entry);
+    console.log('LOGGER', entry);
+  });

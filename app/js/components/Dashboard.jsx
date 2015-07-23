@@ -1,8 +1,8 @@
 'use strict';
-import startDateStore from '../stores/startDateStore';
-import endDateStore from '../stores/endDateStore';
-import posStore from '../stores/posStore';
-import peopleStore from '../stores/peopleStore';
+import startDateContainer from '../containers/startDateContainer';
+import endDateContainer from '../containers/endDateContainer';
+import posContainer from '../containers/posContainer';
+import peopleContainer from '../containers/peopleContainer';
 import util from '../util';
 import Datepicker from './Datepicker';
 import Linechart from './Linechart';
@@ -12,19 +12,19 @@ export default React.createClass({
   observers: [],
   getInitialState () {
     return {
-      pos:posStore.getValue(),
-      startDate: startDateStore.getValue(),
-      endDate: endDateStore.getValue()
+      pos:posContainer.observable.getValue(),
+      startDate: startDateContainer.observable.getValue(),
+      endDate: endDateContainer.observable.getValue()
     };
   },
 
   componentDidMount () {
     document.title = 'Sentia Analytics - Dashboard';
     this.observer = rx.Observable.combineLatest(
-        startDateStore,
-        endDateStore,
-        posStore,
-        peopleStore,
+        startDateContainer.observable,
+        endDateContainer.observable,
+        posContainer.observable,
+        peopleContainer.observable,
         (startDate, endDate, pos, people) => {
           return{
             startDate,
@@ -54,8 +54,8 @@ export default React.createClass({
           <div className="col-sm-12 gutter-bottom">
             <div className="btn-group">
               <button className="btn btn-primary icon icon-chevron-left"></button>
-              <Datepicker dateStore={startDateStore} id="start-date-picker" classes=""/>
-              <Datepicker dateStore={endDateStore} id="end-date-picker"  classes=""/>
+              <Datepicker dateStore={startDateContainer} id="start-date-picker" classes=""/>
+              <Datepicker dateStore={endDateContainer} id="end-date-picker"  classes=""/>
               <button className="btn btn-primary icon icon-chevron-right"></button>
             </div>
           </div>
@@ -65,7 +65,7 @@ export default React.createClass({
           </div>
           <div className="col-sm-12 gutter-bottom">
             <article className="paper paper-widget chart-primary">
-              <Linechart store={posStore} type="revenue"/>
+              <Linechart store={posContainer} type="revenue"/>
             </article>
           </div>
           <div className="col-sm-6">
@@ -77,7 +77,7 @@ export default React.createClass({
             </div>
             <div className="col-xs-12 gutter-bottom">
               <article className="paper paper-widget chart-secondary">
-                <Linechart store={posStore} type="transactions"/>
+                <Linechart store={posContainer} type="transactions"/>
               </article>
             </div>
           </div>
@@ -91,7 +91,7 @@ export default React.createClass({
 
             <div className="col-xs-12 gutter-bottom">
               <article className="paper paper-widget chart-tertiary">
-                <Linechart store={peopleStore} type="people"/>
+                <Linechart store={peopleContainer} type="people"/>
               </article>
             </div>
           </div>

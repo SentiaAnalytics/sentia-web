@@ -11,11 +11,11 @@ export default React.createClass({
       minDate: minDate? moment(minDate).toDate(): null,
       maxDate: maxDate? moment(maxDate).toDate(): null,
       onSelect: function () {
-        dateStore.set(this.getMoment());
+        dateStore.observer.onNext(this.getMoment());
       }
     });
 
-    this.observable = dateStore
+    this.observable = dateStore.observable
       .subscribe(() => this.forceUpdate());
   },
 
@@ -24,7 +24,7 @@ export default React.createClass({
   },
 
   render: function() {
-    let date = this.props.dateStore.getValue();
+    let date = this.props.dateStore.observable.getValue();
     let classes = this.props.classes + " btn btn-primary"
     return (
         <input type="text" id={this.props.id} className={classes} defaultValue={date.format('YYYY-MM-DD')}/>
