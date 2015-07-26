@@ -20,6 +20,7 @@ container.observer
         return rx.Observable.empty();
       });
   })
+  .tap(x => container.error.onNext(null))
   .subscribe(container.observable);
 
 // update.onNext({action: 'fetch'}) // try and load the session

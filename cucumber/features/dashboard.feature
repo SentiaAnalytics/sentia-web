@@ -12,4 +12,4 @@ Feature: Dashboard page
     Then the total revenue should be 8204641.73
       And the total transactions should be 139969
       And the basket size should be 58.62
-      And the conversion should be 0.46
+      And the conversion should be 0.47
