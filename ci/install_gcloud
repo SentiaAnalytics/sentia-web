@@ -8,7 +8,7 @@ gcloud --quiet config set component_manager/disable_update_check true
 
 gcloud config set project $SENTIA_PROJECT
 gcloud config set compute/zone $SENTIA_ZONE
-gcloud config set container/cluster $SENTIA_CLUSTER
+gcloud config set container/cluster sentia-web
 
 echo $GCLOUD_KEY >> gcloud.json
 # echo $GCLOUD_PRIVATE_KEY >> $HOME/.ssh/google_compute_engine
