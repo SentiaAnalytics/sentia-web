@@ -5,8 +5,8 @@ import sinon from 'sinon';
 import helper from '../helper';
 import jsonQuery from './data/jsonQuery.json';
 
-describe('postStore - helper', function () {
-  describe('buildJsonQuery', function () {
+describe('posContainer -buildJsonQuery', function () {
+  it('should return a jsonQuery from a valid input', function () {
     let query = {
       startDate: moment(123),
       endDate: moment(456),
@@ -15,7 +15,6 @@ describe('postStore - helper', function () {
       }
     };
     let json = helper.buildJsonQuery(query);
-    // expect(json).to.eql(jsonQuery);
+    expect(json).to.eql(jsonQuery);
   });
-
 });

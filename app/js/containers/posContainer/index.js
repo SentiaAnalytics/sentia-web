@@ -23,7 +23,7 @@ rx.Observable.combineLatest(
   })
   .filter(helper.filterInput)
   .flatMap(fetchData)
-  .map(helper.processResult)
+  .map(R.map(helper.parseNumbersAndDates))
   .subscribe(container.observable);
 
 function fetchData (query) {

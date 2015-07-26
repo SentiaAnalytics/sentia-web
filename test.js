@@ -1,5 +1,9 @@
 'use strict';
 import rx from 'rx';
 import R from 'ramda';
+import immutable from 'immutable';
 
-let list = ['a', 'b', 'c', 'd'];
+
+const union = R.unionWith((a, b)=> a.id === b.id, list1, list2);
+
+console.log(union);

@@ -6,16 +6,19 @@ export default {
   filterInput,
   fetchData,
   buildJsonQuery,
-  processResult
+  parseNumbersAndDates
 };
 
 function filterInput (query) {
   return (query.startDate && query.endDate && query.store);
 }
 
-function fetchData (query) {
-  let jsonQuery = buildJsonQuery(query);
-  return http.get('/api/pos?json=' + JSON.stringify(jsonQuery));
+function fetchData (data) {
+  return R.pipe(
+    buildJsonQuery,
+    query => `/api/pos?json=${JSON.stringify(query)}`,
+    http.get
+  )(data);
 }
 
 function buildJsonQuery (query) {
@@ -43,12 +46,10 @@ function buildJsonQuery (query) {
   };
 }
 
-function processResult (data) {
-  return R.map(e => {
-    return {
-      revenue: parseFloat(e.revenue) || 0,
-      transactions: parseFloat(e.transactions) || 0,
-      time: moment(e.time)
-    };
-  }, data);
+function parseNumbersAndDates (data) {
+  return {
+    revenue: parseFloat(data.revenue) || 0,
+    transactions: parseFloat(data.transactions) || 0,
+    time: moment(data.time)
+  };
 }

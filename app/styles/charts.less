@@ -3,6 +3,9 @@
   height:100%;
   width:100%;
 }
+.ct-bar {
+  stroke-width: 8%;
+}
 
 .ct-series-a .ct-point {
   stroke-width: 5px;
@@ -20,7 +23,8 @@
     fill: @theme-primary;
   }
   .ct-line,
-  .ct-point {
+  .ct-point,
+  .ct-bar {
     stroke: @theme-primary;
   }
 }
@@ -30,7 +34,8 @@
     fill: @theme-secondary;
   }
   .ct-line,
-  .ct-point {
+  .ct-point,
+  .ct-bar {
     stroke: @theme-secondary;
   }
 }
@@ -40,7 +45,8 @@
   }
 
   .ct-line,
-  .ct-point {
+  .ct-point,
+  .ct-bar {
     stroke: @theme-tertiary;
   }
 }

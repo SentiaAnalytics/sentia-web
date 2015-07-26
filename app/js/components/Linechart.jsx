@@ -1,8 +1,8 @@
 'use strict';
 import Chartist from 'chartist';
 const defaultData = {
-  labels:[0],
-  series: [[0]]
+  labels:['0', '0'],
+  series: [[0, 0]]
 };
 
 const defaultOptions = {
@@ -19,6 +19,7 @@ const defaultOptions = {
   showLine: false,
   showPoint: true,
   fullWidth: true,
+  width: '100%',
   fullHeight: true,
   chartPadding: {
     top: 20,
@@ -33,7 +34,6 @@ export default React.createClass({
     let element = this.getDOMNode();
     let store = this.props.store;
     let type = this.props.type;
-    let data = prepareDataForChart(type, store.observable.getValue());
     this.chart = new Chartist.Line(element, defaultData, defaultOptions);
 
     this.observable = store.observable
@@ -70,27 +70,46 @@ function addChartOptions (data) {
 }
 
 function prepareLabels (labels) {
-  let ratio = Math.max(Math.ceil(labels.length/ 10), 1);
+
   let currentDate;
+  let labelIndex = -1;
+
   return R.pipe(
     R.groupBy(x => x.format('YYYY-MM-DD')),
-    R.mapObj(list => {
-      let center = Math.floor(list.length/2);
-      return list.map((value, key) => {
-        let label;
-        if (key === center) {
-          if (currentDate && currentDate.isSame(value, 'month')) {
-            label = value.format('Do');
-          } else {
-            label = value.format('Do, <br> MMM');
-          }
-          currentDate = value;
-          return label
-        }
-        return '';
-      })
-    }),
     R.values,
+    filterByRatio,
+    R.map(printMiddleDate),
     R.flatten
   )(labels);
+
+  function filterByRatio (list) {
+    let ratio = R.pipe(
+      x => x/20,
+      Math.ceil,
+      R.partial(Math.max, 1)
+    )(list.length);
+    console.log('ratio', ratio);
+    let i = -1;
+    console.log('list.leght', list.length);
+    return R.map((x) => {
+      if (++i % ratio === 0) {
+        return x;
+      }
+      return x.map(() => '');
+    }, list);
+  }
+
+  function printMiddleDate (list) {
+    return R.concat([printDate(R.head(list))], R.map(x=> '', R.tail(list)));
+
+    function printDate (date) {
+      if (R.isNil(date) || R.isEmpty(date)) return '';
+      if (currentDate && currentDate.isSame(date, 'month')) {
+        return date.format('Do');
+      } else {
+        currentDate = date;
+        return date.format('Do, <br> MMM');
+      }
+    }
+  }
 }

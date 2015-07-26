@@ -21,8 +21,35 @@ describe('churnRateStore', function () {
   });
 
   it('should get people in for all cameras with a counter', function () {
-    cameraListContainer.observable.onNext([{counter: true}]);
-    expect(churnRateStore.observable.getValue()).to.eql(jsonResponse);
+    let camList = [
+      {
+        _id: '1',
+        name: 'Camera 1',
+        counter: true
+      },
+      {
+        _id: '2',
+        name: 'Camera 2',
+      },
+      {
+        _id: '3',
+        name: 'Camera 3',
+        counter: true
+      }
+    ];
+
+    let expectedResult = [
+      {
+        cam: 'Camera 1',
+        people: 34
+      },
+      {
+        cam: 'Camera 3',
+        people: 123
+      }
+    ];
+    cameraListContainer.observable.onNext(camList);
+    expect(churnRateStore.observable.getValue()).to.eql(expectedResult);
   });
 
 });

@@ -22,13 +22,14 @@ function setup () {
      (startDate, endDate, cameras) =>  {
        return { startDate, endDate, cameras};
      })
-    .map(helper.buildJsonQuery)
     .flatMap(fetchData)
+    .tap(x => console.log('churn', x))
     .subscribe(container.observable);
 }
 
 function fetchData (query) {
   return helper.fetchData(query)
+    .map(helper.mapCamerasToResults(query.cameras))
     .catch(function (err) {
       container.error.onNext(err);
       return rx.Observable.empty();

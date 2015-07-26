@@ -3,9 +3,11 @@ import startDateContainer from '../containers/startDateContainer';
 import endDateContainer from '../containers/endDateContainer';
 import posContainer from '../containers/posContainer';
 import peopleContainer from '../containers/peopleContainer';
+import churnRateContainer from '../containers/churnRateContainer';
 import util from '../util';
 import Datepicker from './Datepicker';
 import Linechart from './Linechart';
+import Barchart from './Barchart';
 import Numberwidget from './Numberwidget';
 
 export default React.createClass({
@@ -25,12 +27,14 @@ export default React.createClass({
         endDateContainer.observable,
         posContainer.observable,
         peopleContainer.observable,
-        (startDate, endDate, pos, people) => {
+        churnRateContainer.observable,
+        (startDate, endDate, pos, people, churnRate) => {
           return{
             startDate,
             endDate,
             pos,
-            people
+            people,
+            churnRate
           };
         })
       .subscribe(this.setState.bind(this));
@@ -42,7 +46,7 @@ export default React.createClass({
   },
 
   render () {
-    const {startDate, endDate, pos, people} = this.state;
+    const {startDate, endDate, pos, people, churnRate} = this.state;
     let totalRevenue = pos? util.sumProp('revenue', pos): 0;
     let totalTransactions = pos? util.sumProp('transactions', pos): 0;
     let totalPeople = people? util.sumProp('people', people): 0;
@@ -66,6 +70,11 @@ export default React.createClass({
           <div className="col-sm-12 gutter-bottom">
             <article className="paper paper-widget chart-primary">
               <Linechart store={posContainer} type="revenue"/>
+            </article>
+          </div>
+          <div className="col-sm-12 gutter-bottom">
+            <article className="paper paper-widget chart-tertiary">
+              <Barchart store={churnRateContainer} type="people"/>
             </article>
           </div>
           <div className="col-sm-6">

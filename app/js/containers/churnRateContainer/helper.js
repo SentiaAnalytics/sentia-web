@@ -3,11 +3,11 @@ import http from '../../services/http';
 
 export default {
   fetchData,
-  buildJsonQuery
+  mapCamerasToResults: R.curry(mapCamerasToResults)
 };
 
-function fetchData (jsonQuery) {
-  return http.get(`/api/people?json=${jsonQuery}`);
+function fetchData (query) {
+  return http.get(`/api/people?json=${JSON.stringify(buildJsonQuery(query))}`);
 }
 
 function buildJsonQuery (query) {
@@ -17,7 +17,7 @@ function buildJsonQuery (query) {
       'cam' : 'cam'
     },
     where : {
-      cam: query.cameras,
+      cam: R.map(x=> x._id, query.cameras),
       'time' : {
         gte : query.startDate
           .clone()
@@ -35,4 +35,16 @@ function buildJsonQuery (query) {
     },
     groupBy : ['cam']
   };
+}
+
+function mapCamerasToResults (cameras, results) {
+  let makePair = (x) => {return [x.cam, x.people];};
+  let resultmap = R.pipe(R.map(makePair), R.fromPairs)(results);
+
+  return R.map(x => {
+    return {
+      cam: x.name,
+      people: parseInt(resultmap[x._id], 10) || 0
+    };
+  }, cameras);
 }
