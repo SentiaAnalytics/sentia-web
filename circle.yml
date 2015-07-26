@@ -11,7 +11,7 @@ machine:
   environment:
     SENTIA_PROJECT: sentia-analytics
     SENTIA_ZONE: europe-west1-b
-    SENTIA_CLUSTER: sentia-web
+    SENTIA_CLUSTER: sentia-web-cluster
     TEST_MODE: ff
     PATH: ~/web/google-cloud-sdk/bin:$PATH
     CLOUDSDK_PYTHON_SITEPACKAGES: 1
