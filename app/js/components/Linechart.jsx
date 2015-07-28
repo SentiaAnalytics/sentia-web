@@ -88,9 +88,7 @@ function prepareLabels (labels) {
       Math.ceil,
       R.partial(Math.max, 1)
     )(list.length);
-    console.log('ratio', ratio);
     let i = -1;
-    console.log('list.leght', list.length);
     return R.map((x) => {
       if (++i % ratio === 0) {
         return x;

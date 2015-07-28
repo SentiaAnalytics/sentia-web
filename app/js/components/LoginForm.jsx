@@ -14,10 +14,19 @@ export default React.createClass({
           <div className="form-group">
             <input className="form-control" type="password" name="password"/>
           </div>
-          <input className="btn btn-primary btn-block" type="submit" value="Go!"/>
+          <div className="form-group">
+            <input className="btn btn-primary btn-block" type="submit" value="Go!"/>
+          </div>
+          {this.showAlert()}
         </form>
       </div>
     );
+  },
+
+  showAlert() {
+    if (this.props.error) {
+      return <p id="loginerror" className="alert alert-danger"> {this.props.error}</p>
+    }
   },
 
   login: function (event){

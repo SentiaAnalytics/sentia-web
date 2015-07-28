@@ -16,7 +16,7 @@ container.observer
   .flatMap(request => {
     return api[request.action](request.payload)
       .catch(function (err) {
-        container.error.onNext(err);
+        container.error.onNext(err.data);
         return rx.Observable.empty();
       });
   })
