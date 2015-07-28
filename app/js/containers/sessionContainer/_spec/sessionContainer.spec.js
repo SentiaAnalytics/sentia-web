@@ -101,7 +101,7 @@ describe('sessionContainer', function () {
 
 function stubHttp () {
   sinon.stub(http, 'get', function (url) {
-    if (shouldHttpFail) return rx.Observable.throw('http error');
+    if (shouldHttpFail) return rx.Observable.throw({data: 'http error'});
     return new rx.BehaviorSubject({
       user: {
         firstname: 'Andreas',
@@ -113,7 +113,7 @@ function stubHttp () {
     if (data.email === 'andreas@example.com' &&  data.password === 'password') {
       return new rx.BehaviorSubject(exampleSession);
     }
-    return rx.Observable.throw('BAD LOGIN');
+    return rx.Observable.throw({data: 'BAD LOGIN'});
   });
 
   sinon.stub(http, 'del', function (url) {
