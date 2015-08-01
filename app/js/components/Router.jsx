@@ -4,6 +4,7 @@ import Login from './Login';
 import App from './App';
 import Home from './Home';
 import Dashboard from './Dashboard';
+import Floors from './Floors';
 let Route = Router.Route;
 let Redirect = Router.Redirect;
 
@@ -12,6 +13,7 @@ var routes =  (
     <Route name="login" path="/login" handler={Login}/>
     <Route name="home" handler={Home}>
       <Route name="dashboard" path="/store/:id" handler={Dashboard}/>
+      <Route name="floors" path="/store/:id/floors" handler={Floors}/>
     </Route>
     <Redirect from="/" to="/store/:id" params={{id: '54318d4064acfb0b3139807e'}}/>
   </Route>
