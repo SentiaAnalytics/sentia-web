@@ -68,7 +68,7 @@ export default React.createClass({
             <Numberwidget id="total-revenue" title="revenue" value={totalRevenue}/>
           </div>
           <div className="col-sm-12 gutter-bottom">
-            <article className="paper paper-widget chart-primary">
+            <article className="paper paper-widget bg-primary">
               <Linechart store={posContainer} type="revenue"/>
             </article>
           </div>
@@ -85,7 +85,7 @@ export default React.createClass({
               <Numberwidget id="conversion" title="Conversion Rate" value={conversion}/>
             </div>
             <div className="col-xs-12 gutter-bottom">
-              <article className="paper paper-widget chart-secondary">
+              <article className="paper paper-widget bg-secondary">
                 <Linechart store={posContainer} type="transactions"/>
               </article>
             </div>
@@ -99,7 +99,7 @@ export default React.createClass({
             </div>
 
             <div className="col-xs-12 gutter-bottom">
-              <article className="paper paper-widget chart-tertiary">
+              <article className="paper paper-widget bg-tertiary">
                 <Linechart store={peopleContainer} type="people"/>
               </article>
             </div>
