@@ -1,4 +1,5 @@
 'use strict';
+import util from '../util';
 const chartOptions = {
   title: 'REVENUE',
   titlePosition: 'in',
@@ -6,7 +7,7 @@ const chartOptions = {
     color: 'white'
   },
   curveType: 'function',
-  chartArea: {width:'99%', height:'75%'},
+  chartArea: {width:'99%', height:'100%'},
   backgroundColor: 'transparent',
   animation: {
     duration: 1000,
@@ -16,7 +17,7 @@ const chartOptions = {
     gridlines: {
       color: 'transparent'
     },
-    // textPosition: 'in',
+    textPosition: 'in',
     baselineColor: 'transparent',
     textStyle: {
       fontSize: 10,
@@ -27,7 +28,7 @@ const chartOptions = {
     textPosition: 'in',
     baselineColor: 'transparent',
     gridlines: {
-      count: 4,
+      count: 5,
       color: '#f2f2f2'
     },
     textStyle: {
@@ -74,11 +75,10 @@ export default React.createClass({
 });
 
 function _createDataTable (type, data) {
-  console.log('DATA', data);
+  var round = util.round(2);
   return R.pipe(
-    R.map(x => [x.time.toDate(), x[type]]),
+    R.map(x => [x.time.toDate(), round(x[type])]),
     R.prepend(['Time', type]),
-    R.tap(x => console.log('TAP', x)),
     google.visualization.arrayToDataTable
   )(data);
 }

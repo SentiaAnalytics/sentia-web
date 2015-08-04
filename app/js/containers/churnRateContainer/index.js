@@ -23,7 +23,6 @@ function setup () {
        return { startDate, endDate, cameras};
      })
     .flatMap(fetchData)
-    .tap(x => console.log('churn', x))
     .subscribe(container.observable);
 }
 

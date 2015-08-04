@@ -55,11 +55,9 @@ export default React.createClass({
 });
 
 function _createDataTable (type, data) {
-  console.log('BARCHART TYPE', type);
   return R.pipe(
     R.map(x => [x.cam, x[type]]),
     R.prepend(['Camera', type]),
-    R.tap(x => console.log('BARDATA', x)),
     google.visualization.arrayToDataTable
   )(data);
 }
