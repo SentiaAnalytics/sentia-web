@@ -1,6 +1,10 @@
 'use strict';
 const chartOptions = {
-  title: '',
+  title: 'REVENUE',
+  titlePosition: 'in',
+  titleTextStyle: {
+    color: 'white'
+  },
   curveType: 'function',
   chartArea: {width:'100%', height:'100%'},
   backgroundColor: 'transparent',
@@ -45,7 +49,7 @@ export default React.createClass({
     this.observable.dispose();
   },
   drawChart (data) {
-    this.chart.draw(data, chartOptions);
+    this.chart.draw(data, R.assoc('title', R.toUpper(this.props.type), chartOptions));
   },
 
   render: function() {
