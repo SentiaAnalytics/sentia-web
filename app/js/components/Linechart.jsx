@@ -6,7 +6,7 @@ const chartOptions = {
     color: 'white'
   },
   curveType: 'function',
-  chartArea: {width:'80%', height:'70%'},
+  chartArea: {width:'99%', height:'75%'},
   backgroundColor: 'transparent',
   animation: {
     duration: 1000,
@@ -19,17 +19,20 @@ const chartOptions = {
     // textPosition: 'in',
     baselineColor: 'transparent',
     textStyle: {
-      fontSize: 10
+      fontSize: 10,
+      color: '#aaa'
     }
   },
   vAxis : {
+    textPosition: 'in',
     baselineColor: 'transparent',
     gridlines: {
       count: 4,
-      color: '#f5f5f5'
+      color: '#f2f2f2'
     },
     textStyle: {
-      fontSize: 10
+      fontSize: 10,
+      color: '#aaa'
     }
     // gridlines:{color:'transparent'}
   },
