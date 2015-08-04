@@ -20,11 +20,10 @@ Capybara.default_wait_time = 5
 
 # drivers
 case ENV['TEST_MODE'].to_s.downcase
-when 'ff'
-  puts 'testing with firefox'
-  register_firefox_driver
-else
+when 'phantom'
   register_poltergeist_driver
+else
+  register_firefox_driver
 end
 
 # Configure capybara-screenshot/cucumber

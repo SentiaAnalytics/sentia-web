@@ -1,43 +1,49 @@
 'use strict';
-import Chartist from 'chartist';
-const defaultData = {
-  labels:['0', '0'],
-  series: [[0, 0]]
+const chartOptions = {
+  title: '',
+  chartArea: {width:'100%', height:'100%'},
+  backgroundColor: 'transparent',
+  animation: {
+    duration: 1000,
+    easing: 'in'
+  },
+  hAxis: {
+    gridlines: { color: 'transparent' },
+    textPosition: 'in',
+    baselineColor: 'transparent',
+    textStyle: {color: 'white'}
+  },
+  vAxis : {
+    baselineColor: 'transparent',
+    gridlines:{color:'transparent'}
+  },
+  tooltip: {isHtml: true},
+  colors: ['#dd5826'],
+  legend: 'none'
 };
 
-const defaultOptions = {
-  axisY: {
-    showGrid: false
-  },
-  axisX: {
-    showGrid: false
-  },
-
-  fullWidth: true,
-  fullHeight: true,
-  chartPadding: {
-    top: 20,
-    right: 0,
-    bottom: 0,
-    left: 0,
-  },
-};
+const createDataTable = R.curry(_createDataTable);
 export default React.createClass({
 
   componentDidMount () {
+
     let element = this.getDOMNode();
     let store = this.props.store;
-    let type = this.props.type;
-    this.chart = new Chartist.Bar(element, defaultData, defaultOptions);
+
+    this.chart = new google.visualization.ColumnChart(element);
 
     this.observable = store.observable
       .filter(x => !R.isEmpty(x))
-      .map(R.partial(prepareDataForChart, this.props.type))
-      .subscribe((data)=> this.chart.update(data), err => console.error('barChart', err));
+      .map(R.partial(createDataTable(this.props.type)))
+      .subscribe((data)=> this.drawChart(data), err => console.error('barChart', err));
   },
 
   componentWillUnmount () {
     this.observable.dispose();
+  },
+
+  drawChart (data) {
+    this.chart.draw(data, chartOptions);
   },
 
   render: function() {
@@ -45,25 +51,15 @@ export default React.createClass({
       <div className="chart"></div>
     );
   }
+
 });
 
-function prepareDataForChart (prop, data) {
-  console.log('BAR CHART DATA', data);
-   return {
-     labels: R.map((x) => x.cam, data),
-     series : [R.map(R.prop(prop), data)]
-   }
-}
-
-function addChartOptions (data) {
-  if (data.labels.length === 0) return {data: data, options: {}};
-  let labelFunc = createLabelInterpolationFunction(data.labels);
-  return {
-    data: data,
-    options: R.assocPath(['axisX', 'labelInterpolationFnc'], labelFunc, defaultOptions)
-  }
-}
-
-function prepareLabels (labels) {
-
+function _createDataTable (type, data) {
+  console.log('BARCHART TYPE', type);
+  return R.pipe(
+    R.map(x => [x.cam, x[type]]),
+    R.prepend(['Camera', type]),
+    R.tap(x => console.log('BARDATA', x)),
+    google.visualization.arrayToDataTable
+  )(data);
 }
