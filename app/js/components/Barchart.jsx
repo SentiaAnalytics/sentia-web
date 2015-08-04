@@ -18,7 +18,7 @@ const chartOptions = {
     gridlines:{color:'transparent'}
   },
   tooltip: {isHtml: true},
-  colors: ['#dd5826'],
+  colors: ['#64bd63'],
   legend: 'none'
 };
 

@@ -6,24 +6,35 @@ const chartOptions = {
     color: 'white'
   },
   curveType: 'function',
-  chartArea: {width:'100%', height:'100%'},
+  chartArea: {width:'80%', height:'70%'},
   backgroundColor: 'transparent',
   animation: {
     duration: 1000,
     easing: 'in'
   },
   hAxis: {
-    gridlines: { color: 'transparent' },
-    textPosition: 'in',
+    gridlines: {
+      color: 'transparent'
+    },
+    // textPosition: 'in',
     baselineColor: 'transparent',
-    textStyle: {color: 'white'}
+    textStyle: {
+      fontSize: 10
+    }
   },
   vAxis : {
     baselineColor: 'transparent',
-    gridlines:{color:'transparent'}
+    gridlines: {
+      count: 4,
+      color: '#f5f5f5'
+    },
+    textStyle: {
+      fontSize: 10
+    }
+    // gridlines:{color:'transparent'}
   },
   tooltip: {isHtml: true},
-  colors: ['#ffffff'],
+  colors: ['#36a3ff'],
   legend: 'none',
   lineWidth: 3
 
