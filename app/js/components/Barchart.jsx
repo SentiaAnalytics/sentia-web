@@ -1,6 +1,10 @@
 'use strict';
 const chartOptions = {
-  title: '',
+  title: 'CHURN RATE',
+  titlePosition: 'in',
+  titleTextStyle: {
+    color: '#aaa'
+  },
   chartArea: {width:'100%', height:'100%'},
   backgroundColor: 'transparent',
   animation: {

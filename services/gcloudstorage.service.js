@@ -3,7 +3,8 @@ var config = require('config');
 var Stream = require('stream').Readable;
 var HTTPError = require('node-http-error');
 var gcloud = require('gcloud')({
-  credentials: config.gcloud.credentials
+  credentials: config.gcloud.credentials,
+  projectId: 'sentia-analytics'
 });
 exports.getReadStream = function (bucketName, filepath) {
   var bucket;

@@ -4,7 +4,7 @@ var HTTPError = require('node-http-error');
 var middleware = require('../../middleware');
 
 exports.read = {
-  url : '/stores/floorplans/:floorId',
+  url : '/stores/floorplans/:floorId.jpg',
   handler: function (req, res, next) {
     var stream = gcloudstorage.getReadStream(req.params.company, 'floorplans/' +req.params.floorId +  '/latest.jpg');
     stream.pipe(res);

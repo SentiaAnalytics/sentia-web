@@ -4,7 +4,7 @@ const chartOptions = {
   title: 'REVENUE',
   titlePosition: 'in',
   titleTextStyle: {
-    color: 'white'
+    color: '#aaa'
   },
   curveType: 'function',
   chartArea: {width:'99%', height:'100%'},

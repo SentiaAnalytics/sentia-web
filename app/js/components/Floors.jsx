@@ -1,4 +1,5 @@
 'use strict';
+import {Link} from 'react-router';
 import cameraListContainer from '../containers/cameraListContainer';
 export default React.createClass({
   observers: [],
@@ -23,18 +24,46 @@ export default React.createClass({
     return (
       <div className="full-height gutter-top gutter-bottom bg-gray-lighter">
         <div className="container-fluid">
-          <ul>
-          {printCameras(this.state.cameraList)}
-          </ul>
+          {printFloors(this.state.cameraList)}
         </div>
       </div>
     );
   }
 });
 
-function printCameras (cameraList) {
-   console.log(cameraList);
-   return R.map(cam => {
-     return <li className="camera"><img src={`/api/cameras/${cam._id}/snapshot.jpg`}/></li>
-   }, cameraList);
+function printFloors (cameraList) {
+  console.log('CAMS', cameraList);
+  return R.pipe(
+    R.groupBy(R.prop('floor')),
+    R.toPairs,
+    R.reverse, // Tiger specific
+    R.map(printFloor)
+  )(cameraList);
+
+
+  function printFloor (floorCameraPair) {
+    return (
+      <div className="col-xs-8 col-xs-offset-2 gutter-bottom">
+        <div className="paper relative">
+          <img className="block" src={`/api/stores/floorplans/${R.head(floorCameraPair)}.jpg`}/>
+          {R.map(printCamera, R.last(floorCameraPair))}
+        </div>
+      </div>
+    );
+  }
+
+}
+
+function printCamera (cam) {
+  console.log('CAM');
+   return  (
+        <div className="font-size-large absolute glyphicon glyphicon-map-marker text-primary" style={cameraStyle(cam)}> </div>
+   );
+}
+
+function cameraStyle (cam) {
+  return {
+    left: cam.pos.x + '%',
+    top: cam.pos.y + '%'
+  };
 }
