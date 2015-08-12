@@ -22,7 +22,7 @@ export default React.createClass({
 
   render () {
     return (
-      <div className="gutter-top full-height scroll-y gutter-bottom">
+      <div className="gutter-top gutter-bottom">
         <div className="container-fluid">
           {printFloors(this.state.cameraList)}
         </div>

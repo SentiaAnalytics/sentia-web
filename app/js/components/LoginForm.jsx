@@ -30,6 +30,7 @@ export default React.createClass({
   },
 
   login: function (event){
+    console.log('LOGIN');
     event.preventDefault();
     sessionContainer.observer.onNext({
         action: 'login',

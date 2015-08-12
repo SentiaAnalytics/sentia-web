@@ -21,6 +21,7 @@ container.observer
       });
   })
   .tap(x => container.error.onNext(null))
+  .tap(x => console.log('NEW SESSION', x))
   .subscribe(container.observable);
 
 // update.onNext({action: 'fetch'}) // try and load the session

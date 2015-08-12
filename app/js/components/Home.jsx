@@ -48,9 +48,11 @@ export default React.createClass({
     return (
       <div className="has-sidebar">
         <div className="full-height container-fluid">
-          <div className="header-top full-height">
+          <div className="full-height relative">
             <Header/>
-            <RouteHandler session={this.state.session} />
+            <div className="header-top full-height scroll-y">
+              <RouteHandler session={this.state.session} />
+            </div>
           </div>
         </div>
         <Sidebar storeId={this.props.params.storeId}/>

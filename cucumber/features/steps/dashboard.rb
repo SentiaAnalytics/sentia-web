@@ -11,8 +11,8 @@ Then(/^I should be on the dashboard page$/) do
 end
 
 When(/^I select a date range from (.+) to (.+)$/) do |start_date, end_date|
-  dashboard_page.start_date start_date
   dashboard_page.end_date end_date
+  dashboard_page.start_date start_date
 end
 
 Then(/^the total revenue should be (.+)$/) do |revenue|

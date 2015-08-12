@@ -53,7 +53,7 @@ export default React.createClass({
     let basketSize = util.round(2, totalRevenue/totalTransactions);
     let conversion = util.round(2, totalTransactions/totalPeople);
     return (
-      <div className="full-height scroll-y gutter-top gutter-bottom">
+      <div className="gutter-top gutter-bottom">
         <div className="container-fluid">
           <div className="col-sm-12 gutter-bottom">
             <div className="btn-group">
