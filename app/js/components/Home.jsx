@@ -1,5 +1,6 @@
 'use strict';
 import location from '../services/location';
+import {Link} from 'react-router';
 import {Navigation, RouteHandler} from 'react-router';
 import sessionContainer from '../containers/sessionContainer';
 import storeContainer from '../containers/storeContainer';
@@ -16,7 +17,7 @@ export default React.createClass({
   componentDidMount () {
     this.addObservers()
     sessionContainer.observer.onNext({action: 'fetch'});
-    storeContainer.observer.onNext(this.props.params.id); // for now just load the store
+    storeContainer.observer.onNext(this.props.params.storeId); // for now just load the store
   },
 
   addObservers () {
@@ -45,9 +46,14 @@ export default React.createClass({
   render: function () {
       let {startDate, endDate} = this.props.query;
     return (
-      <div>
-        <Header/>
-        <RouteHandler session={this.state.session} />
+      <div className="has-sidebar">
+        <div className="full-height container-fluid">
+          <div className="header-top full-height">
+            <Header/>
+            <RouteHandler session={this.state.session} />
+          </div>
+        </div>
+        <Sidebar storeId={this.props.params.storeId}/>
       </div>
     );
   }

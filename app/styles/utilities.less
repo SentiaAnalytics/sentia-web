@@ -26,11 +26,11 @@
 }
 
 .gutter-top {
-  padding-top: @grid-gutter-width
+  padding-top: @grid-gutter-width/2
 }
 
 .gutter-bottom {
-  padding-bottom: @grid-gutter-width
+  padding-bottom: @grid-gutter-width/2
 }
 .no-gutter {
   padding-left:0;
@@ -46,8 +46,16 @@
   height: 100%;
 }
 
+.scroll-y {
+  overflow: scroll;
+}
+
 // color
 // -------------------------
+
+.bg-white {
+  background-color: #fff;
+}
 
 .bg-gray-lighter {
   background-color: @gray-lighter;
@@ -60,6 +68,15 @@
 .bg-gray {
   background-color: @gray;
 }
+
+.bg-gray-dark {
+  background-color: @gray-dark;
+}
+
+.bg-gray-darker{
+  background-color: @gray-darker;
+}
+
 
 .bg-primary {
   background-color: @theme-primary;
@@ -85,6 +102,13 @@
 .pull-right {
   float: right !important;
 }
+
+.pull-right-sm {
+  @media (min-width: @screen-sm-min) {
+    float: right !important;
+  }
+}
+
 .pull-left {
   float: left !important;
 }

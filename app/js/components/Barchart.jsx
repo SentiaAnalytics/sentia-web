@@ -15,14 +15,17 @@ const chartOptions = {
     gridlines: { color: 'transparent' },
     textPosition: 'in',
     baselineColor: 'transparent',
-    textStyle: {color: 'white'}
+    textStyle: {color: '#fff'}
   },
   vAxis : {
     baselineColor: 'transparent',
     gridlines:{color:'transparent'}
   },
+  bar : {
+    groupWidth: '95%'
+  },
   tooltip: {isHtml: true},
-  colors: ['#64bd63'],
+  colors: ['#44b6ae'],
   legend: 'none'
 };
 

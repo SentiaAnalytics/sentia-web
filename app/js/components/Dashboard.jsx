@@ -53,7 +53,7 @@ export default React.createClass({
     let basketSize = util.round(2, totalRevenue/totalTransactions);
     let conversion = util.round(2, totalTransactions/totalPeople);
     return (
-      <div className="full-height gutter-top gutter-bottom bg-gray-lighter">
+      <div className="full-height scroll-y gutter-top gutter-bottom">
         <div className="container-fluid">
           <div className="col-sm-12 gutter-bottom">
             <div className="btn-group">
@@ -68,16 +68,16 @@ export default React.createClass({
             <Numberwidget id="total-revenue" title="revenue" value={totalRevenue}/>
           </div>
           <div className="col-sm-12 gutter-bottom">
-            <article className="paper paper-widget">
+            <article className="paper-widget">
               <Linechart store={posContainer} type="revenue"/>
             </article>
           </div>
           <div className="col-sm-12 gutter-bottom">
-            <article className="paper paper-widget">
+            <article className="paper-widget">
               <Barchart store={churnRateContainer} type="people"/>
             </article>
           </div>
-          <div className="col-sm-6">
+          <div className="col-md-6">
             <div className="col-sm-6 col-xs-6 gutter-bottom">
               <Numberwidget id="total-people" title="Peope in" value={totalPeople}/>
             </div>
@@ -85,13 +85,13 @@ export default React.createClass({
               <Numberwidget id="conversion" title="Conversion Rate" value={conversion}/>
             </div>
             <div className="col-xs-12 gutter-bottom">
-              <article className="paper paper-widget">
+              <article className="paper-widget">
                 <Linechart store={posContainer} type="transactions"/>
               </article>
             </div>
           </div>
-          <div className="col-sm-6">
-            <div className="col-sm-6 col-xs-6 gutter-bottom">
+          <div className="col-md-6">
+            <div className="col-md-6 col-xs-6 gutter-bottom">
               <Numberwidget id="total-transactions" title="transactions" value={totalTransactions}/>
             </div>
             <div className="col-sm-6 col-xs-6 gutter-bottom">
@@ -99,7 +99,7 @@ export default React.createClass({
             </div>
 
             <div className="col-xs-12 gutter-bottom">
-              <article className="paper paper-widget">
+              <article className="paper-widget">
                 <Linechart store={peopleContainer} type="people"/>
               </article>
             </div>

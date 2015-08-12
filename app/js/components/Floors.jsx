@@ -22,7 +22,7 @@ export default React.createClass({
 
   render () {
     return (
-      <div className="full-height gutter-top gutter-bottom bg-gray-lighter">
+      <div className="gutter-top full-height scroll-y gutter-bottom">
         <div className="container-fluid">
           {printFloors(this.state.cameraList)}
         </div>
@@ -42,11 +42,12 @@ function printFloors (cameraList) {
 
 
   function printFloor (floorCameraPair) {
+    let printCam = R.curry(printCamera)(R.head(floorCameraPair));
     return (
       <div className="col-xs-8 col-xs-offset-2 gutter-bottom">
         <div className="paper relative">
           <img className="block" src={`/api/stores/floorplans/${R.head(floorCameraPair)}.jpg`}/>
-          {R.map(printCamera, R.last(floorCameraPair))}
+          {R.map(printCam, R.last(floorCameraPair))}
         </div>
       </div>
     );
@@ -54,10 +55,14 @@ function printFloors (cameraList) {
 
 }
 
-function printCamera (cam) {
-  console.log('CAM');
+function printCamera (storeId, cam) {
+  let cameraId = cam._id;
+  console.log('STOREID', storeId);
+  console.log('cam', cam);
    return  (
-        <div className="font-size-large absolute glyphicon glyphicon-map-marker text-primary" style={cameraStyle(cam)}> </div>
+     <Link to="camera" params={{storeId, cameraId}}>
+      <div className="font-size-large absolute glyphicon glyphicon-map-marker text-primary" style={cameraStyle(cam)}></div>
+     </Link>
    );
 }
 

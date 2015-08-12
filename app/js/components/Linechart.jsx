@@ -29,7 +29,7 @@ const chartOptions = {
     baselineColor: 'transparent',
     gridlines: {
       count: 5,
-      color: '#f2f2f2'
+      color: 'transparent'
     },
     textStyle: {
       fontSize: 10,
@@ -40,7 +40,7 @@ const chartOptions = {
   tooltip: {isHtml: true},
   colors: ['#36a3ff'],
   legend: 'none',
-  lineWidth: 3
+  lineWidth: 2
 
 };
 
