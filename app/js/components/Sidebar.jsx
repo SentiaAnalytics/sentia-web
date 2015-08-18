@@ -6,13 +6,13 @@ export default React.createClass({
     let {storeId} = this.props;
     return (
       <div className="col-sm-1 sidebar">
-        <Link className="sidebar-link" to="dashboard" params={{storeId}}>
+        <Link className="sidebar-link" activeClassName="active" to="dashboard" params={{storeId}}>
           <img src="/images/logos/logo_192.png"/>
         </Link>
-        <Link className="sidebar-link" to="dashboard" params={{storeId}}>
+        <Link className="sidebar-link" activeClassName="active" to="dashboard" params={{storeId}}>
           <i className="glyphicon glyphicon-signal"></i>
         </Link>
-        <Link className="sidebar-link" to="floors" params={{storeId}}>
+        <Link className="sidebar-link" activeClassName="active" to="floors" params={{storeId}}>
           <i className="glyphicon glyphicon-record"></i>
         </Link>
       </div>
