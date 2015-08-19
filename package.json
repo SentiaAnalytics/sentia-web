@@ -42,7 +42,7 @@
     "winston-papertrail": "1.0.1"
   },
   "devDependencies": {
-    "axios": "^0.5.4",
+    "axios": "^0.5.4" ,
     "babel-core": "^5.5.7",
     "babelify": "^6.1.2",
     "browserify": "^10.2.4",
