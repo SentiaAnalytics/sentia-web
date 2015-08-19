@@ -12,6 +12,9 @@ container.error
   .subscribe(x => console.log('sesison eeror', x));
 
 container.observer
+  .tap(x => {
+    console.log(x);
+  })
   .filter((request) =>  api.hasOwnProperty(request.action))
   .flatMap(request => {
     return api[request.action](request.payload)

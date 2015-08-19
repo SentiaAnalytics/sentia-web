@@ -18,8 +18,11 @@ function setup () {
 function setupUpdate () {
   container.observer
     .filter(id => typeof id === 'string')
+    .tap(x => console.log('fetch store', x))
     .flatMap(fetchData)
+    .tap(x => console.log('STORE', x))
     .subscribe(container.observable);
+
 }
 
 function setupLogging () {
@@ -27,11 +30,14 @@ function setupLogging () {
   .subscribe(
     (x) => x,
     (err) => console.error('storeStore', err));
+
+  container.error.subscribe(x => console.log('Store error', x));
 }
 
 function fetchData (query) {
   return fetchStore(query)
     .catch(function (err) {
+      console.log('ERROR ', err);
       container.error.onNext(err);
       return rx.Observable.empty();
     });

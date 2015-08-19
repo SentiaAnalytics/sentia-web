@@ -5,7 +5,11 @@ var StoresService = require('../services/stores.service'),
 exports.read = {
   url : ':_id',
   handler : function (req, res, next) {
-    return StoresService.read(R.merge(req.params, req.query));
+    console.log('STORE QUERY', R.merge(req.params, req.query));
+    return StoresService.read(R.merge(req.params, req.query))
+      .then(R.tap(function (value) {
+        console.log('STORE', value);  
+      }));
   },
   middleware : [middleware.read]
 };
@@ -13,7 +17,10 @@ exports.read = {
 exports.get = {
   url : '',
   handler : function (req, res, next) {
-    return StoresService.get(req.query);
+    return StoresService.get(req.query)
+      .then(R.tap(function (value) {
+        console.log('STORE', value);
+      }))
   },
   middleware : [middleware.get]
 };

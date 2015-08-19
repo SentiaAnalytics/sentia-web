@@ -15,7 +15,7 @@ export default React.createClass({
   },
 
   componentDidMount () {
-    this.addObservers()
+    this.addObservers();
     sessionContainer.observer.onNext({action: 'fetch'});
     storeContainer.observer.onNext(this.props.params.storeId); // for now just load the store
   },
@@ -34,7 +34,7 @@ export default React.createClass({
     this.observers.push(sessionContainer.observable
       .filter(session => session && session.user)
       .map((session) => {
-        return {session}
+        return {session};
       })
       .subscribe(this.setState.bind(this)));
   },

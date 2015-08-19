@@ -12,8 +12,7 @@ exports.create = function (body) {
     });
 };
 exports.read = function (query) {
-  console.log('READ STORE');
-  console.log(query);
+  console.log('READ STORE', query);
   return models.Store.findOne(query).exec();
 };
 
