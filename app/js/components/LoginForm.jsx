@@ -2,8 +2,15 @@
 import util from '../util';
 import sessionContainer from '../containers/sessionContainer';
 
+const showError = function (error) {
+  if (error) {
+    return <p id="loginerror" className="alert alert-danger"> {error}</p>
+  }
+}
+
 export default React.createClass({
   render: function () {
+    const error = this.props.error;
     return (
       <div className="valign-center">
         <form id="loginform" className="col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" onSubmit={this.login}>
@@ -17,16 +24,10 @@ export default React.createClass({
           <div className="form-group">
             <input className="btn btn-primary btn-block" type="submit" value="Go!"/>
           </div>
-          {this.showAlert()}
+          {showError(error)}
         </form>
       </div>
     );
-  },
-
-  showAlert() {
-    if (this.props.error) {
-      return <p id="loginerror" className="alert alert-danger"> {this.props.error}</p>
-    }
   },
 
   login: function (event){

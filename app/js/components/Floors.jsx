@@ -10,9 +10,7 @@ var cameraStyle = R.curry(function cameraStyle (cam) {
 });
 
 var _printCamera = R.curry(function (storeId, cam) {
-  let cameraId = cam._id;
-  console.log('STOREID', storeId);
-  console.log('cam', cam);
+  const cameraId = cam._id;
    return  (
      <Link to="camera" params={{storeId, cameraId}}>
       <div className="font-size-large absolute glyphicon glyphicon-map-marker text-primary" style={cameraStyle(cam)}></div>
@@ -21,25 +19,20 @@ var _printCamera = R.curry(function (storeId, cam) {
 })
 
 var _printFloor = R.curry(function (printCamera, floorCameraPair) {
-  let printCam = R.curry(printCamera)();
   return (
     <div className="col-xs-8 col-xs-offset-2 gutter-bottom">
       <div className="paper relative">
         <img className="block" src={`/api/stores/floorplans/${R.head(floorCameraPair)}.jpg`}/>
-        {R.map(printCam, R.last(floorCameraPair))}
+        {R.map(printCamera, R.last(floorCameraPair))}
       </div>
     </div>
   );
 });
 
 var _printFloorList = R.curry(function (printFloor, cameraList) {
-  console.log('CAMS', cameraList);
-  return R.pipe(
-    R.groupBy(R.prop('floor')),
-    R.toPairs,
-    R.reverse, // Tiger specific
-    R.map(printFloor)
-  )(cameraList);
+  const floorCameraPairs = R.compose(R.reverse, R.toPairs, R.groupBy(R.prop('floor')));
+  const printFloors = R.compose(R.map(printFloor), floorCameraPairs);
+  return printFloors(cameraList);
 });
 
 export default React.createClass({
