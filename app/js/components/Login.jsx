@@ -13,20 +13,16 @@ export default React.createClass({
   componentDidMount: function () {
     document.title = 'Sentia Analytics - Login';
     this.sessionObserver = sessionContainer.observable
-      .tap(x => console.log('LOGIN', x))
       .skip(1)
-      .tap(session => console.log('login session', R.keys(session)))
       .filter((session) => session && session.user)
       .subscribe(session => {
-        console.log('SHOULD TRANSITION', this);
-        this.transitionTo('dashboard', {storeId: '54318d4064acfb0b3139807e'});
+        this.transitionTo('dashboard', {storeId: '54318d4064acfb0b3139807e'});// TIGER SPECIFIC
       });
 
     this.errorObserver = sessionContainer
       .error
       .filter(x => !R.isNil(x))
       .filter(x => x !== 'You must login to perform this action')
-      .tap(x => console.log('login error', x))
       .subscribe(error => this.setState({error}));
   },
 
