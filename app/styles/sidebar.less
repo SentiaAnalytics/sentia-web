@@ -20,21 +20,28 @@
 }
 
 .sidebar-link {
+  width: 100%;
+  text-transform: center;
   .font-size-huge;
   text-align: center;
+  flex-grow: 1;
+  float: left;
+
+  cursor: pointer;
+
   img {
     width: 50px;
   }
-  flex-grow: 1;
-  float: left;
+
+  &.active {
+    color: @brand-primary;
+  }
+
   @media (min-width: @screen-sm-min) {
     flex-grow: 0;
     padding: 15px;
     display: block;
     float:none;
-  }
-  &.active {
-    color: @brand-primary;
   }
 }
 

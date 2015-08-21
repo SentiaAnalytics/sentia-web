@@ -24,8 +24,8 @@ function setupUpdate () {
 function setupLogging () {
   container.observable
   .subscribe(
-    (x) => console.log(x),
-    (err) => console.error('cameraStore', err));
+    x => x,
+    err => console.error('cameraStore', err));
 }
 
 function fetchData (query) {

@@ -1,5 +1,8 @@
 'use strict';
 import util from '../util';
+let disposable;
+const G = google.visualization;
+
 const chartOptions = {
   title: 'REVENUE',
   titlePosition: 'in',
@@ -44,19 +47,25 @@ const chartOptions = {
 
 };
 
-const createDataTable = R.curry(_createDataTable);
+var round2 = util.round(2);
+var toDate = R.invoker(0, 'toDate');
+
+var createDataTable = R.curry(function (type, data) {
+  var processPair = R.compose(R.over(util.headLens, toDate), R.over(util.endLens, round2));
+  var processData = R.compose(R.prepend(['Time', type]), R.map(processPair));
+  return R.compose(G.arrayToDataTable, processData)(data);
+});
 
 export default React.createClass({
 
   componentDidMount () {
     let element = this.getDOMNode();
-    let store = this.props.store;
+    let {observable, type} = this.props;
 
-    this.chart = new google.visualization.LineChart(element);
-
-    this.observable = store.observable
+    this.chart = new G.LineChart(element);
+    this.observable = observable
       .filter(x => !R.isEmpty(x))
-      .map(R.partial(createDataTable(this.props.type)))
+      .map(createDataTable(type))
       .subscribe((data)=> this.drawChart(data), err => console.error('lineChart', err));
   },
 
@@ -73,12 +82,3 @@ export default React.createClass({
     );
   }
 });
-
-function _createDataTable (type, data) {
-  var round = util.round(2);
-  return R.pipe(
-    R.map(x => [x.time.toDate(), round(x[type])]),
-    R.prepend(['Time', type]),
-    google.visualization.arrayToDataTable
-  )(data);
-}

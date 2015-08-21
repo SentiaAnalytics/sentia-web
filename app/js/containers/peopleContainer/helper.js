@@ -21,13 +21,13 @@ function filterInput (query) {
 }
 
 function getEntranceCameras (query) {
-  return R.lensProp('cameras')
-    .map(R.filter(cam => cam.counter === 'entrance'), query);
+  var isEntrance = R.compose(R.equals('entrance'), R.prop('counter'));
+  return R.over(R.lensProp('cameras'), R.filter(isEntrance), query);
 }
 
 function fetchData (query) {
-  let jsonQuery = buildJsonQuery(query);
-  return http.get('/api/people?json=' + JSON.stringify(jsonQuery));
+  let jsonQuery = R.compose(JSON.stringify, buildJsonQuery);
+  return http.get('/api/people?json=' + jsonQuery(query));
 }
 
 function buildJsonQuery (query) {

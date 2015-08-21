@@ -18,9 +18,7 @@ function setup () {
 function setupUpdate () {
   container.observer
     .filter(id => typeof id === 'string')
-    .tap(x => console.log('fetch store', x))
     .flatMap(fetchData)
-    .tap(x => console.log('STORE', x))
     .subscribe(container.observable);
 
 }

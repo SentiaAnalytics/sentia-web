@@ -1,18 +1,14 @@
 'use strict';
+import R from 'ramda';
 
+var log = R.curryN(2, function log () {
+   console.log.apply(console, arguments);
+   return R.last(arguments);
+});
 
-export default {
-  log,
-  error
-};
+var error = R.curryN(2, function error () {
+   console.error.apply(console, arguments);
+   return R.last(arguments);
+});
 
-function log () {
-  let args = Array.prototype.slice.call(arguments);
-   console.log.apply(console, args);
-   return args.pop();
-}
-function error () {
-  let args = Array.prototype.slice.call(arguments);
-   console.error.apply(console, args);
-   return args.pop();
-}
+export default { log, error };

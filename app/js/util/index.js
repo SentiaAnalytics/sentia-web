@@ -1,12 +1,8 @@
 'use strict';
-export default {
-  getFormData,
-  switcher,
-  round: R.curry(round),
-  sumProp: R.curry(sumProp)
-};
+const headLens = R.lensIndex(0);
+const endLens = R.lensIndex(-1);
 
-function getFormData (form) {
+const getFormData = (form) => {
   return R.pipe(
     R.invoke('querySelectorAll', ['[name]']),
     R.map(switcher(basicInputs, checkbox, radio)),
@@ -27,9 +23,9 @@ function getFormData (form) {
         return [field.name, field.value]
       }
     }
-}
+};
 
-function switcher () {
+const switcher = () => {
   var functions = Array.prototype.slice.call(arguments);
   return function () {
     var args = Array.prototype.slice.call(arguments);
@@ -47,26 +43,34 @@ function switcher () {
   };
 }
 
-function round (decimal, number) {
+const round = R.curry((decimal, number) => {
   let decimalMultiplier = Math.pow(10, decimal);
   return Math.round(number * decimalMultiplier) / decimalMultiplier;
-}
+});
 
 
-function sumProp (prop, result) {
+const sumProp = R.curry((prop, result) => {
     return R.pipe(
     R.map(R.prop(prop)),
     R.sum,
     R.partial(round, 2)
   )(result);
+});
 
-
-}
-
-export function getEnumerablePropertyNames(target) {
+const getEnumerablePropertyNames = (target) => {
     var result = [];
     for (var key in target) {
         result.push(key);
     }
     return result;
-}
+};
+
+export default {
+  headLens,
+  endLens,
+  getFormData,
+  switcher,
+  round,
+  sumProp,
+  getEnumerablePropertyNames
+};
