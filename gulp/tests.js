@@ -9,7 +9,7 @@ gulp.task('spec',function () {
       'app/js/**/_spec/**/*.js'
       ])
       .pipe(mocha({
-        compilers: 'js:babel/register',
+          compilers: 'js:babel/register',
         reporter: mochaReporter,
         // reporter: 'dot',
       }));

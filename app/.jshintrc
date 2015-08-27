@@ -21,7 +21,7 @@
     "console": false,
     "logger": true,
     "R": false,
-    "rx": false,
+    "Rx": false,
     "Promise": false,
     "moment": false,
     "describe" : false,

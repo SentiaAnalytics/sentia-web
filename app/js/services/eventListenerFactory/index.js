@@ -10,11 +10,11 @@ function create () {
         subject.onNext.apply(subject, arguments);
     };
 
-    getEnumerablePropertyNames(rx.Subject.prototype)
+    getEnumerablePropertyNames(Rx.Subject.prototype)
     .forEach(function (property) {
-        subject[property] = rx.Subject.prototype[property];
+        subject[property] = Rx.Subject.prototype[property];
     });
-    rx.Subject.call(subject);
+    Rx.Subject.call(subject);
 
     return subject;
 }

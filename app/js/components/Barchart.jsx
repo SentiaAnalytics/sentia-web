@@ -36,27 +36,23 @@ const chartOptions = (title) => {
 };
 
 const createDataTable = R.curry((header, data) => {
-  console.log('createDataTable', header, data);
   return R.compose(G.arrayToDataTable, R.prepend(header))(data);
 });
 
-let disposable;
 export default React.createClass({
-
   componentDidMount () {
     const element = this.getDOMNode();
     const {observable, header, title} = this.props;
     const chart = new G.ColumnChart(element);
     const draw = R.curry((options, data) => chart.draw(data, options))(chartOptions(title));
 
-    disposable = observable
-      .filter(x => !R.isEmpty(x))
+    this.disposable = observable
       .map(createDataTable(header))
       .subscribe(draw, err => console.error('barChart', err));
   },
 
   componentWillUnmount () {
-    disposable.dispose();
+    this.disposable.dispose();
   },
 
   render: function() {

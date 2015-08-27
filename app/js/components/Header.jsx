@@ -1,12 +1,9 @@
 'use strict';
 import sessionContainer from '../containers/sessionContainer';
-import startDateContainer from '../containers/startDateContainer';
-import endDateContainer from '../containers/endDateContainer';
+import {startDateContainer, endDateContainer} from '../containers/dateContainer';
 import Datepicker from './Datepicker';
 
 export default React.createClass({
-
-
   render: function() {
     return (
       <div className="header paper navbar navbar-default">

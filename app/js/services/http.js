@@ -14,7 +14,7 @@ function get (url) {
       return res.data;
     });
 
-  return rx
+  return Rx
     .Observable
     .fromPromise(promise);
 }
@@ -26,7 +26,7 @@ function del (url) {
       return res.data;
     });
 
-  return rx
+  return Rx
     .Observable
     .fromPromise(promise);
 }
@@ -38,7 +38,7 @@ function post (url, data) {
       return res.data;
     });
 
-  return rx
+  return Rx
     .Observable
     .fromPromise(promise);
 }

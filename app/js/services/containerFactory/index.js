@@ -6,8 +6,8 @@ export default {
 };
 
 function create (initialValue) {
-  let observable = new rx.BehaviorSubject(initialValue);
-  let error = new rx.BehaviorSubject();
+  let observable = new Rx.BehaviorSubject(initialValue);
+  let error = new Rx.BehaviorSubject();
   let observer = eventListenerFactory.create();
 
   return {

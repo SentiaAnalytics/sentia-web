@@ -15,14 +15,14 @@ function filterInput (query) {
   return (
     query.startDate &&
     query.endDate &&
-    query.cameras &&
-    !R.isEmpty(query.cameras)
+    query.cameralist &&
+    !R.isEmpty(query.cameralist)
   );
 }
 
 function getEntranceCameras (query) {
   var isEntrance = R.compose(R.equals('entrance'), R.prop('counter'));
-  return R.over(R.lensProp('cameras'), R.filter(isEntrance), query);
+  return R.over(R.lensProp('cameralist'), R.filter(isEntrance), query);
 }
 
 function fetchData (query) {
@@ -37,7 +37,7 @@ function buildJsonQuery (query) {
         'sum(people_in)' : 'people'
       },
       where : {
-        cam : R.map(R.prop('_id'),query.cameras),
+        cam : R.map(R.prop('_id'),query.cameralist),
         'date(time)' : {
           gte : moment(query.startDate)
             .tz('UTC')

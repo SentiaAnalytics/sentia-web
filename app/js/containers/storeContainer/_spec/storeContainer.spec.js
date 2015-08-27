@@ -40,7 +40,7 @@ describe('StoresStore', function () {
 });
 function stubHttp () {
   sinon.stub(http, 'get', function (url) {
-    return new rx.BehaviorSubject({
+    return new Rx.BehaviorSubject({
       id: url.split('/').pop(),
       name: 'store'
     });

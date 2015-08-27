@@ -35,7 +35,7 @@ export default React.createClass({
           </div>
           <div className="col-sm-12 gutter-bottom">
             <article className="paper-widget">
-              <Linechart observable={revenue} type="revenue"/>
+              <Linechart observable={revenue} type="revenue" title="Revenue"/>
             </article>
           </div>
           <div className="col-sm-12 gutter-bottom">
@@ -52,7 +52,7 @@ export default React.createClass({
             </div>
             <div className="col-xs-12 gutter-bottom">
               <article className="paper-widget">
-                <Linechart observable={transactions} type="transactions"/>
+                <Linechart observable={transactions} type="transactions" title="Transactions"/>
               </article>
             </div>
           </div>
@@ -66,7 +66,7 @@ export default React.createClass({
 
             <div className="col-xs-12 gutter-bottom">
               <article className="paper-widget">
-                <Linechart observable={people} type="people"/>
+                <Linechart observable={revenue} type="people"  title="People"/>
               </article>
             </div>
           </div>

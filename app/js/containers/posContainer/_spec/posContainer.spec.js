@@ -4,8 +4,7 @@ import {expect} from 'chai';
 import http from '../../../services/http';
 import sinon from 'sinon';
 import posContainer from '../index';
-import startDateContainer from '../../startDateContainer';
-import endDateContainer from '../../endDateContainer';
+import {startDateContainer, endDateContainer} from '../../dateContainer';
 import storeContainer from '../../storeContainer';
 import jsonResponse from './data/jsonResponse.json';
 
@@ -55,7 +54,7 @@ describe('posContainer', function () {
 });
 function stubHttp () {
   sinon.stub(http, 'get', function (url) {
-    if(shouldHttpFail) return rx.Observable.throw('http error');
-    return new rx.BehaviorSubject(jsonResponse);
+    if(shouldHttpFail) return Rx.Observable.throw('http error');
+    return new Rx.BehaviorSubject(jsonResponse);
   });
 }

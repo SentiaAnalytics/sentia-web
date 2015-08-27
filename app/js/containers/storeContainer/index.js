@@ -37,6 +37,6 @@ function fetchData (query) {
     .catch(function (err) {
       console.log('ERROR ', err);
       container.error.onNext(err);
-      return rx.Observable.empty();
+      return Rx.Observable.empty();
     });
 }

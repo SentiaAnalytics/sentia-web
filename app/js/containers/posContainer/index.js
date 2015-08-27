@@ -1,7 +1,6 @@
 'use strict';
 import storeContainer from '../storeContainer';
-import startDateContainer from '../startDateContainer';
-import endDateContainer from '../endDateContainer';
+import {startDateContainer, endDateContainer} from '../dateContainer';
 import helper from './helper';
 import containerFactory  from '../../services/containerFactory';
 
@@ -14,7 +13,7 @@ container.observable
     container => container,
     (err) => console.error('posStore', err, err.stack));
 
-rx.Observable.combineLatest(
+Rx.Observable.combineLatest(
   startDateContainer.observable,
   endDateContainer.observable,
   storeContainer.observable,
@@ -30,6 +29,6 @@ function fetchData (query) {
   return helper.fetchData(query)
     .catch(function (err) {
       container.error.onNext(err);
-      return rx.Observable.empty();
+      return Rx.Observable.empty();
     });
 }

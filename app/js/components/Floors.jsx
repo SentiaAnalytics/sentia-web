@@ -39,18 +39,18 @@ export default React.createClass({
   observers: [],
   getInitialState () {
     return {
-      cameraList: cameraListContainer.observable.getValue()
+      cameraList: []
     };
   },
 
   componentDidMount () {
     document.title = 'Sentia Analytics - Floors';
-    this.observer = cameraListContainer.observable
+    this.disposable = cameraListContainer.observable
       .subscribe(cameraList => this.setState({cameraList}));
   },
 
   componentWillUnmount () {
-    this.observer.dispose();
+    this.disposable.dispose();
   },
 
   render () {

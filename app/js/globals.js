@@ -4,7 +4,7 @@ import Promise from 'bluebird';
 import moment from 'moment-timezone';
 import logger from './services/logger';
 import React from 'react';
-import rx from 'rx';
+import Rx from 'rx';
 
 
 let namespace = (typeof window !== 'undefined')? window: global;
@@ -14,4 +14,4 @@ namespace.Promise = Promise;
 namespace.logger = logger;
 namespace.moment = moment;
 namespace.React = React;
-namespace.rx = rx;
+namespace.Rx = Rx;
