@@ -8,6 +8,7 @@ import Barchart from './Barchart';
 import Total from './Total';
 import Percent from './Percent';
 
+const isNotEmpty = R.compose(R.not, R.isEmpty);
 
 export default React.createClass({
   componentDidMount () {
@@ -16,16 +17,20 @@ export default React.createClass({
 
   render () {
     const revenue = posContainer.observable
-      .map(R.map(R.props(['time', 'revenue'])));
+      .map(R.map(R.props(['time', 'revenue'])))
+      .filter(isNotEmpty);
 
     const transactions = posContainer.observable
-      .map(R.map(R.props(['time', 'transactions'])));
+      .map(R.map(R.props(['time', 'transactions'])))
+      .filter(isNotEmpty);
 
     const people = peopleContainer.observable
-      .map(R.map(R.props(['time', 'people'])));
+      .map(R.map(R.props(['time', 'people'])))
+      .filter(isNotEmpty);
 
     const churnRate = churnRateContainer.observable
-      .map(R.map(R.props(['cam', 'people'])));
+      .map(R.map(R.props(['cam', 'people'])))
+      .filter(isNotEmpty);
 
     return (
       <div className="gutter-top gutter-bottom">
@@ -58,7 +63,7 @@ export default React.createClass({
           </div>
           <div className="col-md-6">
             <div className="col-md-6 col-xs-6 gutter-bottom">
-              <Total observable={transactions} prop="transactions" id="total-transactions" title="transactions"/>
+              <Total observable={transactions} id="total-transactions" title="transactions"/>
             </div>
             <div className="col-sm-6 col-xs-6 gutter-bottom">
               <Percent dividend={revenue} divisor={transactions} id="basket-size" title="Basket Size" suffix="DKK"/>

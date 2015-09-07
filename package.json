@@ -8,7 +8,7 @@
     "build": "gulp build",
     "test": "npm prune && gulp test",
     "live": "gulp watch",
-    "karma": "karma start"
+    "cucumber": "bundle install && bundle exec cucumber -t ~@wip cucumber"
   },
   "engines": {
     "node": "0.12.x"

@@ -39,9 +39,6 @@ def take_screenshot
   Capybara::Screenshot.screenshot_and_save_page
 end
 
-After do |_scenario|
-  # Do something after each scenario.
-  # The +scenario+ argument is optional, but
-  # if you use it, you can inspect status with
-  # the #failed?, #passed? and #exception methods.
+After do |scenario|
+  Cucumber.wants_to_quit = true if scenario.failed?
 end

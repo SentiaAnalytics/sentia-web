@@ -29,7 +29,7 @@ test:
     - ci/run_docker:
         background:
           true
-    - ci/cucumber
+    - npm run cucumber
 
 
 deployment:
