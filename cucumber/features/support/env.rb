@@ -12,6 +12,7 @@ end
 def host
   @host ||= ENV['TEST_HOST'] || 'http://localhost:3000'
 end
+
 def screenshot_dir
   (ENV['CIRCLE_ARTIFACTS'] || '.') + '/screenshots/'
 end

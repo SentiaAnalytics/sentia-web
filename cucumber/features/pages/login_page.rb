@@ -7,7 +7,7 @@ class LoginPage
   end
 
   def go
-    visit 'http://localhost:3000/#/login'
+    visit "#{host}/#/login"
   end
 
   def title
