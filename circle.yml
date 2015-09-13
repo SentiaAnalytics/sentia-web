@@ -38,4 +38,4 @@ deployment:
     commands:
       - ci/install_gcloud
       - sudo google-cloud-sdk/bin/gcloud docker push gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM
-      - sudo kubectl rolling-update sentia-web --image=gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM
+      - sudo google-cloud-sdk/bin/kubectl rolling-update sentia-web --image=gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM
