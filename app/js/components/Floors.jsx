@@ -1,6 +1,6 @@
 'use strict';
 import {Link} from 'react-router';
-import cameraListContainer from '../containers/cameraListContainer';
+import cameralistContainer from '../containers/cameralistContainer';
 import churnrateContainer from '../containers/churnrateContainer';
 import Heatmap from './Heatmap';
 
@@ -47,7 +47,7 @@ export default React.createClass({
 
   componentDidMount () {
     document.title = 'Sentia Analytics - Floors';
-    this.disposable = cameraListContainer.observable
+    this.disposable = cameralistContainer.observable
       .subscribe(cameraList => this.setState({cameraList}));
   },
 
