@@ -1,6 +1,6 @@
 'use strict';
+document.getElementById('test').style.background = 'red';
 console.error('google', google);
 import './globals';
 import * as Router from './components/Router.jsx';
-console.error('TEST ERROR');
 Router.init();
