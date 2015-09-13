@@ -4,6 +4,7 @@ def register_firefox_driver
 end
 
 def register_chrome_driver
+  puts '...using Chromedriver'
   Capybara.register_driver :chrome do |app|
     Capybara::Selenium::Driver.new(app, :browser => :chrome)
   end
