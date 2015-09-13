@@ -17,4 +17,4 @@ echo $GCLOUD_KEY >> gcloud.json
 # sudo chmod 600 $HOME/.ssh/google_compute_engine.pub
 sudo google-cloud-sdk/bin/gcloud -q auth activate-service-account --key-file gcloud.json
 yes | sudo google-cloud-sdk/bin/gcloud -q compute config-ssh
-sudo google-cloud-sdk/bin/gcloud alpha -q container clusters get-credentials
+sudo google-cloud-sdk/bin/gcloud alpha -q container clusters get-credentials $SENTIA_CLUSTER
