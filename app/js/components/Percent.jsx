@@ -33,7 +33,7 @@ export default React.createClass({
     const {result} = this.state;
     const {id, title, suffix} = this.props;
     return (
-      <Numberwidget id={id} title={title} value={result} suffix={suffix || '%'}/>
+      <Numberwidget id={id} title={title} value={result} suffix={suffix || '%'} className={this.props.className}/>
     );
   }
 });

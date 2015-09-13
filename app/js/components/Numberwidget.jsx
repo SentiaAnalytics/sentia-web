@@ -2,11 +2,17 @@
 
 export default React.createClass({
   render: function() {
-    const {id, value, suffix, title} = this.props;
+    const {id, value, suffix, title, className} = this.props;
+    const articleClass = "text-center " + className;
     return (
-      <article className="container-fluid text-center">
-        <h1 className="small uppercase text-primary">{title}</h1>
-        <p className="h1" id={id}>{value || 0}<small>{suffix}</small></p>
+      <article className={articleClass}>
+        <div className="gutter-top gutter-bottom">
+          <p className="h2 text-gray" id={id}>{value || 0}<small>{suffix}</small></p>
+        </div>
+        <div className="bg-gray-lighter">
+          <h1 className="small uppercase text-primary gutter-top gutter-bottom">{title}</h1>
+        </div>
+
       </article>
     );
   }

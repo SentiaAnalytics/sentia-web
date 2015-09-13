@@ -58,9 +58,9 @@ export default React.createClass({
         <h1>{camera.name}</h1>
         {peopleCounter(camera, people)}
 
-        <div className="col-sm-12 gutter-bottom">
+        <div className="col-sm-8 col-sm-offset-2 gutter-bottom">
           <article className="paper">
-            <img src={camera ? snapshotUrl(camera): ''} style={style(camera)}/>
+            <img src={camera ? snapshotUrl(camera): ''} className="block" style={style(camera)}/>
           </article>
         </div>
       </div>

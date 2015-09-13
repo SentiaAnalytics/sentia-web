@@ -47,12 +47,10 @@ export default React.createClass({
       let {startDate, endDate} = this.props.query;
     return (
       <div className="has-sidebar">
-        <div className="full-height container-fluid">
-          <div className="full-height relative">
-            <Header/>
-            <div className="header-top full-height scroll-y">
-              <RouteHandler session={this.state.session} />
-            </div>
+        <div className="full-height relative">
+          <Header/>
+          <div className="header-top full-height scroll-y">
+            <RouteHandler session={this.state.session} />
           </div>
         </div>
         <Sidebar storeId={this.props.params.storeId}/>

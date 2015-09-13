@@ -10,7 +10,6 @@ export default R.curry((location, urlParam, mapDate) => {
   const observer = new Rx.BehaviorSubject(initialDate(urlParam));
   const observable = observer
     .filter(date => moment.isMoment(date))
-    .tap(logger.log('DATE'))
     .tap(updateUrl)
     .map(mapDate);
 

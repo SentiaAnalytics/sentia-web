@@ -6,7 +6,7 @@ import Datepicker from './Datepicker';
 export default React.createClass({
   render: function() {
     return (
-      <div className="header paper navbar navbar-default">
+      <div className="header navbar navbar-default bg-gray-light">
         <div className="container-fluid">
             <div className="btn-group pull-right navbar-btn">
               <button className="btn btn-primary icon icon-chevron-left"></button>

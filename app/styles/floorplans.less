@@ -1,0 +1,64 @@
+@floorplan-tilt: 45deg;
+.floorplan-container {
+  -webkit-perspective: 800px;
+  -webkit-backface-visibility: hidden;
+  -moz-perspective: 800px;
+  -moz-backface-visibility: hidden;
+  -ms-perspective: 800px;
+  -ms-backface-visibility: hidden;
+  perspective: 800px;
+  backface-visibility: hidden;
+}
+.floorplan img {
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  filter: grayscale(1);
+  transform: translateZ(-1px);
+}
+.floorplan {
+  -webkit-transform: rotateX(@floorplan-tilt);
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 1s,box-shadow 1s;
+  -webkit-backface-visibility: hidden;
+  -moz-transform: rotateX(@floorplan-tilt);
+  -moz-transform-style: preserve-3d;
+  -moz-transition: -moz-transform 1s,box-shadow 1s;
+  -moz-backface-visibility: hidden;
+  -ms-transform: rotateX(@floorplan-tilt);
+  -ms-transform-style: preserve-3d;
+  -ms-transition: -ms-transform 1s,box-shadow 1s;
+  -ms-backface-visibility: hidden;
+  transform: rotateX(@floorplan-tilt);
+  transform-style: preserve-3d;
+  transition: transform 1s,box-shadow 1s;
+  backface-visibility: hidden;
+  outline: 1px solid transparent;
+  box-shadow: 0 120px 80px -90px rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 120px 80px -90px rgba(0,0,0,.5);
+  -ms-box-shadow: 0 120px 80px -90px rgba(0,0,0,.5);
+}
+
+.floorplan-pin {
+  font-size: 25px;
+  -webkit-transform-origin: bottom;
+  -webkit-transform: rotateX(-@floorplan-tilt) translate(-15px,-15px);
+  -webkit-transition: -webkit-transform 1s;
+  -moz-transform-origin: bottom;
+  -moz-transform: translate(-8px,-25px);
+  -moz-transition: -moz-transform 1s;
+  -o-transform-origin: bottom;
+  -o-transform: translate(-8px,-25px);
+  -o-transition: -o-transform 1s;
+  -ms-transform-origin: bottom;
+  -ms-transform: translate(-8px,-25px);
+  -ms-transition: -ms-transform 1s;
+  transform-origin: bottom;
+  transition: transform 1s;
+  color: #36a3ff;
+  outline: 1px solid transparent;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+}

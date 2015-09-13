@@ -4,13 +4,11 @@ const G = google.visualization;
 
 const chartOptions = (title) => {
   return {
-    title: title,
     titlePosition: 'in',
     titleTextStyle: {
       color: '#aaa'
     },
     curveType: 'function',
-    chartArea: {width:'99%', height:'100%'},
     backgroundColor: 'transparent',
     animation: {
       duration: 1000,
@@ -20,7 +18,6 @@ const chartOptions = (title) => {
       gridlines: {
         color: 'transparent'
       },
-      textPosition: 'in',
       baselineColor: 'transparent',
       textStyle: {
         fontSize: 10,
@@ -28,11 +25,10 @@ const chartOptions = (title) => {
       }
     },
     vAxis : {
-      textPosition: 'in',
       baselineColor: 'transparent',
       gridlines: {
         count: 5,
-        color: 'transparent'
+        color: '#eee'
       },
       textStyle: {
         fontSize: 10,
@@ -47,6 +43,7 @@ const chartOptions = (title) => {
 
   };
 };
+
 
 
 var round2 = util.round(2);
@@ -76,7 +73,7 @@ export default React.createClass({
     this.disposable.dispose();
   },
 
-  render: function() {
+  render () {
     return (
       <div className="chart"></div>
     );

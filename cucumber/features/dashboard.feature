@@ -10,6 +10,5 @@ Feature: Dashboard page
       And I go to the dashboard page
     When I select a date range from 2015-01-01 to 2015-04-30
     Then the total revenue should be 8204641.73
-      And the total transactions should be 139969
       And the basket size should be 58.62
       And the conversion should be 47.15

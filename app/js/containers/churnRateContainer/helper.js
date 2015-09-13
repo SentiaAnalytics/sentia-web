@@ -42,9 +42,6 @@ function mapCamerasToResults (cameras, results) {
   let resultmap = R.pipe(R.map(makePair), R.fromPairs)(results);
 
   return R.map(x => {
-    return {
-      cam: x.name,
-      people: parseInt(resultmap[x._id], 10) || 0
-    };
+    return R.assoc('people', parseInt(resultmap[x._id], 10) || 0, x);
   }, cameras);
 }

@@ -10,7 +10,7 @@ end
 
 def poltergeist_options
   {
-    js_errors: false,
+    js_errors: true,
     timeout: 120,
     debug: ENV['DEBUG'] == '1',
     phantomjs_options: %w(--load-images=no --disk-cache=false),
