@@ -1,7 +1,7 @@
 'use strict';
 import posContainer from '../containers/posContainer';
 import peopleContainer from '../containers/peopleContainer';
-import churnRateContainer from '../containers/churnRateContainer';
+import churnrateContainer from '../containers/churnrateContainer';
 import util from '../util';
 import Linechart from './Linechart';
 import Total from './Total';
