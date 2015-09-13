@@ -1,6 +1,6 @@
 'use strict';
 import http from '../../services/http';
-import cameraListContainerFactory from './cameraListContainerFactory';
+import cameralistContainerFactory from './cameralistContainerFactory';
 import storeContainer from '../storeContainer';
 
-export default cameraListContainerFactory(http, storeContainer.observable);
+export default cameralistContainerFactory(http, storeContainer.observable);
