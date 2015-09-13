@@ -4,10 +4,7 @@ require 'capybara-screenshot/cucumber'
 require 'selenium-webdriver'
 require 'rspec/core'
 require 'random_data'
-
-%w(firefox poltergeist).each do |helper|
-  require File.expand_path("#{helper}_helpers", File.dirname(__FILE__))
-end
+require File.expand_path("drivers", File.dirname(__FILE__))
 
 def host
   @host ||= ENV['TEST_HOST'] || 'http://localhost:3000'
@@ -23,8 +20,10 @@ Capybara.default_wait_time = 5
 case ENV['TEST_MODE'].to_s.downcase
 when 'phantom'
   register_poltergeist_driver
-else
+when 'firefox'
   register_firefox_driver
+else
+  register_chrome_driver
 end
 
 # Configure capybara-screenshot/cucumber

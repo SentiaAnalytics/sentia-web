@@ -1,3 +1,16 @@
+def register_firefox_driver
+  puts '...using selenium/firefox'
+  Capybara.default_driver = :selenium
+end
+
+def register_chrome_driver
+  Capybara.register_driver :chrome do |app|
+    Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  end
+  Capybara.default_driver = :chrome
+  Capybara.javascript_driver = :chrome
+end
+
 
 def register_poltergeist_driver
   puts '...using poltergeist/phantomjs'
