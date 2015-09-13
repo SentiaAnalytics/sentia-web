@@ -12,7 +12,6 @@ def register_chrome_driver
   Capybara.javascript_driver = :chrome
 end
 
-
 def register_poltergeist_driver
   puts '...using poltergeist/phantomjs'
   Capybara.register_driver :poltergeist do |app|
