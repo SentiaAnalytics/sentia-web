@@ -3,7 +3,7 @@ import '../../../globals';
 import {expect} from 'chai';
 import sinon from 'sinon';
 import http from '../../../services/http';
-import cameralistContainerFactory from '../cameralistContainerFactory';
+import cameraListContainerFactory from '../cameraListContainerFactory';
 
 let shouldHttpFail = false;
 
@@ -12,7 +12,7 @@ const httpSuccess = (response) => Rx.Observable.of(response) ;
 const httpMock = {
   get: sinon.spy((query) => shouldHttpFail? httpFail('Error'):  httpSuccess([1, 2, 3, 4]))
 };
-const createContainer = cameralistContainerFactory(httpMock);
+const createContainer = cameraListContainerFactory(httpMock);
 
 describe('cameraListContainerFactory', function () {
   beforeEach(() => httpMock.get.reset());
