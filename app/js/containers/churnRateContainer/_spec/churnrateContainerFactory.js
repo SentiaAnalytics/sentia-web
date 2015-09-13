@@ -48,11 +48,15 @@ describe('churnrateContainerFactory', function () {
 
     let expectedResult = [
       {
-        cam: 'Camera 1',
-        people: 34
+        _id: '1',
+        name: 'Camera 1',
+        counter: true,
+          people: 34
       },
       {
-        cam: 'Camera 3',
+        _id: '3',
+        name: 'Camera 3',
+        counter: true,
         people: 123
       }
     ];

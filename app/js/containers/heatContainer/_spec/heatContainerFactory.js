@@ -10,7 +10,7 @@ const http = {
   get: sinon.spy((url) => Rx.Observable.of(5))
 };
 
-describe('heatContainerFactory', function () {
+describe.skip('heatContainerFactory', function () {
   beforeEach(() => {
     startDate.onNext(moment('2015-01-01'));
     endDate.onNext(moment('2015-02-01'));
