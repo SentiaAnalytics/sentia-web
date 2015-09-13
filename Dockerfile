@@ -1,7 +1,8 @@
 FROM google/nodejs
 
 ADD . .
-RUN npm install --prod
+RUN npm install
+RUN npm run build
 
 EXPOSE 3000
 
