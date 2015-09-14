@@ -10,6 +10,7 @@ var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 var less = require('gulp-less');
 var reload = require('gulp-livereload');
+var minifyCSS = require('gulp-minify-css');
 
 gulp.task('browserify', function () {
   var b = browserify({
@@ -32,6 +33,8 @@ gulp.task('browserify', function () {
     .pipe(reload());
 });
 
+
+
 gulp.task('less', function () {
     return gulp.src('app/styles/style.less')
       .pipe(sourcemaps.init())
@@ -45,4 +48,32 @@ gulp.task('less', function () {
       .pipe(reload());
 });
 
+gulp.task('browserify-prod', function () {
+  var b = browserify({
+    entries: ['./app/js/main.js'],
+    extensions: ['.jsx'],
+    // defining transforms here will avoid crashing your stream
+    transform: [babelify]
+  });
+  // set up the browserify instance on a task basis
+  return b.bundle()
+    .pipe(source('app/js/main.js'))
+    .pipe(buffer())
+    .pipe(rename('bundle.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./app'));
+});
+
+gulp.task('less-prod', function () {
+    return gulp.src('app/styles/style.less')
+      .pipe(less())
+      .on('error', function (err) {
+        console.log(err.stack);
+        this.emit('end');
+      })
+      .pipe(minifyCSS())
+      .pipe(gulp.dest('app'));
+});
+
 gulp.task('build', ['less', 'browserify', 'static']);
+gulp.task('build-prod', ['less-prod', 'browserify-prod', 'static']);

@@ -6,6 +6,7 @@
   "scripts": {
     "start": "babel-node main.js",
     "build": "gulp build",
+    "build-prod": "gulp build-prod",
     "test": "npm prune && gulp test",
     "live": "gulp watch",
     "cucumber": "bundle install && bundle exec cucumber -t ~@wip cucumber"
@@ -51,6 +52,7 @@
     "gulp": "^3.9.0",
     "gulp-less": "^3.0.3",
     "gulp-livereload": "^3.8.0",
+    "gulp-minify-css": "^1.2.1",
     "gulp-rename": "^1.2.2",
     "gulp-run": "^1.6.11",
     "gulp-sourcemaps": "^1.5.2",
