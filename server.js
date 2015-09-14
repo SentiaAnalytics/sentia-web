@@ -12,21 +12,19 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   routeloader = require('express-routeloader'),
   server,
-  gzipStatic = require('connect-gzip-static'),
+  compression = require('compression'),
   app = express();
 
 
 
 // app.use(session({secret: 'alskjdflakjd'}));
-
+app.use(compression());
 app.use(session({store : sessionStore, secret: 'alskjdflakjd'}));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
-
-app.use(gzipStatic(__dirname + '/app'));
 
 app.use(express.static(__dirname + '/app'));
 

@@ -11,6 +11,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var less = require('gulp-less');
 var reload = require('gulp-livereload');
 var minifyCSS = require('gulp-minify-css');
+var gzip =  require('gulp-gzip');
 
 gulp.task('browserify', function () {
   var b = browserify({
@@ -32,8 +33,6 @@ gulp.task('browserify', function () {
     .pipe(gulp.dest('./app'))
     .pipe(reload());
 });
-
-
 
 gulp.task('less', function () {
     return gulp.src('app/styles/style.less')
