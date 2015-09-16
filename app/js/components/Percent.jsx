@@ -29,9 +29,9 @@ export default React.createClass({
 
   render () {
     const {result} = this.state;
-    const {id, title, suffix} = this.props;
+    const {id, title, suffix, color} = this.props;
     return (
-      <Numberwidget id={id} title={title} value={result} suffix={suffix || '%'} className={this.props.className}/>
+      <Numberwidget id={id} title={title} value={result} suffix={suffix || '%'} className={this.props.className} color={color}/>
     );
   }
 });

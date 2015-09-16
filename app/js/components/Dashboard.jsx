@@ -7,6 +7,13 @@ import Linechart from './Linechart';
 import Total from './Total';
 import Percent from './Percent';
 
+const colors = [
+  '#36a3ff',
+  '#64bd63',
+  '#5d8fc2',
+  '#dd5826',
+];
+
 const isNotEmpty = R.compose(R.not, R.isEmpty);
 
 export default React.createClass({
@@ -35,20 +42,20 @@ export default React.createClass({
           <div className="col-sm-6 gutter-bottom">
             <div className="row">
               <div className="col-sm-6 col-xs-6 gutter-bottom">
-                <Total observable={people} prop="people" id="total-people" title="people" className="paper"/>
+                <Total observable={people} prop="people" id="total-people" title="people" className="paper" color={colors[0]}/>
               </div>
               <div className="col-sm-6 col-xs-6 gutter-bottom">
-                <Total observable={revenue} prop="revenue" id="total-revenue" title="revenue" className="paper"/>
+                <Total observable={revenue} prop="revenue" id="total-revenue" title="revenue" className="paper" color={colors[1]}/>
               </div>
             </div>
           </div>
           <div className="col-sm-6 gutter-bottom">
             <div className="row">
               <div className="col-sm-6 col-xs-6 gutter-bottom">
-                <Percent dividend={revenue} divisor={transactions} id="basket-size" title="Basket Size" suffix="DKK" className="paper"/>
+                <Percent dividend={revenue} divisor={transactions} id="basket-size" title="Basket Size" suffix="DKK" className="paper" color={colors[2]}/>
               </div>
               <div className="col-sm-6 col-xs-6 gutter-bottom">
-                <Percent dividend={transactions} divisor={people} id="conversion" title="Conversion Rate" suffix="%" className="paper"/>
+                <Percent dividend={transactions} divisor={people} id="conversion" title="Conversion Rate" suffix="%" className="paper" color={colors[3]}/>
               </div>
             </div>
           </div>
@@ -57,23 +64,24 @@ export default React.createClass({
           <div className="col-xs-12 gutter-bottom">
             <h2>People</h2>
             <article className="paper-widget paper">
-              <Linechart observable={people} type="people" title="People"/>
+              <Linechart observable={people} type="people" title="People" options={{colors: [colors[0]]}}/>
             </article>
           </div>
 
           <div className="col-xs-12 gutter-bottom">
             <h2>Revenue</h2>
             <article className="paper-widget paper">
-              <Linechart observable={revenue} type="revenue" title="Revenue"/>
+              <Linechart observable={revenue} type="revenue" title="Revenue" options={{colors: [colors[1]]}}/>
             </article>
           </div>
 
           <div className="col-xs-12 gutter-bottom">
             <h2>Transactions</h2>
             <article className="paper-widget paper">
-              <Linechart observable={transactions} type="transactions" title="Transactions"/>
+              <Linechart observable={transactions} type="transactions" title="Transactions" options={{colors: [colors[2]]}}/>
             </article>
           </div>
+
 
         </div>
       </div>

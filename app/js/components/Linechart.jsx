@@ -2,47 +2,46 @@
 import util from '../util';
 const G = google.visualization;
 
-const chartOptions = (title) => {
-  return {
-    titlePosition: 'in',
-    titleTextStyle: {
+const mergeOptions = R.merge({
+  titlePosition: 'in',
+  titleTextStyle: {
+    color: '#aaa'
+  },
+  area: true,
+  curveType: 'function',
+  backgroundColor: 'transparent',
+  animation: {
+    duration: 1000,
+    easing: 'in'
+  },
+  hAxis: {
+    gridlines: {
+      color: 'transparent'
+    },
+    baselineColor: 'transparent',
+    textStyle: {
+      fontSize: 10,
       color: '#aaa'
+    }
+  },
+  vAxis : {
+    baselineColor: 'transparent',
+    gridlines: {
+      count: 5,
+      color: '#eee'
     },
-    curveType: 'function',
-    backgroundColor: 'transparent',
-    animation: {
-      duration: 1000,
-      easing: 'in'
-    },
-    hAxis: {
-      gridlines: {
-        color: 'transparent'
-      },
-      baselineColor: 'transparent',
-      textStyle: {
-        fontSize: 10,
-        color: '#aaa'
-      }
-    },
-    vAxis : {
-      baselineColor: 'transparent',
-      gridlines: {
-        count: 5,
-        color: '#eee'
-      },
-      textStyle: {
-        fontSize: 10,
-        color: '#aaa'
-      }
-      // gridlines:{color:'transparent'}
-    },
-    tooltip: {isHtml: true},
-    colors: ['#36a3ff'],
-    legend: 'none',
-    lineWidth: 2
+    textStyle: {
+      fontSize: 10,
+      color: '#aaa'
+    }
+    // gridlines:{color:'transparent'}
+  },
+  tooltip: {isHtml: true},
+  colors: ['#36a3ff'],
+  legend: 'none',
+  lineWidth: 2
 
-  };
-};
+});
 
 
 
@@ -59,10 +58,10 @@ export default React.createClass({
 
   componentDidMount () {
     let element = this.getDOMNode();
-    let {observable, type, title} = this.props;
+    let {observable, type, title, options} = this.props;
 
-    const chart = new G.LineChart(element);
-    const draw = R.curry((options, data) => chart.draw(data, options))(chartOptions(title));
+    const chart = new G.AreaChart(element);
+    const draw = R.curry((options, data) => chart.draw(data, options))(mergeOptions(options));
 
     this.disposable = observable
       .map(createDataTable(type))

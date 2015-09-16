@@ -1,11 +1,6 @@
 'use strict';
 import R from 'ramda';
-import Rx from 'rx';
+const median = R.compose(list => (list[Math.ceil((list.length-1)/2)] + list[Math.floor((list.length-1)/2)])/2,R.sort((a, b) => a - b));
 
-
-var log = ({a, b}) => {
-  console.log(a, b);
-};
-
-
-log({a:1, b:2});
+console.log(median([1,2,3, 4, 5, 6, 7, 8, 9]));
+console.log(median([1,2,3,4,5, 6, 7, 8, 9, 10]));
