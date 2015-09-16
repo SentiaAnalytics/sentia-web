@@ -17,11 +17,9 @@ export default React.createClass({
         dividend.map(R.map(R.last)),
         divisor.map(R.map(R.last)),
         (dividend, divisor) => ({dividend, divisor}))
-      .tap(logger.log('Percent'))
       .filter(x => x.dividend && x.divisor)
       .map(({dividend, divisor}) => (R.sum(dividend) / R.sum(divisor)) * multiplier)
       .map(util.round(2))
-      .tap(logger.log('percent'))
       .subscribe(result => this.setState({result}));
   },
 

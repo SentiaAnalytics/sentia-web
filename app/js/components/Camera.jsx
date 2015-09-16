@@ -6,7 +6,7 @@ import cameraContainer from '../containers/cameraContainer';
 import Total from './Total';
 import Linechart from './Linechart';
 
-const snapshotUrl = (camera) => `/api/cameras/${camera._id}/snapshot.jpg`;
+const snapshotUrl = (camera) => `/images/cameras/${camera._id}.jpg`;
 const style = (camera) => {
   return {'transform': `rotate(${camera.rotate| 0}deg)`};
 };

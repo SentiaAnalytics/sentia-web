@@ -24,7 +24,7 @@ var _printFloor = R.curry(function (printCamera, floorCameraPair) {
     <div key={R.head(floorCameraPair)} className="col-xs-8 col-xs-offset-2 gutter-bottom floorplan-container">
       <div className="relative floorplan">
         <Heatmap observable={heat}/>
-        <img className="block" src={`/api/stores/floorplans/${R.head(floorCameraPair)}.jpg`}/>
+        <img className="block" src={`/images/floors/${R.head(floorCameraPair)}.jpg`}/>
         {R.map(printCamera, R.last(floorCameraPair))}
       </div>
     </div>

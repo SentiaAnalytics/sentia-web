@@ -39,7 +39,7 @@ export default React.createClass({
   },
 
   componentWillUnmount() {
-    this.diposable.dispose();
+    this.disposable.dispose();
   },
   render () {
     return (
