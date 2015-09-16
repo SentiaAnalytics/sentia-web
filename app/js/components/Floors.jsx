@@ -20,10 +20,11 @@ var _printFloor = R.curry(function (printCamera, floorCameraPair) {
     .observable
     .map(R.filter(x => x.floor === R.head(floorCameraPair)))
     .map(R.map(cam => [cam.pos.x, cam.pos.y, cam.people]));
+
   return (
     <div key={R.head(floorCameraPair)} className="col-xs-8 col-xs-offset-2 gutter-bottom floorplan-container">
       <div className="relative floorplan">
-        <Heatmap observable={heat}/>
+        <Heatmap observable={heat} options={{max:100}}/>
         <img className="block" src={`/images/floors/${R.head(floorCameraPair)}.jpg`}/>
         {R.map(printCamera, R.last(floorCameraPair))}
       </div>

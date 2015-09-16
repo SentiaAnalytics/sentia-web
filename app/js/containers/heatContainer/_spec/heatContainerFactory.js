@@ -7,23 +7,39 @@ const startDate = new Rx.BehaviorSubject(moment('2015-01-01'));
 const endDate = new Rx.BehaviorSubject(moment('2015-02-01'));
 const camera = new Rx.BehaviorSubject({id:1});
 const http = {
-  get: sinon.spy((url) => Rx.Observable.of(5))
+  get: sinon.spy((url) => Rx.Observable.of([{x:1, y:2, heat: 2.5}]))
 };
 
-describe.skip('heatContainerFactory', function () {
+let disposable;
+
+describe('heatContainerFactory', function () {
   beforeEach(() => {
     startDate.onNext(moment('2015-01-01'));
     endDate.onNext(moment('2015-02-01'));
-    camera.onNext({id:1});
+    camera.onNext({_id:1});
     http.get.reset();
   });
+  afterEach(() => {
+    disposable.dispose();
+  })
+
   it('should not update until all dependencies are met', function () {
     let spy = sinon.spy();
     let heatContainer = heatContainerFactory(http, startDate, endDate, camera);
     camera.onNext(null);
-    heatContainer.observable.subscribe(spy);
+    disposable = heatContainer.observable.subscribe(spy);
 
     expect(http.get.called).to.equal(false, 'should not call http');
     expect(spy.called).to.equal(false);
+  });
+
+  it('should fetch heatmap data when all dependencies are met', () => {
+    let spy = sinon.spy();
+    let heatContainer = heatContainerFactory(http, startDate, endDate, camera);
+    disposable = heatContainer.observable.subscribe(spy);
+    expect(http.get.calledOnce).to.equal(true, 'should call http.get once');
+    expect(http.get.args[0][0]).to.equal('/api/maps?from=2015-01-01&to=2015-02-01&camera=1');
+    expect(spy.calledOnce).to.equal(true, 'call spy once');
+    expect(spy.args[0][0]).to.eql([{x:1, y:2, heat: 2.5}]);
   });
 });

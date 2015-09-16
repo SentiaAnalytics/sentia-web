@@ -14,6 +14,7 @@ export default (helper) => {
 
   const observer = new Rx.BehaviorSubject(null);
   const observable = observer
+    .filter(x => x)
     .flatMap(cachedAsync(observer, fetch));
 
 

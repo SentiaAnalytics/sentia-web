@@ -10,11 +10,23 @@ import Percent from './Percent';
 const colors = [
   '#36a3ff',
   '#64bd63',
-  '#5d8fc2',
+  '#6D35E9',
   '#dd5826',
 ];
 
 const isNotEmpty = R.compose(R.not, R.isEmpty);
+
+const revenue = posContainer.observable
+  .map(R.map(R.props(['time', 'revenue'])))
+  .filter(isNotEmpty);
+
+const transactions = posContainer.observable
+  .map(R.map(R.props(['time', 'transactions'])))
+  .filter(isNotEmpty);
+
+const people = peopleContainer.observable
+  .map(R.map(R.props(['time', 'people'])))
+  .filter(isNotEmpty);
 
 export default React.createClass({
   componentDidMount () {
@@ -22,19 +34,6 @@ export default React.createClass({
   },
 
   render () {
-    const revenue = posContainer.observable
-      .map(R.map(R.props(['time', 'revenue'])))
-      .filter(isNotEmpty);
-
-    const transactions = posContainer.observable
-      .map(R.map(R.props(['time', 'transactions'])))
-      .filter(isNotEmpty);
-
-    const people = peopleContainer.observable
-      .map(R.map(R.props(['time', 'people'])))
-      .filter(isNotEmpty);
-
-
     return (
       <div className="gutter-top gutter-bottom">
         <div className="container-fluid">

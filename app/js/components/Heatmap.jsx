@@ -1,40 +1,33 @@
 'use strict';
 import simpleheat from '../services/simpleheat';
-const CANVAS_WIDTH = 854;
-const CANVAS_HEIGHT = 552;
-let dummyData = [
-  [100,100, 8],
-  [29,39, 2],
-  [60,69, 5],
-  [200,20, 9],
-];
-
-const scale = R.curry((width, height, point) => {
-  return [
-    (point[0]/100) * CANVAS_WIDTH,
-    (point[1]/100) * CANVAS_HEIGHT,
-    point[2]
-  ];
+const mergeOptions = R.merge({
+  width:100,
+  height:100,
+  max: 3000,
+  radius: [10, 20]
 });
-
 const max = R.compose(R.head, R.sort((a, b) => b-a));
+
+const heatmapStyle = {
+  top:0,
+  left:0,
+  opacity: 0.6
+};
 export default React.createClass({
   componentDidMount () {
-    console.log('componentDidMount');
-    const {observable} = this.props;
+    const {observable, options} = this.props;
+    const opt = mergeOptions(options);
     const canvas = this.getDOMNode();
-    const heatmap = simpleheat(canvas).data([]).draw();
-    heatmap.radius(60, 100);
+    const heatmap = simpleheat(canvas);
+    heatmap.radius.apply(heatmap, opt.radius);
 
     const update = (data) => {
       console.log('updateing heatmap', data);
-      console.log('max', max(R.map(R.last, data)));
-      heatmap.max(max(R.map(R.last, data)));
+      heatmap.max(opt.max);
       heatmap.data(data).draw();
     };
 
     this.disposable = observable
-      .map(R.map(scale(855, 500)))
       .subscribe(update);
   },
 
@@ -42,8 +35,10 @@ export default React.createClass({
     this.disposable.dispose();
   },
   render () {
+    const {cols, rows, options} = this.props;
+    const opt = mergeOptions(options)
     return (
-      <canvas style={{opacity: 0.6}} width={CANVAS_WIDTH} height={CANVAS_HEIGHT} className="block full-height absolute"></canvas>
+      <canvas style={heatmapStyle} width={opt.width} height={opt.height} className="block full-height absolute"></canvas>
     );
   }
 })
