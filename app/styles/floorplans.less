@@ -16,6 +16,8 @@
   transform: translateZ(-1px);
 }
 .floorplan {
+  min-width: 300px;
+  min-height:160px;
   -webkit-transform: rotateX(@floorplan-tilt);
   -webkit-transform-style: preserve-3d;
   -webkit-transition: -webkit-transform 1s,box-shadow 1s;
@@ -33,9 +35,9 @@
   transition: transform 1s,box-shadow 1s;
   backface-visibility: hidden;
   outline: 1px solid transparent;
-  box-shadow: 0 120px 80px -90px rgba(0,0,0,.5);
-  -webkit-box-shadow: 0 120px 80px -90px rgba(0,0,0,.5);
-  -ms-box-shadow: 0 120px 80px -90px rgba(0,0,0,.5);
+  box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.5);
+  -ms-box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.5);
 }
 
 .floorplan-pin {

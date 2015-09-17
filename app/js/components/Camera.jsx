@@ -19,13 +19,13 @@ const peopleCounter = (camera, people) => {
   }
   return (
     <div>
-      <div className="col-sm-12 gutter-bottom">
-        <Total observable={people} id="camera-people-in" title="People"/>
+      <div className="col-sm-3 gutter-bottom">
+        <Total observable={people} id="camera-people-in" title="People" className="paper"/>
       </div>
-      <div className="col-sm-12 gutter-bottom">
-        <article className="paper-widget relative">
+      <div className="col-sm-9 gutter-bottom">
+        <div className="paper paper-widget relative">
           <Linechart observable={people} type="people"/>
-        </article>
+        </div>
       </div>
     </div>
   );
@@ -66,11 +66,10 @@ export default React.createClass({
       radius: [1, 2]
     }
     return (
-      <div>
-        <h1>{camera.name}</h1>
+      <div className="container-fluid">
+        <h1 className="text-center">{camera.name}</h1>
         {peopleCounter(camera, people)}
-
-        <div className="col-sm-8 col-sm-offset-2 gutter-bottom">
+        <div className="col-sm-9 col-sm-offset-3 gutter-bottom">
           <article className="paper relative">
             <img src={camera ? snapshotUrl(camera): ''} className="block" style={style(camera)}/>
             <Heatmap observable={heat} options={heatmapOptions}/>

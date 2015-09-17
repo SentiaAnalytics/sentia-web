@@ -22,7 +22,7 @@ var _printFloor = R.curry(function (printCamera, floorCameraPair) {
     .map(R.map(cam => [cam.pos.x, cam.pos.y, cam.people]));
 
   return (
-    <div key={R.head(floorCameraPair)} className="col-xs-8 col-xs-offset-2 gutter-bottom floorplan-container">
+    <div key={R.head(floorCameraPair)} className="row gutter-bottom floorplan-container">
       <div className="relative floorplan">
         <Heatmap observable={heat} options={{max:100}}/>
         <img className="block" src={`/images/floors/${R.head(floorCameraPair)}.jpg`}/>
@@ -62,7 +62,7 @@ export default React.createClass({
     var printFloorList = _printFloorList(printFloor);
     return (
       <div className="gutter-top gutter-bottom">
-        <div className="container-fluid ">
+        <div className="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
           {printFloorList(this.state.cameraList)}
         </div>
       </div>
