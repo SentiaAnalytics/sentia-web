@@ -9,6 +9,7 @@ export default React.createClass({
       field: element,
       minDate: minDate? moment(minDate).toDate(): null,
       maxDate: maxDate? moment(maxDate).toDate(): null,
+      position:'Automatic',
       onSelect: function () {
         dateStore.observer.onNext(this.getMoment());
       }

@@ -13,6 +13,8 @@ export default R.curry((helper, startDate, endDate, store) => {
     .flatMap(fetchData)
     .map(R.map(helper.parseNumbersAndDates));
 
+  error.subscribe(logger.log('posContainer Error:'));
+
   return {
     error,
     observable

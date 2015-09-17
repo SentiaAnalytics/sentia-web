@@ -19,7 +19,7 @@ export default React.createClass({
         <Link className="sidebar-link" activeClassName="active" to="floors" params={{storeId}}>
           <i className="glyphicon glyphicon-record"></i>
         </Link>
-        <a className="sidebar-link bottom glyphicon glyphicon-off" onClick={this.logout}></a>
+        <a className=" hidden-xs sidebar-link bottom glyphicon glyphicon-off" onClick={this.logout}></a>
       </div>
     );
   }

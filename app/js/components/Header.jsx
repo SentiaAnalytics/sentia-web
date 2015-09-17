@@ -9,10 +9,8 @@ export default React.createClass({
       <div className="header navbar navbar-default bg-gray-light">
         <div className="container-fluid">
             <div className="btn-group pull-right navbar-btn">
-              <button className="btn btn-primary icon icon-chevron-left"></button>
               <Datepicker dateStore={startDateContainer} id="start-date-picker" classes=""/>
               <Datepicker dateStore={endDateContainer} id="end-date-picker"  classes=""/>
-              <button className="btn btn-primary icon icon-chevron-right"></button>
             </div>
         </div>
       </div>

@@ -38,22 +38,22 @@ export default React.createClass({
       <div className="gutter-top gutter-bottom">
         <div className="container-fluid">
 
-          <div className="col-sm-6 gutter-bottom">
+          <div className="col-md-6 gutter-bottom">
             <div className="row">
-              <div className="col-sm-6 col-xs-6 gutter-bottom">
+              <div className="col-sm-6 gutter-bottom">
                 <Total observable={people} prop="people" id="total-people" title="people" className="paper" color={colors[0]}/>
               </div>
-              <div className="col-sm-6 col-xs-6 gutter-bottom">
+              <div className="col-sm-6 gutter-bottom">
                 <Total observable={revenue} prop="revenue" id="total-revenue" title="revenue" className="paper" color={colors[1]}/>
               </div>
             </div>
           </div>
-          <div className="col-sm-6 gutter-bottom">
+          <div className="col-md-6 gutter-bottom">
             <div className="row">
-              <div className="col-sm-6 col-xs-6 gutter-bottom">
+              <div className="col-sm-6 gutter-bottom">
                 <Percent dividend={revenue} divisor={transactions} id="basket-size" title="Basket Size" suffix="DKK" className="paper" color={colors[2]}/>
               </div>
-              <div className="col-sm-6 col-xs-6 gutter-bottom">
+              <div className="col-sm-6 gutter-bottom">
                 <Percent dividend={transactions} divisor={people} id="conversion" title="Conversion Rate" suffix="%" className="paper" color={colors[3]}/>
               </div>
             </div>

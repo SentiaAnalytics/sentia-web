@@ -14,6 +14,10 @@ export default R.curry((helper, startDate, endDate, cameralist) => {
     .flatMap(fetchData)
     .map(helper.processResult);
 
+  error
+    .filter(x => x)
+    .subscribe(logger.log('peopleContainer Error:'))
+
   return {
     error,
     observable
