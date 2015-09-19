@@ -9,8 +9,12 @@ Then(/^I should be redirected to the login page$/) do
   expect(page).to have_title(login_page.title)
 end
 
-Then(/^I should see the login form/) do
+Then(/^I should see the login form$/) do
   login_page.loginform
+end
+
+Then(/^I should not see a login error$/) do
+  page.should have_no_selector('#loginerror');
 end
 
 When(/^I log in$/) do

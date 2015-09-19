@@ -8,6 +8,7 @@ Feature: Login page
     When I go to the login page
     Then I should be on the login page
     And I should see the login form
+    And I should not see a login error
 
   Scenario: login with valid credentials
     When I log in

@@ -22,7 +22,7 @@ export default React.createClass({
     this.errorObserver = sessionContainer
       .error
       .filter(x => !R.isNil(x))
-      .filter(x => x !== 'You must login to perform this action')
+      .filter(x => x !== 'You must login to perform this action.')
       .subscribe(error => this.setState({error}));
   },
 
