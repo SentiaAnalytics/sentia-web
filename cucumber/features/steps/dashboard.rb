@@ -30,3 +30,7 @@ end
 Then(/^the conversion should be (.+)$/) do |conversion|
   expect(dashboard_page.conversion).to have_content(conversion)
 end
+
+Then(/^it should have loaded the charts with (\d+) <g>$/) do |count|
+  expect(page).to have_selector('g', count: count)
+end
