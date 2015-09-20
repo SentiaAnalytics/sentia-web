@@ -5,3 +5,7 @@ end
 When(/^I visit (.+)$/) do |path|
   visit "#{host}#{path}"
 end
+
+Then(/^the total people in should be (.+)$/) do |people|
+  expect(find('#total-people')).to have_content(people)
+end

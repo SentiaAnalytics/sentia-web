@@ -20,7 +20,7 @@ const peopleCounter = (camera, people) => {
   return (
     <div>
       <div className="col-sm-3 gutter-bottom">
-        <Total observable={people} id="camera-people-in" title="People" className="paper"/>
+        <Total observable={people} id="total-people" title="People" className="paper"/>
       </div>
       <div className="col-sm-9 gutter-bottom">
         <div className="paper paper-widget relative">
@@ -47,9 +47,13 @@ export default React.createClass({
   },
 
   componentDidMount () {
-    document.title = 'Sentia Analytics - Camera';
+    const update = (camera) => {
+      document.title = 'Sentia Analytics - ' + camera.name;
+      this.setState({camera});
+    };
+
     this.disposable = cameraContainer.observable
-      .subscribe(camera => this.setState({camera}));
+      .subscribe(update);
 
     cameraContainer.observer.onNext(this.props.params.cameraId);
   },

@@ -19,6 +19,8 @@ Then(/^the total revenue should be (.+)$/) do |revenue|
   expect(dashboard_page.total_revenue).to have_content(revenue)
 end
 
+
+
 Then(/^the total transactions should be (.+)$/) do |transactions|
   expect(dashboard_page.total_transactions).to have_content(transactions)
 end
