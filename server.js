@@ -1,5 +1,6 @@
 'use strict';
 var express = require('express'),
+  fs = require('fs'),
   config = require('config'),
   mongoose = require('mongoose'),
   bootstrap = require('./bootstrap'),
@@ -13,7 +14,8 @@ var express = require('express'),
   routeloader = require('express-routeloader'),
   server,
   compression = require('compression'),
-  app = express();
+  app = express(),
+  cacheManifest = fs.readFileSync('app/sentia.appcache') + '#' + Math.random();
 
 
 
@@ -26,6 +28,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+app.get("/sentia.appcache", function(req, res){
+  res.header("Content-Type", "text/cache-manifest");
+  res.end(cacheManifest);
+});
 app.use(express.static(__dirname + '/app'));
 
 // middleware
