@@ -43,17 +43,18 @@
 .floorplan-pin {
   font-size: 25px;
   -webkit-transform-origin: bottom;
-  -webkit-transform: rotateX(-@floorplan-tilt) translate(-15px,-15px);
+  -webkit-transform: rotateX(-@floorplan-tilt) translate3d(-15px,-15px, 1px);
   -webkit-transition: -webkit-transform 1s;
   -moz-transform-origin: bottom;
-  -moz-transform: translate(-8px,-25px);
+  -moz-transform: rotateX(-@floorplan-tilt) translate3d(-15px,-15px, 1px);
   -moz-transition: -moz-transform 1s;
   -o-transform-origin: bottom;
-  -o-transform: translate(-8px,-25px);
+  -o-transform: rotateX(-@floorplan-tilt) translate3d(-15px,-15px, 1px);
   -o-transition: -o-transform 1s;
   -ms-transform-origin: bottom;
-  -ms-transform: translate(-8px,-25px);
+  -ms-transform: rotateX(-@floorplan-tilt) translate3d(-15px,-15px, 1px);
   -ms-transition: -ms-transform 1s;
+  transform: rotateX(-@floorplan-tilt) translate3d(-15px,-15px, 1px);
   transform-origin: bottom;
   transition: transform 1s;
   color: #36a3ff;

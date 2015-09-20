@@ -20,10 +20,10 @@ Capybara.default_wait_time = 5
 case ENV['TEST_MODE'].to_s.downcase
 when 'phantom'
   register_poltergeist_driver
-when 'firefox'
-  register_firefox_driver
-else
+when 'chrome'
   register_chrome_driver
+else
+  register_firefox_driver
 end
 
 # Configure capybara-screenshot/cucumber

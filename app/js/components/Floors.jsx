@@ -9,7 +9,7 @@ var cameraStyle = (cam) => ({left: cam.pos.x + '%', top: cam.pos.y + '%' });
 var _printCamera = R.curry(function (storeId, cam) {
   const cameraId = cam._id;
    return  (
-     <Link key={cameraId} to="camera" params={{storeId, cameraId}}>
+     <Link key={cameraId} to="camera" data-camera-pin={cam._id} params={{storeId, cameraId}}>
       <div className="font-size-large absolute glyphicon glyphicon-map-marker text-primary floorplan-pin" style={cameraStyle(cam)}></div>
      </Link>
    );
@@ -22,7 +22,7 @@ var _printFloor = R.curry(function (printCamera, floorCameraPair) {
     .map(R.map(cam => [cam.pos.x, cam.pos.y, cam.people]));
 
   return (
-    <div key={R.head(floorCameraPair)} className="row gutter-bottom floorplan-container">
+    <div key={R.head(floorCameraPair)} data-floorplan={R.head(floorCameraPair)} className="row gutter-bottom floorplan-container">
       <div className="relative floorplan">
         <Heatmap observable={heat} options={{max:100}}/>
         <img className="block" src={`/images/floors/${R.head(floorCameraPair)}.jpg`}/>

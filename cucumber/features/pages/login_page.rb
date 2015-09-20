@@ -18,6 +18,10 @@ class LoginPage
     find '#loginform'
   end
 
+  def loginerror
+    find '#loginerror'
+  end
+
   def login(cred = credentials)
     within find('#loginform') do
       fill_in 'email', with: cred[:email]

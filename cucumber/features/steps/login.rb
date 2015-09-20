@@ -48,7 +48,7 @@ When(/^I am logged in$/) do
 end
 
 Then(/^I should see an invalid email error$/) do
-  expect(find('#loginerror')).to have_text('User not found')
+  expect(login_page.loginerror).to have_text('User not found')
 end
 
 Then(/^I should see an invalid password error$/) do
