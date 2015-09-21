@@ -9,7 +9,7 @@ var j2sql = require('json2sql'),
 
 var log = function (tag) {
   return function (data) {
-    logger.log(tag, data);
+    logger.info(tag, data);
     return data;
   };
 };
