@@ -14,6 +14,10 @@ function get (url) {
       console.log(url, res.status, res.data.length);
       if (res.status >= 300) throw new Error(res);
       return res.data;
+    })
+    .catch(err => {
+      console.error('http.get', url, err);
+      return Promise.reject(err);
     });
 
   return Rx
