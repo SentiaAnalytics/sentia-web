@@ -8,8 +8,10 @@ export default {
 };
 
 function get (url) {
+  console.log('GET', url);
   let promise = axios.get(url)
     .then(function (res) {
+      console.log(url, res.status, res.data.length);
       if (res.status >= 300) throw new Error(res);
       return res.data;
     });
