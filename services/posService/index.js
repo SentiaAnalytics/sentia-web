@@ -7,7 +7,12 @@ var j2sql = require('json2sql'),
   objectId = require('mongoose').Types.ObjectId,
   moment = require('moment');
 
-
+var log = function (tag) {
+  return function (data) {
+    logger.log(tag, data);
+    return data;
+  };
+};
 exports.get = function (query) {
   var company = query.where.company;
   delete query.where.company;
@@ -16,8 +21,11 @@ exports.get = function (query) {
   return P.resolve(query)
     .then(setTable)
     // .then(setStore.bind(this, company))
+    .then(log('POS JSON QUERY'))
     .then(j2sql.select)
+    .then(log('POS SQL QUERY'))
     .then(db.query)
+    .then(log('POS RESULT'))
     .catch(function (err) {
       logger.log('error','service:pos', err.stack);
       return P.reject(new HTTPError(500, 'Database Error'));

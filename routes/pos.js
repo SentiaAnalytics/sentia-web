@@ -9,7 +9,15 @@ var PosService = require('../services/posService'),
 //
 exports.get = {
   handler : function (req) {
-    return PosService.get(req.query);
+    return PosService.get(req.query)
+      .then(function (data) {
+        logger.log('pos data', data);
+        return data;
+      })
+      .catch(function (err) {
+        logger.error('pos error', err);
+        return Promise.reject(err);
+      });
   },
   middleware : [middleware.get]
 };
