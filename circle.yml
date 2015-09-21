@@ -18,12 +18,11 @@ machine:
 
 dependencies:
   override:
-    - npm install
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 
 test:
   override:
-    - npm test
+    - npm install
     - npm run build-prod
     - docker build -t gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM .
     - ci/run_docker:

@@ -19,4 +19,7 @@ container.observer
   .tap(x => container.error.onNext(null))
   .subscribe(container.observable);
 
+  container.error.subscribe(logger.log('SessionContainer Error:'));
+  container.observable.subscribe(logger.log('SessionContainer'), x => logger.error('SessionContainer'));
+
 // update.onNext({action: 'fetch'}) // try and load the session

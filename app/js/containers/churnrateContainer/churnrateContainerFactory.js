@@ -22,6 +22,9 @@ export default (startDate, endDate, cameralist, helper) => {
        })
       .flatMap(fetch);
 
+  error.subscribe(logger.log('ChurnRateContainer Error:'));
+  observable.subscribe(logger.log('ChurnRateContainer'), x => logger.error('ChurnRateContainer'));
+
   return {
     error,
     observable

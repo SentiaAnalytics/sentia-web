@@ -14,6 +14,7 @@ export default R.curry((helper, startDate, endDate, store) => {
     .map(R.map(helper.parseNumbersAndDates));
 
   error.subscribe(logger.log('posContainer Error:'));
+  observable.subscribe(logger.log('posContainer'), x => logger.error('posContainer'));
 
   return {
     error,

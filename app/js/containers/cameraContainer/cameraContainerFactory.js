@@ -17,6 +17,8 @@ export default (helper) => {
     .filter(x => x)
     .flatMap(cachedAsync(observer, fetch));
 
+  error.subscribe(logger.log('CameraContainer Error:'));
+  observable.subscribe(logger.log('CameraContainer'), x => logger.error('CameraContainer'));
 
   return {
     observer,

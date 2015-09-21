@@ -18,6 +18,9 @@ export default R.curry((helper, startDate, endDate, cameralist) => {
     .filter(x => x)
     .subscribe(logger.log('peopleContainer Error:'))
 
+  error.subscribe(logger.log('PeopleContainer Error:'));
+  observable.subscribe(logger.log('PeopleContainer'), x => logger.error('PeopleContainer'));
+
   return {
     error,
     observable
