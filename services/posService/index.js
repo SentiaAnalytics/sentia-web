@@ -21,7 +21,6 @@ exports.get = function (query) {
   return P.resolve(query)
     .then(setTable)
     // .then(setStore.bind(this, company))
-    .then(log('POS JSON QUERY'))
     .then(j2sql.select)
     .then(log('POS SQL QUERY'))
     .then(db.query)
