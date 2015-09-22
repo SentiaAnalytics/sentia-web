@@ -1,11 +1,16 @@
 CACHE MANIFEST
 index.html
 CACHE:
+fonts/glyphicons-halflings-regular.eot
+fonts/glyphicons-halflings-regular.svg
+fonts/glyphicons-halflings-regular.ttf
+fonts/glyphicons-halflings-regular.woff
+fonts/glyphicons-halflings-regular.woff2
+/images/logos/logo_192.png
 lib/pikaday.css
 lib/nv.d3.min.css
 icons.css
 style.css
 bundle.js
-
 NETWORK:
 *

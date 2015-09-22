@@ -43,7 +43,7 @@ gulp.task('less', function () {
         console.log(err.stack);
         this.emit('end');
       })
-      .pipe(autoprefixer())
+      .pipe(autoprefixer({browsers: ['last 2 versions']}))
       .pipe(sourcemaps.write())
       .pipe(gulp.dest('app'))
       .pipe(reload());
@@ -72,8 +72,8 @@ gulp.task('less-prod', function () {
         console.log(err.stack);
         this.emit('end');
       })
-      .pipe(autoprefixer())
-      .pipe(minifyCSS())
+      .pipe(autoprefixer({browsers: ['last 4 versions']}))
+      // .pipe(minifyCSS())
       .pipe(gulp.dest('app'));
 });
 
