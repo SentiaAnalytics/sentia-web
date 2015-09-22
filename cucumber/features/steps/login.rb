@@ -15,6 +15,7 @@ end
 
 Then(/^I should not see a login error$/) do
   page.should have_no_selector('#loginerror');
+  take_screenshot
 end
 
 When(/^I log in$/) do
@@ -49,8 +50,10 @@ end
 
 Then(/^I should see an invalid email error$/) do
   expect(login_page.loginerror).to have_text('User not found')
+  take_screenshot
 end
 
 Then(/^I should see an invalid password error$/) do
   expect(find('#loginerror')).to have_text('Invalid Password')
+  take_screenshot
 end

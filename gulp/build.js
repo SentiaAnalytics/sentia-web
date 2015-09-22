@@ -43,7 +43,7 @@ gulp.task('less', function () {
         console.log(err.stack);
         this.emit('end');
       })
-      .pipe(autoprefixer({browsers: ['last 2 versions']}))
+      // .pipe(autoprefixer({browsers: ['last 2 versions']}))
       .pipe(sourcemaps.write())
       .pipe(gulp.dest('app'))
       .pipe(reload());

@@ -1,6 +1,9 @@
 @floorplan-tilt: 45deg;
+@floorplan-perspective: 800px;
+@floorplan-pin-size: 25px;
+@floorplan-pin-color: #36a3ff;
 .floorplan-container {
-  perspective: 800px;
+  perspective: @floorplan-perspective;
   backface-visibility: hidden;
 }
 .floorplan img {
@@ -19,12 +22,12 @@
 }
 
 .floorplan-pin {
-  font-size: 25px;
+  font-size: @floorplan-pin-size;
   transform: rotateX(-@floorplan-tilt) translate3d(-15px,-15px, 1px);
   transform-origin: bottom;
   transform-origin: bottom;
   transition: transform 1s;
-  color: #36a3ff;
+  color: @floorplan-pin-color;
   outline: 1px solid transparent;
   backface-visibility: hidden;
 }

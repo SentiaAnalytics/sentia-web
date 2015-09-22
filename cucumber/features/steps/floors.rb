@@ -4,6 +4,7 @@ end
 
 Then(/^I should see (\d+) floorplans$/) do |floorplans|
   expect(page).to have_selector('[data-floorplan]', count: floorplans)
+  take_screenshot
 end
 
 Then(/^I should see (\d+) camera pins$/) do |pins|

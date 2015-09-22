@@ -8,4 +8,5 @@ end
 
 Then(/^the total people in should be (.+)$/) do |people|
   expect(find('#total-people')).to have_content(people)
+  take_screenshot
 end

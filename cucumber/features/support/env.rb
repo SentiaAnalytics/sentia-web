@@ -39,6 +39,13 @@ def take_screenshot
   Capybara::Screenshot.screenshot_and_save_page
 end
 
+
+Before do
+  page.driver.browser.manage.window.resize_to(1280, 800)
+  # window = Capybara.current_session.driver.browser.manage.window
+  # window.resize_to(350, 768) # width, height
+end
+
 After do |scenario|
   Cucumber.wants_to_quit = true if scenario.failed?
 end
