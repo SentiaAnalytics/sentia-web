@@ -24,7 +24,7 @@ exports.get = function (query) {
 };
 
 function setTable(query) {
-  query.from = 'pos_aggregated_hourly';
+  query.from = 'pos_hourly';
   return query;
 }
 
