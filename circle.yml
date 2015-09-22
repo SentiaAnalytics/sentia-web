@@ -4,7 +4,7 @@ machine:
   ruby:
     version: rbx-2.2.6
   node:
-    version: 0.10.22
+    version: 4.0.0
   python:
     version: pypy-2.2.1
 
