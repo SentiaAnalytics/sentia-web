@@ -1,6 +1,6 @@
 'use strict';
 var j2sql = require('json2sql'),
-  db = require('../mysql.service'),
+  db = require('../../helpers/mysql'),
   models = require('../../models'),
   HTTPError = require('node-http-error'),
   P = require('bluebird'),

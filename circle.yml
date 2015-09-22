@@ -23,6 +23,7 @@ dependencies:
 test:
   override:
     - npm install
+    - npm test
     - npm run build-prod
     - docker build -t gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM .
     - ci/run_docker:

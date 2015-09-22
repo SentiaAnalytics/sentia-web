@@ -8,7 +8,6 @@ let container = containerFactory.create();
 export default container;
 
 container.error.subscribe(logger.log('StoreContainer Error:'));
-container.observable.subscribe(logger.log('StoreContainer'), x => logger.error('StoreContainer'));
 setup();
 
 function setup () {

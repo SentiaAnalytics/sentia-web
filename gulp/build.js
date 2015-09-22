@@ -12,6 +12,7 @@ var less = require('gulp-less');
 var reload = require('gulp-livereload');
 var minifyCSS = require('gulp-minify-css');
 var gzip =  require('gulp-gzip');
+var autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('browserify', function () {
   var b = browserify({
@@ -42,6 +43,7 @@ gulp.task('less', function () {
         console.log(err.stack);
         this.emit('end');
       })
+      .pipe(autoprefixer())
       .pipe(sourcemaps.write())
       .pipe(gulp.dest('app'))
       .pipe(reload());
@@ -70,6 +72,10 @@ gulp.task('less-prod', function () {
         console.log(err.stack);
         this.emit('end');
       })
+      .pipe(autoprefixer({
+         browsers: ['last 2 versions'],
+         cascade: false
+       }))
       .pipe(minifyCSS())
       .pipe(gulp.dest('app'));
 });

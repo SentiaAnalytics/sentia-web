@@ -12,7 +12,6 @@ export default R.curry((http, store) => {
     .flatMap(fetchData);
 
   error.subscribe(logger.log('CameraListContainer Error:'));
-  observable.subscribe(logger.log('CameraListContainer'), x => logger.error('CameraListContainer'));
 
   return {
     error,

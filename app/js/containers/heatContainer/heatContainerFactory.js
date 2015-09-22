@@ -14,7 +14,6 @@ export default R.curry((http, startDate, endDate, camera) => {
     .flatMap(fetchData)
 
   error.subscribe(logger.log('HeatContainer Error:'));
-  observable.subscribe(logger.log('HeatContainer'), x => logger.error('HeatContainer'));
 
   return {
     error,

@@ -1,7 +1,7 @@
 'use strict';
-var db = require('./mysql.service');
+var db = require('../helpers/mysql');
 module.exports = function () {
-  return db.query('SELECT NOW()')
+  return db.query('show status')
     .then(function (result) {
       logger.info('STATUS', result);
       return result;
