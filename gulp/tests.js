@@ -27,3 +27,8 @@ gulp.task('resttest', function () {
 });
 
 gulp.task('test', ['spec', 'resttest']);
+
+gulp.task('watch', ['spec'], function () {
+  gulp.watch(['services/**/*.js', 'api/**/*.js'], ['spec']);
+  gulp.watch(['app/js/**/*'], ['spec']);
+});

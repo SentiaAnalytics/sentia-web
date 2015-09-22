@@ -72,13 +72,17 @@ gulp.task('less-prod', function () {
         console.log(err.stack);
         this.emit('end');
       })
-      .pipe(autoprefixer({
-         browsers: ['last 2 versions'],
-         cascade: false
-       }))
+      .pipe(autoprefixer())
       .pipe(minifyCSS())
       .pipe(gulp.dest('app'));
 });
 
 gulp.task('build', ['less', 'browserify', 'static']);
 gulp.task('build-prod', ['less-prod', 'browserify-prod', 'static']);
+
+gulp.task('live',['build'], function () {
+  reload.listen();
+  gulp.watch(['app/js/**/*'], ['browserify']);
+  gulp.watch('app/styles/**/*.less', ['less']);
+  gulp.watch(['app/index.html', 'app/img/**/*', 'app/templates/**/*'], ['static']);
+});

@@ -18,15 +18,3 @@ gulp.task('run', ['build'], function (done) {
     .pipe(rename('server.log'))
     .pipe(gulp.dest('logs'));
 });
-
-gulp.task('watch', function () {
-  gulp.watch(['services/**/*.js', 'api/**/*.js'], ['spec']);
-  gulp.watch(['app/js/**/*'], ['spec']);
-});
-
-gulp.task('live', function () {
-  reload.listen();
-  gulp.watch(['app/js/**/*'], ['browserify']);
-  gulp.watch('app/styles/**/*.less', ['less']);
-  gulp.watch(['app/index.html', 'app/img/**/*', 'app/templates/**/*'], ['static']);
-});
