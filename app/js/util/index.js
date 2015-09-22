@@ -7,6 +7,7 @@ import switcher from './switcher';
 import round from './round';
 import querySelector from './querySelector';
 import querySelectorAll from './querySelectorAll';
+import formatNumber from './formatNumber';
 
 const headLens = R.lensIndex(0);
 const endLens = R.lensIndex(-1);
@@ -14,6 +15,7 @@ const endLens = R.lensIndex(-1);
 export default {
   catchErrors,
   endLens,
+  formatNumber,
   getEnumerablePropertyNames,
   getFormData,
   headLens,

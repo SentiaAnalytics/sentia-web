@@ -1,6 +1,9 @@
 CACHE MANIFEST
 index.html
 CACHE:
+//cdn.mxpnl.com/libs/mixpanel-2.2.min.js
+https://ajax.googleapis.com/ajax/static/modules/gviz/1.0/core/tooltip.css
+
 fonts/glyphicons-halflings-regular.eot
 fonts/glyphicons-halflings-regular.svg
 fonts/glyphicons-halflings-regular.ttf
