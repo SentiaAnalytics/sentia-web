@@ -19,28 +19,26 @@ function filterInput (query) {
 }
 
 function fetchData (query) {
-  let jsonQuery = R.compose(JSON.stringify, buildJsonQuery);
+  let jsonQuery = R.compose(encodeURIComponent, JSON.stringify, buildJsonQuery);
   return http.get('/api/people?json=' + jsonQuery(query));
 }
 
 function buildJsonQuery (query) {
   return {
       fields : {
-        'time' : 'time',
+        "DATE_FORMAT(time, '%Y-%m-%d %H:00:00')" : 'time',
         'sum(people_in)' : 'people'
       },
       where : {
         cam : query.camera._id,
         'date(time)' : {
-          gte : moment(query.startDate)
-            .tz('UTC')
-            .format('YYYY-MM-DD HH:mm:ss'),
-          lt : moment(query.endDate)
-            .tz('UTC')
-            .format('YYYY-MM-DD HH:mm:ss')
+          gte : query.startDate
+            .format('YYYY-MM-DD'),
+          lt : query.endDate
+            .format('YYYY-MM-DD')
         },
         'hour(time)' : {
-          gte : 9,
+          gte : 7,
           lte : 20
         }
       },

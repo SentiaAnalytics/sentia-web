@@ -6,9 +6,7 @@ import logger from './services/logger';
 import React from 'react';
 import Rx from 'rx';
 
-
 let namespace = (typeof window !== 'undefined')? window: global;
-
 namespace.R = R;
 namespace.Promise = Promise;
 namespace.logger = logger;

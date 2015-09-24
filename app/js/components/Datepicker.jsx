@@ -17,6 +17,7 @@ export default React.createClass({
 
     this.disposable = dateStore.observable
       .filter((date) => !date.isSame(picker.getMoment(), 'day'))
+      .tap(x => logger.log('DATE', x.toString()))
       .subscribe((date) => picker.setDate(date.format('YYYY-MM-DD')));
   },
 

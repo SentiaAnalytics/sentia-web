@@ -29,6 +29,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/sentia.appcache", function(req, res){
+  if (config.environment === 'dev') {
+    res.send();
+  }
   res.header("Content-Type", "text/cache-manifest");
   res.end(cacheManifest);
 });

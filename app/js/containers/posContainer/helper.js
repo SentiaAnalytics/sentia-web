@@ -16,6 +16,7 @@ function filterInput (query) {
 function fetchData (data) {
   return R.pipe(
     buildJsonQuery,
+    logger.log('pos query'),
     query => `/api/pos?json=${JSON.stringify(query)}`,
     http.get
   )(data);
@@ -32,11 +33,9 @@ function buildJsonQuery (query) {
       "store" : query.store._id,
       'date(time)' : {
         gte : moment(query.startDate)
-          .tz('UTC')
-          .format('YYYY-MM-DD HH:mm:ss'),
+          .format('YYYY-MM-DD'),
         lte : moment(query.endDate)
-          .tz('UTC')
-          .format('YYYY-MM-DD HH:mm:ss'),
+          .format('YYYY-MM-DD'),
       }
     },
     "groupBy": ['date(time), hour(time)'],

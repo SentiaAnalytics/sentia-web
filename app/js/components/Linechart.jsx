@@ -46,7 +46,7 @@ const mergeOptions = R.merge({
 
 
 var round2 = util.round(2);
-var toDate = R.invoker(0, 'toDate');
+var toDate = m => m.toDate();
 
 var createDataTable = R.curry(function (type, data) {
   var processPair = R.compose(R.over(util.headLens, toDate), R.over(util.endLens, round2));
