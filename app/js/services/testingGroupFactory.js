@@ -5,7 +5,7 @@ import posContainerFactory from '../containers/posContainer/posContainerFactory'
 import posContainerHelper from '../containers/posContainer/helper';
 import peopleContainerFactory from '../containers/peopleContainer/peopleContainerFactory';
 import peopleContainerHelper from '../containers/peopleContainer/helper';
-import cameraListContainerFactory from '../containers/cameraListContainer/cameraListContainerFactory';
+import cameralistContainerFactory from '../containers/cameralistContainer/cameralistContainerFactory';
 import http from './http';
 
 const mockLocation = {
@@ -26,7 +26,7 @@ export default () => {
   const startDateContainer = dateContainerFactory(mockLocation, '', mapStartDate);
   const endDateContainer = dateContainerFactory(mockLocation, '', mapStartDate);
 
-  const cameraList = cameraListContainerFactory(http, store)
+  const cameraList = cameralistContainerFactory(http, store)
     .observable;
 
   const posContainer = posContainerFactory(
