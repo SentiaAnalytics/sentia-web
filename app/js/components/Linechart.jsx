@@ -68,7 +68,6 @@ export default React.createClass({
   },
 
   shouldComponentUpdate (props, state) {
-    console.log('SHOULD UPDATE', props, state);
     const {options, type} = props;
     if (R.isEmpty(state.data)) {
       this.chart.clearChart();

@@ -4,6 +4,7 @@ import Login from './Login';
 import App from './App';
 import Home from './Home';
 import Dashboard from './Dashboard';
+import ABTesting from './ABTesting';
 import Floors from './Floors';
 import Camera from './Camera';
 let Route = Router.Route;
@@ -15,6 +16,7 @@ var routes =  (
     <Route name="home" handler={Home}>
       <Route name="dashboard" path="/store/:storeId" handler={Dashboard}/>
       <Route name="floors" path="/store/:storeId/floors" handler={Floors}/>
+      <Route name="abtesting" path="/store/:storeId/abtesting" handler={ABTesting}/>
       <Route name="camera" path="/store/:storeId/cameras/:cameraId" handler={Camera}/>
     </Route>
     <Redirect from="/" to="/store/:id" params={{id: '54318d4064acfb0b3139807e'}}/>
