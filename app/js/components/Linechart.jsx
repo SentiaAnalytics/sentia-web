@@ -43,33 +43,40 @@ const mergeOptions = R.merge({
 
 });
 
+const round2 = util.round(2);
+const toDate = m => m.toDate();
 
-
-var round2 = util.round(2);
-var toDate = m => m.toDate();
-
-var createDataTable = R.curry(function (type, data) {
-  var processPair = R.compose(R.over(util.headLens, toDate), R.over(util.endLens, round2));
-  var processData = R.compose(R.prepend(['Time', type]), R.map(processPair));
+const createDataTable = R.curry(function (type, data) {
+  const processPair = R.compose(R.over(util.headLens, toDate), R.over(util.endLens, round2));
+  const processData = R.compose(R.prepend(['Time', type]), R.map(processPair));
   return R.compose(G.arrayToDataTable, processData)(data);
 });
 
 export default React.createClass({
-
+  getInitialState () {
+    return {
+      data: []
+    };
+  },
   componentDidMount () {
     let element = this.getDOMNode();
     let {observable, type, title, options} = this.props;
 
-    const chart = new G.AreaChart(element);
-    const draw = R.curry((options, data) => chart.draw(data, options))(mergeOptions(options));
-
+    this.chart = new G.AreaChart(element);
     this.disposable = observable
-      .map(createDataTable(type))
-      .subscribe(draw, err => console.error('lineChart', err));
+      .subscribe(data => this.setState({data}));
   },
 
-  componentWillUnmount () {
-    this.disposable.dispose();
+  shouldComponentUpdate (props, state) {
+    console.log('SHOULD UPDATE', props, state);
+    const {options, type} = props;
+    if (R.isEmpty(state.data)) {
+      this.chart.clearChart();
+    } else {
+      let data = createDataTable(type, state.data);
+      this.chart.draw(data, mergeOptions(props.options));
+    }
+    return false;
   },
 
   render () {

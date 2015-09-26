@@ -17,7 +17,6 @@ const colors = [
   '#dd5826',
 ];
 
-const isNotEmpty = R.compose(R.not, R.isEmpty);
 
 const revenue = posContainer.observable
   .map(R.map(R.props(['time', 'revenue'])));
