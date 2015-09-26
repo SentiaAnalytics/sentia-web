@@ -1,4 +1,5 @@
 'use strict';
+import FeatureToggle from './FeatureToggle';
 import sessionContainer from '../containers/sessionContainer';
 import {Link} from 'react-router';
 
@@ -14,8 +15,13 @@ export default React.createClass({
           <img src="/images/logos/logo_192.png"/>
         </Link>
         <Link className="sidebar-link" activeClassName="active" to="dashboard" params={{storeId}}>
-          <i className="glyphicon glyphicon-signal"></i>
+          <i className="glyphicon glyphicon-stats"></i>
         </Link>
+        <FeatureToggle prop="toggleAB" value="true">
+          <Link className="sidebar-link" activeClassName="active" to="abtesting" params={{storeId}}>
+            <i className="glyphicon glyphicon-road"></i>
+          </Link>
+        </FeatureToggle>
         <Link className="sidebar-link" activeClassName="active" to="floors" params={{storeId}}>
           <i className="glyphicon glyphicon-record"></i>
         </Link>

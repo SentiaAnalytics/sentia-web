@@ -38,19 +38,13 @@ const mergeOptions = R.merge({
   },
   tooltip: {isHtml: true},
   colors: ['#36a3ff'],
-  legend: 'none',
+  // legend: 'none',
   lineWidth: 2
 
 });
 
 const round2 = util.round(2);
 const toDate = m => m.toDate();
-
-const createDataTable = R.curry(function (type, data) {
-  const processPair = R.compose(R.over(util.headLens, toDate), R.over(util.endLens, round2));
-  const processData = R.compose(R.prepend(['Time', type]), R.map(processPair));
-  return R.compose(G.arrayToDataTable, processData)(data);
-});
 
 export default React.createClass({
   getInitialState () {
@@ -73,7 +67,7 @@ export default React.createClass({
     if (R.isEmpty(state.data)) {
       this.chart.clearChart();
     } else {
-      let data = createDataTable(type, state.data);
+      let data = G.arrayToDataTable(state.data);
       this.chart.draw(data, mergeOptions(props.options));
     }
     return false;

@@ -1,9 +1,10 @@
 'use strict';
 import testingGroupFactory from '../services/testingGroupFactory';
-import util from '../util';
+import {round} from '../util';
 import FeatureToggle from './FeatureToggle';
 import Datepicker from './Datepicker';
 import Linechart from './Linechart';
+import AreaChart from './AreaChart';
 import Total from './Total';
 import Average from './Average';
 import Percent from './Percent';
@@ -16,6 +17,30 @@ const colors = [
 ];
 const group1 = testingGroupFactory();
 const group2 = testingGroupFactory();
+
+const peopleChartData = Rx.Observable.zip(
+  group1.people,
+  group2.people,
+  (group1, group2) => R.zipWith((a, b) => ([a[0], a[1], b[1]]), group1, group2)
+)
+  .map(R.map(([time, a, b]) => ([time.toDate(), round(2, a), round(2, b)])))
+  .map(data => ([['Time', 'group1', 'group2'], ...data]))
+
+const revenueChartData = Rx.Observable.zip(
+  group1.revenue,
+  group2.revenue,
+  (group1, group2) => R.zipWith((a, b) => ([a[0], a[1], b[1]]), group1, group2)
+)
+  .map(R.map(([time, a, b]) => ([time.toDate(), round(2, a), round(2, b)])))
+  .map(data => ([['Time', 'group1', 'group2'], ...data]))
+
+const transactionsChartData = Rx.Observable.zip(
+  group1.transactions,
+  group2.transactions,
+  (group1, group2) => R.zipWith((a, b) => ([a[0], a[1], b[1]]), group1, group2)
+)
+  .map(R.map(([time, a, b]) => ([time.toDate(), round(2, a), round(2, b)])))
+  .map(data => ([['Time', 'group1', 'group2'], ...data]))
 
 export default React.createClass({
   componentDidMount () {
@@ -58,7 +83,7 @@ export default React.createClass({
               </div>
             </div>
             <article className="paper-widget paper">
-              <Linechart observable={group1.people} type="people" title="People" options={{colors: [colors[0]]}}/>
+              <AreaChart observable={peopleChartData} options={{colors: [colors[0], colors[1]]}}/>
             </article>
           </div>
 
@@ -73,7 +98,7 @@ export default React.createClass({
               </div>
             </div>
             <article className="paper-widget paper">
-              <Linechart observable={group1.revenue} type="revenue" title="Revenue" options={{colors: [colors[0]]}}/>
+              <AreaChart observable={revenueChartData} options={{colors: [colors[0], colors[1]]}}/>
             </article>
           </div>
 
@@ -88,7 +113,7 @@ export default React.createClass({
               </div>
             </div>
             <article className="paper-widget paper">
-              <Linechart observable={group2.transactions} type="transactions" title="Transactions" options={{colors: [colors[0]]}}/>
+              <AreaChart observable={transactionsChartData} options={{colors: [colors[0], colors[1]]}}/>
             </article>
           </div>
 
