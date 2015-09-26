@@ -20,21 +20,17 @@ const colors = [
 const isNotEmpty = R.compose(R.not, R.isEmpty);
 
 const revenue = posContainer.observable
-  .map(R.map(R.props(['time', 'revenue'])))
-  .filter(isNotEmpty);
+  .map(R.map(R.props(['time', 'revenue'])));
 
 const transactions = posContainer.observable
-  .map(R.map(R.props(['time', 'transactions'])))
-  .filter(isNotEmpty);
+  .map(R.map(R.props(['time', 'transactions'])));
 
 const people = peopleContainer.observable
-  .map(R.map(R.props(['time', 'people'])))
-  .filter(isNotEmpty);
+  .map(R.map(R.props(['time', 'people'])));
 
 const queue = queueContainer.observable
   .tap(logger.log('queye dash'))
-  .map(R.map(R.props(['time', 'queue'])))
-  .filter(isNotEmpty);
+  .map(R.map(R.props(['time', 'queue'])));
 
 export default React.createClass({
   componentDidMount () {
