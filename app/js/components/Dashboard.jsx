@@ -2,9 +2,12 @@
 import posContainer from '../containers/posContainer';
 import peopleContainer from '../containers/peopleContainer';
 import churnrateContainer from '../containers/churnrateContainer';
+import queueContainer from '../containers/queueContainer';
 import util from '../util';
+import FeatureToggle from './FeatureToggle';
 import Linechart from './Linechart';
 import Total from './Total';
+import Average from './Average';
 import Percent from './Percent';
 
 const colors = [
@@ -26,6 +29,11 @@ const transactions = posContainer.observable
 
 const people = peopleContainer.observable
   .map(R.map(R.props(['time', 'people'])))
+  .filter(isNotEmpty);
+
+const queue = queueContainer.observable
+  .tap(logger.log('queye dash'))
+  .map(R.map(R.props(['time', 'queue'])))
   .filter(isNotEmpty);
 
 export default React.createClass({
@@ -57,6 +65,7 @@ export default React.createClass({
                 <Percent dividend={transactions} divisor={people} id="conversion" title="Conversion Rate" suffix="%" className="paper" color={colors[3]}/>
               </div>
             </div>
+
           </div>
 
 
@@ -81,7 +90,19 @@ export default React.createClass({
             </article>
           </div>
 
-
+          <FeatureToggle prop="toggleQueues" value="true">
+            <div className="col-xs-12 gutter-bottom">
+              <h2>Queues</h2>
+              <div className="col-xs-12 gutter-bottom">
+                <Average observable={queue} prop="queue" id="total-queue" title="Average Queue Time" className="paper" color={colors[3]}/>
+              </div>
+              <div className="col-xs-12">
+                <article className="paper-widget paper">
+                  <Linechart observable={queue} type="queue" title="" options={{colors: [colors[3]]}}/>
+                </article>
+              </div>
+            </div>
+          </FeatureToggle>
         </div>
       </div>
     );

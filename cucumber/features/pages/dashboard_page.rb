@@ -28,6 +28,10 @@ class DashboardPage
     find('#total-revenue')
   end
 
+  def total_queue
+    find('#total-queue');
+  end
+
   def total_transactions
     find('#total-transactions')
   end

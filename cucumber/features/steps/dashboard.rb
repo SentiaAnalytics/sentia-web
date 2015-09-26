@@ -23,6 +23,12 @@ Then(/^the total transactions should be (.+)$/) do |transactions|
   expect(dashboard_page.total_transactions).to have_content(transactions)
 end
 
+Then(/^the average queue should be (.+)$/) do |queue|
+  expect(dashboard_page.total_queue).to have_content(queue)
+end
+
+
+
 Then(/^the basket size should be (.+)$/) do |basket_size|
   expect(dashboard_page.basket_size).to have_content(basket_size)
 end

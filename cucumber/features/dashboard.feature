@@ -13,7 +13,6 @@ Feature: Dashboard page
       And the total people in should be 28,963
       And the basket size should be 44.36
       And the conversion should be 39.34
-      And it should have loaded the charts with 54 <g>
 
   Scenario: Visit by url
     Given I am logged in
@@ -22,4 +21,13 @@ Feature: Dashboard page
       And the total people in should be 53,220
       And the basket size should be 45.4
       And the conversion should be 38.3
-      And it should have loaded the charts with 56 <g>
+
+
+  Scenario: Queues
+    Given I am logged in
+      And I visit /store/54318d4064acfb0b3139807e?=&from=2015-09-10&to=2015-09-10&toggleQueues=true
+    Then the total revenue should be 58,469.27
+      And the total people in should be 2,820
+      And the basket size should be 41.91
+      And the conversion should be 49.47
+      And the average queue should be 4

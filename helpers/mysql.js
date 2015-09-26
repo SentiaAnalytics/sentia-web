@@ -5,6 +5,7 @@ var promisify = require('./promisify');
 var pool  = mysql.createPool(config.mysql);
 
 function query (query, callback) {
+  console.log('QUERY', query);
   pool.getConnection(function (err, connection) {
     if (err) callback(err);
     connection.query(query, function(err, rows) {
