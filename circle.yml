@@ -34,7 +34,7 @@ test:
 
 deployment:
   hub:
-    branch: react
+    branch: master
     commands:
       - ci/install_gcloud
       - sudo google-cloud-sdk/bin/gcloud docker push gcr.io/sentia_analytics/web:$CIRCLE_BUILD_NUM

@@ -43,26 +43,22 @@ export default React.createClass({
       <div className="gutter-top gutter-bottom">
         <div className="container-fluid">
 
-          <div className="col-sm-6">
-            <div className="paper">
-              <div className="panel-body">
-                <span className="h2 block" style={{color:colors[0]}}>Group 1</span>
-                <div className="btn-group">
-                  <Datepicker dateStore={startDateContainer} id="start-date-picker" classes=""/>
-                  <Datepicker dateStore={endDateContainer} id="end-date-picker"  classes=""/>
-                </div>
+          <div className="col-sm-6 gutter-bottom">
+            <div className="paper panel-body">
+              <span className="h2 block" style={{color:colors[0]}}>Group 1</span>
+              <div className="btn-group">
+                <Datepicker dateStore={startDateContainer} id="start-date-picker" classes=""/>
+                <Datepicker dateStore={endDateContainer} id="end-date-picker"  classes=""/>
               </div>
             </div>
           </div>
 
-          <div className="col-sm-6">
-            <div className="paper">
-              <div className="panel-body">
-                <span className="h2 block" style={{color:colors[1]}}>Group 2</span>
-                <div className="btn-group">
-                  <Datepicker dateStore={startDateContainer} id="start-date-picker" classes=""/>
-                  <Datepicker dateStore={endDateContainer} id="end-date-picker"  classes=""/>
-                </div>
+          <div className="col-sm-6 gutter-bottom">
+            <div className="paper panel-body">
+              <span className="h2 block" style={{color:colors[1]}}>Group 2</span>
+              <div className="btn-group">
+                <Datepicker dateStore={startDateContainer} id="start-date-picker" classes=""/>
+                <Datepicker dateStore={endDateContainer} id="end-date-picker"  classes=""/>
               </div>
             </div>
           </div>
