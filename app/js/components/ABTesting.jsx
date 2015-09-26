@@ -1,9 +1,5 @@
 'use strict';
-import {startDateContainer, endDateContainer} from '../containers/dateContainer';
-import posContainer from '../containers/posContainer';
-import peopleContainer from '../containers/peopleContainer';
-import churnrateContainer from '../containers/churnrateContainer';
-import queueContainer from '../containers/queueContainer';
+import testingGroupFactory from '../services/testingGroupFactory';
 import util from '../util';
 import FeatureToggle from './FeatureToggle';
 import Datepicker from './Datepicker';
@@ -18,20 +14,8 @@ const colors = [
   '#6D35E9',
   '#dd5826',
 ];
-
-
-const revenue = posContainer.observable
-  .map(R.map(R.props(['time', 'revenue'])));
-
-const transactions = posContainer.observable
-  .map(R.map(R.props(['time', 'transactions'])));
-
-const people = peopleContainer.observable
-  .map(R.map(R.props(['time', 'people'])));
-
-const queue = queueContainer.observable
-  .tap(logger.log('queye dash'))
-  .map(R.map(R.props(['time', 'queue'])));
+const group1 = testingGroupFactory();
+const group2 = testingGroupFactory();
 
 export default React.createClass({
   componentDidMount () {
@@ -47,8 +31,8 @@ export default React.createClass({
             <div className="paper panel-body">
               <span className="h2 block" style={{color:colors[0]}}>Group 1</span>
               <div className="btn-group">
-                <Datepicker dateStore={startDateContainer} id="start-date-picker" classes=""/>
-                <Datepicker dateStore={endDateContainer} id="end-date-picker"  classes=""/>
+                <Datepicker dateStore={group1.startDateContainer} id="start-date-picker" classes=""/>
+                <Datepicker dateStore={group1.endDateContainer} id="end-date-picker"  classes=""/>
               </div>
             </div>
           </div>
@@ -57,8 +41,8 @@ export default React.createClass({
             <div className="paper panel-body">
               <span className="h2 block" style={{color:colors[1]}}>Group 2</span>
               <div className="btn-group">
-                <Datepicker dateStore={startDateContainer} id="start-date-picker" classes=""/>
-                <Datepicker dateStore={endDateContainer} id="end-date-picker"  classes=""/>
+                <Datepicker dateStore={group2.startDateContainer} id="start-date-picker" classes=""/>
+                <Datepicker dateStore={group2.endDateContainer} id="end-date-picker"  classes=""/>
               </div>
             </div>
           </div>
@@ -67,14 +51,14 @@ export default React.createClass({
             <h2>People</h2>
             <div className="row clearfix">
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={people} prop="people" id="total-people" title="people" className="paper" color={colors[0]}/>
+                <Total observable={group1.people} prop="people" id="total-people" title="people" className="paper" color={colors[0]}/>
               </div>
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={people} prop="people" id="total-people" title="people" className="paper" color={colors[1]}/>
+                <Total observable={group2.people} prop="people" id="total-people" title="people" className="paper" color={colors[1]}/>
               </div>
             </div>
             <article className="paper-widget paper">
-              <Linechart observable={people} type="people" title="People" options={{colors: [colors[0]]}}/>
+              <Linechart observable={group1.people} type="people" title="People" options={{colors: [colors[0]]}}/>
             </article>
           </div>
 
@@ -82,14 +66,14 @@ export default React.createClass({
             <h2>Revenue</h2>
             <div className="row clearfix">
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={revenue} prop="revenue" id="total-revenue" title="revenue" className="paper" color={colors[0]}/>
+                <Total observable={group1.revenue} prop="revenue" id="total-revenue" title="revenue" className="paper" color={colors[0]}/>
               </div>
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={revenue} prop="revenue" id="total-revenue" title="revenue" className="paper" color={colors[1]}/>
+                <Total observable={group2.revenue} prop="revenue" id="total-revenue" title="revenue" className="paper" color={colors[1]}/>
               </div>
             </div>
             <article className="paper-widget paper">
-              <Linechart observable={revenue} type="revenue" title="Revenue" options={{colors: [colors[0]]}}/>
+              <Linechart observable={group1.revenue} type="revenue" title="Revenue" options={{colors: [colors[0]]}}/>
             </article>
           </div>
 
@@ -97,33 +81,16 @@ export default React.createClass({
             <h2>Transactions</h2>
             <div className="row clearfix">
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={transactions} prop="transactions" id="total-transactions" title="transactions" className="paper" color={colors[0]}/>
+                <Total observable={group1.transactions} prop="transactions" id="total-transactions" title="transactions" className="paper" color={colors[0]}/>
               </div>
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={transactions} prop="transactions" id="total-transactions" title="transactions" className="paper" color={colors[1]}/>
+                <Total observable={group2.transactions} prop="transactions" id="total-transactions" title="transactions" className="paper" color={colors[1]}/>
               </div>
             </div>
             <article className="paper-widget paper">
-              <Linechart observable={transactions} type="transactions" title="Transactions" options={{colors: [colors[0]]}}/>
+              <Linechart observable={group2.transactions} type="transactions" title="Transactions" options={{colors: [colors[0]]}}/>
             </article>
           </div>
-
-          <FeatureToggle prop="toggleQueues" value="true">
-            <div className="col-xs-12 gutter-bottom">
-              <h2>Queues</h2>
-              <div className="col-sm-6 gutter-bottom">
-                <Average observable={queue} prop="queue" id="total-queue" title="Average Queue Time" className="paper" color={colors[0]}/>
-              </div>
-              <div className="col-sm-6 gutter-bottom">
-                <Average observable={queue} prop="queue" id="total-queue" title="Average Queue Time" className="paper" color={colors[1]}/>
-              </div>
-              <div className="col-xs-12">
-                <article className="paper-widget paper">
-                  <Linechart observable={queue} type="queue" title="" options={{colors: [colors[0]]}}/>
-                </article>
-              </div>
-            </div>
-          </FeatureToggle>
 
         </div>
       </div>

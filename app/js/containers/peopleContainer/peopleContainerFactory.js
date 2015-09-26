@@ -10,6 +10,7 @@ export default R.curry((helper, startDate, endDate, cameralist) => {
     cameralist,
     (startDate, endDate, cameralist) => ({ startDate, endDate, cameralist }))
     .filter(helper.filterInput)
+    .tap(logger.log('PEOPLE QUERY'))
     .map(helper.getEntranceCameras)
     .flatMap(fetchData)
     .map(helper.processResult)
