@@ -2,7 +2,7 @@
   "fields": {
     "sum(revenue)": "revenue",
     "sum(transactions)": "transactions",
-    "time": "time"
+    "DATE_FORMAT(time, '%Y-%m-%d %H:00:00')": "time"
   },
   "where": {
     "store": 1,
@@ -11,7 +11,7 @@
       "lte": "1970-01-01"
     }
   },
-  "groupBy": ["date(time), hour(time)"],
+  "groupBy": "DATE_FORMAT(time, '%Y-%m-%d %H:00:00')",
   "orderBy": {
     "time": true
   }

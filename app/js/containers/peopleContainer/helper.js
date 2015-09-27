@@ -2,38 +2,27 @@
 import http from '../../services/http';
 import util from '../../util';
 
-export default {
-  filterInput,
-  getEntranceCameras,
-  fetchData,
-  buildJsonQuery,
-  getGroupBy,
-  processResult
-};
 
-function filterInput (query) {
+
+const filterInput = (query) => {
   return (
     query.startDate &&
     query.endDate &&
     query.cameralist &&
     !R.isEmpty(query.cameralist)
   );
-}
+};
 
-function getEntranceCameras (query) {
+const getEntranceCameras = (query) => {
   var isEntrance = R.compose(R.equals('entrance'), R.prop('counter'));
   return R.over(R.lensProp('cameralist'), R.filter(isEntrance), query);
-}
+};
 
-function fetchData (query) {
-  let jsonQuery = R.compose(encodeURIComponent, JSON.stringify, buildJsonQuery);
-  return http.get('/api/people?json=' + jsonQuery(query));
-}
 
-function buildJsonQuery (query) {
+const buildJsonQuery = (query) => {
   return {
       fields : {
-        "DATE_FORMAT(time, '%Y-%m-%d %H:00:00')" : 'time',
+        [util.queryDateFormat(query.startDate, query.endDate)] : 'time',
         'sum(people_in)' : 'people'
       },
       where : {
@@ -49,29 +38,32 @@ function buildJsonQuery (query) {
           lte : 20
         }
       },
-      groupBy : ['date(time), hour(time)'],
+      groupBy : util.queryDateFormat(query.startDate, query.endDate),
       orderBy : {
         'time': true
       }
     };
-}
+};
 
-function getGroupBy (query) {
-  var start = query.startDate;
-    var end = query.endDate;
-    if (start.isSame(end, 'day')) {
-      return ['hour(time)'];
-    } else if (start.isSame(end, 'month')) {
-      return ['date(time)'];
-    }
-    return ['month(time)'];
-}
+const fetchData = (query) => {
+  let jsonQuery = R.compose(encodeURIComponent, JSON.stringify, buildJsonQuery);
+  return http.get('/api/people?json=' + jsonQuery(query));
+};
 
-function processResult (data) {
+
+const processResult = (data) => {
   return R.map(e => {
     return {
       people: parseInt(e.people, 10) || 0,
       time: moment(e.time)
     };
   }, data);
-}
+};
+
+export default {
+  filterInput,
+  getEntranceCameras,
+  fetchData,
+  buildJsonQuery,
+  processResult
+};

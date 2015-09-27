@@ -8,6 +8,7 @@ export default {
 };
 
 function get (url) {
+  console.log('HTTP', url);
   let promise = axios.get(url)
     .then(function (res) {
       if (res.status >= 300) throw new Error(res);

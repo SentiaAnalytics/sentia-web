@@ -2,32 +2,13 @@
 import http from '../../services/http';
 import util from '../../util';
 
-export default {
-  filterInput,
-  fetchData,
-  buildJsonQuery,
-  parseNumbersAndDates
-};
-
-function filterInput (query) {
-  return (query.startDate && query.endDate && query.store);
-}
-
-function fetchData (data) {
-  return R.pipe(
-    buildJsonQuery,
-    logger.log('pos query'),
-    query => `/api/pos?json=${JSON.stringify(query)}`,
-    http.get
-  )(data);
-}
-
-function buildJsonQuery (query) {
+const filterInput = query => (query.startDate && query.endDate && query.store);
+const buildJsonQuery = query => {
   return {
     "fields" : {
       "sum(revenue)" : "revenue",
       "sum(transactions)" : "transactions",
-      "time": "time"
+      [util.queryDateFormat(query.startDate, query.endDate)]: "time"
     },
     "where" : {
       "store" : query.store._id,
@@ -38,17 +19,26 @@ function buildJsonQuery (query) {
           .format('YYYY-MM-DD'),
       }
     },
-    "groupBy": ['date(time), hour(time)'],
+    "groupBy": util.queryDateFormat(query.startDate, query.endDate),
     "orderBy" : {
       time : true
     }
   };
-}
+};
 
-function parseNumbersAndDates (data) {
+const fetchData = R.compose(http.get,query => `/api/pos?json=${query}`, encodeURIComponent, JSON.stringify, buildJsonQuery);
+
+const parseNumbersAndDates = (data) => {
   return {
     revenue: parseFloat(data.revenue) || 0,
     transactions: parseFloat(data.transactions) || 0,
     time: moment(data.time)
   };
-}
+};
+
+export default {
+  filterInput,
+  fetchData,
+  buildJsonQuery,
+  parseNumbersAndDates
+};

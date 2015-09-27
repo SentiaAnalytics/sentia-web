@@ -7,6 +7,7 @@ import switcher from './switcher';
 import round from './round';
 import querySelector from './querySelector';
 import querySelectorAll from './querySelectorAll';
+import queryDateFormat from './queryDateFormat';
 import formatNumber from './formatNumber';
 
 const headLens = R.lensIndex(0);
@@ -22,6 +23,7 @@ export default {
   memoize,
   round,
   switcher,
+  queryDateFormat,
   querySelector,
   querySelectorAll
 };

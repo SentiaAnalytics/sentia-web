@@ -11,11 +11,13 @@ exports.get = function (query) {
   var company = query.where.company;
   delete query.where.company;
   delete query.where.store;
+  console.log('POSPOS');
 
   return P.resolve(query)
     .then(setTable)
     // .then(setStore.bind(this, company))
     .then(j2sql.select)
+    .then(R.tap(x => console.log('POS', x)))
     .then(db.query)
     .catch(function (err) {
       logger.log('error','service:pos', err.stack);
