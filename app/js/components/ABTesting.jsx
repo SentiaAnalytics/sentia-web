@@ -18,30 +18,6 @@ const colors = [
 const group1 = testingGroupFactory();
 const group2 = testingGroupFactory();
 
-const peopleChartData = Rx.Observable.zip(
-  group1.people,
-  group2.people,
-  (group1, group2) => R.zipWith((a, b) => ([a[0], a[1], b[1]]), group1, group2)
-)
-  .map(R.map(([time, a, b]) => ([time.toDate(), round(2, a), round(2, b)])))
-  .map(data => ([['Time', 'group1', 'group2'], ...data]))
-
-const revenueChartData = Rx.Observable.zip(
-  group1.revenue,
-  group2.revenue,
-  (group1, group2) => R.zipWith((a, b) => ([a[0], a[1], b[1]]), group1, group2)
-)
-  .map(R.map(([time, a, b]) => ([time.toDate(), round(2, a), round(2, b)])))
-  .map(data => ([['Time', 'group1', 'group2'], ...data]))
-
-const transactionsChartData = Rx.Observable.zip(
-  group1.transactions,
-  group2.transactions,
-  (group1, group2) => R.zipWith((a, b) => ([a[0], a[1], b[1]]), group1, group2)
-)
-  .map(R.map(([time, a, b]) => ([time.toDate(), round(2, a), round(2, b)])))
-  .map(data => ([['Time', 'group1', 'group2'], ...data]))
-
 export default React.createClass({
   componentDidMount () {
     document.title = 'Sentia Analytics - Dashboard';
@@ -76,45 +52,74 @@ export default React.createClass({
             <h2>People</h2>
             <div className="row clearfix">
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={group1.people} prop="people" id="total-people" title="people" className="paper" color={colors[0]}/>
+                <Total observable={group1.people} prop="people" id="group1-total-people" title="people" className="paper" color={colors[0]}/>
               </div>
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={group2.people} prop="people" id="total-people" title="people" className="paper" color={colors[1]}/>
+                <Total observable={group2.people} prop="people" id="group2-total-people" title="people" className="paper" color={colors[1]}/>
               </div>
             </div>
-            <article className="paper-widget paper">
-              <AreaChart observable={peopleChartData} options={{colors: [colors[0], colors[1]]}}/>
-            </article>
+            <div className="row">
+              <div className="gutter-bottom col-sm-6">
+                <article className="paper-widget paper">
+                  <Linechart observable={group1.people} type="people" title="People" options={{colors: [colors[0]]}}/>
+                </article>
+              </div>
+              <div className="gutter-bottom col-sm-6">
+                <article className="paper-widget paper">
+                  <Linechart observable={group2.people} type="people" title="People" options={{colors: [colors[1]]}}/>
+                </article>
+              </div>
+            </div>
           </div>
 
           <div className="col-xs-12 gutter-bottom">
             <h2>Revenue</h2>
             <div className="row clearfix">
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={group1.revenue} prop="revenue" id="total-revenue" title="revenue" className="paper" color={colors[0]}/>
+                <Total observable={group1.revenue} prop="revenue" id="group1-total-revenue" title="revenue" className="paper" color={colors[0]}/>
               </div>
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={group2.revenue} prop="revenue" id="total-revenue" title="revenue" className="paper" color={colors[1]}/>
+                <Total observable={group2.revenue} prop="revenue" id="group2-total-revenue" title="revenue" className="paper" color={colors[1]}/>
               </div>
             </div>
-            <article className="paper-widget paper">
-              <AreaChart observable={revenueChartData} options={{colors: [colors[0], colors[1]]}}/>
-            </article>
+            <div className="row">
+              <div className="gutter-bottom col-sm-6">
+                <article className="paper-widget paper">
+                    <Linechart observable={group1.revenue} type="revenue" options={{colors: [colors[0]]}}/>
+                </article>
+              </div>
+              <div className="gutter-bottom col-sm-6">
+                <article className="paper-widget paper">
+                    <Linechart observable={group2.revenue} type="revenue" options={{colors: [colors[1]]}}/>
+                </article>
+              </div>
+            </div>
+
           </div>
 
           <div className="col-xs-12 gutter-bottom">
             <h2>Transactions</h2>
             <div className="row clearfix">
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={group1.transactions} prop="transactions" id="total-transactions" title="transactions" className="paper" color={colors[0]}/>
+                <Total observable={group1.transactions} prop="transactions" id="group1-total-transactions" title="transactions" className="paper" color={colors[0]}/>
               </div>
               <div className="col-sm-6 gutter-bottom">
-                <Total observable={group2.transactions} prop="transactions" id="total-transactions" title="transactions" className="paper" color={colors[1]}/>
+                <Total observable={group2.transactions} prop="transactions" id="group2-total-transactions" title="transactions" className="paper" color={colors[1]}/>
               </div>
             </div>
-            <article className="paper-widget paper">
-              <AreaChart observable={transactionsChartData} options={{colors: [colors[0], colors[1]]}}/>
-            </article>
+
+            <div className="row">
+              <div className="gutter-bottom col-sm-6">
+                <article className="paper-widget paper gutter-bottom">
+                  <Linechart observable={group1.transactions} type="transactions" title="Transactions" options={{colors: [colors[0]]}}/>
+                </article>
+              </div>
+              <div className="gutter-bottom col-sm-6">
+                <article className="paper-widget paper gutter-bottom">
+                  <Linechart observable={group1.transactions} type="transactions" title="Transactions" options={{colors: [colors[1]]}}/>
+                </article>
+              </div>
+            </div>
           </div>
 
         </div>
