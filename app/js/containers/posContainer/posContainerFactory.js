@@ -10,10 +10,8 @@ export default R.curry((helper, startDate, endDate, store) => {
     store,
     (startDate, endDate, store) => ({ startDate, endDate, store }))
     .filter(helper.filterInput)
-    .flatMap(fetchData)
-    .map(R.map(helper.parseNumbersAndDates));
+    .flatMap(fetchData);
 
-  error.subscribe(logger.log('posContainer Error:'));
 
   return {
     error,

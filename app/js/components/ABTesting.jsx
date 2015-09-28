@@ -116,7 +116,7 @@ export default React.createClass({
               </div>
               <div className="gutter-bottom col-sm-6">
                 <article className="paper-widget paper gutter-bottom">
-                  <Linechart observable={group1.transactions} type="transactions" title="Transactions" options={{colors: [colors[1]]}}/>
+                  <Linechart observable={group2.transactions} type="transactions" title="Transactions" options={{colors: [colors[1]]}}/>
                 </article>
               </div>
             </div>

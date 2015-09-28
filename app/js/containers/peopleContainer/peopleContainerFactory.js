@@ -13,7 +13,6 @@ export default R.curry((helper, startDate, endDate, cameralist) => {
     .tap(logger.log('PEOPLE QUERY'))
     .map(helper.getEntranceCameras)
     .flatMap(fetchData)
-    .map(helper.processResult)
     .map(R.map(R.over(R.lensProp('time'), x=> x.add(2, 'hours'))));
 
   error

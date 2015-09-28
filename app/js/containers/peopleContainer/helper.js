@@ -46,8 +46,11 @@ const buildJsonQuery = (query) => {
 };
 
 const fetchData = (query) => {
-  let jsonQuery = R.compose(encodeURIComponent, JSON.stringify, buildJsonQuery);
-  return http.get('/api/people?json=' + jsonQuery(query));
+  const fillResultGaps = util.fillDataGaps(query.startDate, query.endDate, {people: 0});
+  const jsonQuery = R.compose(encodeURIComponent, JSON.stringify, buildJsonQuery);
+  return http.get('/api/people?json=' + jsonQuery(query))
+    .map(processResult)
+    .map(fillResultGaps);
 };
 
 

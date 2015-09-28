@@ -25,15 +25,20 @@ const buildJsonQuery = query => {
     }
   };
 };
-
-const fetchData = R.compose(http.get,query => `/api/pos?json=${query}`, encodeURIComponent, JSON.stringify, buildJsonQuery);
-
 const parseNumbersAndDates = (data) => {
   return {
     revenue: parseFloat(data.revenue) || 0,
     transactions: parseFloat(data.transactions) || 0,
     time: moment(data.time)
   };
+};
+
+const fetchData = query => {
+  const fillResultGaps = util.fillDataGaps(query.startDate, query.endDate, {revenue: 0, transactions:0});
+  return R.compose(http.get, query => `/api/pos?json=${query}`, encodeURIComponent, JSON.stringify, buildJsonQuery)(query)
+    .map(R.map(parseNumbersAndDates))
+    .tap(logger.log('POSCONTAINER'))
+    .map(fillResultGaps)
 };
 
 export default {

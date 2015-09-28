@@ -9,6 +9,7 @@ import querySelector from './querySelector';
 import querySelectorAll from './querySelectorAll';
 import queryDateFormat from './queryDateFormat';
 import formatNumber from './formatNumber';
+import fillDataGaps from './fillDataGaps';
 
 const headLens = R.lensIndex(0);
 const endLens = R.lensIndex(-1);
@@ -16,6 +17,7 @@ const endLens = R.lensIndex(-1);
 export default {
   catchErrors,
   endLens,
+  fillDataGaps,
   formatNumber,
   getEnumerablePropertyNames,
   getFormData,

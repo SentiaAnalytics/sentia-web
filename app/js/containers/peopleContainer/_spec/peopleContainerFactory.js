@@ -35,7 +35,7 @@ describe('peopleContainer', function () {
     expect(spy.called).to.equal(false);
   });
 
-  it('should update the store whe dependencies are updated', function () {
+  it.skip('should update the store whe dependencies are updated', function () {
     let spy = sinon.spy();
     let peopleContainer = createContainer(helper);
     disposable = peopleContainer.observable.subscribe(spy);
