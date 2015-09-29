@@ -1,10 +1,12 @@
 'use strict';
 import util from '../util';
 import {Link} from 'react-router';
+import {startDateContainer} from '../containers/dateContainer';
 import cameraPeopleContainer from '../containers/cameraPeopleContainer';
 import cameraContainer from '../containers/cameraContainer';
 import heatContainer from '../containers/heatContainer';
 import Total from './Total';
+import Datepicker from './Datepicker';
 import Linechart from './Linechart';
 import Heatmap from './Heatmap';
 
@@ -19,6 +21,11 @@ const peopleCounter = (camera, people) => {
   }
   return (
     <div>
+      <div className="row">
+        <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom">
+          <Datepicker container={startDateContainer} className="btn btn-primary col-xs-12"/>
+        </div>
+      </div>
       <div className="col-sm-3 gutter-bottom">
         <Total observable={people} id="total-people" title="People" className="paper"/>
       </div>

@@ -34,7 +34,7 @@ const parseNumbersAndDates = (data) => {
 };
 
 const fetchData = query => {
-  const fillResultGaps = util.fillDataGaps(query.startDate, query.endDate, {revenue: 0, transactions:0});
+  const fillResultGaps = util.fillDataGaps(moment(query.startDate.format('YYYY-MM-DD 9:00:00')), moment(query.endDate.format('YYYY-MM-DD 22:00:00')), {revenue: 0, transactions:0});
   return R.compose(http.get, query => `/api/pos?json=${query}`, encodeURIComponent, JSON.stringify, buildJsonQuery)(query)
     .map(R.map(parseNumbersAndDates))
     .tap(logger.log('POSCONTAINER'))

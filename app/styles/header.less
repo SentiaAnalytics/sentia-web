@@ -1,0 +1,38 @@
+.has-header-top {
+  padding-top: 60px;
+  position: relative;
+}
+
+.header {
+  top: 0;
+  height:60px;
+  position: absolute;
+  z-index:1;
+  width: 100%;
+  border-bottom:1px solid @gray;
+  h1 {
+    font-size: 30px;
+    // text-transform: uppercase;
+    margin:13px 0px;
+    font-weight: 400;
+  }
+  img {
+    height: 40px;
+    margin: 8px 8px;
+  }
+}
+
+.header-link {
+  .font-size-large;
+  margin:16px 5px;
+  display:inline-block;
+  i {
+    font-size: 120%;
+    vertical-align: -15%;
+    margin-right:10px;
+  }
+
+  &:hover {
+    color:@gray-darker;
+  }
+}

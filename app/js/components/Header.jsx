@@ -1,17 +1,22 @@
 'use strict';
 import sessionContainer from '../containers/sessionContainer';
-import {startDateContainer, endDateContainer} from '../containers/dateContainer';
-import Datepicker from './Datepicker';
+const logout = () => sessionContainer.observer.onNext({action: 'logout'});
 
 export default React.createClass({
   render: function() {
     return (
-      <div className="header navbar navbar-default bg-gray-light">
+      <div className="header bg-white">
         <div className="container-fluid">
-            <div className="btn-group pull-right navbar-btn">
-              <Datepicker dateStore={startDateContainer} id="start-date-picker" classes=""/>
-              <Datepicker dateStore={endDateContainer} id="end-date-picker"  classes=""/>
-            </div>
+          <div className="pull-left">
+            <img src="/images/logos/logo_192.png" className="pull-left"/>
+            <h1 className="pull-left"> Sentia<span className="thin">Analytics</span></h1>
+          </div>
+          <div className="pull-right">
+            <a href="#" className="header-link" onClick={logout}>
+              <i className="glyphicon glyphicon-off"></i>
+              <span className="hidden-xs">Logout</span>
+            </a>
+          </div>
         </div>
       </div>
     );

@@ -6,6 +6,6 @@ import heatContainerFactory from './heatContainerFactory';
 export default heatContainerFactory(
   http,
   startDateContainer.observable,
-  endDateContainer.observable,
+  startDateContainer.observable,
   cameraContainer.observable
 );

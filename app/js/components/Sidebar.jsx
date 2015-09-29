@@ -1,31 +1,24 @@
 'use strict';
 import FeatureToggle from './FeatureToggle';
-import sessionContainer from '../containers/sessionContainer';
 import {Link} from 'react-router';
 
 export default React.createClass({
-  logout () {
-    sessionContainer.observer.onNext({action: 'logout'});
-  },
   render: function() {
     let {storeId} = this.props;
     return (
-      <div className="sidebar">
+      <div className="sidebar gutter-top">
         <Link className="sidebar-link" activeClassName="active" to="dashboard" params={{storeId}}>
-          <img src="/images/logos/logo_192.png"/>
+          <i className="glyphicon glyphicon-stats"></i> <span className="hidden-xs"> Dashboard</span>
         </Link>
-        <Link className="sidebar-link" activeClassName="active" to="dashboard" params={{storeId}}>
-          <i className="glyphicon glyphicon-stats"></i>
+        <Link className="sidebar-link" activeClassName="active" to="compare" params={{storeId}}>
+          <i className="glyphicon glyphicon-road"></i> <span className="hidden-xs"> Compare</span>
         </Link>
-        <FeatureToggle prop="toggleAB" value="true">
-          <Link className="sidebar-link" activeClassName="active" to="abtesting" params={{storeId}}>
-            <i className="glyphicon glyphicon-road"></i>
-          </Link>
-        </FeatureToggle>
         <Link className="sidebar-link" activeClassName="active" to="floors" params={{storeId}}>
-          <i className="glyphicon glyphicon-record"></i>
+          <i className="glyphicon glyphicon-record"></i> <span className="hidden-xs"> Floorplans</span>
         </Link>
-        <a className=" hidden-xs sidebar-link bottom glyphicon glyphicon-off" onClick={this.logout}></a>
+        <Link className="sidebar-link" activeClassName="active" to="cameras" params={{storeId}}>
+          <i className="glyphicon glyphicon-camera"></i> <span className="hidden-xs"> Cameras</span>
+        </Link>
       </div>
     );
   }

@@ -15,16 +15,13 @@ const mockLocation = {
   set() {}
 }
 
-const mapStartDate = (date) => date.startOf('day');
-const mapEndDate = (date) => date.endOf('day');
-
 export default () => {
 
   const store = storeContainer
     .observable;
 
-  const startDateContainer = dateContainerFactory(mockLocation, '', mapStartDate);
-  const endDateContainer = dateContainerFactory(mockLocation, '', mapStartDate);
+  const startDateContainer = dateContainerFactory(mockLocation, '');
+  const endDateContainer = dateContainerFactory(mockLocation, '');
 
   const cameraList = cameralistContainerFactory(http, store)
     .observable;

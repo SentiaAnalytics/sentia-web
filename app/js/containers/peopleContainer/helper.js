@@ -46,10 +46,11 @@ const buildJsonQuery = (query) => {
 };
 
 const fetchData = (query) => {
-  const fillResultGaps = util.fillDataGaps(query.startDate, query.endDate, {people: 0});
+  const fillResultGaps = util.fillDataGaps(moment(query.startDate.format('YYYY-MM-DD 9:00:00')), moment(query.endDate.format('YYYY-MM-DD 22:00:00')), {people: 0});
   const jsonQuery = R.compose(encodeURIComponent, JSON.stringify, buildJsonQuery);
   return http.get('/api/people?json=' + jsonQuery(query))
     .map(processResult)
+    .map(R.map(R.over(R.lensProp('time'), x=> x.add(2, 'hours'))))
     .map(fillResultGaps);
 };
 

@@ -6,7 +6,7 @@ import helper from './helper';
 
 export default cameraPeopleContainerFactory(
   startDateContainer.observable,
-  endDateContainer.observable,
+  startDateContainer.observable,
   cameraContainer.observable,
   helper
 );

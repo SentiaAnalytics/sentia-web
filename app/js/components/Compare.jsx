@@ -32,8 +32,8 @@ export default React.createClass({
             <div className="paper panel-body">
               <span className="h2 block" style={{color:colors[0]}}>Group 1</span>
               <div className="btn-group">
-                <Datepicker dateStore={group1.startDateContainer} id="start-date-picker" classes=""/>
-                <Datepicker dateStore={group1.endDateContainer} id="end-date-picker"  classes=""/>
+                <Datepicker container={group1.startDateContainer} id="start-date-picker" classes=""/>
+                <Datepicker container={group1.endDateContainer} id="end-date-picker"  classes=""/>
               </div>
             </div>
           </div>
@@ -42,8 +42,8 @@ export default React.createClass({
             <div className="paper panel-body">
               <span className="h2 block" style={{color:colors[1]}}>Group 2</span>
               <div className="btn-group">
-                <Datepicker dateStore={group2.startDateContainer} id="start-date-picker" classes=""/>
-                <Datepicker dateStore={group2.endDateContainer} id="end-date-picker"  classes=""/>
+                <Datepicker container={group2.startDateContainer} id="start-date-picker" classes=""/>
+                <Datepicker container={group2.endDateContainer} id="end-date-picker"  classes=""/>
               </div>
             </div>
           </div>

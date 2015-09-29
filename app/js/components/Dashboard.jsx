@@ -1,4 +1,5 @@
 'use strict';
+import {startDateContainer, endDateContainer} from '../containers/dateContainer';
 import posContainer from '../containers/posContainer';
 import peopleContainer from '../containers/peopleContainer';
 import churnrateContainer from '../containers/churnrateContainer';
@@ -6,6 +7,7 @@ import queueContainer from '../containers/queueContainer';
 import util from '../util';
 import FeatureToggle from './FeatureToggle';
 import Linechart from './Linechart';
+import Datepicker from './Datepicker';
 import Total from './Total';
 import Average from './Average';
 import Percent from './Percent';
@@ -40,6 +42,10 @@ export default React.createClass({
     return (
       <div className="gutter-top gutter-bottom">
         <div className="container-fluid">
+          <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom">
+            <Datepicker container={startDateContainer} className="btn btn-primary col-xs-6"/>
+            <Datepicker container={endDateContainer} className="btn btn-primary col-xs-6"/>
+          </div>
 
           <div className="col-md-6 gutter-bottom">
             <div className="row">

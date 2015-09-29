@@ -1,7 +1,9 @@
 'use strict';
 import {Link} from 'react-router';
+import {startDateContainer, endDateContainer} from '../containers/dateContainer';
 import cameralistContainer from '../containers/cameralistContainer';
 import churnrateContainer from '../containers/churnrateContainer';
+import Datepicker from './Datepicker';
 import Heatmap from './Heatmap';
 
 var cameraStyle = (cam) => ({left: cam.pos.x + '%', top: cam.pos.y + '%' });
@@ -33,7 +35,7 @@ var _printFloor = R.curry(function (printCamera, floorCameraPair) {
 });
 
 var _printFloorList = R.curry(function (printFloor, cameraList) {
-  const floorCameraPairs = R.compose(R.toPairs, R.groupBy(R.prop('floor')));
+  const floorCameraPairs = R.compose(R.reverse, R.toPairs, R.groupBy(R.prop('floor')));
   const printFloors = R.compose(R.map(printFloor), floorCameraPairs);
   return printFloors(cameraList);
 });
@@ -62,6 +64,10 @@ export default React.createClass({
     var printFloorList = _printFloorList(printFloor);
     return (
       <div className="gutter-top gutter-bottom">
+        <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom">
+          <Datepicker container={startDateContainer} className="btn btn-primary col-xs-6"/>
+          <Datepicker container={endDateContainer} className="btn btn-primary col-xs-6"/>
+        </div>
         <div className="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
           {printFloorList(this.state.cameraList)}
         </div>
