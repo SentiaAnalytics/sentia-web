@@ -13,7 +13,6 @@ export default React.createClass({
   componentDidMount: function () {
     document.title = 'Sentia Analytics - Login';
     this.sessionObserver = sessionContainer.observable
-      .skip(1)
       .filter((session) => session && session.user)
       .subscribe(session => {
         this.transitionTo('dashboard', {storeId: '54318d4064acfb0b3139807e'});// TIGER SPECIFIC

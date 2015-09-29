@@ -20,7 +20,6 @@ export default (date, camera, helper) => {
     .subscribe(container.observable);
 
   container.error.subscribe(logger.log('CameraPeopleContainer Error:'));
-  container.observable.subscribe(logger.log('CAMPEOPLE'), logger.log('CAMPEOPLE Error'))
 
   function fetchData (query) {
     return helper.fetchData(query)

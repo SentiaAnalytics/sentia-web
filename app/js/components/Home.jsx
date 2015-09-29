@@ -15,32 +15,32 @@ export default React.createClass({
   },
 
   componentDidMount () {
-    this.addObservers();
+    this.errorDisposable = sessionContainer
+      .error
+      .filter((error) => error)
+      .tap(logger.log('ERROR DISPOSABLE'))
+      .subscribe(this.transitionTo.bind(this, 'login'));
+
+    this.logoutDisposable = sessionContainer.observable
+        .tap(logger.log('LOGOUT DISPOSABLE'))
+        .filter(session => session && session.user === undefined)
+        .subscribe(() => this.transitionTo('login'));
+
+    this.sessionDisposable = sessionContainer.observable
+      .tap(logger.log('SESSION DISPOSABLE'))
+      .filter(session => session && session.user)
+      .map((session) => ({session}))
+      .subscribe(session => this.setState(session));
+
     sessionContainer.observer.onNext({action: 'fetch'});
     storeContainer.observer.onNext(this.props.params.storeId); // for now just load the store
   },
 
-  addObservers () {
-    this.observers.push(sessionContainer
-    .error
-    .filter((error) => error)
-    .subscribe(this.transitionTo.bind(this, 'login')));
-
-    this.observers.push(
-      sessionContainer.observable
-        .filter(session => session && !session.user)
-        .subscribe(this.transitionTo.bind(this, 'login')));
-
-    this.observers.push(sessionContainer.observable
-      .filter(session => session && session.user)
-      .map((session) => {
-        return {session};
-      })
-      .subscribe(this.setState.bind(this)));
-  },
-
   componentWillUnmount () {
-    this.observers.forEach((x) => x.dispose());
+    console.log('DISPOSE');
+    this.errorDisposable.dispose();
+    this.sessionDisposable.dispose();
+    this.logoutDisposable.dispose();
   },
 
   render: function () {

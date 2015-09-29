@@ -8,11 +8,11 @@ export default{
 };
 
 function fetch() {
-  return http.get('/api/session');
+
 }
 
 function login(credentials) {
-  return http.post('/api/session/authenticate', credentials);
+  return 
 }
 
 function logout () {
