@@ -20,7 +20,7 @@ const group2 = testingGroupFactory();
 
 export default React.createClass({
   componentDidMount () {
-    document.title = 'Sentia Analytics - Dashboard';
+    document.title = 'Sentia Analytics - Compare';
   },
 
   render () {
@@ -29,21 +29,25 @@ export default React.createClass({
         <div className="container-fluid">
 
           <div className="col-sm-6 gutter-bottom">
-            <div className="paper panel-body">
-              <span className="h2 block" style={{color:colors[0]}}>Group 1</span>
-              <div className="btn-group">
-                <Datepicker container={group1.startDateContainer} id="start-date-picker" classes=""/>
-                <Datepicker container={group1.endDateContainer} id="end-date-picker"  classes=""/>
+            <div className="container-fluid paper paper-body">
+              <div className="col-lg-6">
+                <span className="h2 text-center" style={{color:colors[0]}}>Group 1</span>
+              </div>
+              <div className="btn-group col-lg-6">
+                <Datepicker container={group1.startDateContainer} id="group1-start-date-picker" className="col-xs-6"/>
+                <Datepicker container={group1.endDateContainer} id="group1-end-date-picker"  className="col-xs-6"/>
               </div>
             </div>
           </div>
 
           <div className="col-sm-6 gutter-bottom">
-            <div className="paper panel-body">
-              <span className="h2 block" style={{color:colors[1]}}>Group 2</span>
-              <div className="btn-group">
-                <Datepicker container={group2.startDateContainer} id="start-date-picker" classes=""/>
-                <Datepicker container={group2.endDateContainer} id="end-date-picker"  classes=""/>
+            <div className="container-fluid paper paper-body">
+              <div className="col-lg-6">
+                <span className="h2" style={{color:colors[1]}}>Group 2</span>
+              </div>
+              <div className="btn-group col-lg-6">
+                <Datepicker container={group2.startDateContainer} id="group2-start-date-picker" className="col-xs-6"/>
+                <Datepicker container={group2.endDateContainer} id="group2-end-date-picker"  className="col-xs-6"/>
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ class CameraPage
   include Capybara::DSL
 
   def url(camera_id)
-    "#{host}/store/#{store_id}/cameras/#{camera_id}"
+    "#{host}/stores/#{store_id}/cameras/#{camera_id}"
   end
 
   def go

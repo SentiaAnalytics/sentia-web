@@ -1,6 +1,6 @@
 'use strict';
 import containerFactory from '../../services/containerFactory';
-export default (startDate, endDate, camera, helper) => {
+export default (date, camera, helper) => {
   const container = containerFactory.create([]);
 
   container.observable
@@ -9,11 +9,10 @@ export default (startDate, endDate, camera, helper) => {
       (err) => console.error('peopleStore', err, err.stack));
 
   Rx.Observable.combineLatest(
-    startDate,
-    endDate,
+    date,
     camera,
-    (startDate, endDate, camera) =>  {
-      return { startDate, endDate, camera };
+    (date, camera) =>  {
+      return { date, camera };
     })
     .filter(helper.filterInput)
     .flatMap(fetchData)
@@ -21,6 +20,7 @@ export default (startDate, endDate, camera, helper) => {
     .subscribe(container.observable);
 
   container.error.subscribe(logger.log('CameraPeopleContainer Error:'));
+  container.observable.subscribe(logger.log('CAMPEOPLE'), logger.log('CAMPEOPLE Error'))
 
   function fetchData (query) {
     return helper.fetchData(query)

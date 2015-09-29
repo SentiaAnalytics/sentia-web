@@ -16,7 +16,7 @@ Feature: Dashboard page
 
   Scenario: Visit by url
     Given I am logged in
-      And I visit /store/54318d4064acfb0b3139807e?=&from=2015-08-09&to=2015-08-22
+      And I visit /stores/54318d4064acfb0b3139807e?=&from=2015-08-09&to=2015-08-22
     Then the total revenue should be 925,280.87
       And the total people in should be 53,220
       And the basket size should be 45.4
@@ -25,7 +25,7 @@ Feature: Dashboard page
 
   Scenario: Queues
     Given I am logged in
-      And I visit /store/54318d4064acfb0b3139807e?=&from=2015-09-10&to=2015-09-10&toggleQueues=true
+      And I visit /stores/54318d4064acfb0b3139807e?=&from=2015-09-10&to=2015-09-10&toggleQueues=true
     Then the total revenue should be 58,469.27
       And the total people in should be 2,820
       And the basket size should be 41.91

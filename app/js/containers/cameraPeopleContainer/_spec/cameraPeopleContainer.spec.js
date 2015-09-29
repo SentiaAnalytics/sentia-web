@@ -7,10 +7,9 @@ import cameraPeopleContainerFactory from '../cameraPeopleContainerFactory';
 import jsonResponse from './data/jsonResponse.json';
 import helper from '../helper';
 
-const startDate = new Rx.Subject();
-const endDate = new Rx.Subject();
+const date = new Rx.Subject();
 const camera = new Rx.Subject();
-const cameraPeopleContainer = cameraPeopleContainerFactory(startDate, endDate, camera, helper);
+const cameraPeopleContainer = cameraPeopleContainerFactory(date, camera, helper);
 let shouldHttpFail = false;
 describe('cameraPeopleContainer', function () {
   let subject;
@@ -19,8 +18,7 @@ describe('cameraPeopleContainer', function () {
   after(teardown);
 
   beforeEach(function () {
-      startDate.onNext(moment());
-      endDate.onNext(moment());
+      date.onNext(moment());
       camera.onNext([]);
       cameraPeopleContainer.observable.onNext([]);
   });

@@ -3,7 +3,7 @@ class FloorsPage
   include Capybara::DSL
 
   def url
-    @url ||= "#{host}/store/#{store_id}/floors"
+    @url ||= "#{host}/stores/#{store_id}/floors"
   end
 
   def go

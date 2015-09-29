@@ -62,6 +62,10 @@ export default React.createClass({
       .subscribe(data => this.setState({data}));
   },
 
+  componentWillUnmount () {
+    this.disposable.dispose();
+  },
+
   shouldComponentUpdate (props, state) {
     const {options, type} = props;
     if (R.isEmpty(state.data)) {

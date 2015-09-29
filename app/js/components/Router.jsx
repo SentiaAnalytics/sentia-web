@@ -15,13 +15,13 @@ var routes =  (
   <Route name="app" handler={App}>
     <Route name="login" path="/login" handler={Login}/>
     <Route name="home" handler={Home}>
-      <Route name="dashboard" path="/store/:storeId" handler={Dashboard}/>
-      <Route name="floors" path="/store/:storeId/floors" handler={Floors}/>
-      <Route name="compare" path="/store/:storeId/compare" handler={Compare}/>
-      <Route name="camera" path="/store/:storeId/cameras/:cameraId" handler={Camera}/>
-      <Route name="cameras" path="/store/:storeId/cameras" handler={Cameralist}/>
+      <Route name="dashboard" path="/stores/:storeId" handler={Dashboard}/>
+      <Route name="floors" path="/stores/:storeId/floors" handler={Floors}/>
+      <Route name="compare" path="/stores/:storeId/compare" handler={Compare}/>
+      <Route name="camera" path="/stores/:storeId/cameras/:cameraId" handler={Camera}/>
+      <Route name="cameras" path="/stores/:storeId/cameras" handler={Cameralist}/>
     </Route>
-    <Redirect from="/" to="/store/:id" params={{id: '54318d4064acfb0b3139807e'}}/>
+    <Redirect from="/" to="/stores/:storeId" params={{storeId: '54318d4064acfb0b3139807e'}}/>
   </Route>
 );
 export function init () {

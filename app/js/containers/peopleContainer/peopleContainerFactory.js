@@ -10,15 +10,12 @@ export default R.curry((helper, startDate, endDate, cameralist) => {
     cameralist,
     (startDate, endDate, cameralist) => ({ startDate, endDate, cameralist }))
     .filter(helper.filterInput)
-    .tap(logger.log('PEOPLE QUERY'))
     .map(helper.getEntranceCameras)
     .flatMap(fetchData)
 
   error
     .filter(x => x)
     .subscribe(logger.log('peopleContainer Error:'))
-
-  error.subscribe(logger.log('PeopleContainer Error:'));
 
   return {
     error,

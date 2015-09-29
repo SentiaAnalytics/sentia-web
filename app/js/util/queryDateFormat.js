@@ -2,7 +2,6 @@
 
 export default R.curry((startDate, endDate) => {
   const diff = endDate.diff(startDate, 'days');
-  console.log('DATE DIFF', diff);
   if (diff < 3) {
     return "DATE_FORMAT(time, '%Y-%m-%d %H:00:00')";
   }

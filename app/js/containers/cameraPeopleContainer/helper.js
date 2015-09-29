@@ -11,9 +11,9 @@ export default {
 };
 
 function filterInput (query) {
+  console.log('CAMPEOPLE FILTER', query);
   return (
-    query.startDate &&
-    query.endDate &&
+    query.date &&
     query.camera
   );
 }
@@ -31,18 +31,13 @@ function buildJsonQuery (query) {
       },
       where : {
         cam : query.camera._id,
-        'date(time)' : {
-          gte : query.startDate
-            .format('YYYY-MM-DD'),
-          lt : query.endDate
-            .format('YYYY-MM-DD')
-        },
+        'date(time)' : query.date.format('YYYY-MM-DD'),
         'hour(time)' : {
           gte : 7,
           lte : 20
         }
       },
-      groupBy : ['date(time), hour(time)'],
+      groupBy : util.queryDateFormat(query.date, query.date),
       orderBy : {
         'time': true
       }

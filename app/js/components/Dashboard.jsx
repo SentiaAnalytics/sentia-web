@@ -43,8 +43,8 @@ export default React.createClass({
       <div className="gutter-top gutter-bottom">
         <div className="container-fluid">
           <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom">
-            <Datepicker container={startDateContainer} className="btn btn-primary col-xs-6"/>
-            <Datepicker container={endDateContainer} className="btn btn-primary col-xs-6"/>
+            <Datepicker container={startDateContainer} className="btn btn-primary col-xs-6" id="start-date-picker"/>
+            <Datepicker container={endDateContainer} className="btn btn-primary col-xs-6" id="end-date-picker"/>
           </div>
 
           <div className="col-md-6 gutter-bottom">
