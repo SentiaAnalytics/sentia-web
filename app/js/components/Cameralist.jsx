@@ -1,5 +1,5 @@
 'use strict';
-import cameraListContainer from '../containers/cameraListContainer';
+import cameralistContainer from '../containers/cameralistContainer';
 import {Link} from 'react-router';
 
 const snapshotUrl = (camera) => `/images/cameras/${camera._id}.jpg`;
@@ -34,7 +34,7 @@ export default React.createClass({
   },
 
   componentDidMount () {
-    this.disposable = cameraListContainer
+    this.disposable = cameralistContainer
       .observable
       .subscribe(cameras =>  this.setState(R.assoc('cameras', cameras, this.state)));
   },
