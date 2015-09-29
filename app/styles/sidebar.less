@@ -5,14 +5,18 @@
   flex-direction: row;
   left:0;
   bottom:0;
-  height: 80px;
+  height: 72px;
   width: 100%;
-  // align-items: center;
+  align-items: center;
+  text-align:center;
 
   background-color: @gray-dark;
   color: @gray-lighter;
 
   @media (min-width: @screen-sm-min) {
+    padding-top: 15px;
+    align-items: left;
+    text-align:left;
     flex-direction: column;
     top:0;
     width: @sidebar-width;
@@ -27,7 +31,7 @@
   .font-size-huge;
   flex-grow: 1;
   float: left;
-  padding: 20px;
+  padding: 15px;
 
   cursor: pointer;
 
@@ -58,7 +62,7 @@
 .has-sidebar {
   height:100%;
   position:relative;
-  padding-bottom: 80px;
+  padding-bottom: 72px;
   @media (min-width: @screen-sm-min) {
     padding-bottom: 0px;
     padding-left:@sidebar-width;

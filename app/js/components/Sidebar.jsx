@@ -6,7 +6,7 @@ export default React.createClass({
   render: function() {
     let {storeId} = this.props;
     return (
-      <div className="sidebar gutter-top">
+      <div className="sidebar">
         <Link className="sidebar-link" activeClassName="active" to="dashboard" params={{storeId}}>
           <i className="glyphicon glyphicon-stats"></i> <span className="hidden-xs"> Dashboard</span>
         </Link>
