@@ -2,7 +2,6 @@
 import '../../../globals';
 import assert from 'assert';
 import sinon from 'sinon';
-import http from '../../../services/http';
 import sessionContainerFactory from '../sessionContainerFactory';
 
 const exampleSession = {
@@ -26,5 +25,5 @@ const http = {
 let disposable;
 
 describe('sessionContainer', function () {
-  
+
 });
