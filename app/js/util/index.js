@@ -1,5 +1,4 @@
 'use strict';
-import catchErrors from './catchErrors';
 import getEnumerablePropertyNames from './getEnumerablePropertyNames';
 import getFormData from './getFormData';
 import memoize from './memoize';
@@ -17,7 +16,6 @@ const endLens = R.lensIndex(-1);
 
 export default {
   bindDateToUrlProperty,
-  catchErrors,
   endLens,
   fillDataGaps,
   formatNumber,

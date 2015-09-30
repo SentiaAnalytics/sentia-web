@@ -12,10 +12,20 @@ describe('fillDataGaps', function () {
       ];
 
       const expected = [
+        {time: '2015-01-01 09:00:00', people: 0 },
         {time: '2015-01-01 10:00:00', people: 1 },
         {time: '2015-01-01 11:00:00', people: 0 },
         {time: '2015-01-01 12:00:00', people: 0 },
         {time: '2015-01-01 13:00:00', people: 3 },
+        {time: '2015-01-01 14:00:00', people: 0 },
+        {time: '2015-01-01 15:00:00', people: 0 },
+        {time: '2015-01-01 16:00:00', people: 0 },
+        {time: '2015-01-01 17:00:00', people: 0 },
+        {time: '2015-01-01 18:00:00', people: 0 },
+        {time: '2015-01-01 19:00:00', people: 0 },
+        {time: '2015-01-01 20:00:00', people: 0 },
+        {time: '2015-01-01 21:00:00', people: 0 },
+        {time: '2015-01-01 22:00:00', people: 0 },
       ];
 
       const defaultValue = {people: 0};
