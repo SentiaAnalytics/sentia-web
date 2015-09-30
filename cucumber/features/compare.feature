@@ -12,7 +12,7 @@ Feature: Compare page
     And I select group2 date range from 2015-08-09 to 2015-08-15
     Then the group1 total revenue should be 505,475.23
     Then the group2 total revenue should be 453,641.65
-      And the group1 total people should be 28,963
-      And the group2 total people should be 26,573
+      And the group1 total people should be 136,042
+      And the group2 total people should be 129,715
       And the group1 total transactions should be 11,395
       And the group2 total transactions should be 10,196

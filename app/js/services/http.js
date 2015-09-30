@@ -1,4 +1,5 @@
 'use strict';
+import Bacon from 'baconjs';
 import * as axios from 'axios';
 
 export default {
@@ -17,9 +18,7 @@ function get (url) {
       return Promise.reject(err);
     });
 
-  return Rx
-    .Observable
-    .fromPromise(promise);
+  return Bacon.fromPromise(promise);
 }
 
 function del (url) {
@@ -29,9 +28,7 @@ function del (url) {
       return res.data;
     });
 
-  return Rx
-    .Observable
-    .fromPromise(promise);
+  return Bacon.fromPromise(promise);
 }
 
 function post (url, data) {
@@ -41,7 +38,6 @@ function post (url, data) {
       return res.data;
     });
 
-  return Rx
-    .Observable
-    .fromPromise(promise);
+  return Bacon.fromPromise(promise);
+
 }

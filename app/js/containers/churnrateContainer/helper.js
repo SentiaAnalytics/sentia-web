@@ -1,16 +1,8 @@
 'use strict';
-import http from '../../services/http';
 
-export default {
-  fetchData,
-  mapCamerasToResults: R.curry(mapCamerasToResults)
-};
 
-function fetchData (query) {
-  return http.get(`/api/people?json=${JSON.stringify(buildJsonQuery(query))}`);
-}
 
-function buildJsonQuery (query) {
+const _jsonQuery = (query) => {
   return {
     fields : {
       'sum(people_in)' : 'people',
@@ -36,12 +28,16 @@ function buildJsonQuery (query) {
     groupBy : ['cam']
   };
 }
+const buildUrl = R.compose(query => `/api/people?json=${query}`, encodeURIComponent, JSON.stringify, _jsonQuery)
 
-function mapCamerasToResults (cameras, results) {
-  let makePair = (x) => {return [x.cam, x.people];};
-  let resultmap = R.pipe(R.map(makePair), R.fromPairs)(results);
-
+const mapCamerasToResults = R.curry((cameras, results) => {
+  let resultmap = R.compose(R.fromPairs, R.map(R.props(['cam', 'people'])))(results);
   return R.map(x => {
     return R.assoc('people', parseInt(resultmap[x._id], 10) || 0, x);
   }, cameras);
-}
+});
+
+export default {
+  buildUrl,
+  mapCamerasToResults,
+};

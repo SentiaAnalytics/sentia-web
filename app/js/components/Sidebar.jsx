@@ -13,11 +13,11 @@ export default React.createClass({
     this.disposable = sessionContainer
       .observable
       .filter(x => x)
-      .subscribe(({user}) => this.setState({user}));
+      .onValue(({user}) => this.setState({user}));
   },
 
   componentWillUnmount () {
-    this.disposable.dispose();
+    this.disposable();
   },
 
   render: function() {
@@ -27,7 +27,10 @@ export default React.createClass({
       <div className="sidebar">
         <div className="media sidebar-header hidden-xs">
           <div className="media-left">
-            <Gravatar email={user.email} size="50" className="media-object sidebar-header-img"/>
+            <div className="sidebar-header-img media-object">
+              <Gravatar email={user.email} size="50"/>
+              <div className="sidebar-header-img-shadow"></div>
+            </div>
           </div>
           <div className="media-body">
             <div className="">{user.firstname} {user.lastname}</div>

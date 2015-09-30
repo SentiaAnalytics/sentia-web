@@ -1,45 +1,48 @@
 'use strict';
-import {expect} from 'chai';
+import '../../../globals';
+import assert from 'assert';
 import sinon from 'sinon';
 import heatContainerFactory from '../heatContainerFactory';
 
-const startDate = new Rx.BehaviorSubject(moment('2015-01-01'));
-const endDate = new Rx.BehaviorSubject(moment('2015-02-01'));
-const camera = new Rx.BehaviorSubject({id:1});
-const http = {
-  get: sinon.spy((url) => Rx.Observable.of([{x:1, y:2, heat: 2.5}]))
+const startDate = new Bacon.Bus();
+const endDate = new Bacon.Bus();
+const camera = new Bacon.Bus();
+const httpMock = {
+  get: sinon.spy((url) => Bacon.once([{x:1, y:2, heat: 2.5}]))
 };
-
-let disposable;
+let dispose;
 
 describe('heatContainerFactory', function () {
   beforeEach(() => {
-    startDate.onNext(moment('2015-01-01'));
-    endDate.onNext(moment('2015-02-01'));
-    camera.onNext({_id:1});
-    http.get.reset();
+    startDate.push(moment('2015-01-01'));
+    endDate.push(moment('2015-02-01'));
+    camera.push({_id:1});
+    httpMock.get.reset();
   });
-  afterEach(() => {
-    disposable.dispose();
-  })
+  afterEach(() => dispose && dispose());
 
   it('should not update until all dependencies are met', function () {
-    let spy = sinon.spy();
-    let heatContainer = heatContainerFactory(http, startDate, endDate, camera);
-    camera.onNext(null);
-    disposable = heatContainer.observable.subscribe(spy);
+    const spy = sinon.spy();
+    const heatContainer = heatContainerFactory(httpMock, startDate, endDate, camera);
+    camera.push(null);
+    dispose = heatContainer.observable.onValue(spy);
 
-    expect(http.get.called).to.equal(false, 'should not call http');
-    expect(spy.called).to.equal(false);
+    assert.equal(httpMock.get.called, false, 'should not call http');
+    assert.equal(spy.called, false, 'should not call subscriber');
   });
 
   it('should fetch heatmap data when all dependencies are met', () => {
     let spy = sinon.spy();
-    let heatContainer = heatContainerFactory(http, startDate, endDate, camera);
-    disposable = heatContainer.observable.subscribe(spy);
-    expect(http.get.calledOnce).to.equal(true, 'should call http.get once');
-    expect(http.get.args[0][0]).to.equal('/api/maps?from=2015-01-01&to=2015-02-01&camera=1');
-    expect(spy.calledOnce).to.equal(true, 'call spy once');
-    expect(spy.args[0][0]).to.eql([{x:1, y:2, heat: 2.5}]);
+    let heatContainer = heatContainerFactory(httpMock, startDate, endDate, camera);
+    dispose = heatContainer.observable.onValue(spy);
+
+    startDate.push(moment('2015-01-01'));
+    endDate.push(moment('2015-02-01'));
+    camera.push({_id:1});
+
+    assert.equal(httpMock.get.calledOnce, true, 'should call http.get once' + httpMock.get.callCount);
+    assert.equal(httpMock.get.args[0][0], '/api/maps?from=2015-01-01&to=2015-02-01&camera=1', 'should call http.get with correct url');
+    assert.equal(spy.calledOnce, true, 'should call the subscriber once');
+    assert.deepEqual(spy.args[0][0], [{x:1, y:2, heat: 2.5}], 'should call the subscriber with a valid response');
   });
 });

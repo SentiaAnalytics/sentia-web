@@ -1,6 +1,6 @@
 'use strict';
 import sessionContainer from '../containers/sessionContainer';
-const logout = () => sessionContainer.observer.onNext({action: 'logout'});
+const logout = () => sessionContainer.observer.push({action: 'logout'});
 
 export default React.createClass({
   render: function() {
@@ -12,7 +12,7 @@ export default React.createClass({
             <h1 className="pull-left"> Sentia<span className="thin">Analytics</span></h1>
           </div>
           <div className="pull-right">
-            <a href="#" className="header-link" onClick={logout}>
+            <a className="header-link" onClick={logout}>
               <i className="glyphicon glyphicon-off"></i>
               <span className="hidden-xs">Logout</span>
             </a>

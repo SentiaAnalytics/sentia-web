@@ -1,21 +1,20 @@
 'use strict';
-import {memoize, catchErrors} from '../../util';
+import {fillDataGaps} from '../../util';
+import {buildUrl} from './helper';
 export default R.curry((http, startDate, endDate, store) => {
-  const error = new Rx.Subject();
-  const fetchData = R.compose(memoize, catchErrors(error))(http.get);
+  const observable = Bacon.combineAsArray(startDate, endDate, store)
+    .filter(R.all(x => x))
+    .flatMap(([startDate, endDate, store]) => {
+      const fillGaps = fillDataGaps(startDate, endDate, {queue:0});
 
-  const observable = Rx.Observable.combineLatest(
-    startDate.filter(x => x).map(x => x.format('YYYY-MM-DD')),
-    endDate.filter(x => x).map(x => x.format('YYYY-MM-DD')),
-    store.filter(x=>x).map(x => x._id),
-    (startDate, endDate, storeId) => ({startDate, endDate, storeId})
-  )
-  .map(({startDate, endDate, storeId})=> `/api/stores/${storeId}/queues?from=${startDate}&to=${endDate}`)
-  .flatMap(fetchData)
-  .map(R.map(R.evolve({time: moment})))
+      return http.get(buildUrl({startDate, endDate, store}))
+        .map(R.map(R.evolve({time:moment})))
+        .map(fillGaps);
+    })
+    .doError(logger.error('QueueContainer Error:'))
+    .toProperty();
 
   return {
-    error,
     observable
   };
 

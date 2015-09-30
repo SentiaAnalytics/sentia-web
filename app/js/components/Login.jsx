@@ -12,22 +12,24 @@ export default React.createClass({
 
   componentDidMount: function () {
     document.title = 'Sentia Analytics - Login';
-    this.sessionObserver = sessionContainer.observable
-      .filter((session) => session && session.user)
-      .subscribe(session => {
+    this.disposeSession = sessionContainer
+      .observable
+      .filter(session => session && session.user)
+      .map(logger.log('LOGGED IN'))
+      .onValue(session => {
         this.transitionTo('dashboard', {storeId: '54318d4064acfb0b3139807e'});// TIGER SPECIFIC
       });
 
-    this.errorObserver = sessionContainer
-      .error
+    this.disposeError = sessionContainer
+      .observable
       .filter(x => !R.isNil(x))
       .filter(x => x !== 'You must login to perform this action.')
-      .subscribe(error => this.setState({error}));
+      .onError(error => this.setState({error: error.data}));
   },
 
   componentWillUnmount() {
-    this.sessionObserver.dispose();
-    this.errorObserver.dispose();
+    this.disposeSession();
+    this.disposeError();
   },
 
 

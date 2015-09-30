@@ -10,17 +10,17 @@ export default React.createClass({
   },
   componentDidMount () {
     const {observable} = this.props;
-    this.disposable = observable
+    this.dispose = observable
       .filter(R.isArrayLike)
       .map(R.map(R.last))
       .map(R.sum)
       .map(util.round(2))
-      .subscribe(result => this.setState({result}));
+      .onValue(result => this.setState({result}));
 
   },
 
   componentWillUnmount () {
-    this.disposable.dispose();
+    this.dispose();
   },
 
   render () {

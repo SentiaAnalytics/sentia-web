@@ -1,9 +1,9 @@
 'use strict';
-import http from '../../services/http';
 import util from '../../util';
 
-const filterInput = query => (query.startDate && query.endDate && query.store);
-const buildJsonQuery = query => {
+const filterInput = ({start}) => (query.startDate && query.endDate && query.store);
+
+const _JsonQuery = query => {
   return {
     "fields" : {
       "sum(revenue)" : "revenue",
@@ -25,6 +25,8 @@ const buildJsonQuery = query => {
     }
   };
 };
+
+const buildUrl = R.compose(query => `/api/pos?json=${query}`, encodeURIComponent, JSON.stringify, _JsonQuery);
 const parseNumbersAndDates = (data) => {
   return {
     revenue: parseFloat(data.revenue) || 0,
@@ -33,20 +35,8 @@ const parseNumbersAndDates = (data) => {
   };
 };
 
-const fetchData = query => {
-  const fillResultGaps = util.fillDataGaps(
-    moment(query.startDate.format('YYYY-MM-DD 9:00:00'), 'YYYY-MM-DD HH:mm:ss'),
-    moment(query.endDate.format('YYYY-MM-DD 22:00:00'), 'YYYY-MM-DD HH:mm:ss'),
-    {revenue: 0, transactions:0}
-  );
-  return R.compose(http.get, query => `/api/pos?json=${query}`, encodeURIComponent, JSON.stringify, buildJsonQuery)(query)
-    .map(R.map(parseNumbersAndDates))
-    .map(fillResultGaps)
-};
-
 export default {
   filterInput,
-  fetchData,
-  buildJsonQuery,
+  buildUrl,
   parseNumbersAndDates
 };

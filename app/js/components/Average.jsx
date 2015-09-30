@@ -15,12 +15,12 @@ export default React.createClass({
       .map(R.map(R.last))
       .map(x => R.sum(x)/x.length)
       .map(util.round(2))
-      .subscribe(result => this.setState({result}));
+      .onValue(result => this.setState({result}));
 
   },
 
   componentWillUnmount () {
-    this.disposable.dispose();
+    this.disposable();
   },
 
   render () {

@@ -1,4 +1,5 @@
 'use strict';
+import {bindDateToUrlProperty} from '../util';
 import {Link} from 'react-router';
 import {startDateContainer, endDateContainer} from '../containers/dateContainer';
 import cameralistContainer from '../containers/cameralistContainer';
@@ -50,12 +51,17 @@ export default React.createClass({
 
   componentDidMount () {
     document.title = 'Sentia Analytics - Floors';
-    this.disposable = cameralistContainer.observable
-      .subscribe(cameraList => this.setState({cameraList}));
+    this.disposeCameraList = cameralistContainer.observable
+      .onValue(cameraList => this.setState({cameraList}));
+      
+    this.disposeStartDate = bindDateToUrlProperty('from', startDateContainer);
+    this.disposeEndDate = bindDateToUrlProperty('to', endDateContainer);
   },
 
   componentWillUnmount () {
-    this.disposable.dispose();
+    this.disposeCameraList();
+    this.disposeStartDate();
+    this.disposeEndDate();
   },
 
   render () {

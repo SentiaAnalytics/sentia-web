@@ -1,5 +1,4 @@
 'use strict';
-import location from '../services/location';
 import {Link} from 'react-router';
 import {Navigation, RouteHandler} from 'react-router';
 import sessionContainer from '../containers/sessionContainer';
@@ -15,32 +14,27 @@ export default React.createClass({
   },
 
   componentDidMount () {
-    this.errorDisposable = sessionContainer
-      .error
-      .filter((error) => error)
-      .tap(logger.log('ERROR DISPOSABLE'))
-      .subscribe(this.transitionTo.bind(this, 'login'));
+    this.disposeError = sessionContainer
+      .observable
+      .onError(this.transitionTo.bind(this, 'login'));
 
-    this.logoutDisposable = sessionContainer.observable
-        .tap(logger.log('LOGOUT DISPOSABLE'))
-        .filter(session => session && session.user === undefined)
-        .subscribe(() => this.transitionTo('login'));
+    this.disposeLogout = sessionContainer.observable
+        .filter(session => session && !session.user)
+        .onValue(() => this.transitionTo('login'));
 
-    this.sessionDisposable = sessionContainer.observable
-      .tap(logger.log('SESSION DISPOSABLE'))
+    this.disposeSession = sessionContainer.observable
       .filter(session => session && session.user)
       .map((session) => ({session}))
-      .subscribe(session => this.setState(session));
+      .onValue(session => this.setState(session));
 
-    sessionContainer.observer.onNext({action: 'fetch'});
-    storeContainer.observer.onNext(this.props.params.storeId); // for now just load the store
+    sessionContainer.observer.push({action: 'fetch'});
+    storeContainer.observer.push(this.props.params.storeId); // for now just load the store
   },
 
   componentWillUnmount () {
-    console.log('DISPOSE');
-    this.errorDisposable.dispose();
-    this.sessionDisposable.dispose();
-    this.logoutDisposable.dispose();
+    this.disposeError();
+    this.disposeSession();
+    this.disposeLogout();
   },
 
   render: function () {

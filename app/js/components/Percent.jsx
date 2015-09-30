@@ -13,18 +13,17 @@ export default React.createClass({
     const {dividend, divisor, suffix} = this.props;
     const multiplier = suffix === '%' ? 100: 1;
 
-    this.disposable = Rx.Observable.combineLatest(
+    this.dispose = Bacon.combineAsArray(
         dividend.map(R.map(R.last)),
-        divisor.map(R.map(R.last)),
-        (dividend, divisor) => ({dividend, divisor}))
-      .filter(x => x.dividend && x.divisor)
-      .map(({dividend, divisor}) => (R.sum(dividend) / R.sum(divisor)) * multiplier)
+        divisor.map(R.map(R.last)))
+      .filter(([dividend, divisor]) => dividend && divisor)
+      .map(([dividend, divisor]) => (R.sum(dividend) / R.sum(divisor)) * multiplier)
       .map(util.round(2))
-      .subscribe(result => this.setState({result}));
+      .onValue(result => this.setState({result}));
   },
 
   componentWillUnmount () {
-    this.disposable.dispose();
+    this.dispose();
   },
 
   render () {

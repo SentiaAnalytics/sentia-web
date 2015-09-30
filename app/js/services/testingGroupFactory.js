@@ -2,9 +2,7 @@
 import dateContainerFactory from '../containers/dateContainer/dateContainerFactory';
 import storeContainer from '../containers/storeContainer';
 import posContainerFactory from '../containers/posContainer/posContainerFactory';
-import posContainerHelper from '../containers/posContainer/helper';
 import peopleContainerFactory from '../containers/peopleContainer/peopleContainerFactory';
-import peopleContainerHelper from '../containers/peopleContainer/helper';
 import cameralistContainerFactory from '../containers/cameralistContainer/cameralistContainerFactory';
 import http from './http';
 
@@ -20,21 +18,21 @@ export default () => {
   const store = storeContainer
     .observable;
 
-  const startDateContainer = dateContainerFactory(mockLocation, '');
-  const endDateContainer = dateContainerFactory(mockLocation, '');
+  const startDateContainer = dateContainerFactory();
+  const endDateContainer = dateContainerFactory();
 
   const cameraList = cameralistContainerFactory(http, store)
     .observable;
 
   const posContainer = posContainerFactory(
-    posContainerHelper,
+    http,
     startDateContainer.observable,
     endDateContainer.observable,
     store
   );
 
   const peopleContainer = peopleContainerFactory(
-    peopleContainerHelper,
+    http,
     startDateContainer.observable,
     endDateContainer.observable,
     cameraList

@@ -4,25 +4,25 @@ import Pikaday from 'pikaday';
 export default React.createClass({
   componentDidMount () {
     let element = this.getDOMNode();
-    let {minDate, maxDate, container} = this.props;
+    let {minDate, maxDate, container, defaultValue} = this.props;
     let picker = new Pikaday({
       field: element,
       minDate: minDate? moment(minDate).toDate(): null,
       maxDate: maxDate? moment(maxDate).toDate(): null,
       position:'Automatic',
       onSelect: function () {
-        container.observer.onNext(this.getMoment());
+        container.observer.push(this.getMoment());
       }
     });
 
-    this.disposable = container.observable
+    this.dispose = container.observable
       .filter((date) => !date.isSame(picker.getMoment(), 'day'))
-      .tap(x => logger.log('DATE', x.toString()))
-      .subscribe((date) => picker.setDate(date.format('YYYY-MM-DD')));
+      .onValue((date) => picker.setDate(date.format('YYYY-MM-DD')));
+
   },
 
   componentWillUnmount () {
-    this.disposable.dispose();
+    this.dispose();
   },
 
   render: function() {

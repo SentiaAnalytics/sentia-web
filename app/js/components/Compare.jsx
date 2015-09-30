@@ -1,6 +1,6 @@
 'use strict';
 import testingGroupFactory from '../services/testingGroupFactory';
-import {round} from '../util';
+import {round, bindDateToUrlProperty} from '../util';
 import FeatureToggle from './FeatureToggle';
 import Datepicker from './Datepicker';
 import Linechart from './Linechart';
@@ -19,8 +19,17 @@ const group1 = testingGroupFactory();
 const group2 = testingGroupFactory();
 
 export default React.createClass({
+  disposers: [],
   componentDidMount () {
     document.title = 'Sentia Analytics - Compare';
+    this.disposers.push(bindDateToUrlProperty('group1.startDate', group1.startDateContainer));
+    this.disposers.push(bindDateToUrlProperty('group1.endDate', group1.endDateContainer));
+    this.disposers.push(bindDateToUrlProperty('group2.startDate', group2.startDateContainer));
+    this.disposers.push(bindDateToUrlProperty('group2.endDate', group2.endDateContainer));
+  },
+
+  componentWillUnmount () {
+    this.disposers.forEach(d => d());
   },
 
   render () {

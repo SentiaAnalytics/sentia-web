@@ -1,13 +1,12 @@
 'use strict';
-import containerFactory from '../../services/containerFactory';
 import cameralistContainer from '../cameralistContainer';
 import {startDateContainer, endDateContainer} from '../dateContainer';
-import helper from './helper';
+import http from '../../services/http';
 import churnrateContainerFactory from './churnrateContainerFactory';
 
 export default churnrateContainerFactory(
+  http,
   startDateContainer.observable,
   endDateContainer.observable,
-  cameralistContainer.observable,
-  helper
+  cameralistContainer.observable
 );

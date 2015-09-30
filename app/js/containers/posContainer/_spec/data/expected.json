@@ -1,0 +1,27 @@
+[
+  {
+    "time": "2015-01-01",
+    "revenue": 123,
+    "transactions": 34
+  },
+  {
+    "time": "2015-01-02",
+    "revenue": 0,
+    "transactions": 0
+  },
+  {
+    "time": "2015-01-03",
+    "revenue": 0,
+    "transactions": 0
+  },
+  {
+    "time": "2015-01-04",
+    "revenue": 0,
+    "transactions": 0
+  },
+  {
+    "time": "2015-01-05",
+    "revenue": 456,
+    "transactions": 64
+  }
+]

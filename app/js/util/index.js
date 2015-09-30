@@ -10,11 +10,13 @@ import querySelectorAll from './querySelectorAll';
 import queryDateFormat from './queryDateFormat';
 import formatNumber from './formatNumber';
 import fillDataGaps from './fillDataGaps';
+import bindDateToUrlProperty from './bindDateToUrlProperty';
 
 const headLens = R.lensIndex(0);
 const endLens = R.lensIndex(-1);
 
 export default {
+  bindDateToUrlProperty,
   catchErrors,
   endLens,
   fillDataGaps,

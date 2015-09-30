@@ -48,11 +48,11 @@ export default React.createClass({
 
     this.disposable = observable
       .map(createDataTable(header))
-      .subscribe(draw, err => console.error('barChart', err));
+      .onValue(draw, err => console.error('barChart', err));
   },
 
   componentWillUnmount () {
-    this.disposable.dispose();
+    this.disposable();
   },
 
   render: function() {

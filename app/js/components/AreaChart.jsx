@@ -58,16 +58,17 @@ export default React.createClass({
     let {observable, type, title, options} = this.props;
 
     this.chart = new G.AreaChart(element);
-    this.disposable = observable
-      .subscribe(data => this.setState({data}));
+    this.dispose = observable
+      .onValue(data => this.setState({data}));
   },
 
   componentWillUnmount () {
-    this.disposable.dispose();
+    this.dispose();
   },
 
   shouldComponentUpdate (props, state) {
     const {options, type} = props;
+    console.log('AreaChart', state);
     if (R.isEmpty(state.data)) {
       this.chart.clearChart();
     } else {

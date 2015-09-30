@@ -1,17 +1,5 @@
 'use strict';
-import http from '../../services/http';
 import util from '../../util';
-
-
-
-const filterInput = (query) => {
-  return (
-    query.startDate &&
-    query.endDate &&
-    query.cameralist &&
-    !R.isEmpty(query.cameralist)
-  );
-};
 
 const getEntranceCameras = (query) => {
   var isEntrance = R.compose(R.equals('entrance'), R.prop('counter'));
@@ -19,7 +7,7 @@ const getEntranceCameras = (query) => {
 };
 
 
-const buildJsonQuery = (query) => {
+const _JsonQuery = (query) => {
   return {
       fields : {
         [util.queryDateFormat(query.startDate, query.endDate)] : 'time',
@@ -44,34 +32,14 @@ const buildJsonQuery = (query) => {
       }
     };
 };
-
-const fetchData = (query) => {
-  const fillResultGaps = util.fillDataGaps(
-    moment(query.startDate.format('YYYY-MM-DD 9:00:00'), 'YYYY-MM-DD HH:mm:ss'),
-    moment(query.endDate.format('YYYY-MM-DD 22:00:00'), 'YYYY-MM-DD HH:mm:ss'),
-    {people: 0}
-  );
-  const jsonQuery = R.compose(encodeURIComponent, JSON.stringify, buildJsonQuery);
-  return http.get('/api/people?json=' + jsonQuery(query))
-    .map(processResult)
-    .map(R.map(R.over(R.lensProp('time'), x=> x.add(2, 'hours'))))
-    .map(fillResultGaps);
-};
-
-
-const processResult = (data) => {
-  return R.map(e => {
-    return {
-      people: parseInt(e.people, 10) || 0,
-      time: moment(e.time)
-    };
-  }, data);
-};
+const buildUrl = R.compose(query => `/api/people?json=${query}`, encodeURIComponent, JSON.stringify, _JsonQuery);
+const processResult = R.map(R.evolve({
+  time: R.compose(t => t.add(2, 'hours'), moment),
+  people: n => parseInt(n, 10) || 0
+}));
 
 export default {
-  filterInput,
+  processResult,
   getEntranceCameras,
-  fetchData,
-  buildJsonQuery,
-  processResult
+  buildUrl,
 };

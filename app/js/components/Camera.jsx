@@ -1,5 +1,6 @@
 'use strict';
-import util from '../util';
+import location from '../services/location';
+import {bindDateToUrlProperty} from '../util';
 import {Link} from 'react-router';
 import {startDateContainer} from '../containers/dateContainer';
 import cameraPeopleContainer from '../containers/cameraPeopleContainer';
@@ -59,14 +60,17 @@ export default React.createClass({
       this.setState({camera});
     };
 
-    this.disposable = cameraContainer.observable
-      .subscribe(update);
+    this.disposeCamera = cameraContainer.observable
+      .onValue(update);
 
-    cameraContainer.observer.onNext(this.props.params.cameraId);
+    this.disposeStartDate = bindDateToUrlProperty('date', startDateContainer);
+
+    cameraContainer.observer.push(this.props.params.cameraId);
   },
 
   componentWillUnmount () {
-    this.disposable.dispose();
+    this.disposeCamera();
+    this.disposeStartDate();
   },
 
   render () {

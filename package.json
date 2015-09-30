@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "livetest": "mocha -w --compilers js:babel/register 'app/js/**/_spec/*.js'",
     "start": "babel-node main.js",
     "build": "gulp build",
     "build-prod": "gulp build-prod",
@@ -47,6 +48,7 @@
     "axios": "0.5.4",
     "babel-core": "5.8.24",
     "babelify": "6.3.0",
+    "baconjs": "^0.7.73",
     "browserify": "11.1.0",
     "chai": "3.2.0",
     "chai-as-promised": "5.1.0",

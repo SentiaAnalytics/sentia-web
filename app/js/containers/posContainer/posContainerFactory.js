@@ -1,20 +1,23 @@
 'use strict';
-import util from '../../util';
+import {fillDataGaps} from '../../util';
+import {filterInput, buildUrl, parseNumbersAndDates} from './helper';
 
-export default R.curry((helper, startDate, endDate, store) => {
-  const error = new Rx.Subject();
-  const fetchData = R.compose(util.memoize, util.catchErrors(error))(helper.fetchData);
-  const observable = Rx.Observable.combineLatest(
-    startDate,
-    endDate,
-    store,
-    (startDate, endDate, store) => ({ startDate, endDate, store }))
-    .filter(helper.filterInput)
-    .flatMap(fetchData);
+export default R.curry((http, startDate, endDate, store) => {
+  const observable = Bacon.combineAsArray(startDate, endDate, store)
+    .filter(R.all(x => x))
+    .flatMap(([startDate, endDate, store]) => {
+      const fillGaps = fillDataGaps(
+        startDate,
+        endDate,
+        {revenue: 0, transactions:0}
+      );
+      return http.get(buildUrl({startDate, endDate, store}))
+        .map(R.map(parseNumbersAndDates))
+        .map(fillGaps)
+    })
+    .doError(logger.error('PosContainer Error:'))
+    .toProperty();
 
 
-  return {
-    error,
-    observable
-  };
+  return {observable};
 });

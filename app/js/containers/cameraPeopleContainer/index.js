@@ -1,11 +1,13 @@
 'use strict';
-import cameraPeopleContainerFactory from './cameraPeopleContainerFactory';
-import {startDateContainer, endDateContainer} from '../dateContainer';
+import peopleContainerFactory from '../peopleContainer/peopleContainerFactory';
+import {startDateContainer} from '../dateContainer';
 import cameraContainer from '../cameraContainer';
-import helper from './helper';
+import http from '../../services/http';
 
-export default cameraPeopleContainerFactory(
+export default peopleContainerFactory(
+  http,
   startDateContainer.observable,
-  cameraContainer.observable,
-  helper
+  startDateContainer.observable,
+  cameraContainer.observable
+    .map(camera => ([camera]))
 );

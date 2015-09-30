@@ -9,10 +9,10 @@ const dateKeys = {
 
 const getDateStep = R.curry((startDate, endDate) => {
   const duration = getDiff(startDate, endDate, 'days');
-  if (duration < 3) {
+  if (duration <= 3) {
     return 'hours'
   }
-  if (duration < 60) {
+  if (duration <= 60) {
     return 'days'
   }
 
@@ -22,7 +22,9 @@ const getDateStep = R.curry((startDate, endDate) => {
   return 'years';
 });
 
-export default R.curry((startDate, endDate, defaultValue, data) => {
+export default R.curry((_startDate, _endDate, defaultValue, data) => {
+  const startDate = moment(_startDate.format('YYYY-MM-DD 9:00:00'), 'YYYY-MM-DD HH:mm:ss');
+  const endDate = moment(_endDate.format('YYYY-MM-DD 22:00:00'), 'YYYY-MM-DD HH:mm:ss');
   const step = R.partial(getDateStep, startDate, endDate);
   const duration = R.compose(getDiff(startDate, endDate), step);
   const range = R.compose(R.range(0), duration);

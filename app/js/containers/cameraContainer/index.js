@@ -1,5 +1,5 @@
 'use strict';
 
-import helper from './helper';
+import http from '../../services/http';
 import cameraContainerFactory from './cameraContainerFactory';
-export default cameraContainerFactory(helper);
+export default cameraContainerFactory(http);

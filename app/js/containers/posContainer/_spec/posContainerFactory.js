@@ -1,72 +1,52 @@
 'use strict';
 import '../../../globals';
-import {expect} from 'chai';
-import http from '../../../services/http';
+import assert from 'assert';
 import sinon from 'sinon';
 import posContainerFactory from '../posContainerFactory';
-import jsonResponse from './data/jsonResponse.json';
+import response from './data/response.json';
+import expected from './data/expected.json';
 
-let shouldHttpFail = false;
-let disposable;
-const store = new Rx.BehaviorSubject();
-const startDate = new Rx.BehaviorSubject();
-const endDate = new Rx.BehaviorSubject();
-const helper = {
-  filterInput: sinon.spy(x=> x),
-  fetchData: sinon.spy(x => {
-    if (shouldHttpFail) {
-      return Rx.Observable.throw('http error');
-    }
-    return Rx.Observable.of(jsonResponse);
-  }),
-  parseNumbersAndDates: x => x
+let dispose;
+const mapDatesToString = R.map(R.over(R.lensProp('time'), time => time.format('YYYY-MM-DD')));
+const startDate = new Bacon.Bus();
+const endDate = new Bacon.Bus();
+const store = new Bacon.Bus();
+
+const httpMock = {
+  get: sinon.spy(url => Bacon.once(response))
 };
-const createContainer = posContainerFactory(R.__,startDate, endDate, store);
+
+const createContainer = R.partial(posContainerFactory, httpMock, startDate, endDate, store);
 
 describe('posContainer', function () {
-  let subject;
 
-  before(stubHttp);
-
-  after(function () {
-    http.get.restore();
-  });
 
   beforeEach(function () {
-    if (disposable) {
-      disposable.dispose();
-    }
-    store.onNext(null);
-    startDate.onNext(moment());
-    endDate.onNext(moment());
-    helper.filterInput.reset();
-    helper.fetchData.reset();
+    dispose && dispose();
+    httpMock.get.reset();
   });
 
   it('should not update the store until all dependencies are met', function () {
-    let posContainer = createContainer(helper);
-    let spy = sinon.spy();
-    disposable = posContainer.observable.subscribe(spy);
-    expect(spy.calledOnce).to.equal(true, 'spy called');
+    const posContainer = createContainer();
+    const spy = sinon.spy();
+    dispose = posContainer.observable.onValue(spy);
+    assert.equal(httpMock.get.called, false, 'should not call http.get');
+    assert.equal(spy.called, false, 'should not call subscriber');
   });
 
   it('should update the store whe dependencies are updated', function () {
-    let posContainer = createContainer(helper);
-    let spy = sinon.spy();
-    disposable = posContainer.observable.subscribe(spy);
-    store.onNext({_id: 1});
-    expect(spy.callCount).to.equal(2, 'spy called twice');
-    expect(helper.fetchData.callCount).to.equal(2, 'fetchData called once');
-    expect(spy.args[0][0]).to.eql(jsonResponse);
-  });
+    const posContainer = createContainer();
+    const spy = sinon.spy();
+    dispose = posContainer.observable.onValue(spy);
+    startDate.push(moment('2015-01-01'));
+    endDate.push(moment('2015-01-05'));
+    store.push({_id: 1});
+    assert.equal(httpMock.get.calledOnce, true, 'should call http.get once' + spy.callCount);
+    
+    assert.equal(httpMock.get.args[0][0], `/api/pos?json=%7B%22fields%22%3A%7B%22sum(revenue)%22%3A%22revenue%22%2C%22sum(transactions)%22%3A%22transactions%22%2C%22DATE_FORMAT(time%2C%20'%25Y-%25m-%25d')%22%3A%22time%22%7D%2C%22where%22%3A%7B%22store%22%3A1%2C%22date(time)%22%3A%7B%22gte%22%3A%222015-01-01%22%2C%22lte%22%3A%222015-01-05%22%7D%7D%2C%22groupBy%22%3A%22DATE_FORMAT(time%2C%20'%25Y-%25m-%25d')%22%2C%22orderBy%22%3A%7B%22time%22%3Atrue%7D%7D`, 'should call http.get with correct url');
 
-  it('should catch http errors', function () {
+    assert.equal(spy.calledOnce, true, 'should call subscriber once');
+    assert.deepEqual(mapDatesToString(spy.args[0][0]), expected, 'should return correct data');
 
   });
 });
-function stubHttp () {
-  sinon.stub(http, 'get', function (url) {
-    if(shouldHttpFail) return Rx.Observable.throw('http error');
-    return new Rx.BehaviorSubject(jsonResponse);
-  });
-}

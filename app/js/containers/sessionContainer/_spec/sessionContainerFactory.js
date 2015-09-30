@@ -1,11 +1,11 @@
 'use strict';
-import {expect} from 'chai';
+import '../../../globals';
+import assert from 'assert';
 import sinon from 'sinon';
 import http from '../../../services/http';
 import sessionContainerFactory from '../sessionContainerFactory';
 
-let shouldHttpFail = false;
-let exampleSession = {
+const exampleSession = {
   user: {
     email: 'andreas@example.com',
     firstname: 'Andreas',
@@ -13,25 +13,18 @@ let exampleSession = {
   }
 };
 
-const httpMock = {
-  get: () => {
-    if (shouldHttpFail) return Rx.Observable.throw({data: 'http error'});
-    return new Rx.BehaviorSubject({
-      user: {
-        firstname: 'Andreas',
-        lastname: 'Moeller'
-      }
-    });
-  },
+const http = {
+  get: () => Bacon.once(exampleSession),
   post: credentials => {
     if (data.email === 'andreas@example.com' &&  data.password === 'password') {
-      return new Rx.BehaviorSubject(exampleSession);
+      return Bacon.once(exampleSession);
     }
-    return Rx.Observable.throw({data: 'BAD LOGIN'});
+    return Bacon.once(new Bacon.Error({data: 'BAD LOGIN'}));
   },
-  del: () => new Rx.BehaviorSubject('OK'),
+  del: () => Bacon.once('OK'),
 }
 let disposable;
 
 describe('sessionContainer', function () {
+  
 });

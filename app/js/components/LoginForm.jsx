@@ -32,7 +32,7 @@ export default React.createClass({
 
   login: function (event){
     event.preventDefault();
-    sessionContainer.observer.onNext({
+    sessionContainer.observer.push({
         action: 'login',
         payload: util.getFormData(event.target)
       });

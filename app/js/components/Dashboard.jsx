@@ -1,10 +1,11 @@
 'use strict';
+import location from '../services/location';
 import {startDateContainer, endDateContainer} from '../containers/dateContainer';
 import posContainer from '../containers/posContainer';
 import peopleContainer from '../containers/peopleContainer';
 import churnrateContainer from '../containers/churnrateContainer';
 import queueContainer from '../containers/queueContainer';
-import util from '../util';
+import {bindDateToUrlProperty} from '../util';
 import FeatureToggle from './FeatureToggle';
 import Linechart from './Linechart';
 import Datepicker from './Datepicker';
@@ -20,6 +21,7 @@ const colors = [
 ];
 
 
+
 const revenue = posContainer.observable
   .map(R.map(R.props(['time', 'revenue'])));
 
@@ -30,12 +32,18 @@ const people = peopleContainer.observable
   .map(R.map(R.props(['time', 'people'])));
 
 const queue = queueContainer.observable
-  .tap(logger.log('queye dash'))
   .map(R.map(R.props(['time', 'queue'])));
 
 export default React.createClass({
   componentDidMount () {
     document.title = 'Sentia Analytics - Dashboard';
+    this.disposeStartDate = bindDateToUrlProperty('from', startDateContainer);
+    this.disposeEndDate = bindDateToUrlProperty('to', endDateContainer);
+  },
+
+  componentWillUnmount () {
+    this.disposeEndDate();
+    this.disposeStartDate();
   },
 
   render () {
@@ -43,8 +51,8 @@ export default React.createClass({
       <div className="gutter-top gutter-bottom">
         <div className="container-fluid">
           <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom">
-            <Datepicker container={startDateContainer} className="btn btn-primary col-xs-6" id="start-date-picker"/>
-            <Datepicker container={endDateContainer} className="btn btn-primary col-xs-6" id="end-date-picker"/>
+            <Datepicker container={startDateContainer} defaultValue={location.get('from')} className="btn btn-primary col-xs-6" id="start-date-picker"/>
+            <Datepicker container={endDateContainer} defaultValue={location.get('to')} className="btn btn-primary col-xs-6" id="end-date-picker"/>
           </div>
 
           <div className="col-md-6 gutter-bottom">

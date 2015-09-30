@@ -27,12 +27,12 @@ export default React.createClass({
       heatmap.data(data).draw();
     };
 
-    this.disposable = observable
-      .subscribe(update);
+    this.dispose = observable
+      .onValue(update);
   },
 
   componentWillUnmount() {
-    this.disposable.dispose();
+    this.dispose();
   },
   render () {
     const {cols, rows, options} = this.props;

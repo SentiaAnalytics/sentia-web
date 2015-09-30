@@ -34,13 +34,13 @@ export default React.createClass({
   },
 
   componentDidMount () {
-    this.disposable = cameralistContainer
+    this.dispose = cameraListContainer
       .observable
-      .subscribe(cameras =>  this.setState(R.assoc('cameras', cameras, this.state)));
+      .onValue(cameras =>  this.setState(R.assoc('cameras', cameras, this.state)));
   },
 
   componentWillUnmount () {
-    this.disposable.dispose();
+    this.dispose();
   },
   search (e) {
       this.setState(R.assoc('searchText', e.target.value, this.state));

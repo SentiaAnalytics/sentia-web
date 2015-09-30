@@ -1,32 +1,22 @@
 'use strict';
-import containerFactory from '../../services/containerFactory';
-import {memoize, catchErrors} from '../../util';
-
-export default (startDate, endDate, cameralist, helper) => {
-  const error = new Rx.Subject();
-  const fetchData = R.compose(memoize, catchErrors(error))(helper.fetchData);
-  const fetch = query => {
-    return fetchData(query)
-      .map(helper.mapCamerasToResults(query.cameras));
+import {buildUrl, mapCamerasToResults} from './helper';
+export default R.curry((http, startDate, endDate, cameralist) => {
+  const fetch = ([startDate, endDate, cameras]) => {
+    console.log('FETCH', startDate, endDate, cameras);
+    return http.get(buildUrl({startDate, endDate, cameras}))
+      .map(mapCamerasToResults(cameras));
   };
   const counters = cameralist
-    .map(R.filter(x => x.counter))
-    .filter(R.compose(R.not, R.isEmpty));
+    .map(R.filter(x => x.hasOwnProperty('counter')))
+    .filter(x => x.length > 0);
 
-  const observable = Rx.Observable.combineLatest(
-       startDate,
-       endDate,
-       counters,
-       (startDate, endDate, cameras) =>  {
-         return { startDate, endDate, cameras};
-       })
-      .flatMap(fetch);
+  const observable = Bacon.combineAsArray(startDate, endDate, counters)
+    .map(logger.log('CHIRN'))
+    .filter(R.all(x => x))
+    .flatMap(fetch)
+    .doError(logger.error('ChurnrateContainer Error:'))
+    .toProperty();
 
-  error.subscribe(logger.log('ChurnRateContainer Error:'));
+  return { observable };
 
-  return {
-    error,
-    observable
-  };
-
-};
+});
