@@ -34,7 +34,7 @@ export default React.createClass({
   },
 
   componentDidMount () {
-    this.dispose = cameraListContainer
+    this.dispose = cameralistContainer
       .observable
       .onValue(cameras =>  this.setState(R.assoc('cameras', cameras, this.state)));
   },
