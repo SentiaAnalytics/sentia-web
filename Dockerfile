@@ -1,5 +1,4 @@
 FROM node:4
-
 ADD . .
 RUN npm install --prod
 
