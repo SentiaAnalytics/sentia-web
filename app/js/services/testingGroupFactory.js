@@ -35,7 +35,7 @@ export default () => {
     http,
     startDateContainer.observable,
     endDateContainer.observable,
-    cameraList
+    cameraList.map(R.filter(cam => cam.counter === 'entrance'))
   );
 
 
@@ -55,4 +55,4 @@ export default () => {
     transactions,
     people
   };
-}
+};
