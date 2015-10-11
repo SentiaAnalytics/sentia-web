@@ -10,7 +10,7 @@ const renderCamera = R.curry((storeId, camera) => {
   return (
     <div className ="col-xs-12 col-sm-6 col-md-4 gutter-bottom">
       <Link key={cameraId} to="camera" params={{storeId, cameraId}}>
-        <article className="paper">
+        <article className="paper" data-test="camera">
           <div className="paper-header" style={{backgroundImage: `url(${snapshotUrl(camera)})`}}></div>
           <div className="paper-body">
             <span className="font-size-huge thin">{camera.name}</span>
@@ -34,6 +34,7 @@ export default React.createClass({
   },
 
   componentDidMount () {
+    document.title = 'Sentia Analytics - Cameras';
     this.dispose = cameralistContainer
       .observable
       .onValue(cameras =>  this.setState(R.assoc('cameras', cameras, this.state)));
