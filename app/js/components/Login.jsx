@@ -1,5 +1,6 @@
 'use strict';
 import {Navigation} from 'react-router';
+import history from '../services/history';
 import LoginForm from './LoginForm.jsx';
 import sessionContainer from '../containers/sessionContainer';
 
@@ -16,9 +17,7 @@ export default React.createClass({
       .observable
       .filter(session => session && session.user)
       .map(logger.log('LOGGED IN'))
-      .onValue(session => {
-        this.transitionTo('dashboard', {storeId: '54318d4064acfb0b3139807e'});// TIGER SPECIFIC
-      });
+      .onValue(session => history.replaceState(null, '/stores/54318d4064acfb0b3139807e'));
 
     this.disposeError = sessionContainer
       .observable

@@ -1,10 +1,11 @@
 'use strict';
-import {RouteHandler} from 'react-router';
 export default React.createClass({
 
   render () {
     return (
-      <RouteHandler/>
+      <div className="full-height">
+        {this.props.children}
+      </div>
     );
   }
 });

@@ -12,7 +12,7 @@ var cameraStyle = (cam) => ({left: cam.pos.x + '%', top: cam.pos.y + '%' });
 var _printCamera = R.curry(function (storeId, cam) {
   const cameraId = cam._id;
    return  (
-     <Link key={cameraId} to="camera" data-camera-pin={cam._id} params={{storeId, cameraId}}>
+     <Link key={cameraId} to={`/stores/${storeId}/cameras/${cameraId}`} data-camera-pin={cam._id} params={{storeId, cameraId}}>
       <div className="font-size-large absolute glyphicon glyphicon-map-marker text-primary floorplan-pin" style={cameraStyle(cam)}></div>
      </Link>
    );
@@ -53,7 +53,7 @@ export default React.createClass({
     document.title = 'Sentia Analytics - Floors';
     this.disposeCameraList = cameralistContainer.observable
       .onValue(cameraList => this.setState({cameraList}));
-      
+
     this.disposeStartDate = bindDateToUrlProperty('from', startDateContainer);
     this.disposeEndDate = bindDateToUrlProperty('to', endDateContainer);
   },

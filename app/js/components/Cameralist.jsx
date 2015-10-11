@@ -9,9 +9,9 @@ const renderCamera = R.curry((storeId, camera) => {
   const cameraId = camera._id;
   return (
     <div className ="col-xs-12 col-sm-6 col-md-4 gutter-bottom">
-      <Link key={cameraId} to="camera" params={{storeId, cameraId}}>
+      <Link key={cameraId} to={`/stores/${storeId}/cameras/${cameraId}`}>
         <article className="paper" data-test="camera">
-          <div className="paper-header" style={{backgroundImage: `url(${snapshotUrl(camera)})`}}></div>
+          <div className="paper-header" style={{'backgroundImage': `url(${snapshotUrl(camera)})`,'transform': `rotate(${camera.rotate| 0}deg)`}}></div>
           <div className="paper-body">
             <span className="font-size-huge thin">{camera.name}</span>
           </div>

@@ -37,16 +37,16 @@ export default React.createClass({
             <div className="">{user.email}</div>
           </div>
         </div>
-        <Link className="sidebar-link" activeClassName="active" to="dashboard" params={{storeId}}>
+        <Link className="sidebar-link" activeClassName="active" to={`/stores/${storeId}`}>
           <i className="glyphicon glyphicon-stats"></i> <span className="hidden-xs"> Dashboard</span>
         </Link>
-        <Link className="sidebar-link" activeClassName="active" to="compare" params={{storeId}}>
+        <Link className="sidebar-link" activeClassName="active" to={`/stores/${storeId}/compare`}>
           <i className="glyphicon glyphicon-road"></i> <span className="hidden-xs"> Compare</span>
         </Link>
-        <Link className="sidebar-link" activeClassName="active" to="floors" params={{storeId}}>
+        <Link className="sidebar-link" activeClassName="active" to={`/stores/${storeId}/floors`}>
           <i className="glyphicon glyphicon-record"></i> <span className="hidden-xs"> Floorplans</span>
         </Link>
-        <Link className="sidebar-link" activeClassName="active" to="cameras" params={{storeId}}>
+        <Link className="sidebar-link" activeClassName="active" to={`/stores/${storeId}/cameras`}>
           <i className="glyphicon glyphicon-camera"></i> <span className="hidden-xs"> Cameras</span>
         </Link>
       </div>

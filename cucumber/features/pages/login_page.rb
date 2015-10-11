@@ -3,11 +3,11 @@ class LoginPage
   include Capybara::DSL
 
   def url
-    @url ||= "#{host}/#/login"
+    @url ||= "#{host}/login"
   end
 
   def go
-    visit "#{host}/#/login"
+    visit "#{host}/login"
   end
 
   def title

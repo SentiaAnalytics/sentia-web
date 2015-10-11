@@ -12,7 +12,7 @@ export default React.createClass({
             <h1 className="pull-left"> Sentia<span className="thin">Analytics</span></h1>
           </div>
           <div className="pull-right">
-            <a className="header-link" onClick={logout}>
+            <a className="header-link a" onClick={logout}>
               <i className="glyphicon glyphicon-off"></i>
               <span className="hidden-xs">Logout</span>
             </a>
