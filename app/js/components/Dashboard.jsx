@@ -50,9 +50,11 @@ export default React.createClass({
     return (
       <div className="gutter-top gutter-bottom">
         <div className="container-fluid">
-          <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom">
-            <Datepicker container={startDateContainer} defaultValue={location.get('from')} className="btn btn-primary col-xs-6" id="start-date-picker"/>
-            <Datepicker container={endDateContainer} defaultValue={location.get('to')} className="btn btn-primary col-xs-6" id="end-date-picker"/>
+          <div className="row clearfix">
+            <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom">
+              <Datepicker container={startDateContainer} defaultValue={location.get('from')} className="btn btn-primary col-xs-6" id="start-date-picker"/>
+              <Datepicker container={endDateContainer} defaultValue={location.get('to')} className="btn btn-primary col-xs-6" id="end-date-picker"/>
+            </div>
           </div>
 
           <div className="col-md-6 gutter-bottom">

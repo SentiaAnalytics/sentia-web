@@ -22,11 +22,7 @@ const peopleCounter = (camera, people) => {
   }
   return (
     <div>
-      <div className="row">
-        <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom">
-          <Datepicker container={startDateContainer} className="btn btn-primary col-xs-12"/>
-        </div>
-      </div>
+
       <div className="col-sm-3 gutter-bottom">
         <Total observable={people} id="total-people" title="People" className="paper"/>
       </div>
@@ -82,6 +78,11 @@ export default React.createClass({
     }
     return (
       <div className="container-fluid">
+        <div className="row clearfix gutter-top">
+          <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom">
+            <Datepicker container={startDateContainer} className="btn btn-primary col-xs-12"/>
+          </div>
+        </div>
         <h1 className="text-center">{camera.name}</h1>
         {peopleCounter(camera, people)}
         <div className="col-sm-9 col-sm-offset-3 gutter-bottom">
