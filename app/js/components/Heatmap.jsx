@@ -3,7 +3,7 @@ import simpleheat from '../services/simpleheat';
 const mergeOptions = R.merge({
   width:100,
   height:100,
-  max: 3000,
+  max: 100,
   radius: [10, 20]
 });
 const max = R.compose(R.head, R.sort((a, b) => b-a));
@@ -23,6 +23,7 @@ export default React.createClass({
 
     const update = (data) => {
       console.log('updateing heatmap', data);
+      console.table(data);
       heatmap.max(opt.max);
       heatmap.data(data).draw();
     };

@@ -1,4 +1,3 @@
-'use strict';
 import dateContainerFactory from '../containers/dateContainer/dateContainerFactory';
 import storeContainer from '../containers/storeContainer';
 import posContainerFactory from '../containers/posContainer/posContainerFactory';
