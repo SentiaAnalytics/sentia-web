@@ -6,5 +6,5 @@ var redis = require('redis'),
 
 console.log('REDIS', config.redis);
 
-client.auth(url.auth.split(":")[1]);
+// client.auth(url.auth.split(":")[1]);
 module.exports = client;
