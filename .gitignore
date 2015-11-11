@@ -8,5 +8,6 @@ app/style.css
 screenshots/
 
 logs
+npm-debug.log
 
 .sublime-project

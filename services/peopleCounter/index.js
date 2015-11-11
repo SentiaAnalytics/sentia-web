@@ -29,11 +29,8 @@ exports.find = function (query) {
     });
 };
 
-
-
-
 function setTable (query) {
-  query.from = 'people';
+  query.from = 'people_hourly';
   return query;
 }
 
