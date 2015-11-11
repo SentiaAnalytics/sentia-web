@@ -6,4 +6,4 @@ docker run \
   -e REDIS_PORT_6379_TCP_PORT=$REDIS_PORT_6379_TCP_PORT
   -e LOGGLY_SUBDOMAIN=$LOGGLY_SUBDOMAIN \
   -e LOGGLY_TOKEN=$LOGGLY_TOKEN \
-  sentia/web:$CIRCLE_BUILD_NUM >> $CIRCLE_ARTIFACTS/docker.log
+  sentia/web:latest >> $CIRCLE_ARTIFACTS/docker.log

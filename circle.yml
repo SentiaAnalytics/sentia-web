@@ -25,8 +25,7 @@ test:
     - npm install
     - npm test
     - npm run build-prod
-    - docker build -t sentia/web:$CIRCLE_BUILD_NUM .
-    - docker tag sentia/web:$CIRCLE_BUILD_NUM latest
+    - docker build -t sentia/web:latest .
     - ci/run_docker:
         background:
           true
@@ -37,5 +36,5 @@ deployment:
   hub:
     branch: master
     commands:
-      - docker push sentia/web:$CIRCLE_BUILD_NUM
+      - docker push sentia/web:latest
       - curl -X POST $REDEPLOY_TRIGGER
