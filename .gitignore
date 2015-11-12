@@ -9,5 +9,7 @@ screenshots/
 
 logs
 npm-debug.log
+env
+rundocker
 
 .sublime-project

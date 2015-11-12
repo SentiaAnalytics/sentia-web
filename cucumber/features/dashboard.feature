@@ -23,6 +23,7 @@ Feature: Dashboard page
       And the conversion should be 38.3
 
 
+  @wip
   Scenario: Queues
     Given I am logged in
       And I visit /stores/54318d4064acfb0b3139807e?=&from=2015-09-10&to=2015-09-10&toggleQueues=true
