@@ -15,10 +15,6 @@ export default React.createClass({
     document.title = 'Sentia Analytics - Login';
     this.disposeSession = sessionContainer
       .observable
-      .map((v) => {
-        alert(JSON.stringify(v, null, 2))
-        return v;
-      })
       .filter(session => session && session.user)
       .map(logger.log('LOGGED IN'))
       .onValue(session => history.replaceState(null, '/stores/54318d4064acfb0b3139807e'));

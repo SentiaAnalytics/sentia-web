@@ -13,7 +13,6 @@ machine:
     SENTIA_ZONE: europe-west1-b
     SENTIA_CLUSTER: sentia-web
     TEST_MODE: ff
-    PATH: ~/web/google-cloud-sdk/bin:$PATH
     CLOUDSDK_PYTHON_SITEPACKAGES: 1
 
 dependencies:
@@ -26,15 +25,7 @@ test:
     - npm test
     - npm run build-prod
     - docker build -t sentia/web:latest .
-    - ci/run_docker:
-        background:
-          true
+    - docker push sentia/web:latest
+    - docker push sentia/web:latest
+    - curl -X POST $TRIGGER_DEPLOY_TESTING
     - npm run cucumber
-
-
-deployment:
-  hub:
-    branch: master
-    commands:
-      - docker push sentia/web:latest
-      - curl -X POST $REDEPLOY_TRIGGER
