@@ -23,12 +23,13 @@ export default React.createClass({
   render: function() {
     let {storeId} = this.props;
     let {user} = this.state;
+    console.log('USER EMAIL', user.email);
     return (
       <div className="sidebar">
         <div className="media sidebar-header hidden-xs">
           <div className="media-left">
             <div className="sidebar-header-img media-object">
-              <Gravatar email={user.email} size="50"/>
+              {/*<Gravatar email={user.email} size="50"/>*/}
               <div className="sidebar-header-img-shadow"></div>
             </div>
           </div>
