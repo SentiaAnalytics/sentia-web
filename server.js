@@ -1,27 +1,30 @@
 'use strict';
-var express = require('express'),
-  fs = require('fs'),
-  config = require('config'),
-  mongoose = require('mongoose'),
-  bootstrap = require('./bootstrap'),
-  middleware = require('./middleware'),
-  session = require('express-session'),
-  redis = require('./services/redis.service'),
-  P = require('bluebird'),
-  RedisStore = require('connect-redis')(session),
-  sessionStore = new RedisStore({client : redis, prefix : config.session.prefix}),
-  bodyParser = require('body-parser'),
-  routeloader = require('express-routeloader'),
-  server,
-  compression = require('compression'),
-  app = express(),
-  cacheManifest = fs.readFileSync('app/sentia.appcache') + '#' + Math.random();
-
-
+var express = require('express');
+var fs = require('fs');
+var config = require('config');
+var mongoose = require('mongoose');
+var bootstrap = require('./bootstrap');
+var middleware = require('./middleware');
+var session = require('express-session');
+var P = require('bluebird');
+var RedisStore = require('connect-redis')(session);
+var bodyParser = require('body-parser');
+var routeloader = require('express-routeloader');
+var server;
+var compression = require('compression');
+var app = express();
+var cacheManifest = fs.readFileSync('app/sentia.appcache') + '#' + Math.random();
 
 // app.use(session({secret: 'alskjdflakjd'}));
 app.use(compression());
-app.use(session({store : sessionStore, secret: 'alskjdflakjd'}));
+app.use(session({
+  store: new RedisStore({
+    host: config.redis.host,
+    port: config.redis.port,
+    prefix: 'session'
+  }),
+  secret: 'x9i4nmmLHDHaeM'
+}));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
