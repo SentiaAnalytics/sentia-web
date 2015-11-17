@@ -27,5 +27,5 @@ test:
     - docker build -t sentia/web:latest .
     - docker push sentia/web:latest
     - curl -X POST $DEPLOY_TRIGGER_TESTING
-    - node ci/wait-for-redeploy.js
+    - ./ci/wait-for-redeploy
     - npm run cucumber
