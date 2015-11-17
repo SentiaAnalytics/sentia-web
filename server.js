@@ -17,6 +17,8 @@ var cacheManifest = fs.readFileSync('app/sentia.appcache') + '#' + Math.random()
 
 // app.use(session({secret: 'alskjdflakjd'}));
 app.use(compression());
+console.log('REDIS HOST', config.redis.host);
+console.log('REDIS PORT', config.redis.port);
 app.use(session({
   store: new RedisStore({
     host: config.redis.host,
