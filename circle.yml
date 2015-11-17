@@ -26,6 +26,5 @@ test:
     - npm run build-prod
     - docker build -t sentia/web:latest .
     - docker push sentia/web:latest
-    - docker push sentia/web:latest
-    - curl -X POST $TRIGGER_DEPLOY_TESTING
+    - curl -X POST $DEPLOY_TRIGGER_TESTING
     - npm run cucumber
