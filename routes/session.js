@@ -10,6 +10,7 @@ exports.authenticate = {
         console.log('req.session', req.session);
         req.session.user = user;
         req.session.company = user.company;
+        console.log('SESSION', {user: user});
         return {user: user};
       });
   },
