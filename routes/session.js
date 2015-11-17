@@ -6,6 +6,8 @@ exports.authenticate = {
     logger.log('info', 'access:session', req.body);
     return SessionService.authenticate(req.body)
       .then(function (user) {
+        console.log('AUTHENTICATED');
+        console.log('req.session', req.session);
         req.session.user = user;
         req.session.company = user.company;
         return {user: user};
