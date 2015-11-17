@@ -73,6 +73,7 @@
     "sinon": "1.16.1",
     "vinyl-buffer": "1.0.0",
     "vinyl-source-stream": "1.1.0",
-    "vinyl-transform": "1.0.0"
+    "vinyl-transform": "1.0.0",
+    "ws": "^0.8.0"
   }
 }
