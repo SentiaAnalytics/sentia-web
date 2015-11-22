@@ -29,7 +29,6 @@ dependencies:
     - bundle install:
         timeout: 240
 
-
 test:
   override:
     - npm test

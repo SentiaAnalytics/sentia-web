@@ -1,5 +1,4 @@
 import sessionContainer from '../containers/sessionContainer';
-import Gravatar from 'react-gravatar';
 import {Link} from 'react-router';
 
 export default React.createClass({
@@ -21,13 +20,11 @@ export default React.createClass({
   render () {
     const {storeId} = this.props;
     const {user} = this.state;
-
     return (
       <div className="sidebar">
         <div className="media sidebar-header hidden-xs">
           <div className="media-left">
             <div className="sidebar-header-img media-object">
-              *<Gravatar email={user.email} size="50"/>
               <div className="sidebar-header-img-shadow"></div>
             </div>
           </div>
