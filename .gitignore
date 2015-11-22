@@ -7,9 +7,9 @@ app/bundle.js.gz
 app/style.css
 screenshots/
 
-logs
+logs/
+log/
 npm-debug.log
 env
-rundocker
 
 .sublime-project
