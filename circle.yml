@@ -26,7 +26,11 @@ dependencies:
     - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
     - docker build -t sentia/web:latest .
     - mkdir -p ~/docker; docker save sentia/web:latest > ~/docker/image.tar
-    - bundle install
+    - bundle install:
+        timeout: 240
+        pwd:
+          test_dir
+
 
 test:
   override:
@@ -37,4 +41,9 @@ test:
     - curl -X POST $DEPLOY_TRIGGER_TESTING
     - ./ci/wait-for-redeploy
     - npm run cucumber
-    - curl -X POST $DEPLOY_TRIGGER_PRODUCTION
+
+
+deployment:
+  branch: master
+    commands:
+      - curl -X POST $DEPLOY_TRIGGER_PRODUCTION
