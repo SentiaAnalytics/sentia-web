@@ -16,15 +16,21 @@ machine:
     CLOUDSDK_PYTHON_SITEPACKAGES: 1
 
 dependencies:
-  override:
+  cache_directories:
+    - "~/docker"
+  pre:
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  override:
+    - npm install
+    - npm run build-prod
+    - if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
+    - docker build -t sentia/web:latest .
+    - mkdir -p ~/docker; docker save sentia/web:latest > ~/docker/image.tar
+    - bundle install
 
 test:
   override:
-    - npm install
     - npm test
-    - npm run build-prod
-    - docker build -t sentia/web:latest .
     - docker tag sentia/web:latest sentia/web:$CIRCLE_BUILD_NUM
     - docker push sentia/web:latest
     - docker push sentia/web:$CIRCLE_BUILD_NUM
