@@ -42,8 +42,8 @@ test:
     - ./ci/wait-for-redeploy
     - npm run cucumber
 
-
 deployment:
-  branch: master
+  production:
+    branch: production
     commands:
       - curl -X POST $DEPLOY_TRIGGER_PRODUCTION
