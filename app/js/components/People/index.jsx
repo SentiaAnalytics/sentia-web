@@ -42,7 +42,7 @@ export default React.createClass({
     return (
       <div className="container-fluid">
         <div className="row clearfix">
-          <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom">
+          <div className="btn-group col-xs-8 col-sm-4 col-xs-offset-2 col-sm-offset-4 gutter-bottom gutter-top">
             <Datepicker
               container={startDateContainer}
               defaultValue={location.get('from')}

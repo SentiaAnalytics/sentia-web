@@ -25,7 +25,10 @@ test:
     - npm test
     - npm run build-prod
     - docker build -t sentia/web:latest .
+    - docker tag sentia/web:latest sentia/web:$CIRCLE_BUILD_NUM
     - docker push sentia/web:latest
+    - docker push sentia/web:$CIRCLE_BUILD_NUM
     - curl -X POST $DEPLOY_TRIGGER_TESTING
     - ./ci/wait-for-redeploy
     - npm run cucumber
+    - curl -X POST $DEPLOY_TRIGGER_PRODUCTION
