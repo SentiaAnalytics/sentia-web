@@ -28,8 +28,6 @@ dependencies:
     - mkdir -p ~/docker; docker save sentia/web:latest > ~/docker/image.tar
     - bundle install:
         timeout: 240
-        pwd:
-          test_dir
 
 
 test:
