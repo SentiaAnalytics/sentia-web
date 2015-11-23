@@ -36,7 +36,7 @@ test:
     - docker push sentia/web:latest
     - docker push sentia/web:$CIRCLE_BUILD_NUM
     - curl -X POST $DEPLOY_TRIGGER_TESTING
-    - ./ci/wait-for-redeploy
+    - ./bin/wait-for-redeploy
     - npm run cucumber
 
 deployment:

@@ -4,6 +4,7 @@ var SERVICE_ID = process.env.TUTUM_SERVICE_ID;
 var userPublicToken = process.env.TUTUM_PUBLIC_TOKEN;
 var username =  process.env.TUTUM_USER;
 
+console.log(SERVICE_ID);
 var ws = new WebSocket('wss://stream.tutum.co/v1/events?token='+ userPublicToken +'&user=' +username);
 
 ws.on('open', function() {
