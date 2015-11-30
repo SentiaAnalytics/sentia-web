@@ -1,11 +1,3 @@
-'use strict';
-import R from 'ramda';
-import Bacon from 'baconjs';
+const D = require('date-fp');
 
-const bus = Bacon.Bus();
-const property = bus.toProperty();
-
-let dispose = property.onValue(x => console.log('1', x))
-bus.push(1);
-dispose();
-dispose = property.onValue(x => console.log('2',x))
+console.log(D.sub('hours', 1, new Date('2015-09-10')));

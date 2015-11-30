@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "livetest": "mocha -w --compilers js:babel/register 'app/js/**/_spec/*.js'",
-    "start": "babel-node main.js",
+    "start": "node main.js",
     "build": "gulp build",
     "build-prod": "gulp build-prod",
     "test": "npm prune && gulp test",
@@ -25,6 +25,7 @@
     "compression": "1.5.2",
     "config": "1.16.0",
     "connect-redis": "2.5.0",
+    "date-fp": "1.6.4",
     "express": "4.13.3",
     "express-routeloader": "2.0.0",
     "express-session": "1.11.3",
