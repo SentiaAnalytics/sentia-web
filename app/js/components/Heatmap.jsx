@@ -17,12 +17,12 @@ export default React.createClass({
     const {observable, options} = this.props;
     const opt = mergeOptions(options);
     const canvas = this.getDOMNode();
-    const heatmap = simpleheat(canvas);
-    heatmap.radius.apply(heatmap, opt.radius);
+    this.heatmap = simpleheat(canvas);
+    this.heatmap.radius.apply(this.heatmap, opt.radius);
 
     const update = (data) => {
-      heatmap.max(opt.max);
-      heatmap.data(data).draw();
+      this.heatmap.max(opt.max);
+      this.heatmap.data(data).draw();
     };
 
     this.dispose = observable
@@ -30,13 +30,14 @@ export default React.createClass({
   },
 
   componentWillUnmount() {
+    this.heatmap.clear()
     this.dispose();
   },
   render () {
-    const {cols, rows, options} = this.props;
+    const {cols, rows, options, style} = this.props;
     const opt = mergeOptions(options)
     return (
-      <canvas style={heatmapStyle} width={opt.width} height={opt.height} className="block full-height absolute"></canvas>
+      <canvas style={R.merge(heatmapStyle, style)} width={opt.width} height={opt.height} className="block full-height absolute"></canvas>
     );
   }
 })

@@ -17,15 +17,18 @@ function query (query, callback) {
   });
 }
 
-const safeQuery = (query, values, callback) =>  {
-  pool.getConnection((err, connection) => {
-    if (err) callback(err);
-    connection.query(query, values, (err, rows) => {
-      if (err) callback(err);
-      connection.release();
-      return callback(null, rows);
+const safeQuery = R.curry((query, values) => {
+  console.log('SAFE QUERY', query, values);
+  return new Promise((resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      if (err) reject(err);
+      connection.query(query, values, (err, rows) => {
+        if (err) reject(err);
+        connection.release();
+        return resolve(rows);
+      });
     });
-  });
-};
+  })
+});
 exports.query = promisify(query);
-exports.safeQuery = R.curryN(2, promisify(safeQuery));
+exports.safeQuery = safeQuery

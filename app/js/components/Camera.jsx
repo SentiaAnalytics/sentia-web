@@ -88,7 +88,7 @@ export default React.createClass({
         <div className="col-sm-9 col-sm-offset-3 gutter-bottom">
           <article className="paper relative">
             <img src={camera ? snapshotUrl(camera): ''} className="block" style={style(camera)}/>
-            <Heatmap observable={heat} options={heatmapOptions}/>
+            <Heatmap observable={heat} options={heatmapOptions} style={style(camera)}/>
           </article>
         </div>
       </div>

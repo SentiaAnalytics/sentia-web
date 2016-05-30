@@ -11,6 +11,7 @@ export default R.curry((http, startDate, endDate, camera) => {
     .map(([from, to, camera]) => ({from, to, camera}))
     .map(buildUrl)
     .flatMap(http.get)
+    .map(logger.log('HEAT'))
     .doError(logger.error('HeatContainer Error:'))
     .toProperty();
 
