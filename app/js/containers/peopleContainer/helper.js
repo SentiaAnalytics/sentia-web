@@ -33,8 +33,9 @@ const _JsonQuery = (query) => {
     };
 };
 const buildUrl = R.compose(query => `/api/people?json=${query}`, encodeURIComponent, JSON.stringify, _JsonQuery);
+
 const processResult = R.map(R.evolve({
-  time: R.compose(t => t.add(2, 'hours'), moment),
+  time: R.compose(t => t.add(1, 'hours'), moment),
   people: n => parseInt(n, 10) || 0
 }));
 
